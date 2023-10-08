@@ -1,0 +1,108 @@
+@mixin slider-thumb {
+    appearance: none;
+    display: block;
+
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+
+    background: hsl(var(--pos), 100%, 50%);
+    box-shadow: 
+        0px 0px 1px 2px #9995, 
+        0 0 0 4px #fff, 
+        0 0 2px 5px #0007;
+}
+
+@keyframes appear {
+    from {
+        transform: scale(0.7, 0.6);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1, 1);
+        opacity: 1;
+    }
+}
+
+.hue-slider {
+    position: relative;
+    appearance: none;
+    outline: none;
+
+    //animation: appear 0.3s forwards;
+    transition: all 0.3s;
+
+    // background: linear-gradient(
+    //     to right,
+    //     hsl(0, 80%, 70%) 0%,
+    //     hsl(30, 80%, 70%) 8.3%,
+    //     hsl(60, 80%, 70%) 16.6%,
+    //     hsl(90, 80%, 70%) 25%,
+    //     hsl(120, 80%, 70%) 33.3%,
+    //     hsl(150, 80%, 70%) 41.6%,
+    //     hsl(180, 80%, 70%) 50%,
+    //     hsl(210, 80%, 70%) 58.3%,
+    //     hsl(240, 80%, 70%) 66.6%,
+    //     hsl(270, 80%, 70%) 75%,
+    //     hsl(300, 80%, 70%) 83.3%,
+    //     hsl(330, 80%, 70%) 91.6%,
+    //     hsl(360, 80%, 70%) 100%
+    // );
+
+    // &:not(.mono):focus {
+    //     background: linear-gradient(
+    //         to right,
+    //         hsl(0, 100%, 50%) 0%,
+    //         hsl(30, 100%, 50%) 8.3%,
+    //         hsl(60, 100%, 50%) 16.6%,
+    //         hsl(90, 100%, 50%) 25%,
+    //         hsl(120, 100%, 50%) 33.3%,
+    //         hsl(150, 100%, 50%) 41.6%,
+    //         hsl(180, 100%, 50%) 50%,
+    //         hsl(210, 100%, 50%) 58.3%,
+    //         hsl(240, 100%, 50%) 66.6%,
+    //         hsl(270, 100%, 50%) 75%,
+    //         hsl(300, 100%, 50%) 83.3%,
+    //         hsl(330, 100%, 50%) 91.6%,
+    //         hsl(360, 100%, 50%) 100%
+    //     );
+    // }
+
+    background: linear-gradient(
+        to right,
+        hsl(0, 100%, 50%) 0%,
+        hsl(30, 100%, 50%) 8.3%,
+        hsl(60, 100%, 50%) 16.6%,
+        hsl(90, 100%, 50%) 25%,
+        hsl(120, 100%, 50%) 33.3%,
+        hsl(150, 100%, 50%) 41.6%,
+        hsl(180, 100%, 50%) 50%,
+        hsl(210, 100%, 50%) 58.3%,
+        hsl(240, 100%, 50%) 66.6%,
+        hsl(270, 100%, 50%) 75%,
+        hsl(300, 100%, 50%) 83.3%,
+        hsl(330, 100%, 50%) 91.6%,
+        hsl(360, 100%, 50%) 100%
+    );
+
+    &:not(.mono):focus {
+        opacity: 1;
+    }
+    &::-webkit-slider-thumb {
+        opacity: 1;
+    }
+    opacity: .2;
+    transform: rotate(0deg);
+
+    &.mono {
+        background: linear-gradient(to bottom, #444 0%, #111 100%);
+    }
+
+    &::-webkit-slider-thumb {
+        @include slider-thumb;
+    }
+
+    &::-moz-range-thumb {
+        @include slider-thumb;
+    }
+}

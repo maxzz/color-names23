@@ -1,0 +1,40 @@
+/* @font-face {
+    font-family: "Merriweather";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: local("Merriweather Bold"), local("Merriweather-Bold"), url(@/assets/fonts/merriweather_bold.woff2) format("woff2");
+}
+ */@font-face {
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Source Sans Pro"), local("SourceSansPro-Regular"), url(@/assets/fonts/source_sans.woff2) format("woff2");
+}
+@font-face {
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 600;
+    src: local("Source Sans Pro Semibold"), local("SourceSansPro-Semibold"), url(@/assets/fonts/source_sans_semibold.woff2) format("woff2");
+}
+/* @font-face {
+    font-family: "Source Sans Pro";
+    font-style: italic;
+    font-weight: 400;
+    src: local("Source Sans Pro Italic"), local("SourceSansPro-It"), url(@/assets/fonts/source_sans_italic.woff2) format("woff2");
+}
+ */
+html {
+    font-family: "Source Sans Pro";
+}
+
+/* .pattern {
+    //background: #7a7a7a;
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 6' xml:space='preserve' fill='%238d8d8d30' %3E%3Cpath d='M0 0h1v6H0z'/%3E%3Cpath d='M6 5v1H0V5z'/%3E%3C/svg%3E"),
+        linear-gradient(to bottom, #89898987, transparent),
+        linear-gradient(to bottom left, #27009180, transparent 50%);
+    background-size: 4px 4px, 100vw 200vh, 100vw 200vh;
+    background-repeat: repeat, no-repeat, no-repeat;
+}
+ */

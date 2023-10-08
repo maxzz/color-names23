@@ -1,0 +1,43 @@
+//#region axises
+
+$axis-color: #bbb;
+
+.axis {
+    font-size: .5em;
+    letter-spacing: .2em;
+    text-align: center;
+    text-transform: uppercase;
+    color: $axis-color;
+}
+
+.axis::before, .axis::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background-color: lighten($axis-color, 20%);
+}
+
+.axis::before {
+    left: 0;
+}
+
+.axis::after {
+    right: 0;
+}
+
+.axis-lightness {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    transform-origin: top right;
+    transform: rotate(-90deg) translateY(200%) rotate(180deg) translateX(100%) translateY(70%);
+}
+
+.axis-saturation {
+    transform: translateY(70%);
+}
+
+//#endregion axises
