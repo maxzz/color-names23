@@ -17,6 +17,7 @@
         "react-hot-toast": "2.4.1",
         "react-merge-refs": "2.1.1",
         "react-use-measure": "^2.1.1",
+        "sass": "^1.69.0",
         "valtio": "^1.11.2"
     },
     "devDependencies": {
@@ -35,6 +36,7 @@
         "typescript": "5.2.2",
         "vite": "4.4.11"
     },
+    "type": "module",
     "scripts": {
         "dev": "vite",
         "build": "vite build",

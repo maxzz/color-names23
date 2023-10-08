@@ -1,4 +1,4 @@
-const twColors = require('tailwindcss/colors');
+import twColors from 'tailwindcss/colors';
 const twTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
