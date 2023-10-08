@@ -55,7 +55,7 @@ export function App1_Header({ className, ...rest }: HTMLAttributes<HTMLDivElemen
                 className,
             )} {...rest}>
                 <div className="text-base flex items-center uppercase font-orgiginal" style={textShadow}>
-                    <div className="mx-auto scale-y-[1.5]">CSS Color Names</div>
+                    <div className="mx-auto scale-y-[1.5]">CSS Color Names 23</div>
                 </div>
                 <div className={classNames(
                     "absolute h-full top-0 right-2 flex items-center",
