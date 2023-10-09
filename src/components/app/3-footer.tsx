@@ -3,6 +3,7 @@ import { useAtomValue } from 'jotai';
 import { AppAtoms, SectionName } from '@/store';
 import { IconGithubLogo } from '@/components/ui/icons/normal';
 import { classNames } from '@/utils';
+import { ThemeSwitch } from '../ui/shadcn/theme-toggle-switch';
 
 function Section1_HueLinks() {
     return (<>
@@ -47,14 +48,18 @@ export function App3_Footer({ className, ...rest }: HTMLAttributes<HTMLDivElemen
     const currentSection = useAtomValue(AppAtoms.currentSectionAtom);
     return (
         <div className={classNames(
-            "px-4 py-2 text-sm flex items-center justify-end space-x-4 bg-title text-primary-400/75",
+            "px-2 py-2 text-sm flex items-center justify-between space-x-4 bg-title text-primary-400/75",
             //"border-primary-400 border-t shadow-[0px_-1px_2px_1px_#b69a7950]",
             className,
         )} {...rest}>
-            {currentSection === SectionName.hue && <Section1_HueLinks />}
-            {currentSection === SectionName.list && <Section2_ColorListLinks />}
-            {currentSection === SectionName.tailwind && <Section3_TailwindLinks />}
-            <GitHubLink />
+            <div className="flex items-center space-x-4">
+                <GitHubLink />
+                {currentSection === SectionName.hue && <Section1_HueLinks />}
+                {currentSection === SectionName.list && <Section2_ColorListLinks />}
+                {currentSection === SectionName.tailwind && <Section3_TailwindLinks />}
+            </div>
+
+            <ThemeSwitch />
         </div>
     );
 }
