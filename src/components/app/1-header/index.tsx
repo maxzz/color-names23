@@ -5,7 +5,7 @@ import { NavButtons } from './nav-buttons';
 import { AppTitle } from './app-title';
 
 const navButtonContainerClasses = "\
-absolute top-0 right-2 h-full \
+relative \
 \
 md:relative \
 md:block \
@@ -16,20 +16,20 @@ md:h-auto \
 md:mx-auto \
 md:max-w-[50%] \
 \
-flex items-center";
+";
 
 export function App1_Header({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     return (
         <div className="flex flex-col">
 
-            <div className={classNames("flex-1 relative py-12 bg-title", "border-blue-300 border-b", className)} {...rest}>
+            <div className={classNames("flex-1 px-4 py-12 bg-background flex md:block md:flex-col items-center justify-between", "border-blue-300 border-b", className)} {...rest}>
 
-                <div className="px-4 flex items-center justify-start md:justify-center">
+                <div className="flex items-center justify-start md:justify-center">
                     <AppTitle />
                 </div>
 
                 <div className={navButtonContainerClasses}>
-                    <NavButtons />
+                    <NavButtons className="flex md:flex-col" />
                 </div>
             </div>
 

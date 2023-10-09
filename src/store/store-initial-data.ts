@@ -4,6 +4,7 @@ export enum SectionName {
     hue,
     list,
     tailwind,
+    shadcn,
 }
 
 export type AppOptions = {
