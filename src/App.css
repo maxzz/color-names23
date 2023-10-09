@@ -5,7 +5,8 @@
     font-display: swap;
     src: local("Merriweather Bold"), local("Merriweather-Bold"), url(@/assets/fonts/merriweather_bold.woff2) format("woff2");
 }
- */@font-face {
+*/
+ @font-face {
     font-family: "Source Sans Pro";
     font-style: normal;
     font-weight: 400;
@@ -23,7 +24,7 @@
     font-weight: 400;
     src: local("Source Sans Pro Italic"), local("SourceSansPro-It"), url(@/assets/fonts/source_sans_italic.woff2) format("woff2");
 }
- */
+*/
 html {
     font-family: "Source Sans Pro";
 }
