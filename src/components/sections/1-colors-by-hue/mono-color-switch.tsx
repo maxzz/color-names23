@@ -2,7 +2,7 @@ import { HTMLAttributes } from "react";
 import { useAtom } from "jotai";
 import { a, useSpring } from "@react-spring/web";
 import { viewHueAtoms } from "@/store";
-import { classNames } from "@/utils/classnames";
+import { classNames } from "@/utils";
 
 type MonoSwitchCellProps = {
     label: string;

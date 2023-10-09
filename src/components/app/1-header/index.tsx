@@ -6,14 +6,16 @@ import { AppTitle } from './app-title';
 
 const navButtonContainerClasses = "\
 absolute top-0 right-2 h-full \
+\
 md:relative \
+md:block \
+md:py-8 \
 md:top-auto \
 md:right-auto \
 md:h-auto \
-md:block \
-md:py-8 \
 md:mx-auto \
 md:max-w-[50%] \
+\
 flex items-center";
 
 export function App1_Header({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
@@ -22,7 +24,7 @@ export function App1_Header({ className, ...rest }: HTMLAttributes<HTMLDivElemen
 
             <div className={classNames("flex-1 relative py-12 bg-title", "border-blue-300 border-b", className)} {...rest}>
 
-                <div className="flex items-center justify-center">
+                <div className="px-4 flex items-center justify-start md:justify-center">
                     <AppTitle />
                 </div>
 

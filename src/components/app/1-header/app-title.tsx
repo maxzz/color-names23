@@ -13,8 +13,13 @@ const textShadow = {
 
 export function AppTitle() {
     return (
-        <div className="text-3xl tracking-tighter font-orgiginal uppercase scale-y-[1.2]" style={textShadow}>
-            CSS Color Names 23
+        <div className="tracking-tighter font-orgiginal text-blue-200/50 flex items-end gap-1 scale-y-[1] md:scale-y-[1.5]">
+            <div className="pb-0.5 md:pb-0 text-base md:text-3xl lowercase md:uppercase">
+                CSS Color Names
+            </div>
+            <div className="pb-2 md:pb-0 text-sm md:text-3xl" style={textShadow}>
+                23
+            </div>
         </div>
     );
 }
