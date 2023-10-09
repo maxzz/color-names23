@@ -1,6 +1,6 @@
 import { useAtomValue, useSetAtom } from 'jotai';
 import { viewHueAtoms } from '@/store';
-import './color-neighbors-grid.scss';
+import './color-neighbors-grid.css';
 
 export function ColorNeighborsGrid() {
     const colorsGroups = useAtomValue(viewHueAtoms.colorGroupsAtom);
