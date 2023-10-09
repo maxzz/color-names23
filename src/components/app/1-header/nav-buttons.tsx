@@ -4,32 +4,6 @@ import { AppAtoms, SectionName } from '@/store';
 import { classNames } from '@/utils';
 import { Button } from '@/components/ui/shadcn/button';
 
-// const btnStyle = {
-//     highlight: {
-//         backgroundColor: "#11225d",
-//         boxShadow: "0px 0px 3px 3px #2c4083"
-//     }
-// };//text-[#347d84]
-//
-// function LinkButton({ label, sectionName }: { label: string, sectionName: SectionName; }) {
-//     const [currentSection, setCurrentSection] = useAtom(AppAtoms.currentSectionAtom);
-//     const isActive = currentSection === sectionName;
-//     return (
-//         <li
-//             className={classNames(
-//                 "px-2 py-1 text-sm text-center border-primary-500 border rounded select-none cursor-pointer active:scale-[.98] transition-colors",
-//                 isActive
-//                     ? "text-foreground bg-title border-primary-300"
-//                     : "text-foreground hover:text-primary-300 hover:border-primary-300",
-//             )}
-//             style={isActive ? btnStyle.highlight : {}}
-//             onClick={() => setCurrentSection(sectionName)}
-//         >
-//             {label}
-//         </li>
-//     );
-// }
-
 function LinkButton({ label, sectionName }: { label: string, sectionName: SectionName; }) {
     const [currentSection, setCurrentSection] = useAtom(AppAtoms.currentSectionAtom);
     const isActive = currentSection === sectionName;

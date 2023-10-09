@@ -28,7 +28,7 @@ function Section2_ColorListLinks() {
 function Section3_TailwindLinks() {
     return (<>
         <a className="hover:text-primary-400 hover:underline" href="https://tailwindcss.com/docs/customizing-colors" target="_blank" title="Colors on Tailwind CSS website">
-            Tailwind palettes
+            Tailwind CSS palettes
         </a>
     </>);
 }
