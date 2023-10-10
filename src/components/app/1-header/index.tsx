@@ -22,7 +22,7 @@ export function App1_Header({ className, ...rest }: HTMLAttributes<HTMLDivElemen
     return (
         <div className="mt-4 md:mt-0 flex flex-col">
 
-            <div className={classNames("flex-1 px-4 pt-12 pb-px bg-background border-muted-foreground/20 border-b md:border-b-0 border-r-0 md:border-r flex md:block md:flex-col items-center justify-between", className)} {...rest}>
+            <div className={classNames("flex-1 px-4 pt-4 pb-px bg-background border-muted-foreground/20 border-b md:border-b-0 border-r-0 md:border-r flex md:block md:flex-col items-center justify-between", className)} {...rest}>
 
                 <div className="flex items-center justify-start md:justify-center">
                     <AppTitle />
