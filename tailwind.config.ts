@@ -4,6 +4,7 @@ import { shadcnPlugin } from './tailwind/tailwind-plugin-shadcn';
 
 module.exports = {
     content: ['./index.html', './src/**/*.{tsx,ts,js,jsx}'],
+    darkMode: 'class',
     theme: {
         extend: {
             screens: {

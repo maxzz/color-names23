@@ -3,7 +3,7 @@ import { useAtomValue } from 'jotai';
 import { AppAtoms, SectionName } from '@/store';
 import { IconGithubLogo } from '@/components/ui/icons/normal';
 import { classNames } from '@/utils';
-import { ThemeSwitch } from '../ui/shadcn/theme-toggle-switch';
+import { ThemeSwitch } from '../ui/shadcn';
 
 function LinkButton(props: AnchorHTMLAttributes<HTMLAnchorElement>) {
     return (

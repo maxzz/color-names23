@@ -2,7 +2,7 @@ import { HTMLAttributes } from 'react';
 import { useAtom } from 'jotai';
 import { AppAtoms, SectionName } from '@/store';
 import { classNames } from '@/utils';
-import { Button } from '@/components/ui/shadcn/button';
+import { Button } from '@/components/ui/shadcn';
 
 function LinkButton({ label, sectionName }: { label: string, sectionName: SectionName; }) {
     const [currentSection, setCurrentSection] = useAtom(AppAtoms.currentSectionAtom);
