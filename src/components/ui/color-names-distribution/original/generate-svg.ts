@@ -103,18 +103,18 @@ function drawColors(x: number, y: number, colors: HslName[], outerRadius: number
 }
 
 function drawGrays(colors: HslName[], target: SVGSVGElement) {
-    const barwidth = 600;
-    const barheight = 66;
-    const bartop = 1100;
-    const baredge = (1000 - barwidth) / 2;
-    const graywidth = barwidth / 101;
-    const grayheight = 30;
+    const barWidth = 600;
+    const barHeight = 66;
+    const barTop = 1100;
+    const barEdge = (1000 - barWidth) / 2;
+    const grayWidth = barWidth / 101;
+    const grayHeight = 30;
 
     let graydient = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-    graydient.setAttribute("x", `${baredge}`);
-    graydient.setAttribute("y", `${bartop}`);
-    graydient.setAttribute("height", `${barheight}`);
-    graydient.setAttribute("width", `${barwidth}`);
+    graydient.setAttribute("x", `${barEdge}`);
+    graydient.setAttribute("y", `${barTop}`);
+    graydient.setAttribute("height", `${barHeight}`);
+    graydient.setAttribute("width", `${barWidth}`);
     graydient.setAttribute("fill", "url(#graydient)");
     graydient.setAttribute("stroke", "#666");
     graydient.setAttribute("stroke-width", "0.2");
@@ -130,13 +130,13 @@ function drawGrays(colors: HslName[], target: SVGSVGElement) {
         }
 
         let gray = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-        gray.setAttribute("x", `${baredge + (graywidth * light)}`);
-        gray.setAttribute("y", `${bartop - grayheight - (same * grayheight)}`);
-        gray.setAttribute("height", `${grayheight - 1.25}`);
-        gray.setAttribute("width", `${graywidth}`);
+        gray.setAttribute("x", `${barEdge + (grayWidth * light)}`);
+        gray.setAttribute("y", `${barTop - grayHeight - (same * grayHeight)}`);
+        gray.setAttribute("height", `${grayHeight - 1.25}`);
+        gray.setAttribute("width", `${grayWidth}`);
         gray.setAttribute("fill", "hsl(0,0%," + light + "%)");
         if ((color as any) == 0) {
-            gray.setAttribute("height", `${grayheight - 2}`);
+            gray.setAttribute("height", `${grayHeight - 2}`);
             gray.setAttribute("stroke", "#666");
             gray.setAttribute("stroke-width", "0.5");
         }
@@ -152,42 +152,6 @@ function drawGrays(colors: HslName[], target: SVGSVGElement) {
 }
 
 export function drawSpikes(x: number, y: number, colors: HslName[], outerRadius: number, width: number, target: SVGSVGElement): void {
-    // const limit = colors.length;
-    // var same = 0;
-    // var grays = [];
-
-    // for (var i = 0; i < limit; i++) {
-    //     const color = colors[i];
-    //     const hue = color[0];
-    //     const sat = color[1];
-    //     const lit = color[2];
-
-    //     if (sat == 0) {
-    //         grays.push(color);
-    //         continue;
-    //     }
-
-    //     if (i > 0 && colors[i - 1][0] != hue) {
-    //         same = 0;
-    //     }
-    //     const inner = outerRadius + (width * same + 0.5);
-    //     const outer = outerRadius + (width * (same + 1));
-
-
-    //     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    //     path.setAttribute("d", createSlicePath(x, y, inner, outer, hue, same));
-    //     path.setAttribute('fill', 'hsl(' + hue + ',' + sat + '%,' + lit + '%)');
-    //     path.setAttribute('data-key', `${color}`);
-    //     path.setAttribute("type", "color");
-
-    //     path.addEventListener('mouseover', showColor, true);
-    //     path.addEventListener('mouseout', clearColor, true);
-
-    //     target.appendChild(path);
-    //     same++;
-    // }
-
     const { grays } = drawColors(x, y, colors, outerRadius, width, target);
-
     drawGrays(grays, target);
 }
