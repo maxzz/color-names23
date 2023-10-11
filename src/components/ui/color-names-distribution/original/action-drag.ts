@@ -1,4 +1,4 @@
-import { uiElements } from "./view-dom-ui";
+import { uiElements } from "./ui-view-dom";
 import { shiftViewBox, svgCoords } from "./utils-svg";
 
 var anchorPoint: DOMPoint | undefined;

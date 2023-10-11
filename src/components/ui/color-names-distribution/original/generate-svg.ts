@@ -87,7 +87,7 @@ function drawColors(x: number, y: number, colors: HslName[], outerRadius: number
 
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         path.setAttribute("d", createSlicePath(x, y, inner, outer, hue, same));
-        path.setAttribute('fill', 'hsl(' + hue + ',' + sat + '%,' + lit + '%)');
+        path.setAttribute('fill', `hsl(${hue},${sat}%,${lit}%)`);
         path.setAttribute('data-key', `${color}`);
         path.setAttribute("type", "color");
 
@@ -115,9 +115,9 @@ function drawGrays(colors: HslName[], target: SVGSVGElement) {
     graydient.setAttribute("y", `${barTop}`);
     graydient.setAttribute("height", `${barHeight}`);
     graydient.setAttribute("width", `${barWidth}`);
-    graydient.setAttribute("fill", "url(#graydient)");
-    graydient.setAttribute("stroke", "#666");
-    graydient.setAttribute("stroke-width", "0.2");
+    graydient.setAttribute("fill", 'url(#graydient)');
+    graydient.setAttribute("stroke", '#666');
+    graydient.setAttribute("stroke-width", '0.2');
 
     target.appendChild(graydient);
 
@@ -134,14 +134,14 @@ function drawGrays(colors: HslName[], target: SVGSVGElement) {
         gray.setAttribute("y", `${barTop - grayHeight - (same * grayHeight)}`);
         gray.setAttribute("height", `${grayHeight - 1.25}`);
         gray.setAttribute("width", `${grayWidth}`);
-        gray.setAttribute("fill", "hsl(0,0%," + light + "%)");
+        gray.setAttribute("fill", `hsl(0,0%,${light}%)`);
         if ((color as any) == 0) {
             gray.setAttribute("height", `${grayHeight - 2}`);
-            gray.setAttribute("stroke", "#666");
-            gray.setAttribute("stroke-width", "0.5");
+            gray.setAttribute("stroke", '#666');
+            gray.setAttribute("stroke-width", '0.5');
         }
         gray.setAttribute('data-key', `${color}`); // color is '0,0,66,darkgrey'
-        gray.setAttribute("type", "gray");
+        gray.setAttribute("type", 'gray');
 
         gray.addEventListener('mouseover', showColor, true);
         gray.addEventListener('mouseout', clearColor, true);

@@ -1,29 +1,24 @@
 import { dragView } from "./action-drag";
 import { zoomView } from "./action-zoom";
 import { sorter } from "./utils-color";
-import { uiElements } from "./view-dom-ui";
+import { uiElements } from "./ui-view-dom";
 import { drawSpikes, generateColorWheel } from "./generate-svg";
 import { colorkeys } from "./const-hsl-color-names";
+import { consts } from "./init-consts";
 
 export function initModel() { //window.onload = function () {
-    const resolution = 1;
-    const outerRadius = 250;
-    const innerRadius = 125;
-    const swatchWidth = 25;
-    const x = 500;
-    const y = 500;
+   
     const target = uiElements.target;
-
     target.addEventListener("wheel", zoomView, false);
     target.addEventListener("mousedown", dragView, false);
 
     var well = uiElements.wheelWell;
-    well.setAttribute('cx', `${x}`);
-    well.setAttribute('cy', `${y}`);
-    well.setAttribute('r', `${innerRadius - (swatchWidth / 5)}`);
+    well.setAttribute('cx', `${consts.x}`);
+    well.setAttribute('cy', `${consts.y}`);
+    well.setAttribute('r', `${consts.innerRadius - (consts.swatchWidth / 5)}`);
 
-    generateColorWheel(x, y, innerRadius, outerRadius, resolution, target);
-    drawSpikes(x, y, colorkeys.sort(sorter), outerRadius, swatchWidth, target);
+    generateColorWheel(consts.x, consts.y, consts.innerRadius, consts.outerRadius, consts.resolution, target);
+    drawSpikes(consts.x, consts.y, colorkeys.sort(sorter), consts.outerRadius, consts.swatchWidth, target);
 
     const colorText = uiElements.colorText;
     target.removeChild(colorText);

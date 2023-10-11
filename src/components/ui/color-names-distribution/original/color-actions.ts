@@ -1,5 +1,5 @@
 import { HslName, hslToRgb, rgbLuminance } from "./utils-color";
-import { uiElements } from "./view-dom-ui";
+import { uiElements } from "./ui-view-dom";
 
 var mousedelay: number;
 

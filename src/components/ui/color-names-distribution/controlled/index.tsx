@@ -1,4 +1,28 @@
-export default function ColorNamesWheel() {
+function WheelWell() {
+    return (
+        <circle cx={0} cy={0} r={0} fill="none" id="wheel-well" />
+    );
+}
+
+function ColorText() {
+    return (
+        <text x={500} y={500} id="colorText" className="readout">
+            <tspan id="colorName" textAnchor="middle" x={500} dy={-3} />
+            <tspan id="colorHSL" textAnchor="middle" x={500} dy={25} />
+        </text>
+    );
+}
+
+function GrayText() {
+    return (
+        <text x={500} y={1125} id="grayText" className="readout">
+            <tspan id="grayName" textAnchor="middle" x={500} dy={2} />
+            <tspan id="grayHSL" textAnchor="middle" x={500} dy={23} />
+        </text>
+    );
+}
+
+export function ColorNamesWheel() {
     return (
         <svg viewBox="0 0 1000 1200" version="1.1" id="color-wheel">
             <defs>
@@ -8,18 +32,9 @@ export default function ColorNamesWheel() {
                 </linearGradient>
             </defs>
 
-            <circle cx={0} cy={0} r={0} fill="none" id="wheel-well" />
-
-            <text x={500} y={500} id="colorText" className="readout">
-                <tspan id="colorName" textAnchor="middle" x={500} dy={-3} />
-                <tspan id="colorHSL" textAnchor="middle" x={500} dy={25} />
-            </text>
-
-            <text x={500} y={1125} id="grayText" className="readout">
-                <tspan id="grayName" textAnchor="middle" x={500} dy={2} />
-                <tspan id="grayHSL" textAnchor="middle" x={500} dy={23} />
-            </text>
-
+            <WheelWell />
+            <ColorText />
+            <GrayText />
         </svg>
     );
 }
