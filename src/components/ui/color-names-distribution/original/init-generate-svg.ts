@@ -1,5 +1,5 @@
-import { clearColor, showColor } from "./color-actions";
-import { colorkeys } from "./const-hsl-color-names";
+import { clearColor, showColor } from "./action-current-color";
+import { colorkeys } from "./init-color-keys";
 import { consts } from "./init-consts";
 import { HslName, sorter } from "./utils-color";
 

@@ -1,6 +1,17 @@
+import { consts } from "./consts";
+
 function WheelWell() {
     return (
-        <circle cx={0} cy={0} r={0} fill="none" id="wheel-well" />
+        <circle
+            cx={consts.x}
+            cy={consts.y}
+            r={consts.innerRadius - (consts.swatchWidth / 5)}
+            fill="none"
+
+            // temp
+            className="fill-blue-300"
+            id="wheel-well"
+        />
     );
 }
 

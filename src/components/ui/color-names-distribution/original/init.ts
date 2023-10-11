@@ -1,7 +1,7 @@
 import { dragView } from "./action-drag";
 import { zoomView } from "./action-zoom";
 import { uiElements } from "./ui-view-dom";
-import { svgCreateColorViews } from "./generate-svg";
+import { svgCreateColorViews } from "./init-generate-svg";
 import { consts } from "./init-consts";
 
 export function initModel() { //window.onload = function () {
