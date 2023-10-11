@@ -1,4 +1,6 @@
-export const colorKeys = [
+import { ColorKeys3 } from "./colors-sort";
+
+export const colorkeys: ColorKeys3[] = [
     [0, 0, 100, "white"],
     [0, 100, 99, "snow"],
     [0, 0, 96, "whitesmoke"],
