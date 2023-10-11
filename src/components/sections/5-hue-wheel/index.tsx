@@ -1,6 +1,6 @@
 import { HTMLAttributes } from "react";
 import { classNames } from "@/utils";
-import ColorNamesWheel from "@/components/ui/color-names-distribution";
+import ColorNamesWheel from "@/components/ui/color-names-distribution/controlled";
 
 // function HueWheel() {
 //     return (
