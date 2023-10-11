@@ -1,5 +1,7 @@
 import { clearColor, showColor } from "./color-actions";
-import { HslName } from "./utils-color";
+import { colorkeys } from "./const-hsl-color-names";
+import { consts } from "./init-consts";
+import { HslName, sorter } from "./utils-color";
 
 function createSlicePath(x: number, y: number, innerRadius: number, outerRadius: number, hue: number, step: number): string {
     const innerArcStart = hue - 0.5 - (0.1 * (step - 1));
@@ -154,4 +156,9 @@ function drawGrays(colors: HslName[], target: SVGSVGElement) {
 export function drawSpikes(x: number, y: number, colors: HslName[], outerRadius: number, width: number, target: SVGSVGElement): void {
     const { grays } = drawColors(x, y, colors, outerRadius, width, target);
     drawGrays(grays, target);
+}
+
+export function svgCreateColorViews(svg: SVGSVGElement): void {
+    generateColorWheel(consts.x, consts.y, consts.innerRadius, consts.outerRadius, consts.resolution, svg);
+    drawSpikes(consts.x, consts.y, colorkeys.sort(sorter), consts.outerRadius, consts.swatchWidth, svg);
 }
