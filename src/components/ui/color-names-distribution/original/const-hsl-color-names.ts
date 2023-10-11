@@ -1,6 +1,6 @@
-import { ColorKeys3 } from "./colors-sort";
+import { HslName } from "./utils-color";
 
-export const colorkeys: ColorKeys3[] = [
+export const colorkeys: HslName[] = [
     [0, 0, 100, "white"],
     [0, 100, 99, "snow"],
     [0, 0, 96, "whitesmoke"],

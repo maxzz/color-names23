@@ -1,5 +1,5 @@
-import { uiElements } from "./dom-ui";
-import { svgCoords } from "./svg-utils";
+import { uiElements } from "./view-dom-ui";
+import { svgCoords } from "./utils-svg";
 
 export function zoomView(event: WheelEvent) {
 

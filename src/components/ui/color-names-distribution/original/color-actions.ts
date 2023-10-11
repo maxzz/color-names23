@@ -1,5 +1,5 @@
-import { ColorKeys3, hslToRgb, rgbLuminance } from "./colors-sort";
-import { uiElements } from "./dom-ui";
+import { HslName, hslToRgb, rgbLuminance } from "./utils-color";
+import { uiElements } from "./view-dom-ui";
 
 var mousedelay: number;
 
@@ -17,7 +17,7 @@ export function showColor(evt: MouseEvent) {
     const colorHSL = uiElements[(ctype + 'HSL') as 'colorHSL' | 'grayHSL'];     //document.getElementById(ctype + 'HSL');
 
     const fillvalue = obj.getAttribute('fill')!;
-    const keys = obj.getAttribute('data-key')!.split(',') as unknown as ColorKeys3;
+    const keys = obj.getAttribute('data-key')!.split(',') as unknown as HslName;
 
     const dark = rgbLuminance(hslToRgb(keys)) <= 0.6 ? true : false;
 

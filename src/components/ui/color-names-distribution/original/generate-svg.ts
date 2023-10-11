@@ -1,5 +1,5 @@
 import { clearColor, showColor } from "./color-actions";
-import { ColorKeys3 } from "./colors-sort";
+import { HslName } from "./utils-color";
 
 function createSlicePath(x: number, y: number, innerRadius: number, outerRadius: number, hue: number, step: number) {
     const innerArcStart = hue - 0.5 - (0.1 * (step - 1));
@@ -62,7 +62,7 @@ export function generateColorWheel(x: number, y: number, innerRadius: number, ou
     }
 }
 
-export function drawSpikes(x: number, y: number, colors: ColorKeys3[], outerRadius: number, width: number, target: SVGSVGElement) {
+export function drawSpikes(x: number, y: number, colors: HslName[], outerRadius: number, width: number, target: SVGSVGElement) {
     const limit = colors.length;
     var same = 0;
     var grays = [];
@@ -99,7 +99,7 @@ export function drawSpikes(x: number, y: number, colors: ColorKeys3[], outerRadi
     }
     drawGrays(grays, target);
 
-    function drawGrays(colors: ColorKeys3[], target: SVGSVGElement) {
+    function drawGrays(colors: HslName[], target: SVGSVGElement) {
         const barwidth = 600;
         const barheight = 66;
         const bartop = 1100;

@@ -1,20 +1,20 @@
 //https://meyerweb.com/eric/css/colors/hsl-dist.html 'CSS4 Color Keyword Distribution'
 
-export type ColorKeys3 = [h: number, s: number, l: number, name?: string];
+export type HslName = [h: number, s: number, l: number, name?: string];
 
-// Lightly adapted from https://stackoverflow.com/questions/2353211/hsl-to-rgb-color-conversion
 /**
  * Converts an HSL color value to RGB. Conversion formula
  * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
  * Assumes h, s, and l are contained in the set [0, 1] and
  * returns r, g, and b in the set [0, 1].
+ * Lightly adapted from https://stackoverflow.com/questions/2353211/hsl-to-rgb-color-conversion
  *
  * @param   {number}  h       The hue
  * @param   {number}  s       The saturation
  * @param   {number}  l       The lightness
  * @return  {Array}           The RGB representation
  */
-export function hslToRgb(hslColor: ColorKeys3): ColorKeys3 {
+export function hslToRgb(hslColor: HslName): HslName {
 
     var h = hslColor[0] / 360;
     var s = hslColor[1] / 100;
@@ -44,11 +44,11 @@ export function hslToRgb(hslColor: ColorKeys3): ColorKeys3 {
     return [r, g, b];
 }
 
-export function rgbLuminance(c: ColorKeys3): number {
+export function rgbLuminance(c: HslName): number {
     return (0.2126 * c[0]) + (0.7152 * c[1]) + (0.0722 * c[2]);
 }
 
-export function sorter(a: ColorKeys3, b: ColorKeys3): number {
+export function sorter(a: HslName, b: HslName): number {
     var al = rgbLuminance(hslToRgb(a));
     var bl = rgbLuminance(hslToRgb(b));
     return ((a[0] - b[0]) || (b[2] - a[2]) || (al + bl));
