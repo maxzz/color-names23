@@ -1,8 +1,9 @@
 import { Atomize, atomWithCallback } from "@/hooks/atomsX";
 import { allColorsWoAlternatives, ColorItem, groupColors } from "@/utils-color";
 import { atom, SetStateAction, Setter } from "jotai";
-import { initialData, ViewHueOptions } from "./store-initial-data";
+import { initialData } from "./store-initial-data";
 import { saveStore } from "./store-save";
+import { ViewHueOptions } from "./types";
 
 export const _hueAtom = atomWithCallback(initialData.viewHueOptions.hue, saveStore);
 export const _monoAtom = atomWithCallback(initialData.viewHueOptions.mono, saveStore);

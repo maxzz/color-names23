@@ -1,6 +1,7 @@
-//#region LocalStorage
+import { initialData, setInitialData } from "./store-initial-data";
+import { Store } from "./types";
 
-import { initialData, setInitialData, Store } from "./store-initial-data";
+// Local storage
 
 export const STORAGE_KEY = 'react-name-colors22-01';
 
@@ -17,5 +18,3 @@ export function load() {
 }
 
 load();
-
-//#endregion LocalStorage

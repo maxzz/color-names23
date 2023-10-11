@@ -1,6 +1,6 @@
+import { HTMLAttributes } from "react";
 import { Input, Label } from "@/components/ui/shadcn";
 import { classNames } from "@/utils";
-import { HTMLAttributes } from "react";
 
 function SingleColor({ label, color }: { label: string; color: string; }) {
     return (

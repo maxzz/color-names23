@@ -5,6 +5,7 @@ import { Section1_ColorsByHue } from '../sections/1-colors-by-hue';
 import { Section2_ColorsList } from '../sections/2-colors-list';
 import { Section3_Tailwind } from '../sections/3-tailwind';
 import { Section4_Chadcn } from '../sections/4-shadcn';
+import { Section5_HueWheel } from '../sections/5-hue-wheel';
 import { classNames } from '@/utils';
 
 export function App2_Main({ className }: HTMLAttributes<HTMLDivElement>) {
@@ -33,6 +34,12 @@ export function App2_Main({ className }: HTMLAttributes<HTMLDivElement>) {
             {current === SectionName.shadcn &&
                 <div className="h-full flex flex-col">
                     <Section4_Chadcn className="flex-1" />
+                </div>
+            }
+
+            {current === SectionName.hueWheel &&
+                <div className="h-full flex flex-col">
+                    <Section5_HueWheel className="flex-1" />
                 </div>
             }
 

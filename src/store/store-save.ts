@@ -1,5 +1,5 @@
 import { Getter } from "jotai";
-import { Store } from "./store-initial-data";
+import { Store } from "./types";
 import { STORAGE_KEY } from "./store-load";
 import { AppAtoms } from "./0-app";
 import { viewHueAtoms, _hueAtom, _monoAtom } from "./1-hue";

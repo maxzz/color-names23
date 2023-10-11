@@ -1,4 +1,4 @@
-export default function ColorNamesWheel() {
+export function ColorNamesDistribution() {
     return (
         <svg viewBox="0 0 1000 1200" version="1.1" id="color-wheel">
             <defs>

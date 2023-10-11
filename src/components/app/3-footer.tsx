@@ -1,9 +1,10 @@
 import { AnchorHTMLAttributes, HTMLAttributes } from 'react';
 import { useAtomValue } from 'jotai';
-import { AppAtoms, SectionName } from '@/store';
+import { AppAtoms } from '@/store';
 import { IconGithubLogo } from '@/components/ui/icons/normal';
 import { classNames } from '@/utils';
 import { ThemeSwitch } from '../ui/shadcn';
+import { SectionName } from '@/store/types';
 
 function LinkButton(props: AnchorHTMLAttributes<HTMLAnchorElement>) {
     return (

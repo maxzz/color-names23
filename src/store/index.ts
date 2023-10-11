@@ -1,3 +1,4 @@
+export * from './types';
 import './store-load';
 
 export * from './store-initial-data';

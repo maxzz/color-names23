@@ -21,6 +21,7 @@ export function NavButtons({ className }: HTMLAttributes<HTMLUListElement>) {
             <LinkButton label="Named colors" sectionName={SectionName.list} />
             <LinkButton label="Tailwind" sectionName={SectionName.tailwind} />
             <LinkButton label="chadcn" sectionName={SectionName.shadcn} />
+            <LinkButton label="Hue wheel" sectionName={SectionName.hueWheel} />
         </div>
     );
 }
