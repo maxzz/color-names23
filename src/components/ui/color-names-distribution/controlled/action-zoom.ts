@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { svgCoords } from "../original/utils-svg";
 
-function zoomView(event: WheelEvent) {
+function zoomView(event: WheelEvent): boolean {
 
     const target = event.target as SVGSVGElement;
     const wheelView: SVGSVGElement | null = target?.ownerSVGElement || target;
     if (!wheelView) {
-        return;
+        return false; // preventDefault false
     }
 
     var rect = wheelView.getBoundingClientRect();
@@ -18,8 +18,8 @@ function zoomView(event: WheelEvent) {
         ((dims.w <= 333 || dims.h <= 400) && zoomdir < 0) ||
         ((dims.w > 1000 || dims.h > 1200) && zoomdir > 0)
     ) {
-        //		console.log('limited');	
-        return;
+        console.log('limited');
+        return false; // preventDefault false
     }
 
     var mpx = 0, mpy = 0, mpxpct = 0, mpypct = 0;
@@ -49,6 +49,8 @@ function zoomView(event: WheelEvent) {
 
     changeViewBox(wheelView, coords);
 
+    return true; // preventDefault true
+
     function parseViewBox(elem: SVGSVGElement) {
         return {
             x: elem.viewBox.baseVal.x,
@@ -73,8 +75,9 @@ export function useZoom() {
             return;
         }
         const handler = (event: WheelEvent) => {
-            zoomView(event);
-            event.preventDefault();
+            if (zoomView(event)) {
+                event.preventDefault();
+            }
         };
         svgRef.addEventListener('wheel', handler, { passive: false });
         return () => {
