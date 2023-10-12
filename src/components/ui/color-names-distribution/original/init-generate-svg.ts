@@ -2,55 +2,9 @@ import { clearColor, showColor } from "./action-current-color";
 import { colorkeys } from "./init-color-keys";
 import { consts } from "./init-consts";
 import { HslName, sorter } from "./utils-color";
+import { createSlicePath } from "./utils-svg";
 
-function createSlicePath(x: number, y: number, innerRadius: number, outerRadius: number, hue: number, step: number): string {
-    const innerArcStart = hue - 0.5 - (0.1 * (step - 1));
-    const innerArcEnd = hue + 0.5 + (0.1 * (step - 1));
-    const outerArcStart = hue - 0.5 - (0.1 * step);
-    const outerArcEnd = hue + 0.5 + (0.1 * step);
-
-
-    const innerStart = polarToCartesian(x, y, innerRadius, innerArcEnd);
-    const innerEnd = polarToCartesian(x, y, innerRadius, innerArcStart);
-    const outerStart = polarToCartesian(x, y, outerRadius, outerArcStart);
-    const outerEnd = polarToCartesian(x, y, outerRadius, outerArcEnd);
-
-    const slicePath = [
-        "M",
-        outerStart.x, outerStart.y,
-        describeArc(x, y, outerRadius, outerArcStart, outerArcEnd),
-        outerEnd.x, outerEnd.y,
-        "L",
-        innerStart.x, innerStart.y,
-        describeArc(x, y, innerRadius, innerArcEnd, innerArcStart),
-        innerEnd.x, innerEnd.y,
-        "z"
-    ].join(' ');
-
-    return slicePath;
-
-    function polarToCartesian(centerX: number, centerY: number, radius: number, angleInDegrees: number): { x: number; y: number; } {
-        const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0; // Adapted from http://jsbin.com/quhujowota/1/edit?js,output
-
-        return {
-            x: centerX + radius * Math.cos(angleInRadians),
-            y: centerY + radius * Math.sin(angleInRadians)
-        };
-    }
-
-    function describeArc(cx: number, cy: number, radius: number, startAngle: number, endAngle: number): string {
-        const arcSweep = endAngle - startAngle <= 180 ? '0' : '1';
-        const curve = endAngle - startAngle < 0 ? '0' : '1';
-
-        const arc = [
-            'A', radius, radius, 0, arcSweep, curve
-        ].join(' ');
-
-        return arc;
-    }
-}
-
-export function generateColorWheel(x: number, y: number, innerRadius: number, outerRadius: number, resolution: number, target: SVGSVGElement): void {
+function generateColorWheel(x: number, y: number, innerRadius: number, outerRadius: number, resolution: number, target: SVGSVGElement): void {
 
     for (var i = 0; i < 360 * resolution; i++) {
         const hue = i / resolution;
@@ -120,7 +74,6 @@ function drawGrays(colors: HslName[], target: SVGSVGElement) {
     graydient.setAttribute("fill", 'url(#graydient)');
     graydient.setAttribute("stroke", '#666');
     graydient.setAttribute("stroke-width", '0.2');
-
     target.appendChild(graydient);
 
     var same = 0;
@@ -153,7 +106,7 @@ function drawGrays(colors: HslName[], target: SVGSVGElement) {
     }
 }
 
-export function drawSpikes(x: number, y: number, colors: HslName[], outerRadius: number, width: number, target: SVGSVGElement): void {
+function drawSpikes(x: number, y: number, colors: HslName[], outerRadius: number, width: number, target: SVGSVGElement): void {
     const { grays } = drawColors(x, y, colors, outerRadius, width, target);
     drawGrays(grays, target);
 }

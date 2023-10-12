@@ -1,13 +1,13 @@
 import { consts } from "./consts";
+import { WheelColors } from "./wheel-colors";
 
-function WheelWell() {
+function WheelWellCenter() {
     return (
         <circle
             cx={consts.x}
             cy={consts.y}
             r={consts.innerRadius - (consts.swatchWidth / 5)}
             fill="none"
-
             // temp
             className="fill-blue-300"
             id="wheel-well"
@@ -35,7 +35,13 @@ function GrayText() {
 
 export function ColorNamesWheel() {
     return (
-        <svg viewBox="0 0 1000 1200" version="1.1" id="color-wheel">
+        <svg
+            viewBox="0 0 1000 1200"
+            version="1.1"
+            id="color-wheel"
+            // temp
+            className="bg-blue-300/30"
+        >
             <defs>
                 <linearGradient id="graydient">
                     <stop offset="1%" stopColor="#000" />
@@ -43,7 +49,8 @@ export function ColorNamesWheel() {
                 </linearGradient>
             </defs>
 
-            <WheelWell />
+            <WheelColors />
+            <WheelWellCenter />
             <ColorText />
             <GrayText />
         </svg>
