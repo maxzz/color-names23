@@ -18,9 +18,13 @@ function zoomView(event: WheelEvent): boolean {
         ((dims.w <= 333 || dims.h <= 400) && zoomdir < 0) ||
         ((dims.w > 1000 || dims.h > 1200) && zoomdir > 0)
     ) {
-        console.log('limited');
+        // console.log('limited', {dims, zoomdir, scale});
         return false; // preventDefault false
     }
+    // console.log('zooming', {dims, zoomdir, scale});
+    // if (zoomdir > 0 && scale > 1) {
+    //     return false; // preventDefault false
+    // }
 
     var mpx = 0, mpy = 0, mpxpct = 0, mpypct = 0;
     mpx = event.clientX - rect.x;
@@ -28,15 +32,15 @@ function zoomView(event: WheelEvent): boolean {
     mpxpct = mpx / rect.width;
     mpypct = mpy / rect.height;
 
-    var svgcoord = svgCoords(wheelView, event);
+    var svgCoord = svgCoords(wheelView, event);
 
     var newwidth = dims.w * scale;
     var newheight = dims.h * scale;
 
     var coords = { x: 0, y: 0, w: 0, h: 0 };
 
-    coords.x = Math.round(svgcoord.x - (newwidth * mpxpct));
-    coords.y = Math.round(svgcoord.y - (newheight * mpypct));
+    coords.x = Math.round(svgCoord.x - (newwidth * mpxpct));
+    coords.y = Math.round(svgCoord.y - (newheight * mpypct));
     coords.w = Math.round(newwidth);
     coords.h = Math.round(newheight);
 
@@ -46,6 +50,8 @@ function zoomView(event: WheelEvent): boolean {
     if (coords.y < 0) coords.y = 0;
     if (coords.x + coords.w > 1000) coords.x = 1000 - coords.w;
     if (coords.y + coords.h > 1200) coords.y = 1200 - coords.h;
+
+    // if (dims.w === coords.w && dims.h === coords.h) { return false; /* preventDefault false */ } // OK but not needed
 
     changeViewBox(wheelView, coords);
 

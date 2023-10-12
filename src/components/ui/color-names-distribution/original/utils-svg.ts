@@ -1,4 +1,4 @@
-export function svgCoords(svg: SVGSVGElement, event: MouseEvent) {
+export function svgCoords(svg: SVGSVGElement, event: MouseEvent): DOMPoint {
     /* 
     Most of the following functions adapted (or straight copied) from Amelia Bellamy-Royd’s answer on
     https://stackoverflow.com/questions/55564432/how-do-i-translate-mouse-movement-distances-to-svg-coordinate-space

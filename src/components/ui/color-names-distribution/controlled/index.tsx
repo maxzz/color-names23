@@ -3,6 +3,8 @@ import { ColorsWheel } from "./colors-wheel";
 import { ColorsWheelSpikes } from "./colors-wheel-spikes";
 import { GrayBar } from "./colors-gray";
 import { useZoom } from "./action-zoom";
+import { SVGAttributes } from "react";
+import { classNames } from "@/utils";
 
 function WheelWellCenter() {
     return (
@@ -36,7 +38,7 @@ function GrayText() {
     );
 }
 
-export function ColorNamesWheel() {
+export function ColorNamesWheel({className, ...rest}: SVGAttributes<SVGSVGElement>) {
     const setSvgRef = useZoom();
     return (
         <svg
@@ -44,8 +46,8 @@ export function ColorNamesWheel() {
             viewBox="0 0 1000 1200"
             version="1.1"
             id="color-wheel"
-            // temp
-            className="bg-blue-300/30"
+            className={classNames("bg-blue-300/20", className)}
+            {...rest}
         >
             <defs>
                 <linearGradient id="graydient">
