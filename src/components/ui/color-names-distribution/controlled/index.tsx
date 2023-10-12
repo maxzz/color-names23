@@ -1,6 +1,7 @@
 import { consts } from "./consts";
-import { WheelColors } from "./wheel-colors";
-import { WheelColorsSpikes } from "./wheel-colors-spikes";
+import { ColorsWheel } from "./colors-wheel";
+import { ColorsWheelSpikes } from "./colors-wheel-spikes";
+import { GrayBar } from "./colors-gray";
 
 function WheelWellCenter() {
     return (
@@ -50,9 +51,12 @@ export function ColorNamesWheel() {
                 </linearGradient>
             </defs>
 
-            <WheelColors />
-            <WheelColorsSpikes />
+            <ColorsWheel />
+            <ColorsWheelSpikes />
             <WheelWellCenter />
+
+            <GrayBar />
+
             <ColorText />
             <GrayText />
         </svg>
