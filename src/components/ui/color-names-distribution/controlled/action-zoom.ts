@@ -1,9 +1,7 @@
-//import { uiElements } from "./ui-view-dom";
-import { svgCoords } from "./utils-svg";
+import { svgCoords } from "../original/utils-svg";
 
 export function zoomView(event: WheelEvent) {
 
-    //var wheelView = uiElements.target;
     const target = event.target as SVGSVGElement;
     const wheelView: SVGSVGElement | null = target?.ownerSVGElement || target;
     if (!wheelView) {
@@ -49,8 +47,6 @@ export function zoomView(event: WheelEvent) {
     if (coords.y + coords.h > 1200) coords.y = 1200 - coords.h;
 
     changeViewBox(wheelView, coords);
-    event.preventDefault();
-    event.returnValue = false;
 
     function parseViewBox(elem: SVGSVGElement) {
         return {

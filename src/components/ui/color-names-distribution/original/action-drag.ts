@@ -4,7 +4,7 @@ import { shiftViewBox, svgCoords } from "./utils-svg";
 var anchorPoint: DOMPoint | undefined;
 
 function dragger(event: MouseEvent) {
-    let targetPoint = svgCoords(event, uiElements.target);
+    let targetPoint = svgCoords(uiElements.target, event);
     anchorPoint && shiftViewBox(uiElements.target, anchorPoint.x - targetPoint.x, anchorPoint.y - targetPoint.y);
 }
 
@@ -16,7 +16,7 @@ function cancelDrag(e: MouseEvent) {
 }
 
 export function dragView(event: MouseEvent) {
-    anchorPoint = svgCoords(event, uiElements.target);
+    anchorPoint = svgCoords(uiElements.target, event);
     window.addEventListener("mousemove", dragger);
     window.addEventListener("mouseup", cancelDrag);
     uiElements.target.classList.add('dragging');

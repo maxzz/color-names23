@@ -90,7 +90,7 @@ function drawGrays(colors: HslName[], target: SVGSVGElement) {
         gray.setAttribute("height", `${grayHeight - 1.25}`);
         gray.setAttribute("width", `${grayWidth}`);
         gray.setAttribute("fill", `hsl(0,0%,${light}%)`);
-        if ((color as any) == 0) {
+        if ((color as any) == 0) { // i guess this is checking for undefined color. This is why a wierd color set.
             gray.setAttribute("height", `${grayHeight - 2}`);
             gray.setAttribute("stroke", '#666');
             gray.setAttribute("stroke-width", '0.5');

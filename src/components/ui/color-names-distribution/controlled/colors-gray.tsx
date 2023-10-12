@@ -41,14 +41,6 @@ function GenerateSlices() {
     return rv;
 }
 
-/*
-    if ((color as any) == 0) {
-        gray.setAttribute("height", `${grayHeight - 2}`);
-        gray.setAttribute("stroke", '#666');
-        gray.setAttribute("stroke-width", '0.5');
-    }
-*/
-
 export function GrayBar() {
     return (
         <g type="gray-bar">

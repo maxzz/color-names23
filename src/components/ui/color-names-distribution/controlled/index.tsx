@@ -2,6 +2,7 @@ import { consts } from "./consts";
 import { ColorsWheel } from "./colors-wheel";
 import { ColorsWheelSpikes } from "./colors-wheel-spikes";
 import { GrayBar } from "./colors-gray";
+import { zoomView } from "./action-zoom";
 
 function WheelWellCenter() {
     return (
@@ -43,6 +44,17 @@ export function ColorNamesWheel() {
             id="color-wheel"
             // temp
             className="bg-blue-300/30"
+            onWheel={(event) => {
+                const target = event.target as SVGSVGElement;
+                const svg: SVGSVGElement | null = target?.ownerSVGElement || target;
+                console.log('svg', svg);
+
+                if (!svg) {
+                    return;
+                }
+                zoomView(event.nativeEvent);
+                event.preventDefault();
+            }}
         >
             <defs>
                 <linearGradient id="graydient">
