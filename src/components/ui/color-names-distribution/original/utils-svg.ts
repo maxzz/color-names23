@@ -1,3 +1,10 @@
+export function getSvgRootElement(event: MouseEvent | WheelEvent): SVGSVGElement | null {
+    // It can be already an SVGSVGElement, or it can be an SVGElement (e.g. a path)
+    // that has an ownerSVGElement, but the event should be from SVG world.
+    const target = event.target as SVGSVGElement;
+    return target?.ownerSVGElement || target;
+}
+
 export function svgCoords(svg: SVGSVGElement, event: MouseEvent): DOMPoint {
     /* 
     Most of the following functions adapted (or straight copied) from Amelia Bellamy-Royd’s answer on

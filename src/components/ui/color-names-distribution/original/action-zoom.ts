@@ -1,11 +1,7 @@
-//import { uiElements } from "./ui-view-dom";
-import { svgCoords } from "./utils-svg";
+import { getSvgRootElement, svgCoords } from "./utils-svg";
 
 export function zoomView(event: WheelEvent) {
-
-    //var wheelView = uiElements.target;
-    const target = event.target as SVGSVGElement;
-    const wheelView: SVGSVGElement | null = target?.ownerSVGElement || target;
+    const wheelView: SVGSVGElement | null = getSvgRootElement(event);
     if (!wheelView) {
         return;
     }

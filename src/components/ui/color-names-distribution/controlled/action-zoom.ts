@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
-import { svgCoords } from "../original/utils-svg";
+import { getSvgRootElement, svgCoords } from "../original/utils-svg";
 
 function zoomView(event: WheelEvent): boolean {
-
-    const target = event.target as SVGSVGElement;
-    const wheelView: SVGSVGElement | null = target?.ownerSVGElement || target;
+    const wheelView: SVGSVGElement | null = getSvgRootElement(event);
     if (!wheelView) {
         return false; // preventDefault false
     }
@@ -22,9 +20,6 @@ function zoomView(event: WheelEvent): boolean {
         return false; // preventDefault false
     }
     // console.log('zooming', {dims, zoomdir, scale});
-    // if (zoomdir > 0 && scale > 1) {
-    //     return false; // preventDefault false
-    // }
 
     var mpx = 0, mpy = 0, mpxpct = 0, mpypct = 0;
     mpx = event.clientX - rect.x;
