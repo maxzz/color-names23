@@ -1,6 +1,7 @@
+import { useState, useEffect } from "react";
 import { svgCoords } from "../original/utils-svg";
 
-export function zoomView(event: WheelEvent) {
+function zoomView(event: WheelEvent) {
 
     const target = event.target as SVGSVGElement;
     const wheelView: SVGSVGElement | null = target?.ownerSVGElement || target;
@@ -63,4 +64,22 @@ export function zoomView(event: WheelEvent) {
         elem.viewBox.baseVal.width = coords.w;
         elem.viewBox.baseVal.height = coords.h;
     }
+}
+
+export function useZoom() {
+    const [svgRef, setSvgRef] = useState<SVGSVGElement | null>();
+    useEffect(() => {
+        if (!svgRef) {
+            return;
+        }
+        const handler = (event: WheelEvent) => {
+            zoomView(event);
+            event.preventDefault();
+        };
+        svgRef.addEventListener('wheel', handler, { passive: false });
+        return () => {
+            svgRef.removeEventListener('wheel', handler);
+        };
+    }, [svgRef]);
+    return setSvgRef;
 }

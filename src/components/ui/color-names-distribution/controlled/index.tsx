@@ -2,8 +2,7 @@ import { consts } from "./consts";
 import { ColorsWheel } from "./colors-wheel";
 import { ColorsWheelSpikes } from "./colors-wheel-spikes";
 import { GrayBar } from "./colors-gray";
-import { zoomView } from "./action-zoom";
-import { useEffect, useState } from "react";
+import { useZoom } from "./action-zoom";
 
 function WheelWellCenter() {
     return (
@@ -38,21 +37,7 @@ function GrayText() {
 }
 
 export function ColorNamesWheel() {
-    const [svgRef, setSvgRef] = useState<SVGSVGElement | null>();
-    useEffect(() => {
-        if (!svgRef) {
-            return;
-        }
-        const handler = (event: WheelEvent) => {
-            zoomView(event);
-            event.preventDefault();
-        };
-        svgRef.addEventListener('wheel', handler, { passive: false });
-        return () => {
-            svgRef.removeEventListener('wheel', handler);
-        };
-    }, [svgRef]);
-
+    const setSvgRef = useZoom();
     return (
         <svg
             ref={setSvgRef}
@@ -61,17 +46,6 @@ export function ColorNamesWheel() {
             id="color-wheel"
             // temp
             className="bg-blue-300/30"
-            // onWheel={(event) => {
-            //     const target = event.target as SVGSVGElement;
-            //     const svg: SVGSVGElement | null = target?.ownerSVGElement || target;
-            //     console.log('svg', svg);
-
-            //     if (!svg) {
-            //         return;
-            //     }
-            //     zoomView(event.nativeEvent);
-            //     event.preventDefault();
-            // }}
         >
             <defs>
                 <linearGradient id="graydient">
