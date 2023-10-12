@@ -11,7 +11,7 @@ function generateColorWheel(x: number, y: number, innerRadius: number, outerRadi
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 
         path.setAttribute("d", createSlicePath(x, y, innerRadius, outerRadius, hue, 2.5));
-        path.setAttribute('fill', 'hsl(' + hue + ', 100%, 50%)');
+        path.setAttribute('fill', `hsl(${hue}, 100%, 50%)`);
         path.setAttribute('data-key', `${hue}`);
 
         target.appendChild(path);
@@ -45,7 +45,7 @@ function drawColors(x: number, y: number, colors: HslName[], outerRadius: number
         path.setAttribute("d", createSlicePath(x, y, inner, outer, hue, same));
         path.setAttribute('fill', `hsl(${hue},${sat}%,${lit}%)`);
         path.setAttribute('data-key', `${color}`);
-        path.setAttribute("type", "color");
+        path.setAttribute("type", 'color');
 
         path.addEventListener('mouseover', showColor, true);
         path.addEventListener('mouseout', clearColor, true);

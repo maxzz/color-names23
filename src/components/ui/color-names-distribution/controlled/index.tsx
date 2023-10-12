@@ -1,5 +1,6 @@
 import { consts } from "./consts";
 import { WheelColors } from "./wheel-colors";
+import { WheelColorsSpikes } from "./wheel-colors-spikes";
 
 function WheelWellCenter() {
     return (
@@ -50,6 +51,7 @@ export function ColorNamesWheel() {
             </defs>
 
             <WheelColors />
+            <WheelColorsSpikes />
             <WheelWellCenter />
             <ColorText />
             <GrayText />
