@@ -14,7 +14,7 @@ export function MessageHueColorCopied({ className, ...rest }: HTMLAttributes<HTM
     });
     return (
         <a.div style={styles} className={classNames("px-2 py-1 text-xs text-white bg-green-600 rounded flex items-center space-x-2", className)} {...rest}>
-            <div className="w-4 h-4 border-green-800 border rounded" style={{backgroundColor: text}}></div>
+            <div className={`w-4 h-4 border-green-800 ${text ? 'border' : ''} rounded`} style={{backgroundColor: text}}></div>
             <div>Copied</div>
         </a.div>
     );
