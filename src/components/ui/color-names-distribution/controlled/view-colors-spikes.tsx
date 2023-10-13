@@ -29,6 +29,7 @@ function GenerateSpikeSlices() {
                 type='color'
                 key={idx}
                 onMouseOverCapture={(e) => {
+                    clearTimeout(hueColorWheelState.colorTimeoutId);
                     hueColorWheelState.selectedColor = {
                         type: 'color',
                         fill: `hsl(${hue},${sat}%,${lit}%)`,
@@ -36,7 +37,9 @@ function GenerateSpikeSlices() {
                     };
                 }}
                 onMouseOutCapture={(e) => {
-                    hueColorWheelState.selectedColor = null;
+                    hueColorWheelState.colorTimeoutId = window.setTimeout(() => {
+                        hueColorWheelState.selectedColor = null;
+                    }, 300);
                 }}
             />
         );
