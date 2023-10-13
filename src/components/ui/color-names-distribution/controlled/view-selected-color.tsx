@@ -21,9 +21,10 @@ function ColorText() {
     if (!selectedColor) {
         return null;
     }
+    const name = selectedColor.dataKey.split(',')[3];
     return (
         <text x={500} y={500} id="colorText" className="readout">
-            <tspan id="colorName" textAnchor="middle" x={500} dy={-3}>{selectedColor.dataKey}</tspan>
+            <tspan id="colorName" textAnchor="middle" x={500} dy={-3}>{name}</tspan>
             <tspan id="colorHSL" textAnchor="middle" x={500} dy={25}>{selectedColor.fill}</tspan>
         </text>
     );
@@ -34,9 +35,10 @@ function GrayText() {
     if (!selectedColor) {
         return null;
     }
+    const name = selectedColor.dataKey.split(',')[3];
     return (
         <text x={500} y={1125} id="grayText" className="readout">
-            <tspan id="grayName" textAnchor="middle" x={500} dy={2}>{selectedColor.dataKey}</tspan>
+            <tspan id="grayName" textAnchor="middle" x={500} dy={2}>{name}</tspan>
             <tspan id="grayHSL" textAnchor="middle" x={500} dy={23}>{selectedColor.fill}</tspan>
         </text>
     );
