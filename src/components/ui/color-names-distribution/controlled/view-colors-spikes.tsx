@@ -37,9 +37,7 @@ function GenerateSpikeSlices() {
                     };
                 }}
                 onMouseOutCapture={(e) => {
-                    hueColorWheelState.colorTimeoutId = window.setTimeout(() => {
-                        hueColorWheelState.selectedColor = null;
-                    }, 300);
+                    hueColorWheelState.colorTimeoutId = window.setTimeout(() => hueColorWheelState.selectedColor = null, 400);
                 }}
             />
         );

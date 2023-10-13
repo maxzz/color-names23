@@ -46,9 +46,7 @@ function GenerateSlices() {
                     };
                 }}
                 onMouseOutCapture={(e) => {
-                    hueColorWheelState.grayTimeoutId = window.setTimeout(() => {
-                        hueColorWheelState.selectedGray = null;
-                    }, 300);
+                    hueColorWheelState.grayTimeoutId = window.setTimeout(() => hueColorWheelState.selectedGray = null, 400);
                 }}
 
             />

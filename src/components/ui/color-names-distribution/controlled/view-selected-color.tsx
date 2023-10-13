@@ -27,7 +27,7 @@ function ColorText() {
     const fill = dark ? 'fill-white' : 'fill-black';
     return (
         <text x={500} y={500}>
-            <tspan textAnchor="middle" x={500} dy={-3} className={`font-bold text-2xl ${fill} stroke-black stroke-[.5]`}>{name}</tspan>
+            <tspan textAnchor="middle" x={500} dy={-3} className={`font-bold text-2xl tracking-tight ${fill} stroke-black stroke-[.5]`}>{name}</tspan>
             <tspan textAnchor="middle" x={500} dy={25} className={`font-bold ${fill} stroke-black stroke-[.2]`}>{selectedColor.fill}</tspan>
         </text>
     );
@@ -42,8 +42,8 @@ function GrayText() {
     const name = keys[3];
     return (
         <text x={500} y={1125}>
-            <tspan textAnchor="middle" x={500} dy={2}>{name}</tspan>
-            <tspan textAnchor="middle" x={500} dy={23}>{selectedColor.fill}</tspan>
+            <tspan textAnchor="middle" x={500} dy={2} className={`font-bold text-3xl tracking-tighter fill-black stroke-neutral-100/30 stroke-[.3]`}>{name}</tspan>
+            <tspan textAnchor="middle" x={500} dy={23} className={`font-bold text-xl fill-black stroke-neutral-100/30 stroke-[.1]`}>{selectedColor.fill}</tspan>
         </text>
     );
 }

@@ -5,7 +5,12 @@ function generateCircleSlices(x: number, y: number, innerRadius: number, outerRa
     const rv = [];
     for (var i = 0; i < 360 * resolution; i++) {
         const hue = i / resolution;
-        const path = <path d={createSlicePath(x, y, innerRadius, outerRadius, hue, 2.5)} fill={`hsl(${hue}, 100%, 50%)`} data-key={`${hue}`} key={i} />;
+        const path = <path
+            d={createSlicePath(x, y, innerRadius, outerRadius, hue, 2.5)}
+            fill={`hsl(${hue}, 100%, 50%)`}
+            data-key={`${hue}`}
+            key={i}
+        />;
         rv.push(path);
     }
     return rv;
