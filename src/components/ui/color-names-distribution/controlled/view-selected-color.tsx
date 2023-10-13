@@ -12,9 +12,6 @@ function WheelWellCenter() {
             cy={consts.y}
             r={consts.innerRadius - (consts.swatchWidth / 5)}
             fill={fill}
-            // temp
-            // className="fill-blue-300"
-            id="wheel-well"
         />
     );
 }
@@ -29,9 +26,9 @@ function ColorText() {
     const dark = rgbLuminance(hslToRgb(keys)) <= 0.6 ? true : false;
     const fill = dark ? 'fill-white' : 'fill-black';
     return (
-        <text x={500} y={500} id="colorText" className="readout">
-            <tspan id="colorName" textAnchor="middle" x={500} dy={-3} className={`font-bold text-2xl ${fill} stroke-black stroke-[.5]`}>{name}</tspan>
-            <tspan id="colorHSL" textAnchor="middle" x={500} dy={25} className={`font-bold ${fill} stroke-black stroke-[.2]`}>{selectedColor.fill}</tspan>
+        <text x={500} y={500}>
+            <tspan textAnchor="middle" x={500} dy={-3} className={`font-bold text-2xl ${fill} stroke-black stroke-[.5]`}>{name}</tspan>
+            <tspan textAnchor="middle" x={500} dy={25} className={`font-bold ${fill} stroke-black stroke-[.2]`}>{selectedColor.fill}</tspan>
         </text>
     );
 }
@@ -44,9 +41,9 @@ function GrayText() {
     const keys = selectedColor.dataKey.split(',') as HslName;
     const name = keys[3];
     return (
-        <text x={500} y={1125} id="grayText" className="readout">
-            <tspan id="grayName" textAnchor="middle" x={500} dy={2}>{name}</tspan>
-            <tspan id="grayHSL" textAnchor="middle" x={500} dy={23}>{selectedColor.fill}</tspan>
+        <text x={500} y={1125}>
+            <tspan textAnchor="middle" x={500} dy={2}>{name}</tspan>
+            <tspan textAnchor="middle" x={500} dy={23}>{selectedColor.fill}</tspan>
         </text>
     );
 }
