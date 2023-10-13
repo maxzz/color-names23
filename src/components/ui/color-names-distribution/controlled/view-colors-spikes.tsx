@@ -1,7 +1,7 @@
 import { consts } from "./consts";
 import { colorkeys } from "../original/init-color-keys";
 import { createSlicePath } from "../original/utils-svg";
-import { hueColorWheelState } from "./state";
+import { colorToCopyState, hueColorWheelState } from "./state";
 
 function GenerateSpikeSlices() {
     var same = 0;
@@ -28,7 +28,15 @@ function GenerateSpikeSlices() {
                 data-key={`${color}`}
                 type='color'
                 key={idx}
-                onMouseOverCapture={(e) => {
+
+                onClick={async () => {
+                    if (color[3]) {
+                        await navigator.clipboard.writeText(color[3]);
+                        colorToCopyState.text = color[3];
+                    }
+                }}
+
+                onMouseOverCapture={() => {
                     clearTimeout(hueColorWheelState.colorTimeoutId);
                     hueColorWheelState.selectedColor = {
                         type: 'color',
@@ -36,7 +44,8 @@ function GenerateSpikeSlices() {
                         dataKey: `${color}`,
                     };
                 }}
-                onMouseOutCapture={(e) => {
+
+                onMouseOutCapture={() => {
                     hueColorWheelState.colorTimeoutId = window.setTimeout(() => hueColorWheelState.selectedColor = null, 400);
                 }}
             />

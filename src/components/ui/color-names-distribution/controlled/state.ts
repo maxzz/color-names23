@@ -19,3 +19,7 @@ export const hueColorWheelState = proxy<HueColorWheelState>({
     colorTimeoutId: 0,
     grayTimeoutId: 0,
 });
+
+export const colorToCopyState = proxy({
+    text: '',
+});
