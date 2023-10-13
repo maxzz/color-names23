@@ -1,6 +1,7 @@
 import { useSnapshot } from "valtio";
 import { consts } from "./consts";
 import { hueColorWheelState } from "./state";
+import { HslName, hslToRgb, rgbLuminance } from "../original/utils-color";
 
 function WheelWellCenter() {
     return (
@@ -21,10 +22,12 @@ function ColorText() {
     if (!selectedColor) {
         return null;
     }
-    const name = selectedColor.dataKey.split(',')[3];
+    const keys = selectedColor.dataKey.split(',') as HslName;
+    const dark = rgbLuminance(hslToRgb(keys)) <= 0.6 ? true : false;
+    const name = keys[3];
     return (
         <text x={500} y={500} id="colorText" className="readout">
-            <tspan id="colorName" textAnchor="middle" x={500} dy={-3}>{name}</tspan>
+            <tspan id="colorName" textAnchor="middle" x={500} dy={-3} className={`${dark ? 'fill-white':''}`}>{name}</tspan>
             <tspan id="colorHSL" textAnchor="middle" x={500} dy={25}>{selectedColor.fill}</tspan>
         </text>
     );
@@ -35,7 +38,8 @@ function GrayText() {
     if (!selectedColor) {
         return null;
     }
-    const name = selectedColor.dataKey.split(',')[3];
+    const keys = selectedColor.dataKey.split(',') as HslName;
+    const name = keys[3];
     return (
         <text x={500} y={1125} id="grayText" className="readout">
             <tspan id="grayName" textAnchor="middle" x={500} dy={2}>{name}</tspan>
