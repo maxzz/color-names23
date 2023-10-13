@@ -1,4 +1,6 @@
+import { useSnapshot } from "valtio";
 import { consts } from "./consts";
+import { hueColorWheelState } from "./state";
 
 function WheelWellCenter() {
     return (
@@ -15,27 +17,34 @@ function WheelWellCenter() {
 }
 
 function ColorText() {
+    const { selectedColor } = useSnapshot(hueColorWheelState);
+    if (!selectedColor) {
+        return null;
+    }
     return (
         <text x={500} y={500} id="colorText" className="readout">
-            <tspan id="colorName" textAnchor="middle" x={500} dy={-3} />
-            <tspan id="colorHSL" textAnchor="middle" x={500} dy={25} />
+            <tspan id="colorName" textAnchor="middle" x={500} dy={-3}>{selectedColor.type}</tspan>
+            <tspan id="colorHSL" textAnchor="middle" x={500} dy={25}>{selectedColor.fill}</tspan>
         </text>
     );
 }
 
 function GrayText() {
+    const { selectedGray: selectedColor } = useSnapshot(hueColorWheelState);
+    if (!selectedColor) {
+        return null;
+    }
     return (
         <text x={500} y={1125} id="grayText" className="readout">
-            <tspan id="grayName" textAnchor="middle" x={500} dy={2} />
-            <tspan id="grayHSL" textAnchor="middle" x={500} dy={23} />
+            <tspan id="grayName" textAnchor="middle" x={500} dy={2}>{selectedColor.type}</tspan>
+            <tspan id="grayHSL" textAnchor="middle" x={500} dy={23}>{selectedColor.fill}</tspan>
         </text>
     );
 }
 
-
 export function SelectedColor() {
     return (
-        <g>
+        <g type="selected-color">
             <WheelWellCenter />
             <ColorText />
             <GrayText />
