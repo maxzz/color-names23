@@ -38,14 +38,21 @@ function GenerateSlices() {
                 key={idx}
 
                 onMouseOverCapture={(e) => {
+                    console.log(`mouse in hsl(0,0%,${light}%)`);
+
+                    clearTimeout(hueColorWheelState.grayTimeoutId);
                     hueColorWheelState.selectedGray = {
-                        type: 'color',
+                        type: 'gray',
                         fill: `hsl(0,0%,${light}%)`,
                         dataKey: `${color}`,
                     };
                 }}
                 onMouseOutCapture={(e) => {
-                    hueColorWheelState.selectedGray = null;
+                    console.log(`mouse out hsl(0,0%,${light}%)`);
+                    
+                    hueColorWheelState.grayTimeoutId = window.setTimeout(() => {
+                        hueColorWheelState.selectedGray = null;
+                    }, 300);
                 }}
 
             />

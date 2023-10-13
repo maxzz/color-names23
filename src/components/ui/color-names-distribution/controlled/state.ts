@@ -9,9 +9,13 @@ type Color = {
 type HueColorWheelState = {
     selectedColor: Color | null;
     selectedGray: Color | null;
+    colorTimeoutId: number;
+    grayTimeoutId: number;
 };
 
 export const hueColorWheelState = proxy<HueColorWheelState>({
     selectedColor: null,
     selectedGray: null,
+    colorTimeoutId: 0,
+    grayTimeoutId: 0,
 });
