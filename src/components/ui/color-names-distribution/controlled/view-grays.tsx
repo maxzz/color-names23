@@ -1,4 +1,5 @@
 import { colorkeys } from "../original/init-color-keys";
+import { hueColorWheelState } from "./state";
 
 const localConsts = {
     barWidth: 600,
@@ -35,6 +36,18 @@ function GenerateSlices() {
                 data-key={`${color}`}
                 type='gray'
                 key={idx}
+
+                onMouseOverCapture={(e) => {
+                    hueColorWheelState.selectedGray = {
+                        type: 'color',
+                        fill: `hsl(0,0%,${light}%)`,
+                        dataKey: `${color}`,
+                    };
+                }}
+                onMouseOutCapture={(e) => {
+                    hueColorWheelState.selectedGray = null;
+                }}
+
             />
         );
     });
