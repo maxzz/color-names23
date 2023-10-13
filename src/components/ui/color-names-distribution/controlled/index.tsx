@@ -5,6 +5,7 @@ import { GrayBar } from "./colors-gray";
 import { useZoom } from "./action-zoom";
 import { SVGAttributes } from "react";
 import { classNames } from "@/utils";
+import { useDrag } from "./action-drag";
 
 function WheelWellCenter() {
     return (
@@ -39,10 +40,11 @@ function GrayText() {
 }
 
 export function ColorNamesWheel({className, ...rest}: SVGAttributes<SVGSVGElement>) {
-    const setSvgRef = useZoom();
+    const setSvgZoomRef = useZoom();
+    const setSvgDragRef = useDrag();
     return (
         <svg
-            ref={setSvgRef}
+            ref={(ref) => (setSvgZoomRef(ref), setSvgDragRef(ref))}
             viewBox="0 0 1000 1200"
             version="1.1"
             id="color-wheel"
