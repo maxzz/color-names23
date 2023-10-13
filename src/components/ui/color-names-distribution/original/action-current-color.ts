@@ -1,13 +1,13 @@
 import { HslName, hslToRgb, rgbLuminance } from "./utils-color";
 import { uiElements } from "./ui-view-dom";
 
-var mousedelay: number;
+var mouseDelayTimeoutId: number;
 
 export function showColor(evt: MouseEvent) {
-    window.clearTimeout(mousedelay);
+    window.clearTimeout(mouseDelayTimeoutId);
 
     const obj = evt.target as SVGGraphicsElement;
-    if(!obj) {
+    if (!obj) {
         return;
     }
 
@@ -27,8 +27,7 @@ export function showColor(evt: MouseEvent) {
 
     if (dark && ctype == "color") {
         colorText.classList.add('dark');
-    }
-    else {
+    } else {
         colorText.classList.remove('dark');
     };
 
@@ -38,7 +37,7 @@ export function showColor(evt: MouseEvent) {
 }
 
 export function clearColor(evt: MouseEvent) {
-    mousedelay = window.setTimeout(function () {
+    mouseDelayTimeoutId = window.setTimeout(function () {
         const obj = evt.target as HTMLElement;
         if (!obj) {
             return;
@@ -47,7 +46,7 @@ export function clearColor(evt: MouseEvent) {
         const colorText = uiElements[(ctype + 'Text') as 'colorText' | 'grayText']; //document.getElementById(ctype + 'Text')
         const colorName = uiElements[(ctype + 'Name') as 'colorName' | 'grayName']; //document.getElementById(ctype + 'Name');
         const colorHSL = uiElements[(ctype + 'HSL') as 'colorHSL' | 'grayHSL'];     //document.getElementById(ctype + 'HSL');
-    
+
         colorText.classList.remove('dark');
         colorName.innerHTML = "";
         colorHSL.innerHTML = "";
