@@ -1,31 +1,30 @@
 import { useEffect, useRef, useState } from "react";
-import { getSvgRootElement, svgCoords, shiftViewBox } from "../original/utils-svg";
+import { svgCoords, shiftViewBox } from "../original/utils-svg";
 
 export function useDrag() {
     const [svgRef, setSvgRef] = useState<SVGSVGElement | null>();
     const anchorPointRef = useRef<DOMPoint | undefined>();
+
     useEffect(() => {
         if (!svgRef) {
             return;
         }
 
         function dragger(event: MouseEvent) {
-            const svg: SVGSVGElement | null = getSvgRootElement(event);
-            if (!svg) {
+            if (!svgRef) {
                 return;
             }
         
-            let targetPoint = svgCoords(svg, event);
-            anchorPointRef.current && shiftViewBox(svg, anchorPointRef.current.x - targetPoint.x, anchorPointRef.current.y - targetPoint.y);
+            let targetPoint = svgCoords(svgRef, event);
+            anchorPointRef.current && shiftViewBox(svgRef, anchorPointRef.current.x - targetPoint.x, anchorPointRef.current.y - targetPoint.y);
         }
         
         function cancelDrag(event: MouseEvent) {
-            const svg: SVGSVGElement | null = getSvgRootElement(event);
-            if (!svg) {
+            if (!svgRef) {
                 return;
             }
         
-            svg.classList.remove('dragging');
+            svgRef.classList.remove('dragging');
         
             window.removeEventListener("mousemove", dragger);
             window.removeEventListener("mouseup", cancelDrag);
@@ -34,17 +33,16 @@ export function useDrag() {
         }
         
         function dragView(event: MouseEvent) {
-            const svg: SVGSVGElement | null = getSvgRootElement(event);
-            if (!svg) {
+            if (!svgRef) {
                 return;
             }
         
-            anchorPointRef.current = svgCoords(svg, event);
+            anchorPointRef.current = svgCoords(svgRef, event);
         
             window.addEventListener("mousemove", dragger);
             window.addEventListener("mouseup", cancelDrag);
         
-            svg.classList.add('dragging');
+            svgRef.classList.add('dragging');
         }
         
         svgRef.addEventListener("mousedown", dragView, false);
@@ -52,6 +50,6 @@ export function useDrag() {
             svgRef.removeEventListener('wheel', dragView);
         };
     }, [svgRef]);
-    
+
     return setSvgRef;
 }
