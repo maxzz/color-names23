@@ -1,7 +1,7 @@
 import { consts } from "./consts";
 import { createSlicePath } from "../original/utils-svg";
 
-function generateSlices(x: number, y: number, innerRadius: number, outerRadius: number, resolution: number) {
+function generateCircleSlices(x: number, y: number, innerRadius: number, outerRadius: number, resolution: number) {
     const rv = [];
     for (var i = 0; i < 360 * resolution; i++) {
         const hue = i / resolution;
@@ -14,7 +14,7 @@ function generateSlices(x: number, y: number, innerRadius: number, outerRadius: 
 export function ColorsWheel() {
     return (
         <g type="wheel">
-            {generateSlices(consts.x, consts.y, consts.innerRadius, consts.outerRadius, 1)}
+            {generateCircleSlices(consts.x, consts.y, consts.innerRadius, consts.outerRadius, 1)}
         </g>
     );
 }

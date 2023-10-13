@@ -1,7 +1,7 @@
 import { consts } from "./consts";
-import { ColorsWheel } from "./colors-wheel";
-import { ColorsWheelSpikes } from "./colors-wheel-spikes";
-import { GrayBar } from "./colors-gray";
+import { ColorsWheel } from "./view-colors";
+import { ColorsWheelSpikes } from "./view-colors-spikes";
+import { GrayBar } from "./view-grays";
 import { useZoom } from "./action-zoom";
 import { SVGAttributes } from "react";
 import { classNames } from "@/utils";

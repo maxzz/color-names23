@@ -71,6 +71,7 @@ function zoomView(event: WheelEvent): boolean {
 
 export function useZoom() {
     const [svgRef, setSvgRef] = useState<SVGSVGElement | null>();
+
     useEffect(() => {
         if (!svgRef) {
             return;
@@ -85,5 +86,6 @@ export function useZoom() {
             svgRef.removeEventListener('wheel', handler);
         };
     }, [svgRef]);
+    
     return setSvgRef;
 }

@@ -2,7 +2,7 @@ import { consts } from "./consts";
 import { colorkeys } from "../original/init-color-keys";
 import { createSlicePath } from "../original/utils-svg";
 
-function GenerateSlices() {
+function GenerateSpikeSlices() {
     var same = 0;
     const rv = colorkeys.map((color, idx) => {
         const hue = color[0];
@@ -36,7 +36,7 @@ function GenerateSlices() {
 export function ColorsWheelSpikes() {
     return (
         <g type="spikes">
-            <GenerateSlices />
+            <GenerateSpikeSlices />
         </g>
     );
 }
