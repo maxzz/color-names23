@@ -1,3 +1,5 @@
+const { parse } = require("path");
+
 module.exports = function ({ addComponents, theme }) {
     //https://github.com/jorenvanhee/tailwindcss-debug-screens
     //use: add class 'debug-screens' on any top element
@@ -14,7 +16,8 @@ module.exports = function ({ addComponents, theme }) {
     const positionY = position[0] || defaultPosition[0];
     const positionX = position[1] || defaultPosition[1];
 
-    const screenEntries = Object.entries(screens);
+    // const screenEntries = Object.entries(screens);
+    const screenEntries = sortScreenEntries(screens);
 
     const components = {
         [`${selector}::before`]: Object.assign({
@@ -36,9 +39,21 @@ module.exports = function ({ addComponents, theme }) {
     };
 
     console.log('----------------------- screenEntries', screenEntries);
-    console.log('----------------------- screens', screens);
-    console.log('----------------------- normalizeScreens', JSON.stringify(normalizeScreens(screens), null, 4));
-    console.log('----------------------- extractMinWidths', JSON.stringify(extractMinWidths(normalizeScreens(screens)), null, 4));
+    // console.log('----------------------- screens', screens);
+    // console.log('----------------------- normalizeScreens', JSON.stringify(normalizeScreens(screens), null, 4));
+    //console.log('----------------------- extractMinWidths', JSON.stringify(extractMinWidths(normalizeScreens(screens)), null, 4));
+    // console.log('----------------------- extractMinWidths2', JSON.stringify(Object.fromEntries(extractMinWidths2(normalizeScreens(screens))), null, 4));
+    //console.log('----------------------- sortScreenEntries', JSON.stringify(Object.fromEntries(sortScreenEntries(screens)), null, 4));
+    //console.log('----------------------- screenEntries', JSON.stringify(screenEntries), null, 4);
+
+    function sortScreenEntries(screens) {
+        const newScreens = extractMinWidths2(normalizeScreens(screens));
+        //newScreens.push(['xsm', '501px']); // This smallest screen allowed by Chrome.
+        newScreens.push(['sm0', '501px']); // This smallest screen allowed by Chrome.
+        console.log('----------------------- newScreens', JSON.stringify(newScreens, null, 4));
+        newScreens.sort((a, b) => parseInt(a[1]) - parseInt(b[1]));
+        return newScreens;
+    }
 
     screenEntries
         .filter(([screen]) => !ignoredScreens.includes(screen))
@@ -87,6 +102,53 @@ function extractMinWidths(breakpoints = []) {
       .flatMap((breakpoint) => breakpoint.values.map((breakpoint) => breakpoint.min))
       .filter((v) => v !== undefined)
 }
+
+function extractMinWidths2(breakpoints = []) {
+    return breakpoints
+      .flatMap((breakpoint) => breakpoint.values.map((brk) => [breakpoint.name, brk.min]))
+      .filter((v) => v !== undefined)
+}
+
+/*
+console.log('----------------------- extractMinWidths2', JSON.stringify(extractMinWidths2(normalizeScreens(screens)), null, 4));
+
+function extractMinWidths2(breakpoints = []) {
+    return breakpoints
+      .flatMap((breakpoint) => breakpoint.values.map((brk) => [breakpoint.name, brk.min]))
+      .filter((v) => v !== undefined)
+}
+
+----------------------- extractMinWidths2 [
+    [
+        "sm",
+        "640px"
+    ],
+    [
+        "md",
+        "768px"
+    ],
+    [
+        "lg",
+        "1024px"
+    ],
+    [
+        "xl",
+        "1350px"
+    ],
+    [
+        "2xl",
+        "1536px"
+    ],
+    [
+        "xs",
+        "420px"
+    ],
+    [
+        "3xl",
+        "1920px"
+    ]
+]
+*/
 
   /*
 ----------------------- screenEntries [
@@ -224,6 +286,21 @@ function extractMinWidths(breakpoints = []) {
 }
 
 // ------------------------------------- This is how it should be:
+
+  .debug-screens::before{
+    position: fixed;
+    z-index: 2147483647;
+    bottom: 0;
+    left: 0;
+    padding: .3333333em .5em;
+    font-size: 12px;
+    line-height: 1;
+    font-family: sans-serif;
+    background-color: #000;
+    color: #fff;
+    box-shadow: 0 0 0 1px #fff;
+    content: 'screen: _'
+  }
 
   @media (min-width: 420px){
     .debug-screens::before{
