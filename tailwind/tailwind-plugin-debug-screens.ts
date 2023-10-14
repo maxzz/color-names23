@@ -71,11 +71,11 @@ module.exports = plugin(
     },
     {
         theme: {
-            debugScreens: {
+            // debugScreens: {
                 screens: {
                     'sm0': '501px',
                 }
-            }
+            // }
         }
     }
 );
