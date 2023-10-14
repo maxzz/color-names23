@@ -182,3 +182,44 @@ function extractMinWidths(breakpoints = []) {
     "1920px"
 ]
 */
+
+/*
+This is the problem in the generated css:
+
+@media (min-width: 640px) {
+
+  .debug-screens::before {
+    content: 'screen: sm (640px)';
+  }
+}
+@media (min-width: 768px) {
+
+  .debug-screens::before {
+    content: 'screen: md (768px)';
+  }
+}
+@media (min-width: 1024px) {
+
+  .debug-screens::before {
+    content: 'screen: lg (1024px)';
+  }
+}
+@media (min-width: 1280px) {
+
+  .debug-screens::before {
+    content: 'screen: xl (1280px)';
+  }
+}
+@media (min-width: 1536px) {
+
+  .debug-screens::before {
+    content: 'screen: 2xl (1536px)';
+  }
+}
+@media (min-width: 501px) {
+
+  .debug-screens::before {
+    content: 'screen: smallest (501px)';
+  }
+}
+*/
