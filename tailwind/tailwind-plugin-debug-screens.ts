@@ -1,12 +1,15 @@
 import plugin from 'tailwindcss/plugin';
 import twTheme from 'tailwindcss/defaultTheme';
-import { ThemeConfig } from 'tailwindcss/types/config';
+import { KeyValuePair, ResolvableTo, ScreensConfig, ThemeConfig } from 'tailwindcss/types/config';
+
+type MyScreensType = ResolvableTo<ScreensConfig>;
 
 module.exports = plugin(
     function ({ addComponents, theme }) {
         //https://github.com/jorenvanhee/tailwindcss-debug-screens // use: add class 'debug-screens' on any top element
 
-        const screens = theme('screens') || {}; // screens { xs: '420px', sm: '640px', md: '768px', lg: '1024px', xl: '1280px' /*or xl: '1350px'*/, '2xl': '1536px', '3xl': '1920px'; }
+        // screens { xs: '420px', sm: '640px', md: '768px', lg: '1024px', xl: '1280px' /*or xl: '1350px'*/, '2xl': '1536px', '3xl': '1920px'; }
+        const screens = (theme('screens') || {}) as ResolvableTo<ScreensConfig>;
         const userStyles = theme('debugScreens.style', {});
         const ignoredScreens = theme('debugScreens.ignore', ['dark']);
         const prefix = theme('debugScreens.prefix', 'screen: ');
@@ -65,7 +68,7 @@ module.exports = plugin(
     }
 );
 
-function sortScreenEntries(screens) {
+function sortScreenEntries(screens: ResolvableTo<ScreensConfig>) {
     const normalized = normalizeScreens(screens);
     const newScreens = extractScreenValues(normalized);
     newScreens.sort((a, b) => parseInt(a[1]) - parseInt(b[1]));
@@ -76,46 +79,48 @@ function sortScreenEntries(screens) {
         max: string | undefined;
         raw?: string;
     };
-    
+
     type NormalizeScreen = {
         name: string;
         not: boolean;
         values: NormalizeScreenValue[];
     };
-    
-    function normalizeScreens(screens: any[], root = true): NormalizeScreen[] {
+
+    function normalizeScreens(screens: ResolvableTo<ScreensConfig>, root = true): NormalizeScreen[] {
         if (Array.isArray(screens)) {
-            return screens.map((screen) => {
-                if (root && Array.isArray(screen)) {
-                    throw new Error('The tuple syntax is not supported for `screens`.');
+            return screens.map(
+                (screen: string | KeyValuePair<string, string | Screen | Screen[]>) => {
+                    if (root && Array.isArray(screen)) {
+                        throw new Error('The tuple syntax is not supported for `screens`.');
+                    }
+
+                    if (typeof screen === 'string') {
+                        return { name: screen.toString(), not: false, values: [{ min: screen, max: undefined }] };
+                    }
+
+                    let [name, options] = screen as KeyValuePair<string, string | Screen | Screen[];
+                    name = name.toString();
+
+                    if (typeof options === 'string') {
+                        return { name, not: false, values: [{ min: options, max: undefined }] };
+                    }
+
+                    if (Array.isArray(options)) {
+                        return { name, not: false, values: options.map((option) => resolveValue(option)) };
+                    }
+
+                    return { name, not: false, values: [resolveValue(options)] };
                 }
-    
-                if (typeof screen === 'string') {
-                    return { name: screen.toString(), not: false, values: [{ min: screen, max: undefined }] };
-                }
-    
-                let [name, options] = screen;
-                name = name.toString();
-    
-                if (typeof options === 'string') {
-                    return { name, not: false, values: [{ min: options, max: undefined }] };
-                }
-    
-                if (Array.isArray(options)) {
-                    return { name, not: false, values: options.map((option) => resolveValue(option)) };
-                }
-    
-                return { name, not: false, values: [resolveValue(options)] };
-            });
+            );
         }
-    
+
         return normalizeScreens(Object.entries(screens ?? {}), false);
-    
+
         function resolveValue({ 'min-width': _minWidth, min = _minWidth, max, raw }): NormalizeScreenValue {
             return { min, max, raw }; // it was: resolveValue({ 'min-width': _minWidth, min = _minWidth, max, raw } = {}) {
         }
     }
-    
+
     function extractScreenValues(breakpoints: NormalizeScreen[] = []): string[][] {
         return breakpoints
             .flatMap((breakpoint) => breakpoint.values.map((brk) => [breakpoint.name, brk.min]))
