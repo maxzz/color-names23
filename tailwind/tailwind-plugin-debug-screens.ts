@@ -1,14 +1,12 @@
 import plugin from 'tailwindcss/plugin';
 import twTheme from 'tailwindcss/defaultTheme';
-import { KeyValuePair, ResolvableTo, ScreensConfig, ThemeConfig } from 'tailwindcss/types/config';
+import { ResolvableTo, ScreensConfig } from 'tailwindcss/types/config';
 
-type MyScreensType = ResolvableTo<ScreensConfig>;
+// screens { xs: '420px', sm: '640px', md: '768px', lg: '1024px', xl: '1280px' /*or xl: '1350px'*/, '2xl': '1536px', '3xl': '1920px'; }
+// https://github.com/jorenvanhee/tailwindcss-debug-screens // use: add class 'debug-screens' on any top element
 
 module.exports = plugin(
     function ({ addComponents, theme }) {
-        //https://github.com/jorenvanhee/tailwindcss-debug-screens // use: add class 'debug-screens' on any top element
-
-        // screens { xs: '420px', sm: '640px', md: '768px', lg: '1024px', xl: '1280px' /*or xl: '1350px'*/, '2xl': '1536px', '3xl': '1920px'; }
         const screens = (theme('screens') || {}) as ResolvableTo<ScreensConfig>;
         const userStyles = theme('debugScreens.style', {});
         const ignoredScreens = theme('debugScreens.ignore', ['dark']);
@@ -20,13 +18,13 @@ module.exports = plugin(
         const positionX = position[1] || defaultPosition[1];
         const positionY = position[0] || defaultPosition[0];
 
-        const screenEntries = sortScreenEntries(screens);
+        const screenEntries = sortScreenEntries(screens).filter(([screen]) => !ignoredScreens.includes(screen));
         const lowestScreenEntryName = screenEntries?.[0]?.[0];
         const lowestScreenEntrSize = screenEntries?.[0]?.[1];
 
         //console.log('----------------------- screenEntries', JSON.stringify(screenEntries));
 
-        const components: any = {
+        const components: Record<string, any> = {
             [`${selector}::before`]:
                 Object.assign({
                     zIndex: '2147483647',
@@ -46,15 +44,13 @@ module.exports = plugin(
                 }, userStyles),
         };
 
-        screenEntries
-            .filter(([screen]) => !ignoredScreens.includes(screen))
-            .forEach(([screen, size]) => {
-                components[`@screen ${screen}`] = {
-                    [`${selector}::before`]: {
-                        content: `'${prefix}${screen} (${size})'`,
-                    },
-                };
-            });
+        screenEntries.forEach(([screen, size]) => {
+            components[`@screen ${screen}`] = {
+                [`${selector}::before`]: {
+                    content: `'${prefix}${screen} (${size})'`,
+                },
+            };
+        });
 
         addComponents(components);
     },
@@ -68,7 +64,7 @@ module.exports = plugin(
     }
 );
 
-function sortScreenEntries(screens: ResolvableTo<ScreensConfig>) {
+function sortScreenEntries(screens) {
     const normalized = normalizeScreens(screens);
     const newScreens = extractScreenValues(normalized);
     newScreens.sort((a, b) => parseInt(a[1]) - parseInt(b[1]));
@@ -86,10 +82,10 @@ function sortScreenEntries(screens: ResolvableTo<ScreensConfig>) {
         values: NormalizeScreenValue[];
     };
 
-    function normalizeScreens(screens: ResolvableTo<ScreensConfig>, root = true): NormalizeScreen[] {
+    function normalizeScreens(screens: any[], root = true): NormalizeScreen[] {
         if (Array.isArray(screens)) {
             return screens.map(
-                (screen: string | KeyValuePair<string, string | Screen | Screen[]>) => {
+                (screen) => {
                     if (root && Array.isArray(screen)) {
                         throw new Error('The tuple syntax is not supported for `screens`.');
                     }
@@ -98,7 +94,7 @@ function sortScreenEntries(screens: ResolvableTo<ScreensConfig>) {
                         return { name: screen.toString(), not: false, values: [{ min: screen, max: undefined }] };
                     }
 
-                    let [name, options] = screen as KeyValuePair<string, string | Screen | Screen[];
+                    let [name, options] = screen;
                     name = name.toString();
 
                     if (typeof options === 'string') {
