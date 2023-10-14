@@ -1,11 +1,12 @@
 import plugin from 'tailwindcss/plugin';
 import twTheme from 'tailwindcss/defaultTheme';
+import { ThemeConfig } from 'tailwindcss/types/config';
 
 module.exports = plugin(
     function ({ addComponents, theme }) {
         //https://github.com/jorenvanhee/tailwindcss-debug-screens // use: add class 'debug-screens' on any top element
 
-        const screens = theme('screens'); // screens { xs: '420px', sm: '640px', md: '768px', lg: '1024px', xl: '1280px' /*or xl: '1350px'*/, '2xl': '1536px', '3xl': '1920px'; }
+        const screens = theme('screens') || {}; // screens { xs: '420px', sm: '640px', md: '768px', lg: '1024px', xl: '1280px' /*or xl: '1350px'*/, '2xl': '1536px', '3xl': '1920px'; }
         const userStyles = theme('debugScreens.style', {});
         const ignoredScreens = theme('debugScreens.ignore', ['dark']);
         const prefix = theme('debugScreens.prefix', 'screen: ');
@@ -82,7 +83,7 @@ function sortScreenEntries(screens) {
         values: NormalizeScreenValue[];
     };
     
-    function normalizeScreens(screens, root = true): NormalizeScreen[] {
+    function normalizeScreens(screens: any[], root = true): NormalizeScreen[] {
         if (Array.isArray(screens)) {
             return screens.map((screen) => {
                 if (root && Array.isArray(screen)) {
