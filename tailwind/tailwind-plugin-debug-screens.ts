@@ -1,4 +1,5 @@
 import plugin from 'tailwindcss/plugin';
+import twTheme from 'tailwindcss/defaultTheme';
 
 module.exports = plugin(
     function ({ addComponents, theme }) {
@@ -74,6 +75,7 @@ module.exports = plugin(
             // debugScreens: {
                 screens: {
                     'sm0': '501px',
+                    ...twTheme.screens,
                 }
             // }
         }
