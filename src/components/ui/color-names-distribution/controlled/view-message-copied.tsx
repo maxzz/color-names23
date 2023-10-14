@@ -9,7 +9,7 @@ export function MessageHueColorCopied({ className, ...rest }: HTMLAttributes<HTM
     const styles = useSpring({
         opacity: text ? 1 : 0,
         transform: text ? 'translateY(0)' : 'translateY(100%)',
-        config: { easing: text ? easings.easeOutElastic : easings.linear, duration: text ? 1000 : 1400 },
+        config: { easing: text ? easings.easeOutElastic : easings.linear, duration: text ? 1000 : 400 },
         onRest: () => text && (colorToCopyState.text = ''),
     });
     return (

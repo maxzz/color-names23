@@ -7,9 +7,19 @@ module.exports = {
     darkMode: 'class',
     theme: {
         extend: {
+            // screens: {
+            //     smallest: '501px',
+            // },
             screens: {
-                smallest: '501px',
+                xs: '420px',
+                sm: '640px',
+                md: '768px',
+                lg: '1024px',
+                xl: '1350px',
+                '2xl': '1536px',
+                '3xl': '1920px',
             },
+
             colors: {
                 // primary: {
                 //     100: twColors.blue['500'],
@@ -54,7 +64,7 @@ module.exports = {
                 //     DEFAULT: "hsl(var(--card))",
                 //     foreground: "hsl(var(--card-foreground))",
                 // },
-        
+
 
             },
             fontFamily: {
@@ -75,7 +85,7 @@ module.exports = {
         require('./tailwind/tailwind-plugin-colors-bridge')({ prefix: '--tm-', groupName: 'primary' }),
         require('./tailwind/tailwind-plugin-all-colors'),
         require('./tailwind/tailwnd-plugin-debug-styles'),
-        require('tailwindcss-debug-screens'),
+        require('./tailwind/tailwind-plugin-debug-screens'),
         require('@tailwindcss/forms')({ strategy: 'class' }),
         shadcnPlugin,
     ],
