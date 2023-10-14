@@ -2,8 +2,10 @@ import plugin from 'tailwindcss/plugin';
 import twTheme from 'tailwindcss/defaultTheme';
 import { ResolvableTo, ScreensConfig } from 'tailwindcss/types/config';
 
-// screens { xs: '420px', sm: '640px', md: '768px', lg: '1024px', xl: '1280px' /*or xl: '1350px'*/, '2xl': '1536px', '3xl': '1920px'; }
 // https://github.com/jorenvanhee/tailwindcss-debug-screens // use: add class 'debug-screens' on any top element
+// screens { xs: '420px', sm: '640px', md: '768px', lg: '1024px', xl: '1280px' /*or xl: '1350px'*/, '2xl': '1536px', '3xl': '1920px'; }
+
+type ScreenEntry = [screen: string, size: string];
 
 module.exports = plugin(
     function ({ addComponents, theme }) {
@@ -13,14 +15,17 @@ module.exports = plugin(
         const prefix = theme('debugScreens.prefix', 'screen: ');
         const selector = theme('debugScreens.selector', '.debug-screens');
 
-        const defaultPosition = ['bottom', 'left'];
+        const defaultPosition = ['left', 'bottom'];
         const position = theme('debugScreens.position', defaultPosition);
-        const positionX = position[1] || defaultPosition[1];
-        const positionY = position[0] || defaultPosition[0];
+        const positionX = position[0] || defaultPosition[0];
+        const positionY = position[1] || defaultPosition[1];
 
         const screenEntries = sortScreenEntries(screens).filter(([screen]) => !ignoredScreens.includes(screen));
-        const lowestScreenEntryName = screenEntries?.[0]?.[0];
-        const lowestScreenEntrSize = screenEntries?.[0]?.[1];
+        if (!screenEntries.length) {
+            return;
+        }
+        const lowestScreenName = screenEntries[0][0];
+        const lowestScreenSize = screenEntries[0][1];
 
         //console.log('----------------------- screenEntries', JSON.stringify(screenEntries));
 
@@ -35,20 +40,18 @@ module.exports = plugin(
                     fontSize: '12px',
                     lineHeight: '1',
                     fontFamily: 'sans-serif',
-                    borderRadius: '3px',
-                    border: '1px solid #b1b1b1',
                     color: '#ddd',
                     backgroundColor: '#0008',
+                    border: '1px solid #b1b1b1',
+                    borderRadius: '3px',
                     boxShadow: '0 0 2px 2px #fff5',
-                    content: `'${prefix}${lowestScreenEntryName ? `less then ${lowestScreenEntryName} (${lowestScreenEntrSize})` : '_'}'`,
+                    content: `'${prefix}less then ${lowestScreenName} (${lowestScreenSize})'`,
                 }, userStyles),
         };
 
         screenEntries.forEach(([screen, size]) => {
             components[`@screen ${screen}`] = {
-                [`${selector}::before`]: {
-                    content: `'${prefix}${screen} (${size})'`,
-                },
+                [`${selector}::before`]: { content: `'${prefix}${screen} (${size})'` },
             };
         });
 
@@ -64,7 +67,7 @@ module.exports = plugin(
     }
 );
 
-function sortScreenEntries(screens) {
+function sortScreenEntries(screens): ScreenEntry[] {
     const normalized = normalizeScreens(screens);
     const newScreens = extractScreenValues(normalized);
     newScreens.sort((a, b) => parseInt(a[1]) - parseInt(b[1]));
@@ -117,10 +120,10 @@ function sortScreenEntries(screens) {
         }
     }
 
-    function extractScreenValues(breakpoints: NormalizeScreen[] = []): string[][] {
+    function extractScreenValues(breakpoints: NormalizeScreen[] = []) {
         return breakpoints
             .flatMap((breakpoint) => breakpoint.values.map((brk) => [breakpoint.name, brk.min]))
-            .filter((v) => v !== undefined);
+            .filter((v) => v !== undefined) as ScreenEntry[];
     }
 }
 
