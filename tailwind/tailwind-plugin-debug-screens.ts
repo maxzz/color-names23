@@ -2,14 +2,29 @@ import plugin from 'tailwindcss/plugin';
 import twTheme from 'tailwindcss/defaultTheme';
 import { ResolvableTo, ScreensConfig } from 'tailwindcss/types/config';
 
-// https://github.com/jorenvanhee/tailwindcss-debug-screens // use: add class 'debug-screens' on any top element
-// screens { xs: '420px', sm: '640px', md: '768px', lg: '1024px', xl: '1280px' /*or xl: '1350px'*/, '2xl': '1536px', '3xl': '1920px'; }
+// based on https://github.com/jorenvanhee/tailwindcss-debug-screens // use: add class 'debug-screens' on any top element
+
+const extraScreens = {
+    xs: '420px',
+    xsm: '501px', // Chrome minimum screen size is 500px
+    sm: '640px',
+    md: '768px',
+    lg: '1024px',
+    xl: '1280px' /*or xl: '1350px'*/,
+    '2xl': '1536px',
+    '3xl': '1920px'
+};
+
+const screensToTheme = { // TODO: make it configurable
+    ...extraScreens,
+    ...twTheme.screens,
+};
 
 type ScreenEntry = [screen: string, size: string];
 
 module.exports = plugin(
     function ({ addComponents, theme }) {
-        const screens = (theme('screens') || {}) as ResolvableTo<ScreensConfig>;
+        const screens = (theme('screens') || {}) as ResolvableTo<ScreensConfig>; // { sm: '640px', md: '768px', ... }
         const userStyles = theme('debugScreens.style', {});
         const ignoredScreens = theme('debugScreens.ignore', ['dark']);
         const prefix = theme('debugScreens.prefix', 'screen: ');
@@ -60,7 +75,7 @@ module.exports = plugin(
     {
         theme: {
             screens: {
-                'xs': '501px', // Chrome minimum screen size is 500px
+                'xsm': '501px', // Chrome minimum screen size is 500px
                 ...twTheme.screens,
             }
         }
