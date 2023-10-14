@@ -1,10 +1,10 @@
-const { parse } = require("path");
+import plugin from 'tailwindcss/plugin';
 
-module.exports = function ({ addComponents, theme }) {
+module.exports = plugin(function ({ addComponents, theme }) {
     //https://github.com/jorenvanhee/tailwindcss-debug-screens
     //use: add class 'debug-screens' on any top element
 
-    const screens = theme('screens'); // {sm: '640px', md: '768px', lg: '1024px', xl: '1280px', '2xl': '1536px'}
+    const screens = theme('screens')!; // {sm: '640px', md: '768px', lg: '1024px', xl: '1280px', '2xl': '1536px'}
 
     const userStyles = theme('debugScreens.style', {});
     const ignoredScreens = theme('debugScreens.ignore', ['dark']);
@@ -16,10 +16,10 @@ module.exports = function ({ addComponents, theme }) {
     const positionY = position[0] || defaultPosition[0];
     const positionX = position[1] || defaultPosition[1];
 
-    // const screenEntries = Object.entries(screens);
-    const screenEntries = sortScreenEntries(screens);
+    const screenEntries = Object.entries(screens);
+    //const screenEntries = sortScreenEntries(screens);
 
-    const components = {
+    const components: any = {
         [`${selector}::before`]: Object.assign({
             position: 'fixed',
             zIndex: '2147483647',
@@ -47,7 +47,8 @@ module.exports = function ({ addComponents, theme }) {
     //console.log('----------------------- screenEntries', JSON.stringify(screenEntries), null, 4);
 
     function sortScreenEntries(screens) {
-        const newScreens = extractMinWidths2(normalizeScreens(screens));
+        const normalized = normalizeScreens(screens);
+        const newScreens = extractMinWidths2(normalized);
         //newScreens.push(['xsm', '501px']); // This smallest screen allowed by Chrome.
         newScreens.push(['sm0', '501px']); // This smallest screen allowed by Chrome.
         console.log('----------------------- newScreens', JSON.stringify(newScreens, null, 4));
@@ -66,9 +67,13 @@ module.exports = function ({ addComponents, theme }) {
         });
 
     addComponents(components);
-};
+});
 
-function normalizeScreens(screens, root = true) {
+function resolveValue({ 'min-width': _minWidth, min = _minWidth, max, raw }) {
+    return { min, max, raw }
+  }
+
+function normalizeScreens(screens, root = true): { name: any; not: boolean; values: any[]; }[] {
     if (Array.isArray(screens)) {
         return screens.map((screen) => {
             if (root && Array.isArray(screen)) {
@@ -97,13 +102,13 @@ function normalizeScreens(screens, root = true) {
     return normalizeScreens(Object.entries(screens ?? {}), false);
 }
 
-function extractMinWidths(breakpoints = []) {
+function extractMinWidths(breakpoints: any[] = []) {
     return breakpoints
       .flatMap((breakpoint) => breakpoint.values.map((breakpoint) => breakpoint.min))
       .filter((v) => v !== undefined)
 }
 
-function extractMinWidths2(breakpoints = []) {
+function extractMinWidths2(breakpoints: any[] = []) {
     return breakpoints
       .flatMap((breakpoint) => breakpoint.values.map((brk) => [breakpoint.name, brk.min]))
       .filter((v) => v !== undefined)
