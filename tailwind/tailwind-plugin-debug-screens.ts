@@ -3,11 +3,9 @@ import twTheme from 'tailwindcss/defaultTheme';
 
 module.exports = plugin(
     function ({ addComponents, theme }) {
-        //https://github.com/jorenvanhee/tailwindcss-debug-screens
-        //use: add class 'debug-screens' on any top element
+        //https://github.com/jorenvanhee/tailwindcss-debug-screens // use: add class 'debug-screens' on any top element
 
-        const screens = theme('screens')!; // {sm: '640px', md: '768px', lg: '1024px', xl: '1280px', '2xl': '1536px'}
-
+        const screens = theme('screens')!; // screens { xs: '420px', sm: '640px', md: '768px', lg: '1024px', xl: '1280px' /*or xl: '1350px'*/, '2xl': '1536px', '3xl': '1920px'; }
         const userStyles = theme('debugScreens.style', {});
         const ignoredScreens = theme('debugScreens.ignore', ['dark']);
         const prefix = theme('debugScreens.prefix', 'screen: ');
@@ -15,48 +13,34 @@ module.exports = plugin(
 
         const defaultPosition = ['bottom', 'left'];
         const position = theme('debugScreens.position', defaultPosition);
-        const positionY = position[0] || defaultPosition[0];
         const positionX = position[1] || defaultPosition[1];
+        const positionY = position[0] || defaultPosition[0];
 
         //const screenEntries = Object.entries(screens);
         const screenEntries = sortScreenEntries(screens);
 
+        const lowestScreenEntryName = screenEntries?.[0]?.[0];
+        const lowestScreenEntrSize = screenEntries?.[0]?.[1];
+
         const components: any = {
-            [`${selector}::before`]: Object.assign({
-                position: 'fixed',
-                zIndex: '2147483647',
-                [positionY]: '6px',
-                [positionX]: '4px',
-                padding: '.5em',
-                fontSize: '12px',
-                lineHeight: '1',
-                fontFamily: 'sans-serif',
-                borderRadius: '3px',
-                border: '1px solid #b1b1b1',
-                backgroundColor: '#0008',
-                color: '#ddd',
-                boxShadow: '0 0 2px 2px #fff5',
-                content: `'${prefix}${screenEntries?.[0]?.[0] ? `less then ${screenEntries?.[0]?.[0]} (${screenEntries?.[0]?.[1]})` : '_'}'`,
-            }, userStyles),
+            [`${selector}::before`]:
+                Object.assign({
+                    zIndex: '2147483647',
+                    position: 'fixed',
+                    [positionX]: '4px',
+                    [positionY]: '6px',
+                    padding: '.5em',
+                    fontSize: '12px',
+                    lineHeight: '1',
+                    fontFamily: 'sans-serif',
+                    borderRadius: '3px',
+                    border: '1px solid #b1b1b1',
+                    color: '#ddd',
+                    backgroundColor: '#0008',
+                    boxShadow: '0 0 2px 2px #fff5',
+                    content: `'${prefix}${lowestScreenEntryName ? `less then ${lowestScreenEntryName} (${lowestScreenEntrSize})` : '_'}'`,
+                }, userStyles),
         };
-
-        //console.log('----------------------- screenEntries', screenEntries);
-        // console.log('----------------------- screens', screens);
-        // console.log('----------------------- normalizeScreens', JSON.stringify(normalizeScreens(screens), null, 4));
-        //console.log('----------------------- extractMinWidths', JSON.stringify(extractMinWidths(normalizeScreens(screens)), null, 4));
-        // console.log('----------------------- extractMinWidths2', JSON.stringify(Object.fromEntries(extractMinWidths2(normalizeScreens(screens))), null, 4));
-        //console.log('----------------------- sortScreenEntries', JSON.stringify(Object.fromEntries(sortScreenEntries(screens)), null, 4));
-        //console.log('----------------------- screenEntries', JSON.stringify(screenEntries), null, 4);
-
-        function sortScreenEntries(screens) {
-            const normalized = normalizeScreens(screens);
-            const newScreens = extractMinWidths2(normalized);
-            //newScreens.push(['xsm', '501px']); // This smallest screen allowed by Chrome.
-            newScreens.push(['sm0', '501px']); // This smallest screen allowed by Chrome.
-            console.log('----------------------- newScreens', JSON.stringify(newScreens, null, 4));
-            newScreens.sort((a, b) => parseInt(a[1]) - parseInt(b[1]));
-            return newScreens;
-        }
 
         screenEntries
             .filter(([screen]) => !ignoredScreens.includes(screen))
@@ -73,16 +57,34 @@ module.exports = plugin(
     {
         theme: {
             // debugScreens: {
-                screens: {
-                    'sm0': '501px',
-                    ...twTheme.screens,
-                }
+            screens: {
+                'xs': '501px', // Chrome minimum screen size is 500px
+                ...twTheme.screens,
+            }
             // }
         }
     }
 );
 
-function resolveValue({ 'min-width': _minWidth, min = _minWidth, max, raw }) {
+//console.log('----------------------- screenEntries', screenEntries);
+// console.log('----------------------- screens', screens);
+// console.log('----------------------- normalizeScreens', JSON.stringify(normalizeScreens(screens), null, 4));
+//console.log('----------------------- extractMinWidths', JSON.stringify(extractMinWidths(normalizeScreens(screens)), null, 4));
+// console.log('----------------------- extractMinWidths2', JSON.stringify(Object.fromEntries(extractMinWidths2(normalizeScreens(screens))), null, 4));
+//console.log('----------------------- sortScreenEntries', JSON.stringify(Object.fromEntries(sortScreenEntries(screens)), null, 4));
+//console.log('----------------------- screenEntries', JSON.stringify(screenEntries), null, 4);
+
+function sortScreenEntries(screens) {
+    const normalized = normalizeScreens(screens);
+    const newScreens = extractMinWidths2(normalized);
+    //newScreens.push(['xsm', '501px']); // This smallest screen allowed by Chrome.
+    //newScreens.push(['xs', '501px']); // This smallest screen allowed by Chrome.
+    newScreens.sort((a, b) => parseInt(a[1]) - parseInt(b[1]));
+    console.log('----------------------- newScreens', JSON.stringify(newScreens, null, 4));
+    return newScreens;
+}
+
+function resolveValue({ 'min-width': _minWidth, min = _minWidth, max, raw }) { // it was: resolveValue({ 'min-width': _minWidth, min = _minWidth, max, raw } = {}) {
     return { min, max, raw };
 }
 
