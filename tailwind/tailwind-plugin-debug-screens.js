@@ -184,7 +184,7 @@ function extractMinWidths(breakpoints = []) {
 */
 
 /*
-This is the problem in the generated css:
+// ------------------------------------- This is the problem in the generated css (search for 2147483647):
 
 @media (min-width: 640px) {
 
@@ -222,4 +222,64 @@ This is the problem in the generated css:
     content: 'screen: smallest (501px)';
   }
 }
+
+// ------------------------------------- This is how it should be:
+
+  @media (min-width: 420px){
+    .debug-screens::before{
+      content: 'screen: xs'
+    }
+  }
+  
+  @media (min-width: 640px){
+    .debug-screens::before{
+      content: 'screen: sm'
+    }
+  }
+  
+  @media (min-width: 768px){
+    .debug-screens::before{
+      content: 'screen: md'
+    }
+  }
+  
+  @media (min-width: 1024px){
+    .debug-screens::before{
+      content: 'screen: lg'
+    }
+  }
+  
+  @media (min-width: 1350px){
+    .debug-screens::before{
+      content: 'screen: xl'
+    }
+  }
+  
+  @media (min-width: 1536px){
+    .debug-screens::before{
+      content: 'screen: 2xl'
+    }
+  }
+  
+  @media (min-width: 1920px){
+    .debug-screens::before{
+      content: 'screen: 3xl'
+    }
+  }
+
+// ------------------------------------- so we need to sort them by size and add min screens from tailwind.config.js:
+            // screens: {
+            //     smallest: '501px',
+            // },
+            screens: {
+                xs: '420px',
+                sm: '640px',
+                md: '768px',
+                lg: '1024px',
+                xl: '1350px',
+                '2xl': '1536px',
+                '3xl': '1920px',
+            },
+
+// ------------------------------------- custome screens from tailwind.config.js should override the default ones.
 */
