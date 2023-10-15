@@ -16,7 +16,7 @@ function LinkButton({ label, sectionName }: { label: string, sectionName: Sectio
 
 export function NavButtons({ className }: HTMLAttributes<HTMLUListElement>) {
     return (
-        <div className={classNames("space-x-1 md:space-x-0 md:space-y-2", className)} >
+        <div className={classNames("gap-1 md:gap-0 md:space-y-2", className)} >
             <LinkButton label="Hue groups" sectionName={SectionName.hue} />
             <LinkButton label="Named colors" sectionName={SectionName.list} />
             <LinkButton label="Tailwind" sectionName={SectionName.tailwind} />

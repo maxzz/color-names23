@@ -1,8 +1,8 @@
 import { HTMLAttributes } from 'react';
 import { App3_Footer } from '../3-footer';
-import { classNames } from '@/utils';
 import { NavButtons } from './nav-buttons';
 import { AppTitle } from './app-title';
+import { classNames } from '@/utils';
 
 const navButtonContainerClasses = "\
 relative \
@@ -29,7 +29,7 @@ export function App1_Header({ className, ...rest }: HTMLAttributes<HTMLDivElemen
                 </div>
 
                 <div className={navButtonContainerClasses}>
-                    <NavButtons className="flex md:flex-col" />
+                    <NavButtons className="flex justify-end md:flex-col flex-wrap md:flex-nowrap" />
                 </div>
             </div>
 
