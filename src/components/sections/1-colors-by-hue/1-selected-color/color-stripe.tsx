@@ -1,10 +1,11 @@
 import { HTMLAttributes } from 'react';
 import { useAtom, useAtomValue } from 'jotai';
-import { a, easings, useTransition } from '@react-spring/web';
+import { a, easings, useSpring, useTransition } from '@react-spring/web';
 import { viewHueAtoms } from '@/store';
 import { HueSlider } from './hue-slider';
 import { classNames } from '@/utils';
 import { IconLockLocked, IconLockUnlocked } from '@/components/ui/icons/normal';
+import { Button } from '@/components/ui/shadcn';
 
 function HueToleranceInfo({ className }: HTMLAttributes<HTMLDivElement>) {
     const [hue, setHue] = useAtom(viewHueAtoms.hueAtom); //TODO: const [localHue, setLocalHue] = useState(0);
@@ -28,6 +29,42 @@ function HueToleranceInfo({ className }: HTMLAttributes<HTMLDivElement>) {
     );
 }
 
+function LockButton({ className }: HTMLAttributes<HTMLDivElement>) {
+    const [locked, setLocked] = useAtom(viewHueAtoms.lockedAtom);
+    const transitions = useTransition(Number(locked), {
+        from: { y: '-100%', },
+        enter: { y: '0', },
+        leave: {
+            y: '-100%',
+            config: { duration: 200, easing: easings.easeOutQuad },
+        },
+    });
+    return (
+        <Button className={classNames("w-3 h-3 flex items-center justify-center", className)} onClick={() => setLocked((v) => !v)}>
+            {transitions((styles, item) => (
+                item
+                    ? <a.div style={{ ...styles, ...{ position: 'relative' } }}> <IconLockLocked className="absolute left-0 top-0 w-3 h-3" /> </a.div>
+                    : <a.div style={{ ...styles, ...{ position: 'relative' } }}> <IconLockUnlocked className="absolute left-0 top-0 w-3 h-3" /> </a.div>
+            ))}
+        </Button>
+    );
+}
+
+{/* <div
+className={classNames(
+    "w-3 h-3 flex items-center justify-center rounded-full cursor-pointer",
+    locked ? "bg-primary-400" : "bg-background border border-border",
+    className,
+)}
+onClick={() => setLocked((v) => !v)}
+>
+<div className="w-3 h-3">
+    <IconLockLocked />
+    <IconLockUnlocked />
+</div>
+</div> */}
+
+
 export function ColorStripe() {
     const mono = useAtomValue(viewHueAtoms.monoAtom);
     const locked = useAtomValue(viewHueAtoms.lockedAtom);
@@ -36,10 +73,7 @@ export function ColorStripe() {
             <MountHueTransition show={!mono}>
 
                 <div className="flex items-center justify-between">
-                    <div className="w-3 h-3">
-                        <IconLockLocked />
-                        <IconLockUnlocked />
-                    </div>
+                    <LockButton />
 
                     <div className="flex justify-end">
                         <HueToleranceInfo />
