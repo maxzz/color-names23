@@ -4,7 +4,7 @@ import { ColorNamespaceButtons } from './color-namespace-buttons';
 
 export function SelectedColorInfoPanel() {
     return (
-        <div className="bg-primary-200 border-slate-400 border-b">
+        <div className="bg-secondary border-border border-b">
             <div className="mx-auto p-4 pt-1 max-w-[42rem] grid grid-cols-[minmax(0,1fr),auto] gap-x-4">
 
                 <ColorStripe  />

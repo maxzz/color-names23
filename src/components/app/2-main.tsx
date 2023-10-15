@@ -11,7 +11,7 @@ import { classNames } from '@/utils';
 export function App2_Main({ className }: HTMLAttributes<HTMLDivElement>) {
     const current = useAtomValue(AppAtoms.currentSectionAtom);
     return (
-        <div className={classNames("min-h-0 text-primary-900 bg-gradient-radial-to-tl from-slate-200 to-slate-50", className)}>
+        <div className={classNames("min-h-0 text-foreground bg-background", className)}>
 
             {current === SectionName.hue &&
                 <div className="h-full flex flex-col">

@@ -16,7 +16,7 @@ function HueToleranceInfo({ className }: HTMLAttributes<HTMLDivElement>) {
 
             <div className="mr-1">Hue:</div>
             <input
-                className="w-6 text-center outline-none bg-primary-100 focus:bg-primary-100 focus:ring-2 rounded"
+                className="w-6 text-center outline-none bg-muted focus:bg-border focus:ring-2 rounded"
                 value={hue}
                 onChange={(e) => {
                     const v = +e.target.value;
