@@ -18,6 +18,7 @@ export type ViewHueOptions = {
     color: ColorItem | null;
     hue: number;
     mono: boolean; // monochrome vs. color
+    locked: boolean; // prevent hue from changing opacity
 };
 
 export type ViewListOptions = {

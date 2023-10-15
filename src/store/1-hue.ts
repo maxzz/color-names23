@@ -29,6 +29,7 @@ export const viewHueAtoms: Atomize<ViewHueOptions & {
             set(_monoAtom, v);
         }
     ),
+    lockedAtom: atomWithCallback(initialData.viewHueOptions.locked, saveStore),
     colorGroupsAtom: atom<ColorItem[][]>([]),
     toleranceAtom: atom(0),
 };
