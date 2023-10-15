@@ -1,6 +1,9 @@
 import twColors from 'tailwindcss/colors';
 import twTheme from 'tailwindcss/defaultTheme';
 import { shadcnPlugin } from './tailwind/tailwind-plugin-shadcn';
+//const debugScreens = require('./tailwind/tailwind-plugin-debug-screens');
+//const debugScreens = require('tailwindcss-plugin-debug-screens');
+import debugScreens from 'tailwindcss-plugin-debug-screens';
 
 module.exports = {
     content: ['./index.html', './src/**/*.{tsx,ts,js,jsx}'],
@@ -85,7 +88,7 @@ module.exports = {
         require('./tailwind/tailwind-plugin-colors-bridge')({ prefix: '--tm-', groupName: 'primary' }),
         require('./tailwind/tailwind-plugin-all-colors'),
         require('./tailwind/tailwnd-plugin-debug-styles'),
-        require('./tailwind/tailwind-plugin-debug-screens'),
+        debugScreens,
         require('@tailwindcss/forms')({ strategy: 'class' }),
         shadcnPlugin,
     ],
