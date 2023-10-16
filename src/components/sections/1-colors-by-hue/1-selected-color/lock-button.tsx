@@ -1,8 +1,8 @@
 import { HTMLAttributes } from 'react';
 import { useAtom } from 'jotai';
-import { a, config, useTransition } from '@react-spring/web';
+import { a, config, easings, useTransition } from '@react-spring/web';
 import { viewHueAtoms } from '@/store';
-import { classNames } from '@/utils';
+import { classNames, cn } from '@/utils';
 import { IconLockLocked, IconLockUnlocked } from '@/components/ui/icons/normal';
 import { Button } from '@/components/ui/shadcn';
 
@@ -32,10 +32,10 @@ export function LockButton({ className }: HTMLAttributes<HTMLDivElement>) {
           opacity: 0,
           transform: 'translateX(-200%) rotateY(0deg)',
         },
-        config: config.molasses,
+        config: { duration: 200, easing: easings.easeOutQuad },
       });    
     return (
-        <Button variant={'outline'} size={'sm'} className={classNames("w-12 px-0 py-0 self-center flex overflow-hidden", className)} onClick={() => setLocked((v) => !v)}>
+        <Button variant={'ghost'} size={'sm'} className={classNames("self-center flex overflow-hidden", className)} onClick={() => setLocked((v) => !v)}>
             {transitions((styles, item) => (
                 item
                     ? <a.div style={styles}> <IconLockLocked className="w-3 h-3" /> </a.div>

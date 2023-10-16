@@ -1,14 +1,15 @@
 import { useRef } from "react";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { viewHueAtoms } from "@/store";
 import './hue-slider.scss';
 
 export function HueSlider() {
-    const [hue, setHue] = useAtom(viewHueAtoms.hueAtom);
     const sliderRef = useRef<HTMLInputElement>(null);
+    const [hue, setHue] = useAtom(viewHueAtoms.hueAtom);
+    const locked = useAtomValue(viewHueAtoms.lockedAtom);
     return (
         <input
-            className="w-full h-8 rounded hue-slider"
+            className={`w-full h-8 rounded hue-slider ${locked ? '[--locked:1]': '[--locked:0.2]'}`}
             ref={sliderRef}
             type="range"
             min="0"

@@ -91,7 +91,7 @@
     &::-webkit-slider-thumb {
         opacity: 1;
     }
-    opacity: .2;
+    opacity: var(--locked, .2);
     transform: rotate(0deg);
 
     &.mono {
