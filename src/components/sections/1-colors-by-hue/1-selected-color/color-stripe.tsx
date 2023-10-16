@@ -1,6 +1,6 @@
 import { HTMLAttributes } from 'react';
 import { useAtom, useAtomValue } from 'jotai';
-import { a, easings, useSpring, useTransition } from '@react-spring/web';
+import { a, config, easings, useSpring, useTransition } from '@react-spring/web';
 import { viewHueAtoms } from '@/store';
 import { HueSlider } from './hue-slider';
 import { classNames } from '@/utils';
@@ -31,15 +31,38 @@ function HueToleranceInfo({ className }: HTMLAttributes<HTMLDivElement>) {
 
 function LockButton({ className }: HTMLAttributes<HTMLDivElement>) {
     const [locked, setLocked] = useAtom(viewHueAtoms.lockedAtom);
+    // const transitions = useTransition(locked, {
+    //     from: { x:0, opacity: 0, 
+    //  },
+    //     enter: { x:0, opacity: 1, 
+    //  },
+    //     leave: { x:0, opacity: 0, 
+    //         config: { duration: 0, easing: easings.easeOutQuad },
+    //         //config: { duration: 200, easing: easings.easeOutQuad },
+    //     },
+    // });
+
     const transitions = useTransition(locked, {
-        from: { x:0, opacity: 0, 
-     },
-        enter: { x:0, opacity: 1, 
-     },
-        leave: { x:0, opacity: 0, 
-            //config: { duration: 200, easing: easings.easeOutQuad },
+        from: {
+          opacity: 0,
+          transform: 'translateX(200%) rotate(360deg)',
+          backgroundColor: 'white',
+          color: 'white'
         },
-    });
+        enter: {
+          opacity: 1,
+          transform: 'translateX(0%) rotate(0deg)',
+          backgroundColor: '#FF7518',
+          color: 'white'
+        },
+        leave: {
+          opacity: 0,
+          transform: 'translateX(-200%) rotate(-360deg)',
+          backgroundColor: 'white',
+          color: 'white'
+        },
+        config: config.molasses //React-Spring provides us some pre-defined mass/tension/friction configs for us in the config object
+      });    
     return (
         <Button variant={'outline'} size={'sm'} className={classNames("w-12 px-0 py-0 self-center flex overflow-hidden", className)} onClick={() => setLocked((v) => !v)}>
             {transitions((styles, item) => (
