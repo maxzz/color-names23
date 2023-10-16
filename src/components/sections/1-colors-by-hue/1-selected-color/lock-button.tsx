@@ -42,7 +42,7 @@ export function LockButton({ className }: HTMLAttributes<HTMLDivElement>) {
             variant={'ghost'}
             size={'sm'}
             title="Lock/Unlock inactive colors saturation"
-            className={classNames("px-0 self-center flex overflow-hidden", className)}
+            className={classNames("px-0 h-auto rounded-none self-center flex overflow-hidden", className)}
             onClick={() => setLocked((v) => !v)}
         >
             {transitions((styles, item) => (
