@@ -32,10 +32,12 @@ function HueToleranceInfo({ className }: HTMLAttributes<HTMLDivElement>) {
 function LockButton({ className }: HTMLAttributes<HTMLDivElement>) {
     const [locked, setLocked] = useAtom(viewHueAtoms.lockedAtom);
     const transitions = useTransition(locked, {
-        from: { opacity: 0, transform: 'translate3d(100%,0,0)', },
-        enter: { opacity: 1, transform: 'translate3d(0%,0,0)', },
-        leave: { opacity: 0, transform: 'translate3d(-200%,0,0)',
-            config: { duration: 200, easing: easings.easeOutQuad },
+        from: { x:0, opacity: 0, 
+     },
+        enter: { x:0, opacity: 1, 
+     },
+        leave: { x:0, opacity: 0, 
+            //config: { duration: 200, easing: easings.easeOutQuad },
         },
     });
     return (
@@ -48,6 +50,10 @@ function LockButton({ className }: HTMLAttributes<HTMLDivElement>) {
         </Button>
     );
 }
+
+// transform: 'translate3d(100%,0,50%)',
+// transform: 'translate3d(0%,0,0)',
+// transform: 'translate3d(-200%,0,50%)',
 
 // function LockButton({ className }: HTMLAttributes<HTMLDivElement>) {
 //     const [locked, setLocked] = useAtom(viewHueAtoms.lockedAtom);
