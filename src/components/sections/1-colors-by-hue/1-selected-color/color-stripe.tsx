@@ -32,15 +32,14 @@ function HueToleranceInfo({ className }: HTMLAttributes<HTMLDivElement>) {
 function LockButton({ className }: HTMLAttributes<HTMLDivElement>) {
     const [locked, setLocked] = useAtom(viewHueAtoms.lockedAtom);
     const transitions = useTransition(locked, {
-        from: { x: '-200%', },
-        enter: { x: '0', },
-        leave: {
-            x: '-200%',
-            //config: { duration: 200, easing: easings.easeOutQuad },
+        from: { opacity: 0, transform: 'translate3d(100%,0,0)', },
+        enter: { opacity: 1, transform: 'translate3d(0%,0,0)', },
+        leave: { opacity: 0, transform: 'translate3d(-200%,0,0)',
+            config: { duration: 200, easing: easings.easeOutQuad },
         },
     });
     return (
-        <Button variant={'outline'} size={'sm'} className={classNames("px-0 py-0 self-center overflow-hidden", className)} onClick={() => setLocked((v) => !v)}>
+        <Button variant={'outline'} size={'sm'} className={classNames("w-12 px-0 py-0 self-center flex overflow-hidden", className)} onClick={() => setLocked((v) => !v)}>
             {transitions((styles, item) => (
                 item
                     ? <a.div style={styles}> <IconLockLocked className="w-3 h-3" /> </a.div>
