@@ -42,26 +42,20 @@ function LockButton({ className }: HTMLAttributes<HTMLDivElement>) {
     //     },
     // });
 
-    const transitions = useTransition(locked, {
+    const transitions = useTransition(Number(locked), {
         from: {
           opacity: 0,
-          transform: 'translateX(200%) rotate(360deg)',
-          backgroundColor: 'white',
-          color: 'white'
+          transform: 'translateX(200%) rotateY(180deg)',
         },
         enter: {
           opacity: 1,
-          transform: 'translateX(0%) rotate(0deg)',
-          backgroundColor: '#FF7518',
-          color: 'white'
+          transform: 'translateX(0%) rotateY(0deg)',
         },
         leave: {
           opacity: 0,
-          transform: 'translateX(-200%) rotate(-360deg)',
-          backgroundColor: 'white',
-          color: 'white'
+          transform: 'translateX(-200%) rotateY(0deg)',
         },
-        config: config.molasses //React-Spring provides us some pre-defined mass/tension/friction configs for us in the config object
+        config: config.molasses,
       });    
     return (
         <Button variant={'outline'} size={'sm'} className={classNames("w-12 px-0 py-0 self-center flex overflow-hidden", className)} onClick={() => setLocked((v) => !v)}>
