@@ -31,24 +31,45 @@ function HueToleranceInfo({ className }: HTMLAttributes<HTMLDivElement>) {
 
 function LockButton({ className }: HTMLAttributes<HTMLDivElement>) {
     const [locked, setLocked] = useAtom(viewHueAtoms.lockedAtom);
-    const transitions = useTransition(Number(locked), {
-        from: { y: '-100%', },
-        enter: { y: '0', },
+    const transitions = useTransition(locked, {
+        from: { x: '-200%', },
+        enter: { x: '0', },
         leave: {
-            y: '-100%',
-            config: { duration: 200, easing: easings.easeOutQuad },
+            x: '-200%',
+            //config: { duration: 200, easing: easings.easeOutQuad },
         },
     });
     return (
-        <Button className={classNames("w-3 h-3 flex items-center justify-center", className)} onClick={() => setLocked((v) => !v)}>
+        <Button variant={'outline'} size={'sm'} className={classNames("px-0 py-0 self-center overflow-hidden", className)} onClick={() => setLocked((v) => !v)}>
             {transitions((styles, item) => (
                 item
-                    ? <a.div style={{ ...styles, ...{ position: 'relative' } }}> <IconLockLocked className="absolute left-0 top-0 w-3 h-3" /> </a.div>
-                    : <a.div style={{ ...styles, ...{ position: 'relative' } }}> <IconLockUnlocked className="absolute left-0 top-0 w-3 h-3" /> </a.div>
+                    ? <a.div style={styles}> <IconLockLocked className="w-3 h-3" /> </a.div>
+                    : <a.div style={styles}> <IconLockUnlocked className="w-3 h-3" /> </a.div>
             ))}
         </Button>
     );
 }
+
+// function LockButton({ className }: HTMLAttributes<HTMLDivElement>) {
+//     const [locked, setLocked] = useAtom(viewHueAtoms.lockedAtom);
+//     const transitions = useTransition(Number(locked), {
+//         from: { y: '-100%', },
+//         enter: { y: '0', },
+//         leave: {
+//             y: '-100%',
+//             config: { duration: 200, easing: easings.easeOutQuad },
+//         },
+//     });
+//     return (
+//         <Button className={classNames("relative w-3 h-3 flex items-center justify-center", className)} onClick={() => setLocked((v) => !v)}>
+//             {transitions((styles, item) => (
+//                 item
+//                     ? <a.div style={styles}> <IconLockLocked className="absolute left-0 top-0 w-3 h-3" /> </a.div>
+//                     : <a.div style={styles}> <IconLockUnlocked className="absolute left-0 top-0 w-3 h-3" /> </a.div>
+//             ))}
+//         </Button>
+//     );
+// }
 
 {/* <div
 className={classNames(
