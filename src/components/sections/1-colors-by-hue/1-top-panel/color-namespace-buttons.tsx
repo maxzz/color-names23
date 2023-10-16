@@ -26,7 +26,7 @@ function ColorNamespaceButton({ copyValue }: { copyValue: string; }) {
     );
 }
 
-export function ColorNamespaceButtons() {
+export function CurrentColorValues() {
     const color = useAtomValue(viewHueAtoms.colorAtom);
     const borderColor = () => color ? color.dark ? 'white' : 'black' : 'transparent';
     return (

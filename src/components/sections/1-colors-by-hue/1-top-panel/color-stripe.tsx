@@ -28,11 +28,11 @@ function HueToleranceInfo({ className }: HTMLAttributes<HTMLDivElement>) {
     );
 }
 
-export function ColorStripe() {
+export function HueColorsStripe({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     const mono = useAtomValue(viewHueAtoms.monoAtom);
     const locked = useAtomValue(viewHueAtoms.lockedAtom);
     return (
-        <div className={`col-span-2 h-16 text-muted-foreground flex flex-col justify-center`}>
+        <div className={classNames("flex flex-col justify-center", className)} {...rest}>
             <MountHueTransition show={!mono}>
 
                 <div className="flex items-center justify-between">

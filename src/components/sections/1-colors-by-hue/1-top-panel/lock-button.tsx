@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/shadcn';
 
 export function LockButton({ className }: HTMLAttributes<HTMLDivElement>) {
     const [locked, setLocked] = useAtom(viewHueAtoms.lockedAtom);
-    console.log('locked', locked);
     
     // const transitions = useTransition(locked, {
     //     from: { x:0, opacity: 0, 

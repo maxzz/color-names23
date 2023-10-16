@@ -1,7 +1,7 @@
 import { HTMLAttributes } from 'react';
 import { useAtomValue } from 'jotai';
 import { viewListAtoms } from '@/store';
-import { SelectedColorInfoPanel } from './1-selected-color';
+import { TopPanel } from './1-top-panel';
 import { ColorNeighborsGrid } from './2-color-neighbors-grid';
 import { classNames } from '@/utils';
 
@@ -9,7 +9,8 @@ export function Section1_ColorsByHue({ className, ...rest }: HTMLAttributes<HTML
     useAtomValue(viewListAtoms.sortByAtom);
     return (
         <div className={classNames("flex flex-col", className)} {...rest}>
-            <SelectedColorInfoPanel />
+            <TopPanel />
+            
             <div className="flex-1 p-4 grid place-items-center">
                 <ColorNeighborsGrid />
             </div>
