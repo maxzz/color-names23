@@ -1,13 +1,15 @@
 import { HTMLAttributes } from 'react';
 import { useAtom } from 'jotai';
-import { a, config, easings, useTransition } from '@react-spring/web';
+import { a, easings, useTransition } from '@react-spring/web';
 import { viewHueAtoms } from '@/store';
-import { classNames, cn } from '@/utils';
+import { classNames } from '@/utils';
 import { IconLockLocked, IconLockUnlocked } from '@/components/ui/icons/normal';
 import { Button } from '@/components/ui/shadcn';
 
 export function LockButton({ className }: HTMLAttributes<HTMLDivElement>) {
     const [locked, setLocked] = useAtom(viewHueAtoms.lockedAtom);
+    console.log('locked', locked);
+    
     // const transitions = useTransition(locked, {
     //     from: { x:0, opacity: 0, 
     //  },
@@ -19,23 +21,29 @@ export function LockButton({ className }: HTMLAttributes<HTMLDivElement>) {
     //     },
     // });
 
-    const transitions = useTransition(Number(locked), {
+    const transitions = useTransition(Boolean(locked), {
         from: {
-          opacity: 0,
-          transform: 'translateX(200%) rotateY(180deg)',
+            opacity: 0,
+            transform: 'translateX(200%) rotateY(180deg)',
         },
         enter: {
-          opacity: 1,
-          transform: 'translateX(0%) rotateY(0deg)',
+            opacity: 1,
+            transform: 'translateX(0%) rotateY(0deg)',
         },
         leave: {
-          opacity: 0,
-          transform: 'translateX(-200%) rotateY(0deg)',
+            opacity: 0,
+            transform: 'translateX(-200%) rotateY(0deg)',
         },
         config: { duration: 200, easing: easings.easeOutQuad },
-      });    
+    });
+
     return (
-        <Button variant={'ghost'} size={'sm'} className={classNames("self-center flex overflow-hidden", className)} onClick={() => setLocked((v) => !v)}>
+        <Button
+            variant={'ghost'}
+            size={'sm'}
+            className={classNames("w-12 self-center flex overflow-hidden", className)}
+            onClick={() => setLocked((v) => !v)}
+        >
             {transitions((styles, item) => (
                 item
                     ? <a.div style={styles}> <IconLockLocked className="w-3 h-3" /> </a.div>

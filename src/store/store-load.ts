@@ -3,7 +3,7 @@ import { Store } from "./types";
 
 // Local storage
 
-export const STORAGE_KEY = 'react-name-colors22-01';
+export const STORAGE_KEY = 'react-name-colors23-01';
 
 export function load() {
     const s = localStorage.getItem(STORAGE_KEY);
