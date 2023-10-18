@@ -15,18 +15,28 @@ const shadowClasses = "shadow-[inset_1px_2px_5px_0px_#0004,inset_-0px_-2px_2px_0
 
 function MonoSwitchCell({ label, active, toLeft, setActive, className, ...rest }: MonoSwitchCellProps & HTMLAttributes<HTMLDivElement>) {
     const styles = useSpring({
-        from: { x: toLeft ? '100%' : '-100%', opacity: 0, },
-        to: {
-            x: active ? toLeft ? '100%' : '-100%' : '0%',
-            // x: toLeft
-            //     ? active ? '100%': '0%'
-            //     : active ? '-100%': '0%',
-            opacity: 1,
-            // opacity: toLeft
-            //     ? active ? 1 : 0
-            //     : active ? 0 : 1,
+        from: {
+            transform: `scale(0, 1)`,
+            opacity: 0,
         },
-        //config: { duration: !active ? 1250 : 0 }
+        to: {
+            transform: `scale(${active ? 1 : 0}, 1)`,
+            scale: 1,
+            opacity: 1,
+        },
+        // kind of OK
+        // from: { x: toLeft ? '100%' : '-100%', opacity: 0, },
+        // to: {
+        //     x: active ? toLeft ? '100%' : '-100%' : '0%',
+        //     // x: toLeft
+        //     //     ? active ? '100%': '0%'
+        //     //     : active ? '-100%': '0%',
+        //     opacity: 1,
+        //     // opacity: toLeft
+        //     //     ? active ? 1 : 0
+        //     //     : active ? 0 : 1,
+        // },
+        config: { duration: !active ? 1250 : 0 }
     });
     return (
         <div
@@ -41,7 +51,9 @@ function MonoSwitchCell({ label, active, toLeft, setActive, className, ...rest }
         >
             {label}
 
-            <a.div style={styles} className="absolute top-0 left-0 w-full h-full bg-red-500/60"></a.div>
+            <a.div style={styles} className={`absolute top-0 left-0 w-full h-full ${toLeft ? 'origin-left' : 'origin-right'} bg-red-500/60`}></a.div>
+            {/* <a.div style={styles} className="absolute top-0 left-0 w-full h-full bg-muted-foreground/40"></a.div> */}
+            {/* <a.div style={styles} className="absolute top-0 left-0 w-full h-full bg-red-500/60"></a.div> */}
         </div>
     );
 }
