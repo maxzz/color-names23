@@ -6,16 +6,25 @@ import { classNames } from "@/utils";
 
 type MonoSwitchCellProps = {
     label: string;
+    toLeft: boolean;
     active: boolean;
     setActive: () => void;
 };
 
-const shadowClasses = "shadow-[inset_1px_2px_5px_0px_#0004,inset_-0px_-2px_2px_0px_#fffa] opacity-50"
+const shadowClasses = "shadow-[inset_1px_2px_5px_0px_#0004,inset_-0px_-2px_2px_0px_#fffa] opacity-50";
 
-function MonoSwitchCell({ label, active, setActive, className, ...rest }: MonoSwitchCellProps & HTMLAttributes<HTMLDivElement>) {
+function MonoSwitchCell({ label, active, toLeft, setActive, className, ...rest }: MonoSwitchCellProps & HTMLAttributes<HTMLDivElement>) {
     const styles = useSpring({
-        from: { x: '0%', opacity: 0, config: { duration: active ? 1250 : 0 }, },
-        to: { x: !active ? '-100%' : '100%', opacity: active ? 0 : 1, config: { duration: !active ? 1250 : 0 } },
+        from: { x: '-100%', opacity: 0, },
+        to: {
+            x: toLeft
+                ? !active ? '0%': '100%'
+                : !active ? '0%': '-100%',
+            opacity: 1,
+            // opacity: toLeft
+            //     ? active ? 1 : 0
+            //     : active ? 0 : 1,
+        },
         //config: { duration: !active ? 1250 : 0 }
     });
     return (
@@ -51,6 +60,7 @@ export function MonoSwitch({ className }: HTMLAttributes<HTMLDivElement>) {
                 <MonoSwitchCell
                     label="Mono"
                     title="Monochrome"
+                    toLeft={false}
                     active={mono}
                     setActive={() => setMono((v) => !v)}
                 />
@@ -58,6 +68,7 @@ export function MonoSwitch({ className }: HTMLAttributes<HTMLDivElement>) {
                     label="Color1111111............11"
                     title="Hue"
                     className="border-l border-primary-400"
+                    toLeft={true}
                     active={!mono}
                     setActive={() => setMono((v) => !v)}
                 />
