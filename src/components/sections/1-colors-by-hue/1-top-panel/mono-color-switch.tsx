@@ -15,11 +15,12 @@ const shadowClasses = "shadow-[inset_1px_2px_5px_0px_#0004,inset_-0px_-2px_2px_0
 
 function MonoSwitchCell({ label, active, toLeft, setActive, className, ...rest }: MonoSwitchCellProps & HTMLAttributes<HTMLDivElement>) {
     const styles = useSpring({
-        from: { x: '-100%', opacity: 0, },
+        from: { x: toLeft ? '100%' : '-100%', opacity: 0, },
         to: {
-            x: toLeft
-                ? !active ? '0%': '100%'
-                : !active ? '0%': '-100%',
+            x: active ? toLeft ? '100%' : '-100%' : '0%',
+            // x: toLeft
+            //     ? active ? '100%': '0%'
+            //     : active ? '-100%': '0%',
             opacity: 1,
             // opacity: toLeft
             //     ? active ? 1 : 0
