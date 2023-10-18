@@ -1,10 +1,10 @@
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, SetStateAction } from "react";
 import { useAtom } from "jotai";
 import { a, useSpring } from "@react-spring/web";
 import { viewHueAtoms } from "@/store";
 import { classNames } from "@/utils";
 
-type MonoSwitchCellProps = {
+type SwitchCellProps = {
     label: string;
     toLeft: boolean;
     active: boolean;
@@ -13,7 +13,7 @@ type MonoSwitchCellProps = {
 
 const shadowClasses = "shadow-[inset_1px_2px_5px_0px_#0004,inset_-0px_-2px_2px_0px_#fffa] opacity-50";
 
-function MonoSwitchCell({ label, active, toLeft, setActive, className, ...rest }: MonoSwitchCellProps & HTMLAttributes<HTMLDivElement>) {
+function SwitchCell({ label, active, toLeft, setActive, className, ...rest }: SwitchCellProps & HTMLAttributes<HTMLDivElement>) {
     const styles = useSpring({
         from: {
             transform: `scale(0, 1)`,
@@ -43,29 +43,42 @@ function MonoSwitchCell({ label, active, toLeft, setActive, className, ...rest }
     );
 }
 
-const MonoSwitchClasses = "max-w-fit relative bg-secondary ring-1 ring-primary-400 rounded text-xs shadow select-none cursor-pointer overflow-hidden";
+const SwitchClasses = "max-w-fit relative bg-secondary ring-1 ring-primary-400 rounded text-xs shadow select-none cursor-pointer overflow-hidden";
 
-export function MonoSwitch({ className }: HTMLAttributes<HTMLDivElement>) {
-    const [mono, setMono] = useAtom(viewHueAtoms.monoAtom);
+type SwitchProps = {
+    on: boolean;
+    setOn: (v: SetStateAction<boolean>) => void;
+    labels: [string, string];
+    titles: [string, string];
+};
+
+export function Switch({ className, on, setOn, labels, titles }: SwitchProps & HTMLAttributes<HTMLDivElement>) {
     return (
-        <div className={classNames(MonoSwitchClasses, className)}>
+        <div className={classNames(SwitchClasses, className)}>
             <div className="flex">
-                <MonoSwitchCell
-                    label="Mono"
-                    title="Monochrome"
+                <SwitchCell
+                    label={labels[0]}
+                    title={titles[0]}
                     toLeft={false}
-                    active={mono}
-                    setActive={() => setMono((v) => !v)}
+                    active={on}
+                    setActive={() => setOn((v) => !v)}
                 />
-                <MonoSwitchCell
-                    label="Color"
-                    title="Hue"
+                <SwitchCell
+                    label={labels[1]}
+                    title={titles[1]}
                     className="border-l border-primary-400"
                     toLeft={true}
-                    active={!mono}
-                    setActive={() => setMono((v) => !v)}
+                    active={!on}
+                    setActive={() => setOn((v) => !v)}
                 />
             </div>
         </div>
+    );
+}
+
+export function MonoSwitch(props: HTMLAttributes<HTMLDivElement>) {
+    const [mono, setMono] = useAtom(viewHueAtoms.monoAtom);
+    return (
+        <Switch on={mono} setOn={setMono} labels={['Mono','Color']} titles={['Monochrome','Hue']} {...props} />
     );
 }
