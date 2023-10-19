@@ -4,12 +4,12 @@ import { classNames } from "@/utils";
 
 export function PageHueWheel({ className }: HTMLAttributes<HTMLUListElement>) {
     return (
-        <div className={classNames("text-foreground bg-background border-muted border-b overflow-auto flex flex-col", className)}>
+        <div className={classNames("max-w-4xl text-foreground bg-background border-muted border-b overflow-auto flex flex-col", className)}>
             {/* overflow-hidden */}
             {/* <div className="container max-w-md mx-auto flex flex-col space-y-4"> */}
             <div className="flex-0 relative">
                 <MessageHueColorCopied className="absolute top-2 right-2" />
-                <HuePicker />
+                <HuePicker className="aspect-square" />
             </div>
             {/* </div> */}
 

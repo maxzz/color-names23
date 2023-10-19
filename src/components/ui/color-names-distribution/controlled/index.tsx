@@ -3,7 +3,6 @@ import { ColorsWheelSpikes } from "./view-colors-spikes";
 import { GrayBar } from "./view-grays";
 import { useZoom } from "./action-zoom";
 import { SVGAttributes } from "react";
-import { classNames } from "@/utils";
 import { useDrag } from "./action-drag";
 import { SelectedColor } from "./view-selected-color";
 
@@ -18,7 +17,6 @@ export function HuePicker({ className, ...rest }: SVGAttributes<SVGSVGElement>) 
             viewBox="0 0 1000 1200"
             version="1.1"
             id="color-wheel"
-            className={classNames("bg-blue-300/20", className)}
             {...rest}
         >
             <defs>
