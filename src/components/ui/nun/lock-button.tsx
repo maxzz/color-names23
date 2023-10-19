@@ -1,9 +1,9 @@
 import { HTMLAttributes } from 'react';
 import { useAtom } from 'jotai';
-import { a, easings, useSpring, useTransition } from '@react-spring/web';
+import { a, easings, useTransition } from '@react-spring/web';
 import { viewHueAtoms } from '@/store';
 import { classNames } from '@/utils';
-import { IconLockLocked, IconLockSeparated } from '@/components/ui/icons/normal';
+import { IconLockLocked, IconLockUnlocked } from '@/components/ui/icons/normal';
 import { Button } from '@/components/ui/shadcn';
 
 export function LockButton({ className }: HTMLAttributes<HTMLDivElement>) {
@@ -41,46 +41,18 @@ export function LockButton({ className }: HTMLAttributes<HTMLDivElement>) {
             variant={'ghost'}
             size={'sm'}
             title="Lock/Unlock inactive colors saturation"
-            className={classNames("px-0 h-auto rounded-none self-center flex", className)}
-            // overflow-hidden
+            className={classNames("px-0 h-auto rounded-none self-center flex overflow-hidden", className)}
             onClick={() => setLocked((v) => !v)}
         >
-            <UIIconUpDown className="w-4 h-4" open={locked} />
-            {/* {transitions((styles, item) => (
+            {transitions((styles, item) => (
                 item
                     ? <a.div style={styles}> <IconLockLocked className="w-3 h-3" /> </a.div>
-                    : <a.div style={styles}> <IconLockSeparated className="w-5 h-5 overflow-visible" /> </a.div>
-            ))} */}
-            {/* {transitions((styles, item) => (
-                item
-                    ? <a.div style={styles}> <IconLockLocked className="w-3 h-3" /> </a.div>
-                    : <a.div style={styles}> <IconLockSeparated className="w-5 h-5 overflow-visible" /> </a.div>
-            ))} */}
+                    : <a.div style={styles}> <IconLockUnlocked className="w-3 h-3" /> </a.div>
+            ))}
         </Button>
     );
 }
 
-export const animationConfig = {
-    //config: { mass: 0.2, tension: 692, clamp: true },
-    config: { duration: 200 },
-};
-
-export function UIIconUpDown({ open, className, ...rest }: { open: boolean; } & React.SVGAttributes<SVGSVGElement>) {
-    const styles = useSpring({ open: open ? 1 : 0, ...animationConfig });
-    return (
-        <svg className={classNames("stroke-current stroke-[1] fill-transparent", className)} viewBox="0 0 24 24" {...rest}>
-            {/* <a.path d={styles.open.to({ range: [0, 1], output: ["M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75", "M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75"] })} /> */}
-            <a.path d={styles.open.to({ range: [0, 1], output: ["M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75", "M4.5 10.5V6.75a4.5 4.5 0 119 0v3.75"] })} />
-
-            <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
-            />
-
-        </svg>
-    );
-}
 
 // transform: 'translate3d(100%,0,50%)',
 // transform: 'translate3d(0%,0,0)',

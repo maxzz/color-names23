@@ -4,3 +4,4 @@ export * from './01-app-logo';
 export * from './02-clipboard';
 export * from './03-lock-locked';
 export * from './03-lock-unlocked';
+export * from './03-lock-separated';
