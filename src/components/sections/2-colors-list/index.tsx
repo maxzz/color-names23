@@ -5,9 +5,9 @@ import { classNames } from '@/utils';
 
 export function Section2_ColorsList({ className }: HTMLAttributes<HTMLUListElement>) {
     return (
-        <div className={classNames("flex flex-col bg-primary-100 overflow-hidden", className)}>
+        <div className={classNames("flex flex-col bg-background overflow-hidden", className)}>
             <ColorListInfoPanel />
-            <div className="h-full overflow-overlay">
+            <div className="h-full overflow-overlay smallscroll">
                 <div className="pl-4 pr-8 py-4 lg:pl-12 lg:pr-16 xl:pl-16 xl:pr-20 2xl:pl-[9rem] 2xl:pr-[12rem]">
                     <ColorNamesList />
                 </div>

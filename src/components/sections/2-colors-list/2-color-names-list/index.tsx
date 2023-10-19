@@ -3,9 +3,9 @@ import { useAtomValue } from 'jotai';
 import { viewListAtoms } from '@/store';
 import { formatHSLMono } from '@/utils-color';
 
-const col1Classes = "leading-5 px-1 text-right bg-primary-200";
+const col1Classes = "leading-5 px-1 text-right bg-muted text-foreground/50";
 const col2Classes = "leading-5 font-semibold";
-const col3Classes = "leading-5 px-2 whitespace-pre bg-primary-200";
+const col3Classes = "leading-5 px-2 whitespace-pre bg-muted text-foreground/70";
 const col4Classes = "leading-5 font-semibold";
 
 export function ColorNamesList() {
