@@ -13,13 +13,11 @@ export function HueColorsStripe(props: HTMLAttributes<HTMLDivElement>) {
         <div {...props}>
             <MountHueTransition show={!mono} className="flex flex-col gap-y-0.5 text-muted-foreground">
 
+                <LockButton className="self-end pb-1" />
+
                 <HueSlider className="w-full h-12 rounded" />
 
-                <div className="flex items-center justify-between">
-                    <LockButton />
-                    <HueToleranceInfo />
-                </div>
-
+                    <HueToleranceInfo className="self-end" />
             </MountHueTransition>
         </div>
 

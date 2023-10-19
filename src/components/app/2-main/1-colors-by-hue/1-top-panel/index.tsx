@@ -10,11 +10,11 @@ export function TopPanel() {
     return (
         <div className="h-64 bg-secondary border-border border-b">
 
-            <div className="mx-auto p-4 max-w-[42rem] flex flex-col space-y-4">
+            <div className="mx-auto p-4 max-w-[42rem] flex flex-col">
                 <WheelSwitch className="flex items-center justify-between" />
 
                 {linear && (
-                    <div className="grid grid-cols-[90px,minmax(0,1fr),90px] grid-rows-[auto,1fr] gap-x-4 gap-y-4">
+                    <div className="grid grid-cols-[90px,minmax(0,1fr),90px] grid-rows-[auto,1fr] gap-x-4 gap-y-8">
 
                         <HueColorsStripe className="col-span-full h-16" />
 
