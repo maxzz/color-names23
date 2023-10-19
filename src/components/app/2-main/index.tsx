@@ -1,11 +1,10 @@
 import { HTMLAttributes } from 'react';
 import { useAtomValue } from 'jotai';
 import { AppAtoms, SectionName } from '@/store';
-import { Section1_ColorsByHue } from '../sections/1-colors-by-hue';
-import { Section2_ColorsList } from '../sections/2-colors-list';
-import { Section3_Tailwind } from '../sections/3-tailwind';
-import { Section4_Chadcn } from '../sections/4-shadcn';
-import { Section5_HueWheel } from '../sections/1-colors-by-hue/3-wheel';
+import { Section1_ColorsByHue } from './1-colors-by-hue';
+import { Section2_ColorsList } from './2-colors-list';
+import { Section3_Tailwind } from './3-tailwind';
+import { Section4_Chadcn } from './4-shadcn';
 import { classNames } from '@/utils';
 
 export function App2_Main({ className }: HTMLAttributes<HTMLDivElement>) {
