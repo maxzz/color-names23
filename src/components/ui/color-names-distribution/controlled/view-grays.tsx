@@ -68,7 +68,7 @@ export function GrayBar() {
                 strokeWidth='0.2'
             />
 
-            <GenerateSlices />
+            {GenerateSlices()}
         </g>
     );
 }

@@ -16,6 +16,7 @@ const saveDebounced = debounce(function _save(get: Getter) {
             hue: get(_hueAtom),
             mono: get(_monoAtom),
             locked: get(viewHueAtoms.lockedAtom),
+            linear: get(viewHueAtoms.linearAtom),
         },
         viewListOptions: {
             sortBy: get(viewListAtoms.sortByAtom),

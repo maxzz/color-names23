@@ -30,6 +30,7 @@ export const viewHueAtoms: Atomize<ViewHueOptions & {
         }
     ),
     lockedAtom: atomWithCallback(initialData.viewHueOptions.locked, saveStore),
+    linearAtom: atomWithCallback(initialData.viewHueOptions.linear, saveStore),
     colorGroupsAtom: atom<ColorItem[][]>([]),
     toleranceAtom: atom(0),
 };

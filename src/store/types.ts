@@ -7,7 +7,6 @@ export enum SectionName {
     list,
     tailwind,
     shadcn,
-    hueWheel,
 }
 
 export type AppOptions = {
@@ -17,8 +16,9 @@ export type AppOptions = {
 export type ViewHueOptions = {
     color: ColorItem | null;
     hue: number;
-    mono: boolean; // monochrome vs. color
-    locked: boolean; // prevent hue from changing opacity
+    mono: boolean;      // monochrome vs. color
+    locked: boolean;    // prevent hue from changing opacity
+    linear: boolean;    // show color linear selector vs. wheel
 };
 
 export type ViewListOptions = {

@@ -11,7 +11,7 @@ function GenerateSpikeSlices() {
         const lit = color[2];
 
         if (sat === 0) {
-            return null;
+            return undefined;
         }
 
         if (idx > 0 && colorkeys[idx - 1][0] !== hue) {
@@ -51,13 +51,13 @@ function GenerateSpikeSlices() {
             />
         );
     });
-    return rv;
+    return rv.filter(Boolean) as JSX.Element[];
 }
 
 export function ColorsWheelSpikes() {
     return (
         <g type="spikes">
-            <GenerateSpikeSlices />
+            {GenerateSpikeSlices()}
         </g>
     );
 }
