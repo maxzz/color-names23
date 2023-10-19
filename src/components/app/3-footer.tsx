@@ -1,7 +1,7 @@
 import { AnchorHTMLAttributes, HTMLAttributes } from 'react';
 import { useAtomValue } from 'jotai';
 import { AppAtoms } from '@/store';
-import { IconGithubLogo } from '@/components/ui/icons/normal';
+import { IconGithubLogo } from '@/components/ui/icons';
 import { classNames } from '@/utils';
 import { ThemeSwitch } from '../ui/shadcn';
 import { linkClasses } from '../ui';

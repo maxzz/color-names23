@@ -1,4 +1,4 @@
-import { IconPalette } from '@/components/ui/icons/normal';
+import { IconPalette } from '@/components/ui/icons';
 
 //const textShadow = { textShadow: '1px 1px red, -1px -1px white', 'WebkitTextStroke': '0.5px #f3e8ff', };
 //const textShadow = { textShadow: 'red 1px 1px, #5f81f473 -1px -1px', 'WebkitTextStroke': '0.5px #232c49', };

@@ -2,7 +2,7 @@ import { useSnapshot } from "valtio";
 import { appSettings } from "@/store/app-settings";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "./dropdown-menu";
 import { Button } from "./button";
-import { IconDark, IconLight, IconSystem } from "../icons/normal";
+import { IconDark, IconLight, IconSystem } from "../icons";
 import { ChevronDown, CheckIcon } from 'lucide-react';
 import { Theme } from "@/utils";
 

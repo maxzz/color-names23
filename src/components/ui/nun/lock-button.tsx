@@ -3,7 +3,7 @@ import { useAtom } from 'jotai';
 import { a, easings, useTransition } from '@react-spring/web';
 import { viewHueAtoms } from '@/store';
 import { classNames } from '@/utils';
-import { IconLockLocked, IconLockUnlocked } from '@/components/ui/icons/normal';
+import { IconLockLocked, IconLockUnlocked } from '@/components/ui/icons';
 import { Button } from '@/components/ui/shadcn';
 
 export function LockButton({ className }: HTMLAttributes<HTMLDivElement>) {
