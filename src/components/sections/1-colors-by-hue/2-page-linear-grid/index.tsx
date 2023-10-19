@@ -2,7 +2,7 @@ import { useAtomValue, useSetAtom } from 'jotai';
 import { viewHueAtoms } from '@/store';
 import './color-neighbors-grid.css';
 
-export function ColorNeighborsGrid() {
+export function PageColorNeighborsGrid() {
     const colorsGroups = useAtomValue(viewHueAtoms.colorGroupsAtom);
     const setGlobalColor = useSetAtom(viewHueAtoms.colorAtom);
     return (

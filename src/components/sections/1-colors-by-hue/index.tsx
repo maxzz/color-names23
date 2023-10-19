@@ -2,9 +2,9 @@ import { HTMLAttributes } from 'react';
 import { useAtomValue } from 'jotai';
 import { viewHueAtoms } from '@/store';
 import { TopPanel } from './1-top-panel';
-import { ColorNeighborsGrid } from './2-color-neighbors-grid';
+import { PageColorNeighborsGrid } from './2-page-linear-grid';
+import { PageHueWheel } from './3-page-hue-wheel';
 import { classNames } from '@/utils';
-import { Section5_HueWheel } from '../5-hue-wheel';
 
 export function Section1_ColorsByHue({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     const linear = useAtomValue(viewHueAtoms.linearAtom);
@@ -14,13 +14,13 @@ export function Section1_ColorsByHue({ className, ...rest }: HTMLAttributes<HTML
 
             {linear &&
                 <div className="flex-1 p-4 grid place-items-center">
-                    <ColorNeighborsGrid />
+                    <PageColorNeighborsGrid />
                 </div>
             }
 
             {!linear &&
-                <div className="h-full flex flex-col">
-                    <Section5_HueWheel className="flex-1" />
+                <div className="flex-1 p-4 grid place-items-center">
+                    <PageHueWheel className="w-full h-full" />
                 </div>
             }
 

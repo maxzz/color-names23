@@ -9,7 +9,7 @@ export let initialData: Store = {
         hue: 298,
         mono: false,
         locked: true,
-        wheel: true,
+        linear: true,
     },
     viewListOptions: {
         sortBy: SortBy.hsl,

@@ -7,7 +7,9 @@ import { classNames } from "@/utils";
 import { useDrag } from "./action-drag";
 import { SelectedColor } from "./view-selected-color";
 
-export function HuePicker({className, ...rest}: SVGAttributes<SVGSVGElement>) {
+export * from "./view-message-copied";
+
+export function HuePicker({ className, ...rest }: SVGAttributes<SVGSVGElement>) {
     const setSvgZoomRef = useZoom();
     const setSvgDragRef = useDrag();
     return (

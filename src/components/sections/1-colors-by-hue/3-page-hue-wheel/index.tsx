@@ -1,20 +1,10 @@
 import { HTMLAttributes } from "react";
+import { HuePicker, MessageHueColorCopied } from "@/components/ui/color-names-distribution/controlled";
 import { classNames } from "@/utils";
-import { HuePicker } from "@/components/ui/color-names-distribution/controlled";
-import { MessageHueColorCopied } from "@/components/ui/color-names-distribution/controlled/view-message-copied";
 
-
-// function HueWheel() {
-//     return (
-//         <div className="flex items-center justify-between">
-
-//         </div>
-//     );
-// }
-
-export function Section5_HueWheel({ className }: HTMLAttributes<HTMLUListElement>) {
+export function PageHueWheel({ className }: HTMLAttributes<HTMLUListElement>) {
     return (
-        <div className={classNames("p-4 h-full text-foreground bg-background border-muted border-b overflow-auto flex flex-col", className)}>
+        <div className={classNames("text-foreground bg-background border-muted border-b overflow-auto flex flex-col", className)}>
             {/* overflow-hidden */}
             {/* <div className="container max-w-md mx-auto flex flex-col space-y-4"> */}
             <div className="flex-0 relative">
