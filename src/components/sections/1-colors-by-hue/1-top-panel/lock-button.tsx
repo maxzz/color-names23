@@ -5,20 +5,17 @@ import { viewHueAtoms } from '@/store';
 import { classNames } from '@/utils';
 import { Button } from '@/components/ui/shadcn';
 
-export const animationConfig = {
-    //config: { mass: 0.2, tension: 692, clamp: true },
-    config: { duration: 200 },
-};
-
 function IconMovingLock({ open, className, ...rest }: { open: boolean; } & React.SVGAttributes<SVGSVGElement>) {
     const styles = useSpring({
         open: open ? 1 : 0,
-        ...animationConfig,
+        x: open ? 18.5 : 0,
+        rotateY: open ? 180 : 0,
+        config: { duration: 150 },
     });
     return (
         <svg className={classNames("stroke-current stroke-[1] fill-transparent", className)} viewBox="0 0 24 24" {...rest}>
-
             <a.path
+                style={styles}
                 d={styles.open.to({
                     range: [0, 1],
                     output: ["M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75", "M4.5 10.5V6.75a4.5 4.5 0 119 0v3.75"],
@@ -40,10 +37,9 @@ export function LockButton({ className }: HTMLAttributes<HTMLDivElement>) {
         <Button
             variant={'ghost'}
             size={'sm'}
-            title="Lock/Unlock inactive colors saturation"
-            className={classNames("px-0 h-auto rounded-none self-center flex", className)}
-            // overflow-hidden
+            className={classNames("px-0 h-auto rounded-none self-center overflow-hidden flex", className)}
             onClick={() => setLocked((v) => !v)}
+            title="Lock/Unlock inactive colors saturation"
         >
             <IconMovingLock className="w-4 h-4" open={locked} />
         </Button>
