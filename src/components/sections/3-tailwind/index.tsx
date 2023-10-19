@@ -1,6 +1,6 @@
 import { HTMLAttributes, ReactNode } from 'react';
 import useMeasure from 'react-use-measure';
-import { TwColorInfoContainer } from './1-top-panel';
+import { TopPanel } from './1-top-panel';
 import { TwColorsGrid } from './2-grid';
 import { classNames } from '@/utils';
 
@@ -21,7 +21,7 @@ export function Section3_Tailwind({ className }: HTMLAttributes<HTMLUListElement
     return (
         <div className={classNames("h-full flex flex-col bg-background overflow-hidden", className)}>
             <div className="bg-background border-border border-b">
-                <TwColorInfoContainer className="max-w-3xl mx-auto" />
+                <TopPanel className="max-w-3xl mx-auto" />
             </div>
 
             <VerticalOverflowFix>
