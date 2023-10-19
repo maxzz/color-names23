@@ -36,12 +36,6 @@ export function App2_Main({ className }: HTMLAttributes<HTMLDivElement>) {
                 </div>
             }
 
-            {/* {current === SectionName.hueWheel &&
-                <div className="h-full flex flex-col">
-                    <Section5_HueWheel className="flex-1" />
-                </div>
-            } */}
-
         </div>
     );
 }

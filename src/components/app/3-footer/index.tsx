@@ -1,42 +1,36 @@
-import { AnchorHTMLAttributes, HTMLAttributes } from 'react';
+import { HTMLAttributes } from 'react';
 import { useAtomValue } from 'jotai';
+import { SectionName } from '@/store/types';
 import { AppAtoms } from '@/store';
+import { Link } from '@/components/ui';
+import { ThemeSwitch } from '@/components/ui/shadcn';
 import { IconGithubLogo } from '@/components/ui/icons';
 import { classNames } from '@/utils';
-import { ThemeSwitch } from '../../ui/shadcn';
-import { linkClasses } from '../../ui';
-import { SectionName } from '@/store/types';
-
-function LinkButton(props: AnchorHTMLAttributes<HTMLAnchorElement>) {
-    return (
-        <a className={linkClasses} target="_blank" {...props} />
-    );
-}
 
 function Section1_HueLinks() {
     return (<>
-        <LinkButton href="https://enes.in/sorted-colors" title="Mustafa Enes sorted-colors">Original project</LinkButton>
-        <LinkButton href="https://maxzz.github.io/color-names" title="My sorted-colors take one">My initial project</LinkButton>
+        <Link href="https://enes.in/sorted-colors" title="Mustafa Enes sorted-colors">Original project</Link>
+        <Link href="https://maxzz.github.io/color-names" title="My sorted-colors take one">My initial project</Link>
     </>);
 }
 
 function Section2_ColorListLinks() {
     return (<>
-        <LinkButton href="https://meyerweb.com/eric/css/colors">Color equivalents table (meyerweb.com)</LinkButton>
+        <Link href="https://meyerweb.com/eric/css/colors">Color equivalents table (meyerweb.com)</Link>
     </>);
 }
 
 function Section3_TailwindLinks() {
     return (<>
-        <LinkButton href="https://tailwindcss.com/docs/customizing-colors" title="Colors on Tailwind CSS website">Tailwind CSS palettes</LinkButton>
+        <Link href="https://tailwindcss.com/docs/customizing-colors" title="Colors on Tailwind CSS website">Tailwind CSS palettes</Link>
     </>);
 }
 
 function GitHubLink() {
     return (
-        <LinkButton href="https://github.com/maxzz/color-names23" title="Open the project's source code on Github">
+        <Link href="https://github.com/maxzz/color-names23" title="Open the project's source code on Github">
             <IconGithubLogo className="w-5 h-5 fill-primary-200 stroke-current hover:stroke-foreground stroke-[50] hover:stroke-[34] hover:scale-[1.5] transition-all" />
-        </LinkButton>
+        </Link>
     );
 }
 
