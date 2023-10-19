@@ -1,6 +1,6 @@
 import { cloneElement, HTMLAttributes, ReactNode, useState } from "react";
-import { MountedMessage } from "./mounted-message";
-import { MessageCopied } from "./message-copied";
+import { MountedTransition } from "./mounted-transition";
+import { TransitionMessageCopied } from "./transition-message-copied";
 import { ValueViewIcon } from "./label-w-copy-button";
 
 type ValueWithCopyProps = {
@@ -9,7 +9,7 @@ type ValueWithCopyProps = {
     copyNotice?: ReactNode;
 };
 
-export function CopyColorButton({ valueToCopy, children, copyNotice }: ValueWithCopyProps & HTMLAttributes<HTMLDivElement>) {
+export function ButtonCopyColor({ valueToCopy, children, copyNotice }: ValueWithCopyProps & HTMLAttributes<HTMLDivElement>) {
     const [isHovered, setIsHovered] = useState(false);
     const [showNotice, setShowNotice] = useState(false);
     return (
@@ -19,14 +19,16 @@ export function CopyColorButton({ valueToCopy, children, copyNotice }: ValueWith
             onPointerLeave={() => setIsHovered(false)}
             onClick={async () => { await navigator.clipboard.writeText(valueToCopy); setShowNotice(true); }}
         >
+            {/* <TransitionMessageCopied /> */}
+
             {children
                 ? cloneElement(children, { valueToCopy, isHovered })
                 : <ValueViewIcon valueToCopy={valueToCopy} isHovered={isHovered} />
             }
 
-            <MountedMessage show={showNotice} setShow={setShowNotice} >
-                {copyNotice ? copyNotice : <MessageCopied />}
-            </MountedMessage>
+            <MountedTransition show={showNotice} setShow={setShowNotice} >
+                {copyNotice ? copyNotice : <TransitionMessageCopied />}
+            </MountedTransition>
         </div>
     );
 }

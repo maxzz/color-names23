@@ -1,22 +1,17 @@
 import { classNames } from "@/utils";
 import { IconClipboard } from "@/components/ui/icons";
 
+const ValueViewIconClasses = "group px-1 py-1 font-semibold inline-flex items-center cursor-pointer";
+const ValueViewIconActiveClasses = "text-foreground bg-background outline-border outline-1 outline rounded-[2px] shadow active:scale-y-[.95]";
+
 export function ValueViewIcon({ valueToCopy, isHovered }: { valueToCopy?: string; isHovered?: boolean; }) {
     return (
-        <div
-            className={classNames(
-                "px-1 py-1",
-                "inline-flex items-center cursor-pointer",
-                isHovered && "px-1 py-1 bg-slate-100 text-primary-900 outline-slate-500 outline-1 outline rounded shadow active:scale-x-[.97]",
-            )}
-        >
-            <div>
+        <div className={classNames(ValueViewIconClasses, isHovered && ValueViewIconActiveClasses,)}>
+            <div className="group-active:scale-y-[1.2]">
                 {valueToCopy}
             </div>
 
-            <div className={classNames("ml-1", isHovered ? "visible" : "invisible")}>
-                <IconClipboard className="w-4 h-4 text-primary-500" />
-            </div>
+            <IconClipboard className={`ml-1 w-4 h-4 stroke-[1.5] text-muted-foreground ${isHovered ? "visible" : "invisible"}`} />
         </div>
     );
 }
