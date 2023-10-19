@@ -1,6 +1,6 @@
 import { useAtomValue } from 'jotai';
 import { viewHueAtoms } from '@/store';
-import { CopyColorButton } from '@/components/ui/copy-color-button';
+import { CopyColorButton } from '@/components/ui/button-copy-color';
 import { formatHSL, formatRGB } from '@/utils-color';
 
 const copyHueNoticeTextShadow = {

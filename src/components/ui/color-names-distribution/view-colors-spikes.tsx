@@ -1,6 +1,6 @@
 import { consts } from "./consts";
-import { colorkeys } from "../original/init-color-keys";
-import { createSlicePath } from "../original/utils-svg";
+import { colorkeys } from "./utils/init-color-keys";
+import { createSlicePath } from "./utils/utils-svg";
 import { colorToCopyState, hueColorWheelState } from "./state";
 
 function GenerateSpikeSlices() {

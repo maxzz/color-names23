@@ -1,4 +1,4 @@
-import { colorkeys } from "../original/init-color-keys";
+import { colorkeys } from "./utils/init-color-keys";
 import { hueColorWheelState } from "./state";
 
 const localConsts = {

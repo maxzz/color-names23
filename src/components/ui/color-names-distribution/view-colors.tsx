@@ -1,5 +1,5 @@
 import { consts } from "./consts";
-import { createSlicePath } from "../original/utils-svg";
+import { createSlicePath } from "./utils/utils-svg";
 
 function generateCircleSlices(x: number, y: number, innerRadius: number, outerRadius: number, resolution: number) {
     const rv = [];

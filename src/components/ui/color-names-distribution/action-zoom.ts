@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getSvgRootElement, svgCoords } from "../original/utils-svg";
+import { getSvgRootElement, svgCoords } from "./utils/utils-svg";
 
 function zoomView(event: WheelEvent): boolean {
     const wheelView: SVGSVGElement | null = getSvgRootElement(event);

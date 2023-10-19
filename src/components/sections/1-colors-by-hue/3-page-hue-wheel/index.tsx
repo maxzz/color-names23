@@ -1,5 +1,5 @@
 import { HTMLAttributes } from "react";
-import { HuePicker, MessageHueColorCopied } from "@/components/ui/color-names-distribution/controlled";
+import { HuePicker, MessageHueColorCopied } from "@/components/ui/color-names-distribution";
 import { classNames } from "@/utils";
 
 export function PageHueWheel({ className }: HTMLAttributes<HTMLUListElement>) {

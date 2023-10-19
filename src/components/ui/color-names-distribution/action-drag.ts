@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { svgCoords, shiftViewBox } from "../original/utils-svg";
+import { svgCoords, shiftViewBox } from "./utils/utils-svg";
 
 export function useDrag() {
     const [svgRef, setSvgRef] = useState<SVGSVGElement | null>();
