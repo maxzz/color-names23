@@ -1,12 +1,12 @@
 import { HTMLAttributes } from 'react';
 import { useAtomValue } from 'jotai';
-import { viewHueAtoms, viewListAtoms } from '@/store';
+import { viewHueAtoms } from '@/store';
 import { TopPanel } from './1-top-panel';
 import { ColorNeighborsGrid } from './2-color-neighbors-grid';
 import { classNames } from '@/utils';
+import { Section5_HueWheel } from '../5-hue-wheel';
 
 export function Section1_ColorsByHue({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-    useAtomValue(viewListAtoms.sortByAtom);
     const linear = useAtomValue(viewHueAtoms.linearAtom);
     return (
         <div className={classNames("flex flex-col", className)} {...rest}>
@@ -17,6 +17,13 @@ export function Section1_ColorsByHue({ className, ...rest }: HTMLAttributes<HTML
                     <ColorNeighborsGrid />
                 </div>
             }
+
+            {!linear &&
+                <div className="h-full flex flex-col">
+                    <Section5_HueWheel className="flex-1" />
+                </div>
+            }
+
         </div>
     );
 }
