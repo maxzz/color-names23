@@ -55,7 +55,9 @@ function RowPalette({ groupName, className }: { groupName: string; } & HTMLAttri
                     onClick={() => setCurrentTwColor((v) => v && { group: v.group, key, value: color })}
                     key={idx}
                 >
-                    <div style={{ color: isLightColor(color) ? "black" : "white" }}>{key}</div>
+                    <div style={{ color: isLightColor(color) ? "black" : "white" }}>
+                        {key}
+                    </div>
                 </div>
             ))}
         </div>

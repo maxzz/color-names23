@@ -4,11 +4,12 @@ import { AppAtoms } from '@/store';
 import { IconGithubLogo } from '@/components/ui/icons/normal';
 import { classNames } from '@/utils';
 import { ThemeSwitch } from '../ui/shadcn';
+import { linkClasses } from '../ui';
 import { SectionName } from '@/store/types';
 
 function LinkButton(props: AnchorHTMLAttributes<HTMLAnchorElement>) {
     return (
-        <a className="hover:text-foreground underline decoration-[0.04rem] underline-offset-[0.2rem] decoration-dotted decoration-muted-foreground/50 hover:decoration-foreground" target="_blank" {...props} />
+        <a className={linkClasses} target="_blank" {...props} />
     );
 }
 
