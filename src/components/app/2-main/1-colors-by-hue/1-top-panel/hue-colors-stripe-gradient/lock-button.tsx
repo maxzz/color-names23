@@ -15,7 +15,7 @@ export function LockButton({ className }: HTMLAttributes<HTMLDivElement>) {
             onClick={() => setLocked((v) => !v)}
             title="Lock/Unlock inactive colors saturation"
         >
-            <IconMovingLock className="w-4 h-4" open={locked} />
+            <IconMovingLock className="w-3 h-3" open={locked} />
         </Button>
     );
 }
