@@ -33,6 +33,10 @@ export type DoubleColor = {
     foreground?: string;
 };
 
+export type OneThemeVars = Record<string, Record<string, string>>; // name inside theme (like :root or .dark) -> {cssVarName: cssVarValue}
+
 export type ShadcnPalette = {
+    paletteName: string;
     colors: DoubleColor[];
+    vars: OneThemeVars;
 };
