@@ -11,8 +11,8 @@ function SingleColor({ label, color }: { label: string; color: string; }) {
                 {label}
             </div>
             <div className="flex items-center space-x-2">
-                <Input />
-                <div className="aspect-square h-9 rounded" style={{ backgroundColor: color }}></div>
+                <Input value={color} onChange={(e) => { }} />
+                <div className="aspect-square h-9 rounded" style={{ backgroundColor: `hsl(${color})` }}></div>
             </div>
         </Label>
     );
@@ -31,7 +31,7 @@ export function Section4_Chadcn({ className }: HTMLAttributes<HTMLUListElement>)
     const snap = useSnapshot(shadcnPalette);
     const items = snap.vars.vars;
     return (
-        <div className={classNames("p-4 h-full text-foreground bg-background border-muted border-b overflow-hidden flex flex-col", className)}>
+        <div className={classNames("p-4 h-full text-foreground bg-background border-muted border-b overflow-auto smallscroll flex flex-col", className)}>
             <div className="container max-w-md mx-auto flex flex-col space-y-4">
                 {/* <PairColors color1="red" color2="red" /> */}
                 {/* <SingleColor label="text" color={snap} /> */}
