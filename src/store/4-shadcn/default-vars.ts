@@ -1,6 +1,6 @@
-import { OneThemeVars } from "./types";
+import { FileThemeVars } from "./types";
 
-export const testTheme: OneThemeVars = {
+export const testTheme: FileThemeVars = {
     ":root": {
         "--background": "0 0% 100%",
         "--foreground": "222.2 47.4% 11.2%",

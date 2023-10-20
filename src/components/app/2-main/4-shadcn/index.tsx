@@ -29,10 +29,15 @@ function PairColors({ color1, color2 }: { color1: string; color2: string; }) {
 
 export function Section4_Chadcn({ className }: HTMLAttributes<HTMLUListElement>) {
     const snap = useSnapshot(shadcnPalette);
+    const items = snap.vars.vars;
     return (
         <div className={classNames("p-4 h-full text-foreground bg-background border-muted border-b overflow-hidden flex flex-col", className)}>
             <div className="container max-w-md mx-auto flex flex-col space-y-4">
-                <PairColors color1="red" color2="red" />
+                {/* <PairColors color1="red" color2="red" /> */}
+                {/* <SingleColor label="text" color={snap} /> */}
+                {items.map(([name, color]) => (
+                    <SingleColor key={name} label={name} color={color} />
+                ))}
             </div>
         </div>
     );

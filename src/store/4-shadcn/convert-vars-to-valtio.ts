@@ -1,6 +1,6 @@
 import { FileThemeVars, OneThemeVars } from "./types";
 
-export function convertDefaultVersToArray(fileVars: FileThemeVars): OneThemeVars {
+export function convertDefaultVarsToArray(fileVars: FileThemeVars): OneThemeVars {
     const root = Object.entries(fileVars);
     const varsName = root[0][0];
     const varsValues = Object.entries(root[0][1]);
