@@ -19,14 +19,14 @@ function Row({ groupName, groupValues }: { groupName: string; groupValues: Group
             </Fragment>
         ))}
 
-        <div className="px-2 flex items-center text-foreground">{groupName}</div>
+        <div className="px-2 flex items-center">{groupName}</div>
     </>);
 }
 
 function ColorsHeader({ paletteKeys }: { paletteKeys: string[]; }) {
     return (<>
         {paletteKeys.map((key, idx) => (
-            <div key={idx} className="px-2 text-center text-foreground">{key}</div>
+            <div key={idx} className="px-2 text-center">{key}</div>
         ))}
         <div className=""></div>
     </>);
@@ -46,7 +46,7 @@ export function TwColorsGrid() {
     const gridStyle = gridTemplateColumnsClasses(groupCnt);
 
     return (
-        <div className={`grid gap-0.5`} style={gridStyle}>
+        <div className="grid gap-0.5 text-foreground dark:text-muted-foreground" style={gridStyle}>
             <ColorsHeader paletteKeys={paletteKeys} />
 
             {groups.map(([groupName, groupValues], idxRow) => (
