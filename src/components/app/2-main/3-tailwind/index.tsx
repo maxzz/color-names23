@@ -10,7 +10,7 @@ function VerticalOverflowFix({ children }: { children: ReactNode; }) {
     const noOverflow = parent.height > child.height;
     return (
         <div ref={refParent} className={classNames("flex-1 p-8 flex flex-col items-center overflow-overlay", noOverflow && "justify-center")}>
-            <div ref={refChild} className="px-3 py-4 text-xs font-bold bg-muted border-foreground/50 border rounded shadow-md dark:shadow-foreground/20">
+            <div ref={refChild} className="px-3 py-8 text-xs font-bold bg-muted border-foreground/50 border rounded shadow-md dark:shadow-foreground/20">
                 {children}
             </div>
         </div>

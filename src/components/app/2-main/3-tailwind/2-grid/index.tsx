@@ -1,7 +1,8 @@
-import { Fragment } from "react";
+import { CSSProperties, Fragment } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { allColorsAtom, colorNameCntAtom, currentTwColorAtom } from "@/store";
 import { GroupValues } from "@/components/ui/tailwind-colors-bridge";
+import { CSS } from "@react-spring/web";
 
 function Row({ groupName, groupValues }: { groupName: string; groupValues: GroupValues; }) {
     const values = Object.entries(groupValues);
@@ -22,15 +23,37 @@ function Row({ groupName, groupValues }: { groupName: string; groupValues: Group
     </>);
 }
 
+function ColorsHeader({ paletteKeys }: { paletteKeys: string[]; }) {
+    return (<>
+        {paletteKeys.map((key, idx) => (
+            <div key={idx} className="px-2 text-center text-foreground">{key}</div>
+        ))}
+        <div className=""></div>
+    </>);
+}
+
+const gridTemplateColumnsClasses = (groupCnt: number) => ({ gridTemplateColumns: `repeat(${groupCnt}, minmax(16px,46px)) auto` } as CSSProperties);
+
 export function TwColorsGrid() {
     const groupCnt = useAtomValue(colorNameCntAtom);
     const colors = useAtomValue(allColorsAtom);
     const groups = Object.entries(colors);
+    if (!groups.length) {
+        return null;
+    }
+
+    const paletteKeys = Object.keys(groups[0][1]); // [_groupName, groupValues] i.e. 50, 100, ..., 900, 950
+    const gridStyle = gridTemplateColumnsClasses(groupCnt);
+
     return (
-        <div className={`grid gap-0.5`} style={{gridTemplateColumns: `repeat(${groupCnt}, minmax(16px,46px)) auto`}}>
+        <div className={`grid gap-0.5`} style={gridStyle}>
+            <ColorsHeader paletteKeys={paletteKeys} />
+
             {groups.map(([groupName, groupValues], idxRow) => (
                 <Row groupName={groupName} groupValues={groupValues} key={idxRow} />
             ))}
+
+            <ColorsHeader paletteKeys={paletteKeys} />
         </div>
     );
 }
