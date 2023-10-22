@@ -41,7 +41,16 @@ function SwitchCell({ label, active, toLeft, setActive, className, ...rest }: Sw
     );
 }
 
-const SwitchClasses = "max-w-fit relative bg-secondary ring-1 ring-primary-400 rounded text-xs shadow select-none cursor-pointer overflow-hidden";
+const SwitchClasses = "\
+relative \
+max-w-fit \
+text-xs \
+bg-secondary \
+ring-1 \
+ring-muted-foreground/70 \
+overflow-hidden \
+rounded shadow select-none cursor-pointer \
+flex items-center justify-between";
 
 type SwitchProps = {
     on: boolean;
@@ -53,23 +62,21 @@ type SwitchProps = {
 export function Switch({ className, on, setOn, labels, titles }: SwitchProps & HTMLAttributes<HTMLDivElement>) {
     return (
         <div className={classNames(SwitchClasses, className)}>
-            <div className="flex">
-                <SwitchCell
-                    label={labels[0]}
-                    title={titles[0]}
-                    toLeft={false}
-                    active={on}
-                    setActive={() => setOn((v) => !v)}
-                />
-                <SwitchCell
-                    label={labels[1]}
-                    title={titles[1]}
-                    className="border-l border-primary-400"
-                    toLeft={true}
-                    active={!on}
-                    setActive={() => setOn((v) => !v)}
-                />
-            </div>
+            <SwitchCell
+                label={labels[0]}
+                title={titles[0]}
+                toLeft={false}
+                active={on}
+                setActive={() => setOn((v) => !v)}
+            />
+            <SwitchCell
+                label={labels[1]}
+                title={titles[1]}
+                className="border-l border-primary-400"
+                toLeft={true}
+                active={!on}
+                setActive={() => setOn((v) => !v)}
+            />
         </div>
     );
 }
