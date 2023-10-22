@@ -8,7 +8,12 @@ export type CssVarNameValue = {
     id: number;                 // id in memory only for react key
 };
 
+export type ForeAndBack = {
+    foreground: CssVarNameValue;
+    background: CssVarNameValue;
+};
+
 export type OneThemeVars = {
     name: string;               // name inside theme (like :root or .dark)
-    vars: CssVarNameValue[];    // cssVarName, cssVarValue
+    vars: ForeAndBack[];        // cssVarName, cssVarValue
 };

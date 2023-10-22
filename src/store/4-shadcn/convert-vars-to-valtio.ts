@@ -1,5 +1,21 @@
 import { uuid } from "@/utils";
-import { CssVarNameValue, FileThemeVars, OneThemeVars } from "./types";
+import { CssVarNameValue, FileThemeVars, ForeAndBack, OneThemeVars } from "./types";
+
+function groupByForeAndBack(vars: CssVarNameValue[]): ForeAndBack[] {
+    let rv: ForeAndBack[] = [];
+    const map = new Map<string, ForeAndBack>();
+    vars.forEach((v) => {
+        let fb = map.get(v.name);
+        if (!fb) {
+            fb = {} as ForeAndBack;
+            map.set(v.name, fb);
+            rv.push(fb);
+        }
+        fb[v.fore ? 'foreground' : 'background'] = v;
+    });
+    rv = rv.filter((fb) => !fb.background && !fb.foreground);
+    return rv;
+}
 
 export function convertDefaultVarsToArray(fileVars: FileThemeVars): OneThemeVars {
     const rootFirst = Object.entries(fileVars);
@@ -18,7 +34,7 @@ export function convertDefaultVarsToArray(fileVars: FileThemeVars): OneThemeVars
             if (!m) {
                 throw new Error(`Invalid css var name: ${name}`);
             }
-            
+
             const [, nameWoDash, fore] = m;
             return {
                 name: nameWoDash,
@@ -30,6 +46,6 @@ export function convertDefaultVarsToArray(fileVars: FileThemeVars): OneThemeVars
         });
     return {
         name: varsName,
-        vars: vars,
+        vars: groupByForeAndBack(vars),
     };
 }
