@@ -28,6 +28,27 @@ function SingleColor({ label, color }: { label: string; color: string; }) {
 //     );
 // }
 
+type Pair = [key: string, value: string];
+type PairWithOrder = {
+    pair: Pair;
+    order: number;
+};
+type GroupedPair = {
+    foreground: Pair;
+    background: Pair;
+};
+
+function groupNames(names: Pair[]): [Pair, Pair][] {
+    const rv: [Pair, Pair][] = [];
+    const pairs: PairWithOrder[] = names.map((pair, idx) => ({ pair, order: idx }));
+    const namedPairs: Record<string, PairWithOrder> = {};
+    // names.forEach((pair) => {
+    //     const isForeground = pair[0].includes("-foreground");
+    //     namedPairs[isForeground ? pair[0] : pair[1]] = { pair, order: 0 };
+
+    return rv;
+}
+
 export function Section4_Chadcn({ className }: HTMLAttributes<HTMLUListElement>) {
     const snap = useSnapshot(shadcnPalette);
     const items = snap.vars.vars;
