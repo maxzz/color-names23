@@ -11,7 +11,7 @@ type SwitchCellProps = {
 
 const shadowDarkClasses = "dark:shadow-[inset_2px_2px_5px_0.2px_#000000,inset_-0px_-2px_2px_0px_#e6e6e638]";
 const shadowLightClasses = "shadow-[inset_1px_2px_5px_0px_#0004,inset_-0px_-2px_2px_0px_#fffa]";
-const shadowClasses = `${shadowLightClasses} ${shadowDarkClasses} opacity-50`;
+const shadowClasses = `${shadowLightClasses} ${shadowDarkClasses} opacity-100`;
 
 const pseudoBold: CSSProperties = {
     WebkitTextStroke: "0.5px red",
@@ -36,9 +36,14 @@ function SwitchCell({ label, active, toLeft, setActive, className, ...rest }: Sw
                 "relative px-2 py-2 font-bold flex-0 flex items-end z-10",
                 active ? "bg-background" : shadowClasses,
                 // TODO: substitute font-bold with alternative solution
+                "",
+                // "[-webkit-text-stroke:.5px_red]", // OK
+                // "[-webkit-text-stroke:.5px_bg-muted-foreground/40 dark:bg-muted-foreground/50]", // NOT OK
+                "text-foreground",
+                "[-webkit-text-stroke:1.9px_hsl(var(--muted-foreground)_/_0.4)]",
                 className,
             )}
-            style={active ? {} : pseudoBold}
+            // style={active ? {} : pseudoBold}
             onClick={setActive}
             {...rest}
         >
