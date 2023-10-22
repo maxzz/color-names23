@@ -16,7 +16,7 @@ const shadowClasses = `${shadowLightClasses} ${shadowDarkClasses} opacity-100`;
 const pseudoBold: CSSProperties = {
     WebkitTextStroke: "0.5px red",
     //color: "rgb(102 116 161)",
-}
+};
 
 function SwitchCell({ label, active, toLeft, setActive, className, ...rest }: SwitchCellProps & HTMLAttributes<HTMLDivElement>) {
     const styles = useSpring({
@@ -33,14 +33,20 @@ function SwitchCell({ label, active, toLeft, setActive, className, ...rest }: Sw
     return (
         <div
             className={classNames(
-                "relative px-2 py-2 font-bold flex-0 flex items-end z-10",
+                "relative px-2 py-2 flex-0 flex items-end z-10",
                 active ? "bg-background" : shadowClasses,
                 // TODO: substitute font-bold with alternative solution
                 "",
                 // "[-webkit-text-stroke:.5px_red]", // OK
                 // "[-webkit-text-stroke:.5px_bg-muted-foreground/40 dark:bg-muted-foreground/50]", // NOT OK
+                // "text-foreground",
+                active ? "text-foreground" : "text-muted-foreground",
                 "text-foreground",
-                "[-webkit-text-stroke:1.9px_hsl(var(--muted-foreground)_/_0.4)]",
+                // "[-webkit-text-stroke:1.9px_hsl(var(--muted-foreground)_/_0.4)]",
+                active
+                    ? "[-webkit-text-stroke:.4px_hsl(var(--foreground)_/_1)]"
+                    : "[-webkit-text-stroke:.5px_hsl(var(--muted-foreground)_/_0.4)]"
+                ,
                 className,
             )}
             // style={active ? {} : pseudoBold}
