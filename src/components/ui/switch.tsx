@@ -1,4 +1,4 @@
-import { HTMLAttributes, SetStateAction } from "react";
+import { CSSProperties, HTMLAttributes, SetStateAction } from "react";
 import { a, useSpring } from "@react-spring/web";
 import { classNames } from "@/utils";
 
@@ -9,9 +9,14 @@ type SwitchCellProps = {
     setActive: () => void;
 };
 
-const shadowDarkClasses = "dark:shadow-[inset_2px_2px_5px_0.2px_#000000,inset_-0px_-2px_2px_0px_#e6e6e638] opacity-50";
-// const shadowClasses = "shadow-[inset_2px_2px_5px_0.2px_#000000,inset_-0px_-2px_2px_0px_#e6e6e638] opacity-50";
-const shadowLightClasses = "shadow-[inset_1px_2px_5px_0px_#0004,inset_-0px_-2px_2px_0px_#fffa] opacity-50";
+const shadowDarkClasses = "dark:shadow-[inset_2px_2px_5px_0.2px_#000000,inset_-0px_-2px_2px_0px_#e6e6e638]";
+const shadowLightClasses = "shadow-[inset_1px_2px_5px_0px_#0004,inset_-0px_-2px_2px_0px_#fffa]";
+const shadowClasses = `${shadowLightClasses} ${shadowDarkClasses} opacity-50`;
+
+const pseudoBold: CSSProperties = {
+    WebkitTextStroke: "0.5px red",
+    //color: "rgb(102 116 161)",
+}
 
 function SwitchCell({ label, active, toLeft, setActive, className, ...rest }: SwitchCellProps & HTMLAttributes<HTMLDivElement>) {
     const styles = useSpring({
@@ -28,11 +33,12 @@ function SwitchCell({ label, active, toLeft, setActive, className, ...rest }: Sw
     return (
         <div
             className={classNames(
-                "relative px-2 py-2 flex-0 flex items-end z-10",
-                active ? "bg-background font-bold" : `${shadowLightClasses} ${shadowDarkClasses}}`,
+                "relative px-2 py-2 font-bold flex-0 flex items-end z-10",
+                active ? "bg-background" : shadowClasses,
                 // TODO: substitute font-bold with alternative solution
                 className,
             )}
+            style={active ? {} : pseudoBold}
             onClick={setActive}
             {...rest}
         >
