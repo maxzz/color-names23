@@ -3,6 +3,7 @@ import { Input, Label } from "@/components/ui/shadcn";
 import { classNames } from "@/utils";
 import { useSnapshot } from "valtio";
 import { shadcnPalette } from "@/store/4-shadcn";
+import { CSSVarValue } from "@/store/4-shadcn/types";
 
 function SingleColor({ label, color }: { label: string; color: string; }) {
     return (<>
@@ -28,23 +29,39 @@ function SingleColor({ label, color }: { label: string; color: string; }) {
 //     );
 // }
 
-type Pair = [key: string, value: string];
 type PairWithOrder = {
-    pair: Pair;
+    pair: CSSVarValue;
     order: number;
 };
 type GroupedPair = {
-    foreground: Pair;
-    background: Pair;
+    foreground: CSSVarValue;
+    background: CSSVarValue;
 };
 
-function groupNames(names: Pair[]): [Pair, Pair][] {
-    const rv: [Pair, Pair][] = [];
+function groupNames(names: CSSVarValue[]): [CSSVarValue, CSSVarValue][] {
+    const rv: [CSSVarValue, CSSVarValue][] = [];
     const pairs: PairWithOrder[] = names.map((pair, idx) => ({ pair, order: idx }));
-    const namedPairs: Record<string, PairWithOrder> = {};
-    // names.forEach((pair) => {
-    //     const isForeground = pair[0].includes("-foreground");
-    //     namedPairs[isForeground ? pair[0] : pair[1]] = { pair, order: 0 };
+    const namedPairs: Record<string, GroupedPair> = {};
+
+    pairs.forEach(({ pair }) => {
+        const [key, value] = pair;
+
+        const namePair = key.split("-foreground");
+        const realName = namePair[0];
+
+        if (!namedPairs[realName]) {
+            namedPairs[realName] = {} as GroupedPair;
+        }
+
+        if (namePair.length === 2) {
+            namedPairs[realName].foreground = pair;
+        } else {
+            namedPairs[realName].background = pair;
+        }
+
+        console.log({ key, realName });
+    });
+    console.log({ namedPairs });
 
     return rv;
 }
@@ -52,6 +69,7 @@ function groupNames(names: Pair[]): [Pair, Pair][] {
 export function Section4_Chadcn({ className }: HTMLAttributes<HTMLUListElement>) {
     const snap = useSnapshot(shadcnPalette);
     const items = snap.vars.vars;
+    const namedPairs = groupNames(shadcnPalette.vars.vars);
     return (
         <div className={classNames("p-4 h-full text-foreground bg-background border-muted border-b overflow-auto smallscroll flex flex-col", className)}>
             <div className="container mx-auto max-w-md grid grid-cols-4 gap-2">

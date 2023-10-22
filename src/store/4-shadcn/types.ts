@@ -34,9 +34,12 @@ export type DoubleColor = {
 };
 
 export type FileThemeVars = Record<string, Record<string, string>>; // name inside theme (like :root or .dark) -> {cssVarName: cssVarValue}
+
+export type CSSVarValue = [name: string, value: string];
+
 export type OneThemeVars = {
     name: string;               // name inside theme (like :root or .dark)
-    vars: [string, string][];   // cssVarName, cssVarValue
+    vars: CSSVarValue[];        // cssVarName, cssVarValue
 }
 
 export type ShadcnPalette = {

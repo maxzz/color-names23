@@ -1,4 +1,4 @@
-import { FileThemeVars, OneThemeVars } from "./types";
+import { CSSVarValue, FileThemeVars, OneThemeVars } from "./types";
 
 export function convertDefaultVarsToArray(fileVars: FileThemeVars): OneThemeVars {
     const root = Object.entries(fileVars);
@@ -7,7 +7,7 @@ export function convertDefaultVarsToArray(fileVars: FileThemeVars): OneThemeVars
 
     const vars = varsValues
         .map(([name, color]) => {
-            return [name, color] as [string, string];
+            return [name, color] as CSSVarValue;
         });
     return {
         name: varsName,
