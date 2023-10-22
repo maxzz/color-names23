@@ -7,20 +7,18 @@ function groupByForeAndBack(vars: CssVarNameValue[]): ForeAndBack[] {
     vars.forEach((v) => {
         let fb = map.get(v.name);
         if (!fb) {
-            fb = {} as ForeAndBack;
+            fb = {};
             map.set(v.name, fb);
             rv.push(fb);
         }
         fb[v.fore ? 'foreground' : 'background'] = v;
     });
-    rv = rv.filter((fb) => !fb.background && !fb.foreground);
+    rv = rv.filter((fb) => fb.background || fb.foreground);
     return rv;
 }
 
 export function convertThemeVars(fileVars: FileThemeVars): OneThemeVars[] {
-    const rv: OneThemeVars[] = [];
-
-    Object.entries(fileVars).map((entry) => {
+    const rv: OneThemeVars[] = Object.entries(fileVars).map((entry) => {
         const [varsName, varsValues] = entry;
         const varsValuesPairs = Object.entries(varsValues);
 
@@ -45,6 +43,5 @@ export function convertThemeVars(fileVars: FileThemeVars): OneThemeVars[] {
             vars: groupByForeAndBack(vars),
         };
     });
-
     return rv;
 }
