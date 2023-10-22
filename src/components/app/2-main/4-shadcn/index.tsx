@@ -36,14 +36,25 @@ export function Section4_Chadcn({ className }: HTMLAttributes<HTMLUListElement>)
             <div className="container mx-auto max-w-md grid grid-cols-4 gap-2">
                 {/* <PairColors color1="red" color2="red" /> */}
                 {/* <SingleColor label="text" color={snap} /> */}
-                {items.map(([name, color]) => (
-                    <Fragment key={name}>
-                        <SingleColor label={name} color={color} />
-                        
-                        <div className=""></div>
-                        <div className=""></div>
-                    </Fragment>
-                ))}
+                {items.map(([name, color]) => {
+                    const isForeground = name.includes("-foreground");
+                    return (
+                        isForeground
+                            ? (
+                                <Fragment key={name}>
+                                    <div className=""></div>
+                                    <div className=""></div>
+                                    <SingleColor label={name} color={color} />
+                                </Fragment>
+                            )
+                            : (
+                                <Fragment key={name}>
+                                    <SingleColor label={name} color={color} />
+                                    <div className=""></div>
+                                    <div className=""></div>
+                                </Fragment>
+                            ));
+                })}
             </div>
         </div>
     );
