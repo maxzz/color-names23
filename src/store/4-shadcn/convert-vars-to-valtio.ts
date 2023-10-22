@@ -1,13 +1,32 @@
-import { CSSVarValue, FileThemeVars, OneThemeVars } from "./types";
+import { uuid } from "@/utils";
+import { CssVarNameValue, FileThemeVars, OneThemeVars } from "./types";
 
 export function convertDefaultVarsToArray(fileVars: FileThemeVars): OneThemeVars {
-    const root = Object.entries(fileVars);
-    const varsName = root[0][0];
-    const varsValues = Object.entries(root[0][1]);
+    const rootFirst = Object.entries(fileVars);
+    if (!rootFirst.length) {
+        throw new Error('FileThemeVars is empty');
+    }
 
-    const vars = varsValues
-        .map(([name, color]) => {
-            return [name, color] as CSSVarValue;
+    const rv: OneThemeVars[] = [];
+
+    const [varsName, varsValues] = rootFirst[0];
+    const varsValuesPairs = Object.entries(varsValues);
+
+    const vars = varsValuesPairs
+        .map(([name, color], idx) => {
+            const m = name.match(/^--([^-]+)(-foreground)?$/);
+            if (!m) {
+                throw new Error(`Invalid css var name: ${name}`);
+            }
+            
+            const [, nameWoDash, fore] = m;
+            return {
+                name: nameWoDash,
+                fore: !!fore,
+                value: color,
+                order: idx,
+                id: uuid.asRelativeNumber(),
+            };
         });
     return {
         name: varsName,

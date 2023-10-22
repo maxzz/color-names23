@@ -1,6 +1,6 @@
-import { ShadcnPaletteTemplate, FileDoubleColor, DoubleColor } from "./types";
+import { ShadcnPaletteTemplate, FileTwDoubleColor, TwDoubleColor } from "./types";
 
-export function convertDefaultPaletteToArray(shadcnDefaultColor: ShadcnPaletteTemplate<FileDoubleColor>): DoubleColor[] {
+export function convertDefaultPaletteToArray(shadcnDefaultColor: ShadcnPaletteTemplate<FileTwDoubleColor>): TwDoubleColor[] {
     const colors = Object.entries(shadcnDefaultColor.colors)
         .map(([name, color]) => {
             if (typeof color === "string") {
