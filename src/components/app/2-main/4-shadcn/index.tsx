@@ -7,7 +7,7 @@ import { shadcnPalette } from "@/store/4-shadcn";
 function SingleColor({ label, color }: { label: string; color: string; }) {
     return (<>
         {/* <Label className="flex items-center"> */}
-            <div className="pb-1 text-foreground/70 dark:text-foreground/50">
+            <div className="pb-1 text-sm text-foreground/70 dark:text-foreground/50 flex items-center">
                 {label}
             </div>
             <div className="flex items-center space-x-2">
@@ -33,7 +33,7 @@ export function Section4_Chadcn({ className }: HTMLAttributes<HTMLUListElement>)
     const items = snap.vars.vars;
     return (
         <div className={classNames("p-4 h-full text-foreground bg-background border-muted border-b overflow-auto smallscroll flex flex-col", className)}>
-            <div className="container max-w-md mx-auto grid grid-cols-2 gap-2">
+            <div className="container mx-auto max-w-md grid grid-cols-2 gap-2">
                 {/* <PairColors color1="red" color2="red" /> */}
                 {/* <SingleColor label="text" color={snap} /> */}
                 {items.map(([name, color]) => (
