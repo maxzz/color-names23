@@ -11,12 +11,12 @@ type SwitchCellProps = {
 
 const shadowDarkClasses = "dark:shadow-[inset_2px_2px_5px_0.2px_#000000,inset_-0px_-2px_2px_0px_#e6e6e638]";
 const shadowLightClasses = "shadow-[inset_1px_2px_5px_0px_#0004,inset_-0px_-2px_2px_0px_#fffa]";
-const shadowClasses = `${shadowLightClasses} ${shadowDarkClasses} opacity-50`; //TODO: opacity should go to a separate div, not to text
+const shadowClasses = `${shadowLightClasses} ${shadowDarkClasses}`; //TODO: opacity should go to a separate div, not to text
 
-const pseudoBold: CSSProperties = {
-    WebkitTextStroke: "0.5px red",
-    //color: "rgb(102 116 161)",
-};
+// const pseudoBold: CSSProperties = {
+//     WebkitTextStroke: "0.5px red",
+//     //color: "rgb(102 116 161)",
+// };
 
 function SwitchCell({ label, active, toLeft, setActive, className, ...rest }: SwitchCellProps & HTMLAttributes<HTMLDivElement>) {
     const styles = useSpring({
@@ -48,7 +48,7 @@ function SwitchCell({ label, active, toLeft, setActive, className, ...rest }: Sw
                     // "[-webkit-text-stroke:.5px_red]", // OK
                     // "[-webkit-text-stroke:.5px_bg-muted-foreground/40 dark:bg-muted-foreground/50]", // NOT OK
                     // "text-foreground",
-                    active ? "text-foreground" : "text-muted-foreground",
+                    active ? "text-foreground" : "text-foreground",
                     //"text-foreground",
                     // "[-webkit-text-stroke:1.9px_hsl(var(--muted-foreground)_/_0.4)]",
                     active
@@ -59,6 +59,7 @@ function SwitchCell({ label, active, toLeft, setActive, className, ...rest }: Sw
             >
                 {label}
             </div>
+            <div className={classNames("absolute inset-0", !active && "bg-muted/40 dark:bg-muted/50")}></div>
 
             <a.div style={styles} className={`absolute inset-0 ${toLeft ? 'origin-right' : 'origin-left'} bg-muted-foreground/40 dark:bg-muted-foreground/50`}></a.div>
         </div>
