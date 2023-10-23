@@ -5,5 +5,6 @@ export * from './normal/02-clipboard';
 export * from './normal/03-lock-locked';
 export * from './normal/03-lock-unlocked';
 export * from './normal/03-lock-separated';
+export * from './normal/04-no-color';
 
 export * from './lock-w-moving-bracket';

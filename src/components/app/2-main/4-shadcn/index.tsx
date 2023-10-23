@@ -4,6 +4,7 @@ import { classNames } from "@/utils";
 import { useSnapshot } from "valtio";
 import { shadcnPalette } from "@/store/4-shadcn";
 import { ForeAndBack } from "@/store/4-shadcn/types";
+import { IconNoColor } from "@/components/ui/icons";
 
 function SingleColor({ foreAndBack }: { foreAndBack: ForeAndBack; }) {
     return (<>
@@ -26,7 +27,9 @@ function SingleColor({ foreAndBack }: { foreAndBack: ForeAndBack; }) {
                     <Input value={foreAndBack.foreground.value} onChange={(e) => { }} />
                 </div>
             )
-            : <div className=""></div>
+            : <div className="aspect-square w-9 h-9 rounded border-border border">
+                <IconNoColor className="stroke-none fill-muted-foreground" />
+            </div>
         }
     </>);
 }
