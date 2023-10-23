@@ -9,11 +9,11 @@ import { IconNoColor } from "@/components/ui/icons";
 const previewColorClasses = "flex-none aspect-square w-9 h-9 ring-border ring-2 ring-offset-1 rounded overflow-hidden";
 const previewNoColorClasses = `${previewColorClasses} stroke-none bg-neutral-100 fill-neutral-400`;
 
-function ColorPreview({ color }: { color?: string; }) {
+function ColorPreview({ color, className }: { color?: string; className?: string; }) {
     return (<>
         {color
-            ? <div className={previewColorClasses} style={{ backgroundColor: `hsl(${color})` }}></div>
-            : <IconNoColor className={previewNoColorClasses} />
+            ? <div className={classNames(previewColorClasses, className)} style={{ backgroundColor: `hsl(${color})` }}></div>
+            : <IconNoColor className={classNames(previewNoColorClasses, className)} />
         }
     </>);
 }
@@ -26,7 +26,7 @@ function SingleColor({ foreAndBack }: { foreAndBack: ForeAndBack; }) {
         </div>
 
         {!notHsl && (<>
-        {/* TODO: but we need input */}
+            {/* TODO: but we need input */}
             {foreAndBack.background
                 ? (
                     <div className="flex items-center space-x-2">
@@ -39,12 +39,12 @@ function SingleColor({ foreAndBack }: { foreAndBack: ForeAndBack; }) {
 
             {foreAndBack.foreground
                 ? (
-                    <div className="flex items-center space-x-2">
+                    <div className="ml-2 flex items-center space-x-2">
                         {foreAndBack.foreground.isHsl && <ColorPreview color={foreAndBack.foreground?.value} />}
                         <Input value={foreAndBack.foreground.value} onChange={(e) => { }} />
                     </div>
                 )
-                : <ColorPreview />
+                : <ColorPreview className="ml-2" />
             }
 
         </>)}
@@ -55,7 +55,7 @@ function Header() {
     return (<>
         <div className="mb-1 text-xs text-muted-foreground border-border border-b">Name</div>
         <div className="mb-1 text-xs text-muted-foreground border-border border-b text-right">Background</div>
-        <div className="mb-1 text-xs text-muted-foreground border-border border-b">Foreground</div>
+        <div className="mb-1 text-xs text-muted-foreground border-border border-b ml-2">Foreground</div>
     </>
     );
 }
@@ -65,7 +65,7 @@ export function Section4_Chadcn({ className }: HTMLAttributes<HTMLUListElement>)
     const items = snap.vars.vars;
     return (
         <div className={classNames("p-4 h-full text-foreground bg-background border-muted border-b overflow-auto smallscroll flex flex-col", className)}>
-            <div className="container mx-auto max-w-xl grid grid-cols-[auto,1fr,1fr] gap-x-2 gap-y-2">
+            <div className="container mx-auto max-w-xl grid grid-cols-[auto,1fr,1fr] gap-y-2">
                 <Header />
                 {items.map((foreAndBack, idx) => (
                     <SingleColor foreAndBack={foreAndBack} key={idx} />
