@@ -15,15 +15,17 @@ function SingleColor({ foreAndBack }: { foreAndBack: ForeAndBack; }) {
             ? (
                 <div className="flex items-center space-x-2">
                     <Input value={foreAndBack.background.value} onChange={(e) => { }} />
-                    <div className="aspect-square h-9 rounded" style={{ backgroundColor: `hsl(${foreAndBack.background.value})` }}></div>
+                    <div className="flex-none aspect-square w-9 h-9 rounded border-border border-2 overflow-hidden" style={{ backgroundColor: `hsl(${foreAndBack.background.value})` }}></div>
                 </div>
             )
-            : <div className=""></div>
+            : <div className="aspect-square w-9 h-9 rounded border-border border-2 overflow-hidden">
+                <IconNoColor className="stroke-none bg-neutral-100 fill-neutral-400" />
+            </div>
         }
         {foreAndBack.foreground
             ? (
                 <div className="flex items-center space-x-2">
-                    <div className="aspect-square h-9 rounded" style={{ backgroundColor: `hsl(${foreAndBack.foreground.value})` }}></div>
+                    <div className="flex-none aspect-square w-9 h-9 rounded border-border border-2 overflow-hidden" style={{ backgroundColor: `hsl(${foreAndBack.foreground.value})` }}></div>
                     <Input value={foreAndBack.foreground.value} onChange={(e) => { }} />
                 </div>
             )
@@ -37,7 +39,7 @@ function SingleColor({ foreAndBack }: { foreAndBack: ForeAndBack; }) {
 function Header() {
     return (<>
         <div className="mb-1 text-xs text-muted-foreground border-border border-b">Name</div>
-        <div className="mb-1 text-xs text-muted-foreground border-border border-b">Background</div>
+        <div className="mb-1 text-xs text-muted-foreground border-border border-b text-right">Background</div>
         <div className="mb-1 text-xs text-muted-foreground border-border border-b">Foreground</div>
     </>
     );
