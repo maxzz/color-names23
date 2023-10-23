@@ -27,8 +27,8 @@ function SingleColor({ foreAndBack }: { foreAndBack: ForeAndBack; }) {
                     <Input value={foreAndBack.foreground.value} onChange={(e) => { }} />
                 </div>
             )
-            : <div className="aspect-square w-9 h-9 rounded border-border border">
-                <IconNoColor className="stroke-none fill-muted-foreground" />
+            : <div className="aspect-square w-9 h-9 rounded border-border border-2 overflow-hidden">
+                <IconNoColor className="stroke-none bg-neutral-100 fill-neutral-400" />
             </div>
         }
     </>);
