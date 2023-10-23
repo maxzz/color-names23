@@ -1,23 +1,7 @@
 import { uuid } from "@/utils";
 import { CssVarNameValue, FileThemeVars, ForeAndBack, OneThemeVars } from "./types";
 
-function groupByForeAndBack1(vars: CssVarNameValue[]): ForeAndBack[] {
-    const map = new Map<string, ForeAndBack>();
-    vars.forEach((v) => {
-        let newForeAndBack = map.get(v.name);
-        if (!newForeAndBack) {
-            newForeAndBack = {};
-            map.set(v.name, newForeAndBack);
-        }
-        newForeAndBack[v.fore ? 'foreground' : 'background'] = v;
-    });
-
-    let rv: ForeAndBack[] = [...map.values()];
-    rv = rv.filter((fb) => fb.background || fb.foreground);
-    return rv;
-}
-
-function groupByForeAndBack2(vars: CssVarNameValue[], combineForeBack: boolean): ForeAndBack[] {
+function groupByForeAndBack(vars: CssVarNameValue[], combineForeBack: boolean): ForeAndBack[] {
     const map = new Map<string, ForeAndBack>();
     vars.forEach((v) => {
         let newForeAndBack = map.get(v.name);
@@ -72,7 +56,7 @@ export function convertThemeVars(fileVars: FileThemeVars): OneThemeVars[] {
             });
         return {
             name: varsName,
-            vars: groupByForeAndBack2(vars, true),
+            vars: groupByForeAndBack(vars, true),
         };
     });
     return rv;
