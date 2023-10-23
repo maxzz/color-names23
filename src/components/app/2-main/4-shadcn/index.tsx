@@ -28,6 +28,14 @@ function SingleColor({ foreAndBack }: { foreAndBack: ForeAndBack; }) {
             )
             : <div className=""></div>
         }
+    </>);
+}
+
+function Header() {
+    return (<>
+        <div className="mb-1 text-xs text-muted-foreground border-border border-b">Name</div>
+        <div className="mb-1 text-xs text-muted-foreground border-border border-b">Background</div>
+        <div className="mb-1 text-xs text-muted-foreground border-border border-b">Foreground</div>
     </>
     );
 }
@@ -38,6 +46,7 @@ export function Section4_Chadcn({ className }: HTMLAttributes<HTMLUListElement>)
     return (
         <div className={classNames("p-4 h-full text-foreground bg-background border-muted border-b overflow-auto smallscroll flex flex-col", className)}>
             <div className="container mx-auto max-w-xl grid grid-cols-[auto,1fr,1fr] gap-x-4 gap-y-2">
+                <Header />
                 {items.map((foreAndBack, idx) => (
                     <SingleColor foreAndBack={foreAndBack} key={idx} />
                 ))}
