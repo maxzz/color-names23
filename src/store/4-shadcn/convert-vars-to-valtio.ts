@@ -28,8 +28,8 @@ function groupByForeAndBack(vars: CssVarNameValue[], combineForeBack: boolean): 
     return rv;
 }
 
-const matchFore = /^--([^-]+)(-foreground)?$/;
-const matchHSL = /^(hsl\()?(\d+\.?\d*)\s+(\d+\.?\d*)%\s+(\d+\.?\d*)%(\))?$/;
+const matchFore = /^\s*--([^-]+)(-foreground)?\s*$/;
+const matchHSL = /^\s*(hsl\()?(\d+\.?\d*)\s+(\d+\.?\d*)%\s+(\d+\.?\d*)%(\))?\s*$/;
 
 export function convertThemeVars(fileVars: FileThemeVars): OneThemeVars[] {
     const rv: OneThemeVars[] = Object.entries(fileVars).map((entry) => {
