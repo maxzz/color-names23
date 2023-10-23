@@ -6,6 +6,17 @@ import { shadcnPalette } from "@/store/4-shadcn";
 import { ForeAndBack } from "@/store/4-shadcn/types";
 import { IconNoColor } from "@/components/ui/icons";
 
+function ColorPreview({ color }: { color?: string; }) {
+    return (<>
+        {color
+            ?
+            <div className="flex-none aspect-square w-9 h-9 rounded border-border border-2 overflow-hidden" style={{ backgroundColor: `hsl(${color})` }}></div>
+            :
+            <IconNoColor className="aspect-square w-9 h-9 stroke-none bg-neutral-100 fill-neutral-400 rounded border-border border-2 overflow-hidden" />
+        }
+    </>);
+}
+
 function SingleColor({ foreAndBack }: { foreAndBack: ForeAndBack; }) {
     return (<>
         <div className="pb-1 text-sm text-foreground/70 dark:text-foreground/50 flex items-center">
@@ -15,14 +26,33 @@ function SingleColor({ foreAndBack }: { foreAndBack: ForeAndBack; }) {
             ? (
                 <div className="flex items-center space-x-2">
                     <Input value={foreAndBack.background.value} onChange={(e) => { }} />
+                    <ColorPreview color={foreAndBack.background?.value} />
+                </div>
+            )
+            : <ColorPreview />
+        }
+        {/* {foreAndBack.background
+            ? (
+                <div className="flex items-center space-x-2">
+                    <Input value={foreAndBack.background.value} onChange={(e) => { }} />
                     <div className="flex-none aspect-square w-9 h-9 rounded border-border border-2 overflow-hidden" style={{ backgroundColor: `hsl(${foreAndBack.background.value})` }}></div>
                 </div>
             )
             : <div className="aspect-square w-9 h-9 rounded border-border border-2 overflow-hidden">
                 <IconNoColor className="stroke-none bg-neutral-100 fill-neutral-400" />
             </div>
-        }
+        } */}
+
         {foreAndBack.foreground
+            ? (
+                <div className="flex items-center space-x-2">
+                    <ColorPreview color={foreAndBack.foreground?.value} />
+                    <Input value={foreAndBack.foreground.value} onChange={(e) => { }} />
+                </div>
+            )
+            : <ColorPreview />
+        }
+        {/* {foreAndBack.foreground
             ? (
                 <div className="flex items-center space-x-2">
                     <div className="flex-none aspect-square w-9 h-9 rounded border-border border-2 overflow-hidden" style={{ backgroundColor: `hsl(${foreAndBack.foreground.value})` }}></div>
@@ -32,7 +62,7 @@ function SingleColor({ foreAndBack }: { foreAndBack: ForeAndBack; }) {
             : <div className="aspect-square w-9 h-9 rounded border-border border-2 overflow-hidden">
                 <IconNoColor className="stroke-none bg-neutral-100 fill-neutral-400" />
             </div>
-        }
+        } */}
     </>);
 }
 
