@@ -6,6 +6,7 @@ export type CssVarNameValue = {
     value: string;
     order: number;              // order in css file
     id: number;                 // id in memory only for react key
+    isHsl?: boolean;            // true if value is hsl() i.e. '222.2 47.4% 11.2%'
 };
 
 export type ForeAndBack = {
