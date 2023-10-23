@@ -11,12 +11,13 @@ function groupByForeAndBack1(vars: CssVarNameValue[]): ForeAndBack[] {
         }
         newForeAndBack[v.fore ? 'foreground' : 'background'] = v;
     });
+
     let rv: ForeAndBack[] = [...map.values()];
     rv = rv.filter((fb) => fb.background || fb.foreground);
     return rv;
 }
 
-function groupByForeAndBack2(vars: CssVarNameValue[]): ForeAndBack[] {
+function groupByForeAndBack2(vars: CssVarNameValue[], combineForeBack: boolean): ForeAndBack[] {
     const map = new Map<string, ForeAndBack>();
     vars.forEach((v) => {
         let newForeAndBack = map.get(v.name);
@@ -27,14 +28,16 @@ function groupByForeAndBack2(vars: CssVarNameValue[]): ForeAndBack[] {
         newForeAndBack[v.fore ? 'foreground' : 'background'] = v;
     });
 
-    // combine background and foreground
-    const bg = map.get('background');
-    const fg = map.get('foreground');
-    if (bg && fg && fg.background) {
-        fg.background.fore = true;
-        fg.background.name = 'background';
-        bg.foreground = fg.background;
-        map.delete('foreground');
+    if (combineForeBack) {
+        // combine background and foreground
+        const bg = map.get('background');
+        const fg = map.get('foreground');
+        if (bg && fg && fg.background) {
+            fg.background.fore = true;
+            fg.background.name = 'background';
+            bg.foreground = fg.background;
+            map.delete('foreground');
+        }
     }
 
     let rv: ForeAndBack[] = [...map.values()];
@@ -69,7 +72,7 @@ export function convertThemeVars(fileVars: FileThemeVars): OneThemeVars[] {
             });
         return {
             name: varsName,
-            vars: groupByForeAndBack2(vars),
+            vars: groupByForeAndBack2(vars, true),
         };
     });
     return rv;
