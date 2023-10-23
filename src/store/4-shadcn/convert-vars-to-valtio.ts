@@ -63,3 +63,21 @@ export function convertThemeVars(fileVars: FileThemeVars): OneThemeVars[] {
     });
     return rv;
 }
+
+export function colorCounters(vars: OneThemeVars) {
+    const rv = new Map();
+
+    vars.vars.reduce((acc, fb) => {
+        const color = fb.background || fb.foreground;
+        if (!color) {
+            return acc;
+        }
+        if (!rv.has(color)) {
+            rv.set(color, 0);
+        }
+        rv.set(color, rv.get(color) + 1);
+        return acc;
+    }, rv);
+
+    return Object.fromEntries(rv);
+}
