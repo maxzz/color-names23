@@ -13,7 +13,6 @@ function groupByForeAndBack(vars: CssVarNameValue[], combineForeBack: boolean): 
     });
 
     if (combineForeBack) {
-        // combine background and foreground
         const bg = map.get('background');
         const fg = map.get('foreground');
         if (bg && fg && fg.background) {
@@ -29,6 +28,9 @@ function groupByForeAndBack(vars: CssVarNameValue[], combineForeBack: boolean): 
     return rv;
 }
 
+const matchFore = /^--([^-]+)(-foreground)?$/;
+const matchHSL = /^(hsl\()?(\d+\.?\d*)\s+(\d+\.?\d*)%\s+(\d+\.?\d*)%(\))?$/;
+
 export function convertThemeVars(fileVars: FileThemeVars): OneThemeVars[] {
     const rv: OneThemeVars[] = Object.entries(fileVars).map((entry) => {
         const [varsName, varsValues] = entry;
@@ -36,15 +38,15 @@ export function convertThemeVars(fileVars: FileThemeVars): OneThemeVars[] {
 
         const vars = varsValuesPairs
             .map(([name, color], idx) => {
-                const m = name.match(/^--([^-]+)(-foreground)?$/);
+                const m = name.match(matchFore);
                 if (!m) {
-                    throw new Error(`Invalid css var name: ${name}`);
+                    throw new Error(`Invalid css var name: ${name}. Name should start with '--'`);
                 }
+                const [, nameWoDash, fore] = m;
 
-                const m2 = color.match(/^(hsl\()?(\d+\.?\d*)\s+(\d+\.?\d*)%\s+(\d+\.?\d*)%(\))?$/);
+                const m2 = color.match(matchHSL);
                 const isHsl = !!m2;
 
-                const [, nameWoDash, fore] = m;
                 return {
                     name: nameWoDash,
                     fore: !!fore,
