@@ -18,20 +18,22 @@ function ValuePreviewColor({ color, className, ...rest }: { color: string; } & H
     );
 }
 
-function ValuePreviewLength({ value, className, isBackOrFore, ...rest }: { value: string; isBackOrFore?: boolean; } & HTMLAttributes<HTMLDivElement>) {
-    // like radius
+function ValuePreviewLength({ value, valueName, className, isBackOrFore, ...rest }: { value: string; valueName: string; isBackOrFore?: boolean; } & HTMLAttributes<HTMLDivElement>) {
     if (!isBackOrFore) {
         return <div className=""></div>;
     }
     return (
         <div className={classNames("relative", previewColorClasses, className)} {...rest}>
-            <div className="absolute inset-1.5 border-l-2 border-t-2 border-muted-foreground bg-muted" style={{ borderTopLeftRadius: value }}></div>
+            {valueName === 'radius' &&
+                <div className="absolute inset-1.5 border-l-2 border-t-2 border-muted-foreground bg-muted" style={{ borderTopLeftRadius: value }}></div>
+            }
         </div>
     );
 }
 
 type ValuePreviewBoxProps = {
     value: string;
+    valueName: string;
     isUndefined: boolean;
     isColor: boolean;
     isLength: boolean;
@@ -39,12 +41,12 @@ type ValuePreviewBoxProps = {
 };
 
 
-export function ValuePreviewBox({ value, isUndefined, isColor, isLength, isBackOrFore }: ValuePreviewBoxProps) {
+export function ValuePreviewBox({ valueName, value, isUndefined, isColor, isLength, isBackOrFore }: ValuePreviewBoxProps) {
     return (
         <div>
             {isColor && <ValuePreviewColor color={value} />}
             {isUndefined && <ValuePreviewUndefined />}
-            {isLength && <ValuePreviewLength value={value} isBackOrFore={isBackOrFore} />}
+            {isLength && <ValuePreviewLength value={value} valueName={valueName} isBackOrFore={isBackOrFore} />}
         </div>
     );
 }
