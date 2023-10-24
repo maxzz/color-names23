@@ -68,7 +68,7 @@ export function makeColorCounters(vars: OneThemeVars): Record<string, number> {
     const rv = new Map();
 
     vars.vars.reduce((acc, fb) => {
-        const color = fb.background || fb.foreground;
+        const color = fb.background?.value || fb.foreground?.value;
         if (!color) {
             return acc;
         }
