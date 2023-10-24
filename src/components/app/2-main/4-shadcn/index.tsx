@@ -81,6 +81,14 @@ function Header() {
     </>);
 }
 
+function Header2() {
+    return (<>
+        <div className="mb-1 text-xs text-muted-foreground border-border border-b mt-4"></div>
+        <div className="mb-1 text-xs text-muted-foreground border-border border-b mt-4 text-right">Length values</div>
+        <div className="mb-1 text-xs text-muted-foreground border-border border-b mt-4 ml-2"></div>
+    </>);
+}
+
 export function Section4_Chadcn({ className }: HTMLAttributes<HTMLUListElement>) {
     const snap = useSnapshot(shadcnPalette);
     const items = snap.vars.vars;
@@ -89,8 +97,18 @@ export function Section4_Chadcn({ className }: HTMLAttributes<HTMLUListElement>)
             <div className="container mx-auto max-w-xl grid grid-cols-[auto,1fr,1fr] gap-y-2">
                 <Header />
                 {items.map((foreAndBack, idx) => (
-                    <SingleColor foreAndBack={foreAndBack} key={idx} />
+                    <>
+                        {(foreAndBack.background?.isHsl || foreAndBack.foreground?.isHsl) && <SingleColor foreAndBack={foreAndBack} key={`${idx}`} />}
+                    </>
                 ))}
+
+                <Header2 />
+                {items.map((foreAndBack, idx) => (
+                    <>
+                        {(!foreAndBack.background?.isHsl && !foreAndBack.foreground?.isHsl) && <SingleColor foreAndBack={foreAndBack} key={`${idx}-length`} />}
+                    </>
+                ))}
+
             </div>
         </div>
     );
