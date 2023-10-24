@@ -21,40 +21,43 @@ function ValuePreviewColor({ color, className, ...rest }: { color: string; } & H
     );
 }
 
-function ValuePreviewLength({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
+function ValuePreviewLength({ className, isBackOrFore, ...rest }: { isBackOrFore?: boolean; } & HTMLAttributes<HTMLDivElement>) {
     // like radius
+    if (!isBackOrFore) {
+        return <div className=""></div>;
+    }
     return (
         <div className={classNames("relative", previewColorClasses, className)} {...rest}>
-            <div className="absolute inset-1.5 border-l-2 border-t-2 border-muted-foreground bg-muted [--rad:.5rem]"></div>
+            <div className="absolute inset-1.5 border-l-2 border-t-2 border-muted-foreground bg-muted" style={{ '--radius-value': '.5rem' }}></div>
         </div>
     );
 }
 
-function ValuePreviewBox({ color }: { color?: CssVarNameValue; }) {
+function ValuePreviewBox({ color, both, isBackOrFore }: { color?: CssVarNameValue; both: ForeAndBack; isBackOrFore?: boolean; }) {
+    const isEmpty = !color?.value;
+    const isColor = color?.value && color?.isHsl;
     const isLength = color?.value && !color?.isHsl;
-    const isColor = color?.value && !isLength;
-    const isEmpty = !color?.value && !isLength;
     return (
         <div>
             {isColor && <ValuePreviewColor color={color.value} />}
             {isEmpty && <ValuePreviewEmpty />}
-            {isLength && <ValuePreviewLength />}
+            {isLength && <ValuePreviewLength isBackOrFore={isBackOrFore} />}
         </div>
     );
 }
 
-function ValueInputAndBox({ color, isBackOrFore }: { color?: CssVarNameValue; isBackOrFore?: boolean; }) {
+function ValueInputAndBox({ color, both, isBackOrFore }: { color?: CssVarNameValue; both: ForeAndBack; isBackOrFore?: boolean; }) {
     const isEmpty = !color?.value;
     return (<>
         {isBackOrFore
             ? (
                 <div className="flex items-center space-x-2">
                     {!isEmpty && <Input value={color.value} onChange={(e) => { }} />}
-                    <ValuePreviewBox color={color} />
+                    <ValuePreviewBox color={color} both={both} isBackOrFore={isBackOrFore} />
                 </div>
             ) : (
                 <div className="ml-2 flex items-center space-x-2">
-                    <ValuePreviewBox color={color} />
+                    <ValuePreviewBox color={color} both={both} isBackOrFore={isBackOrFore} />
                     {!isEmpty && <Input value={color.value} onChange={(e) => { }} />}
                 </div>
             )
@@ -70,8 +73,8 @@ function SingleColor({ foreAndBack }: { foreAndBack: ForeAndBack; }) {
             {foreAndBack.background?.name || foreAndBack.foreground?.name}
         </div>
 
-        <ValueInputAndBox color={foreAndBack.background} isBackOrFore />
-        <ValueInputAndBox color={foreAndBack.foreground} />
+        <ValueInputAndBox color={foreAndBack.background} both={foreAndBack} isBackOrFore={true} />
+        <ValueInputAndBox color={foreAndBack.foreground} both={foreAndBack} />
     </>);
 }
 
