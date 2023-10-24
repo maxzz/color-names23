@@ -30,15 +30,21 @@ function ValuePreviewLength({ value, className, isBackOrFore, ...rest }: { value
     );
 }
 
-export function ValuePreviewBox({ color, both, isBackOrFore }: { color?: CssVarNameValue; both: ForeAndBack; isBackOrFore?: boolean; }) {
-    const isUndefined = !color?.value && !isBackOrFore && (both.b?.isHsl || both.f?.isHsl);
-    const isColor = color?.value && color?.isHsl;
-    const isLength = color?.value && !color?.isHsl && isBackOrFore;
+type ValuePreviewBoxProps = {
+    value: string;
+    isUndefined: boolean;
+    isColor: boolean;
+    isLength: boolean;
+    isBackOrFore: boolean;
+};
+
+
+export function ValuePreviewBox({ value, isUndefined, isColor, isLength, isBackOrFore }: ValuePreviewBoxProps) {
     return (
         <div>
-            {isColor && <ValuePreviewColor color={color.value} />}
+            {isColor && <ValuePreviewColor color={value} />}
             {isUndefined && <ValuePreviewUndefined />}
-            {isLength && <ValuePreviewLength value={color.value} isBackOrFore={isBackOrFore} />}
+            {isLength && <ValuePreviewLength value={value} isBackOrFore={isBackOrFore} />}
         </div>
     );
 }

@@ -7,16 +7,22 @@ function ValueInputAndBox({ color, field, both, isBackOrFore }: { color?: CssVar
     const bothSnap = useSnapshot(both, { sync: true });
     const colorSnap = bothSnap[field];
     const isEmpty = !color?.value || !colorSnap?.value;
+
+    const value = colorSnap?.value || '';
+    const isUndefined = !colorSnap?.value && !isBackOrFore && (both.b?.isHsl || both.f?.isHsl);
+    const isColor = colorSnap?.value && colorSnap?.isHsl;
+    const isLength = colorSnap?.value && !colorSnap?.isHsl && isBackOrFore;
+
     return (<>
         {isBackOrFore
             ? (
                 <div className="flex items-center space-x-2">
                     {!isEmpty && <Input value={colorSnap.value} onChange={(e) => { color.value = e.target.value }} />}
-                    <ValuePreviewBox color={colorSnap} both={both} isBackOrFore={isBackOrFore} />
+                    <ValuePreviewBox value={value} isUndefined={!!isUndefined} isColor={!!isColor} isLength={!!isLength} isBackOrFore={!!isBackOrFore} />
                 </div>
             ) : (
                 <div className="ml-2 flex items-center space-x-2">
-                    <ValuePreviewBox color={colorSnap} both={both} isBackOrFore={isBackOrFore} />
+                    <ValuePreviewBox value={value} isUndefined={!!isUndefined} isColor={!!isColor} isLength={!!isLength} isBackOrFore={!!isBackOrFore} />
                     {!isEmpty && <Input value={colorSnap.value} onChange={(e) => { color.value = e.target.value }} />}
                 </div>
             )
