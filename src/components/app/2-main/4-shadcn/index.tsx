@@ -1,13 +1,41 @@
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, SVGAttributes } from "react";
 import { Input } from "@/components/ui/shadcn";
 import { classNames } from "@/utils";
 import { useSnapshot } from "valtio";
 import { shadcnPalette } from "@/store/4-shadcn";
-import { ForeAndBack } from "@/store/4-shadcn/types";
+import { CssVarNameValue, ForeAndBack } from "@/store/4-shadcn/types";
 import { IconNoColor } from "@/components/ui/icons";
 
 const previewColorClasses = "flex-none aspect-square w-9 h-9 ring-border ring-2 ring-offset-1 rounded overflow-hidden";
 const previewNoColorClasses = `${previewColorClasses} stroke-none bg-neutral-100 fill-neutral-400`;
+
+function ValuePreviewEmpty({ className, ...rest }: SVGAttributes<SVGSVGElement>) {
+    return (
+        <IconNoColor className={classNames(previewNoColorClasses, className)} {...rest} />
+    );
+}
+
+function ValuePreviewColor({ color, className, ...rest }: {color: string} & HTMLAttributes<HTMLDivElement>) {
+    return (
+        <div className={classNames(previewColorClasses, className)} style={{ backgroundColor: `hsl(${color})` }} {...rest}></div>
+    );
+}
+
+function ValuePreviewLength({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
+    // like radius
+    return (
+        <div className={classNames(previewColorClasses, className)} {...rest}>ra</div>
+    );
+}
+
+function ValuePreview({ color }: { color: CssVarNameValue; }) {
+    const Co = ValuePreviewEmpty;
+    return (
+        <div>
+            <Co />
+        </div>
+    );
+}
 
 function ColorPreview({ color, className }: { color?: string; className?: string; }) {
     return (<>
