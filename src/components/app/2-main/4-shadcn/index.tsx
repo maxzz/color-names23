@@ -1,4 +1,4 @@
-import { HTMLAttributes, SVGAttributes } from "react";
+import { Fragment, HTMLAttributes, SVGAttributes } from "react";
 import { Input } from "@/components/ui/shadcn";
 import { classNames } from "@/utils";
 import { useSnapshot } from "valtio";
@@ -24,7 +24,9 @@ function ValuePreviewColor({ color, className, ...rest }: { color: string; } & H
 function ValuePreviewLength({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     // like radius
     return (
-        <div className={classNames(previewColorClasses, className)} {...rest}>ra</div>
+        <div className={classNames("relative", previewColorClasses, className)} {...rest}>
+            <div className="absolute inset-1.5 border-l-2 border-t-2 border-muted-foreground bg-muted [--rad:.5rem]"></div>
+        </div>
     );
 }
 
@@ -97,16 +99,16 @@ export function Section4_Chadcn({ className }: HTMLAttributes<HTMLUListElement>)
             <div className="container mx-auto max-w-xl grid grid-cols-[auto,1fr,1fr] gap-y-2">
                 <Header />
                 {items.map((foreAndBack, idx) => (
-                    <>
-                        {(foreAndBack.background?.isHsl || foreAndBack.foreground?.isHsl) && <SingleColor foreAndBack={foreAndBack} key={`${idx}`} />}
-                    </>
+                    <Fragment key={`${idx}`}>
+                        {(foreAndBack.background?.isHsl || foreAndBack.foreground?.isHsl) && <SingleColor foreAndBack={foreAndBack} />}
+                    </Fragment>
                 ))}
 
                 <Header2 />
                 {items.map((foreAndBack, idx) => (
-                    <>
-                        {(!foreAndBack.background?.isHsl && !foreAndBack.foreground?.isHsl) && <SingleColor foreAndBack={foreAndBack} key={`${idx}-length`} />}
-                    </>
+                    <Fragment key={`${idx}-length`}>
+                        {(!foreAndBack.background?.isHsl && !foreAndBack.foreground?.isHsl) && <SingleColor foreAndBack={foreAndBack} />}
+                    </Fragment>
                 ))}
 
             </div>
