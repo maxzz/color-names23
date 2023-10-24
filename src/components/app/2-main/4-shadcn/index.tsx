@@ -21,14 +21,14 @@ function ValuePreviewColor({ color, className, ...rest }: { color: string; } & H
     );
 }
 
-function ValuePreviewLength({ className, isBackOrFore, ...rest }: { isBackOrFore?: boolean; } & HTMLAttributes<HTMLDivElement>) {
+function ValuePreviewLength({ value, className, isBackOrFore, ...rest }: { value: string; isBackOrFore?: boolean; } & HTMLAttributes<HTMLDivElement>) {
     // like radius
     if (!isBackOrFore) {
         return <div className=""></div>;
     }
     return (
         <div className={classNames("relative", previewColorClasses, className)} {...rest}>
-            <div className="absolute inset-1.5 border-l-2 border-t-2 border-muted-foreground bg-muted" style={{ '--radius-value': '.5rem' }}></div>
+            <div className="absolute inset-1.5 border-l-2 border-t-2 border-muted-foreground bg-muted" style={{ borderTopLeftRadius: value }}></div>
         </div>
     );
 }
@@ -41,7 +41,7 @@ function ValuePreviewBox({ color, both, isBackOrFore }: { color?: CssVarNameValu
         <div>
             {isColor && <ValuePreviewColor color={color.value} />}
             {isUndefined && <ValuePreviewUndefined />}
-            {isLength && <ValuePreviewLength isBackOrFore={isBackOrFore} />}
+            {isLength && <ValuePreviewLength value={color.value} isBackOrFore={isBackOrFore} />}
         </div>
     );
 }
