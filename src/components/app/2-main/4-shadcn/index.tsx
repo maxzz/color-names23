@@ -60,15 +60,6 @@ function ValueInputAndBox({ color, isBackOrFore }: { color?: CssVarNameValue; is
     </>);
 }
 
-function ColorPreview({ color, className }: { color?: string; className?: string; }) {
-    return (<>
-        {color
-            ? <div className={classNames(previewColorClasses, className)} style={{ backgroundColor: `hsl(${color})` }}></div>
-            : <IconNoColor className={classNames(previewNoColorClasses, className)} />
-        }
-    </>);
-}
-
 function SingleColor({ foreAndBack }: { foreAndBack: ForeAndBack; }) {
     const notHsl = !foreAndBack.background?.isHsl && !foreAndBack.foreground?.isHsl;
     //TODO: add preview foregraound over background
@@ -79,31 +70,6 @@ function SingleColor({ foreAndBack }: { foreAndBack: ForeAndBack; }) {
 
         <ValueInputAndBox color={foreAndBack.background} isBackOrFore />
         <ValueInputAndBox color={foreAndBack.foreground} />
-
-
-        {/* {!notHsl && (<>
-            {/* TODO: but we need input * /}
-            {foreAndBack.background
-                ? (
-                    <div className="flex items-center space-x-2">
-                        <Input value={foreAndBack.background.value} onChange={(e) => { }} />
-                        {foreAndBack.background.isHsl && <ColorPreview color={foreAndBack.background?.value} />}
-                    </div>
-                )
-                : <ColorPreview />
-            }
-
-            {foreAndBack.foreground
-                ? (
-                    <div className="ml-2 flex items-center space-x-2">
-                        {foreAndBack.foreground.isHsl && <ColorPreview color={foreAndBack.foreground?.value} />}
-                        <Input value={foreAndBack.foreground.value} onChange={(e) => { }} />
-                    </div>
-                )
-                : <ColorPreview className="ml-2" />
-            }
-
-        </>)} */}
     </>);
 }
 
@@ -112,8 +78,7 @@ function Header() {
         <div className="mb-1 text-xs text-muted-foreground border-border border-b">Name</div>
         <div className="mb-1 text-xs text-muted-foreground border-border border-b text-right">Background</div>
         <div className="mb-1 text-xs text-muted-foreground border-border border-b ml-2">Foreground</div>
-    </>
-    );
+    </>);
 }
 
 export function Section4_Chadcn({ className }: HTMLAttributes<HTMLUListElement>) {
