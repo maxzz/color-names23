@@ -28,10 +28,10 @@ function ValuePreviewLength({ className, ...rest }: HTMLAttributes<HTMLDivElemen
     );
 }
 
-function ValuePreviewBox({ color }: { color: CssVarNameValue; }) {
-    const isColor = color.value && !color.isHsl;
-    const isLength = color.value && color.isHsl;
-    const isEmpty = !color.value;
+function ValuePreviewBox({ color }: { color?: CssVarNameValue; }) {
+    const isLength = color?.value && !color?.isHsl;
+    const isColor = color?.value && !isLength;
+    const isEmpty = !color?.value && !isLength;
     return (
         <div>
             {isColor && <ValuePreviewColor color={color.value} />}
@@ -48,11 +48,11 @@ function ValueInputAndBox({ color, isBackOrFore }: { color?: CssVarNameValue; is
             ? (
                 <div className="flex items-center space-x-2">
                     {!isEmpty && <Input value={color.value} onChange={(e) => { }} />}
-                    {color?.isHsl && <ColorPreview color={color?.value} />}
+                    <ValuePreviewBox color={color} />
                 </div>
             ) : (
-                <div className="flex items-center space-x-2">
-                    {color?.isHsl && <ColorPreview color={color?.value} />}
+                <div className="ml-2 flex items-center space-x-2">
+                    <ValuePreviewBox color={color} />
                     {!isEmpty && <Input value={color.value} onChange={(e) => { }} />}
                 </div>
             )
