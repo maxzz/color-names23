@@ -15,7 +15,7 @@ function ValuePreviewEmpty({ className, ...rest }: SVGAttributes<SVGSVGElement>)
     );
 }
 
-function ValuePreviewColor({ color, className, ...rest }: {color: string} & HTMLAttributes<HTMLDivElement>) {
+function ValuePreviewColor({ color, className, ...rest }: { color: string; } & HTMLAttributes<HTMLDivElement>) {
     return (
         <div className={classNames(previewColorClasses, className)} style={{ backgroundColor: `hsl(${color})` }} {...rest}></div>
     );
@@ -29,10 +29,11 @@ function ValuePreviewLength({ className, ...rest }: HTMLAttributes<HTMLDivElemen
 }
 
 function ValuePreview({ color }: { color: CssVarNameValue; }) {
-    const Co = ValuePreviewEmpty;
     return (
         <div>
-            <Co />
+            {color.value && <ValuePreviewColor color={color.value} />}
+            {!color.value && <ValuePreviewEmpty />}
+            {color.value && color.isHsl && <ValuePreviewLength />}
         </div>
     );
 }
