@@ -6,7 +6,7 @@ import { shadcnPalette } from "@/store/4-shadcn";
 import { CssVarNameValue, ForeAndBack } from "@/store/4-shadcn/types";
 import { IconNoColor } from "@/components/ui/icons";
 
-const previewColorClasses = "flex-none aspect-square w-9 h-9 ring-border ring-2 ring-offset-1 rounded overflow-hidden";
+const previewColorClasses = "flex-none aspect-square w-9 h-9 ring-border ring-offset-foreground/30 ring-2 ring-offset-1 rounded overflow-hidden";
 const previewNoColorClasses = `${previewColorClasses} stroke-none bg-neutral-100 fill-neutral-400`;
 
 function ValuePreviewUndefined({ className, ...rest }: SVGAttributes<SVGSVGElement>) {
