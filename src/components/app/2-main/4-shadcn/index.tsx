@@ -28,14 +28,36 @@ function ValuePreviewLength({ className, ...rest }: HTMLAttributes<HTMLDivElemen
     );
 }
 
-function ValuePreview({ color }: { color: CssVarNameValue; }) {
+function ValuePreviewBox({ color }: { color: CssVarNameValue; }) {
+    const isColor = color.value && !color.isHsl;
+    const isLength = color.value && color.isHsl;
+    const isEmpty = !color.value;
     return (
         <div>
-            {color.value && <ValuePreviewColor color={color.value} />}
-            {!color.value && <ValuePreviewEmpty />}
-            {color.value && color.isHsl && <ValuePreviewLength />}
+            {isColor && <ValuePreviewColor color={color.value} />}
+            {isEmpty && <ValuePreviewEmpty />}
+            {isLength && <ValuePreviewLength />}
         </div>
     );
+}
+
+function ValueInputAndBox({ color, isBackOrFore }: { color?: CssVarNameValue; isBackOrFore?: boolean; }) {
+    const isEmpty = !color?.value;
+    return (<>
+        {isBackOrFore
+            ? (
+                <div className="flex items-center space-x-2">
+                    {!isEmpty && <Input value={color.value} onChange={(e) => { }} />}
+                    {color?.isHsl && <ColorPreview color={color?.value} />}
+                </div>
+            ) : (
+                <div className="flex items-center space-x-2">
+                    {color?.isHsl && <ColorPreview color={color?.value} />}
+                    {!isEmpty && <Input value={color.value} onChange={(e) => { }} />}
+                </div>
+            )
+        }
+    </>);
 }
 
 function ColorPreview({ color, className }: { color?: string; className?: string; }) {
@@ -49,13 +71,18 @@ function ColorPreview({ color, className }: { color?: string; className?: string
 
 function SingleColor({ foreAndBack }: { foreAndBack: ForeAndBack; }) {
     const notHsl = !foreAndBack.background?.isHsl && !foreAndBack.foreground?.isHsl;
+    //TODO: add preview foregraound over background
     return (<>
         <div className="mr-4 text-sm text-foreground/70 dark:text-foreground/50 flex items-center">
             {foreAndBack.background?.name || foreAndBack.foreground?.name}
         </div>
 
-        {!notHsl && (<>
-            {/* TODO: but we need input */}
+        <ValueInputAndBox color={foreAndBack.background} isBackOrFore />
+        <ValueInputAndBox color={foreAndBack.foreground} />
+
+
+        {/* {!notHsl && (<>
+            {/* TODO: but we need input * /}
             {foreAndBack.background
                 ? (
                     <div className="flex items-center space-x-2">
@@ -76,7 +103,7 @@ function SingleColor({ foreAndBack }: { foreAndBack: ForeAndBack; }) {
                 : <ColorPreview className="ml-2" />
             }
 
-        </>)}
+        </>)} */}
     </>);
 }
 
