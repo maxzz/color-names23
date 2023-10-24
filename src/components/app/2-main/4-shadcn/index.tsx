@@ -34,7 +34,7 @@ function ValuePreviewLength({ value, className, isBackOrFore, ...rest }: { value
 }
 
 function ValuePreviewBox({ color, both, isBackOrFore }: { color?: CssVarNameValue; both: ForeAndBack; isBackOrFore?: boolean; }) {
-    const isUndefined = !color?.value && !isBackOrFore && (both.background?.isHsl || both.foreground?.isHsl);
+    const isUndefined = !color?.value && !isBackOrFore && (both.b?.isHsl || both.f?.isHsl);
     const isColor = color?.value && color?.isHsl;
     const isLength = color?.value && !color?.isHsl && isBackOrFore;
     return (
@@ -66,15 +66,15 @@ function ValueInputAndBox({ color, both, isBackOrFore }: { color?: CssVarNameVal
 }
 
 function SingleColor({ foreAndBack }: { foreAndBack: ForeAndBack; }) {
-    const notHsl = !foreAndBack.background?.isHsl && !foreAndBack.foreground?.isHsl;
+    const notHsl = !foreAndBack.b?.isHsl && !foreAndBack.f?.isHsl;
     //TODO: add preview foregraound over background
     return (<>
         <div className="mr-4 text-sm text-foreground/70 dark:text-foreground/50 flex items-center">
-            {foreAndBack.background?.name || foreAndBack.foreground?.name}
+            {foreAndBack.b?.name || foreAndBack.f?.name}
         </div>
 
-        <ValueInputAndBox color={foreAndBack.background} both={foreAndBack} isBackOrFore={true} />
-        <ValueInputAndBox color={foreAndBack.foreground} both={foreAndBack} />
+        <ValueInputAndBox color={foreAndBack.b} both={foreAndBack} isBackOrFore={true} />
+        <ValueInputAndBox color={foreAndBack.f} both={foreAndBack} />
     </>);
 }
 
@@ -103,14 +103,14 @@ export function Section4_Chadcn({ className }: HTMLAttributes<HTMLUListElement>)
                 <Header />
                 {items.map((foreAndBack, idx) => (
                     <Fragment key={`${idx}`}>
-                        {(foreAndBack.background?.isHsl || foreAndBack.foreground?.isHsl) && <SingleColor foreAndBack={foreAndBack} />}
+                        {(foreAndBack.b?.isHsl || foreAndBack.f?.isHsl) && <SingleColor foreAndBack={foreAndBack} />}
                     </Fragment>
                 ))}
 
                 <Header2 />
                 {items.map((foreAndBack, idx) => (
                     <Fragment key={`${idx}-length`}>
-                        {(!foreAndBack.background?.isHsl && !foreAndBack.foreground?.isHsl) && <SingleColor foreAndBack={foreAndBack} />}
+                        {(!foreAndBack.b?.isHsl && !foreAndBack.f?.isHsl) && <SingleColor foreAndBack={foreAndBack} />}
                     </Fragment>
                 ))}
 

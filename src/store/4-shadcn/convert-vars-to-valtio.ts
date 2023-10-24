@@ -9,22 +9,22 @@ function groupByForeAndBack(vars: CssVarNameValue[], combineForeBack: boolean): 
             newForeAndBack = {};
             map.set(v.name, newForeAndBack);
         }
-        newForeAndBack[v.fore ? 'foreground' : 'background'] = v;
+        newForeAndBack[v.fore ? 'f' : 'b'] = v;
     });
 
     if (combineForeBack) {
         const bg = map.get('background');
         const fg = map.get('foreground');
-        if (bg && fg && fg.background) {
-            fg.background.fore = true;
-            fg.background.name = 'background';
-            bg.foreground = fg.background;
+        if (bg && fg && fg.b) {
+            fg.b.fore = true;
+            fg.b.name = 'background';
+            bg.f = fg.b;
             map.delete('foreground');
         }
     }
 
     let rv: ForeAndBack[] = [...map.values()];
-    rv = rv.filter((fb) => fb.background || fb.foreground);
+    rv = rv.filter((fb) => fb.b || fb.f);
     return rv;
 }
 
@@ -68,7 +68,7 @@ export function makeColorCounters(vars: OneThemeVars): Record<string, number> {
     const rv = new Map();
 
     vars.vars.reduce((acc, fb) => {
-        const color = fb.background?.value || fb.foreground?.value;
+        const color = fb.b?.value || fb.f?.value;
         if (!color) {
             return acc;
         }

@@ -10,8 +10,8 @@ export type CssVarNameValue = {
 };
 
 export type ForeAndBack = {
-    foreground?: CssVarNameValue;
-    background?: CssVarNameValue;
+    f?: CssVarNameValue;        // foreground
+    b?: CssVarNameValue;        // background
 };
 
 export type OneThemeVars = {
