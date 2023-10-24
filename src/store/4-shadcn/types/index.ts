@@ -7,5 +7,5 @@ export * from './palette';
 export type ShadcnPalette = {
     paletteName: string;
     colors: TwDoubleColor[];
-    vars: OneThemeVars;         // TODO: this will be later as OneThemeVars[]
+    varGroups: OneThemeVars;         // TODO: this will be later as OneThemeVars[]
 };

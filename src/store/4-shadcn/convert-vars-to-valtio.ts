@@ -1,5 +1,5 @@
-import { uuid } from "@/utils";
 import { CssVarNameValue, FileThemeVars, ForeAndBack, OneThemeVars } from "./types";
+import { uuid } from "@/utils";
 
 function groupByForeAndBack(vars: CssVarNameValue[], combineForeBack: boolean): ForeAndBack[] {
     const map = new Map<string, ForeAndBack>();

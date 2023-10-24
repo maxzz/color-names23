@@ -8,13 +8,12 @@ import { makeColorCounters, convertThemeVars } from "./convert-vars-to-valtio";
 export const shadcnPalette = proxy<ShadcnPalette>({
     paletteName: 'shadcn',
     colors: convertDefaultPaletteToArray(shadcnDefaultColor),
-    vars: convertThemeVars(testTheme)?.[0] || [], // TODO: need to surround with try/catch; handle array values
+    varGroups: convertThemeVars(testTheme)?.[0] || [], // TODO: need to surround with try/catch; handle array values
 });
 
-export const colorCounters = proxy<ColorCounters>(makeColorCounters(shadcnPalette.vars));
+export const colorCounters = proxy<ColorCounters>(makeColorCounters(shadcnPalette.varGroups));
 console.log('colorCounters', colorCounters);
 
-subscribe(shadcnPalette.vars, () => {
-    console.log('shadcnPalette.vars changed');
-    makeColorCounters(shadcnPalette.vars);
+subscribe(shadcnPalette.varGroups, () => {
+    console.log('shadcnPalette.vars changed', makeColorCounters(shadcnPalette.varGroups));
 });

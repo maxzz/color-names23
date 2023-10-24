@@ -46,19 +46,21 @@ function ValuePreviewBox({ color, both, isBackOrFore }: { color?: CssVarNameValu
     );
 }
 
-function ValueInputAndBox({ color, both, isBackOrFore }: { color?: CssVarNameValue; both: ForeAndBack; isBackOrFore?: boolean; }) {
-    const isEmpty = !color?.value;
+function ValueInputAndBox({ color, field, both, isBackOrFore }: { color?: CssVarNameValue; field: keyof ForeAndBack; both: ForeAndBack; isBackOrFore?: boolean; }) {
+    const bothSnap = useSnapshot(both, { sync: true });
+    const colorSnap = bothSnap[field];
+    const isEmpty = !color?.value || !colorSnap?.value;
     return (<>
         {isBackOrFore
             ? (
                 <div className="flex items-center space-x-2">
-                    {!isEmpty && <Input value={color.value} onChange={(e) => { }} />}
+                    {!isEmpty && <Input value={colorSnap.value} onChange={(e) => { color.value = e.target.value }} />}
                     <ValuePreviewBox color={color} both={both} isBackOrFore={isBackOrFore} />
                 </div>
             ) : (
                 <div className="ml-2 flex items-center space-x-2">
                     <ValuePreviewBox color={color} both={both} isBackOrFore={isBackOrFore} />
-                    {!isEmpty && <Input value={color.value} onChange={(e) => { }} />}
+                    {!isEmpty && <Input value={colorSnap.value} onChange={(e) => { color.value = e.target.value }} />}
                 </div>
             )
         }
@@ -73,8 +75,8 @@ function SingleColor({ foreAndBack }: { foreAndBack: ForeAndBack; }) {
             {foreAndBack.b?.name || foreAndBack.f?.name}
         </div>
 
-        <ValueInputAndBox color={foreAndBack.b} both={foreAndBack} isBackOrFore={true} />
-        <ValueInputAndBox color={foreAndBack.f} both={foreAndBack} />
+        <ValueInputAndBox color={foreAndBack.b} field={'b'} both={foreAndBack} isBackOrFore={true} />
+        <ValueInputAndBox color={foreAndBack.f} field={'f'}both={foreAndBack} />
     </>);
 }
 
@@ -95,22 +97,23 @@ function Header2() {
 }
 
 export function Section4_Chadcn({ className }: HTMLAttributes<HTMLUListElement>) {
-    const snap = useSnapshot(shadcnPalette);
-    const items = snap.vars.vars;
+    const { varGroups: { vars: snapItems } } = useSnapshot(shadcnPalette);
+    //const snapItems = snap.varGroups.vars;
+    const items = shadcnPalette.varGroups.vars;
     return (
         <div className={classNames("p-4 h-full text-foreground bg-background border-muted border-b overflow-auto smallscroll flex flex-col", className)}>
             <div className="container mx-auto max-w-xl grid grid-cols-[auto,1fr,1fr] gap-y-2">
                 <Header />
-                {items.map((foreAndBack, idx) => (
+                {snapItems.map((foreAndBack, idx) => (
                     <Fragment key={`${idx}`}>
-                        {(foreAndBack.b?.isHsl || foreAndBack.f?.isHsl) && <SingleColor foreAndBack={foreAndBack} />}
+                        {(foreAndBack.b?.isHsl || foreAndBack.f?.isHsl) && <SingleColor foreAndBack={items[idx]} />}
                     </Fragment>
                 ))}
 
                 <Header2 />
-                {items.map((foreAndBack, idx) => (
+                {snapItems.map((foreAndBack, idx) => (
                     <Fragment key={`${idx}-length`}>
-                        {(!foreAndBack.b?.isHsl && !foreAndBack.f?.isHsl) && <SingleColor foreAndBack={foreAndBack} />}
+                        {(!foreAndBack.b?.isHsl && !foreAndBack.f?.isHsl) && <SingleColor foreAndBack={items[idx]} />}
                     </Fragment>
                 ))}
 
