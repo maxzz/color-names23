@@ -16,24 +16,24 @@
         "@use-gesture/react": "10.3.0",
         "class-variance-authority": "^0.7.0",
         "d3-color": "^3.1.0",
-        "jotai": "2.4.3",
-        "lucide-react": "^0.284.0",
+        "jotai": "2.5.0",
+        "lucide-react": "^0.288.0",
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "react-hot-toast": "2.4.1",
         "react-merge-refs": "2.1.1",
         "react-use-measure": "^2.1.1",
-        "sass": "^1.69.0",
+        "sass": "^1.69.4",
         "tailwind-merge": "^1.14.0",
-        "valtio": "^1.11.2"
+        "valtio": "^1.11.3"
     },
     "devDependencies": {
-        "@rollup/plugin-replace": "5.0.3",
+        "@rollup/plugin-replace": "5.0.4",
         "@tailwindcss/forms": "0.5.6",
-        "@types/d3-color": "^3.1.0",
-        "@types/node": "20.8.3",
-        "@types/react": "18.2.25",
-        "@types/react-dom": "18.2.11",
+        "@types/d3-color": "^3.1.2",
+        "@types/node": "20.8.7",
+        "@types/react": "18.2.31",
+        "@types/react-dom": "18.2.14",
         "@vitejs/plugin-react": "4.1.0",
         "autoprefixer": "10.4.16",
         "postcss": "8.4.31",
@@ -42,7 +42,7 @@
         "tailwindcss-debug-screens": "^2.2.1",
         "tailwindcss-plugin-debug-screens": "^0.0.5",
         "typescript": "5.2.2",
-        "vite": "4.4.11"
+        "vite": "4.5.0"
     },
     "type": "module",
     "scripts": {
