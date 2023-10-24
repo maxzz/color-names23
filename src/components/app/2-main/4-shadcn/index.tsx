@@ -9,7 +9,7 @@ import { IconNoColor } from "@/components/ui/icons";
 const previewColorClasses = "flex-none aspect-square w-9 h-9 ring-border ring-2 ring-offset-1 rounded overflow-hidden";
 const previewNoColorClasses = `${previewColorClasses} stroke-none bg-neutral-100 fill-neutral-400`;
 
-function ValuePreviewEmpty({ className, ...rest }: SVGAttributes<SVGSVGElement>) {
+function ValuePreviewUndefined({ className, ...rest }: SVGAttributes<SVGSVGElement>) {
     return (
         <IconNoColor className={classNames(previewNoColorClasses, className)} {...rest} />
     );
@@ -34,13 +34,13 @@ function ValuePreviewLength({ className, isBackOrFore, ...rest }: { isBackOrFore
 }
 
 function ValuePreviewBox({ color, both, isBackOrFore }: { color?: CssVarNameValue; both: ForeAndBack; isBackOrFore?: boolean; }) {
-    const isEmpty = !color?.value;
+    const isUndefined = !color?.value && !isBackOrFore && (both.background?.isHsl || both.foreground?.isHsl);
     const isColor = color?.value && color?.isHsl;
-    const isLength = color?.value && !color?.isHsl;
+    const isLength = color?.value && !color?.isHsl && isBackOrFore;
     return (
         <div>
             {isColor && <ValuePreviewColor color={color.value} />}
-            {isEmpty && <ValuePreviewEmpty />}
+            {isUndefined && <ValuePreviewUndefined />}
             {isLength && <ValuePreviewLength isBackOrFore={isBackOrFore} />}
         </div>
     );
