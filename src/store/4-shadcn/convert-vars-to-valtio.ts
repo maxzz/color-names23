@@ -64,7 +64,7 @@ export function convertThemeVars(fileVars: FileThemeVars): OneThemeVars[] {
     return rv;
 }
 
-export function colorCounters(vars: OneThemeVars) {
+export function makeColorCounters(vars: OneThemeVars): Record<string, number> {
     const rv = new Map();
 
     vars.vars.reduce((acc, fb) => {

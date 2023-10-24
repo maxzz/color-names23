@@ -18,3 +18,5 @@ export type OneThemeVars = {
     name: string;               // name inside theme (like :root or .dark)
     vars: ForeAndBack[];        // cssVarName, cssVarValue
 };
+
+export type ColorCounters = Record<string, number>; // color -> count
