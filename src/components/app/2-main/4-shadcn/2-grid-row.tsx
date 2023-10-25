@@ -3,6 +3,15 @@ import { CssVarNameValue, ForeAndBack } from "@/store/4-shadcn/types";
 import { Input } from "@/components/ui/shadcn";
 import { ValuePreviewBox } from "./3-value-preview-box";
 
+function ColorInput({ color, colorSnap }: { color?: CssVarNameValue; colorSnap?: CssVarNameValue; }) {
+    return (<>
+        {color?.value && colorSnap?.value
+            ? <Input value={colorSnap.value} onChange={(e) => { color.value = e.target.value; }} />
+            : <div className=""></div>
+        }
+    </>);
+}
+
 function ValueInputAndBox({ color, field, both, isBackOrFore }: { color?: CssVarNameValue; field: keyof ForeAndBack; both: ForeAndBack; isBackOrFore?: boolean; }) {
     const bothSnap = useSnapshot(both, { sync: true });
     const colorSnap = bothSnap[field];
@@ -21,13 +30,13 @@ function ValueInputAndBox({ color, field, both, isBackOrFore }: { color?: CssVar
         {isBackOrFore
             ? (
                 <div className="flex items-center space-x-2">
-                    {!isEmpty && <Input value={colorSnap.value} onChange={(e) => { color.value = e.target.value; }} />}
+                    {!isEmpty && <ColorInput color={color} colorSnap={colorSnap} />}
                     <ValuePreviewBox {...previewBoxProps} />
                 </div>
             ) : (
                 <div className="ml-2 flex items-center space-x-2">
                     <ValuePreviewBox {...previewBoxProps} />
-                    {!isEmpty && <Input value={colorSnap.value} onChange={(e) => { color.value = e.target.value; }} />}
+                    {!isEmpty && <ColorInput color={color} colorSnap={colorSnap} />}
                 </div>
             )
         }
