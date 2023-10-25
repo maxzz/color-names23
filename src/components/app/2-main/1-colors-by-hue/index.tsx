@@ -13,13 +13,15 @@ export function Section1_ColorsByHue({ className, ...rest }: HTMLAttributes<HTML
             <TopPanel />
 
             {linear &&
-                <div className="flex-1 p-4 grid place-items-center">
-                    <PageColorNeighborsGrid />
+                <div className="flex-1 overflow-hidden">
+                    <div className="p-4 w-full h-full grid place-items-center overflow-auto smallscroll">
+                        <PageColorNeighborsGrid />
+                    </div>
                 </div>
             }
 
             {!linear &&
-                <div className="flex-1 p-4 grid place-items-center">
+                <div className="flex-1 grid place-items-center overflow-hidden">
                     <PageHueWheel className="w-full h-full" />
                 </div>
             }

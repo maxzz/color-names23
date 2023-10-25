@@ -8,7 +8,7 @@ import { viewHueAtoms } from '@/store';
 export function TopPanel() {
     const linear = useAtomValue(viewHueAtoms.linearAtom);
     return (
-        <div className="h-64 bg-secondary border-border border-b">
+        <div className="bg-secondary border-border border-b">            {/* flex-none h-64 */}
 
             <div className="mx-auto p-4 max-w-[42rem] flex flex-col">
                 <WheelSwitch />

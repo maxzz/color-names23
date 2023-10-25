@@ -4,7 +4,7 @@ import { classNames } from "@/utils";
 
 export function PageHueWheel({ className }: HTMLAttributes<HTMLUListElement>) {
     return (
-        <div className={classNames("max-w-4xl text-foreground bg-background border-muted border-b overflow-auto flex flex-col", className)}>
+        <div className={classNames("p-4 max-w-4xl text-foreground bg-background border-muted border-b overflow-auto smallscroll flex flex-col", className)}>
             {/* overflow-hidden */}
             {/* <div className="container max-w-md mx-auto flex flex-col space-y-4"> */}
             <div className="flex-0 relative">
