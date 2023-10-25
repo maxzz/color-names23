@@ -19,4 +19,6 @@ export type OneThemeVars = {
     vars: ForeAndBack[];        // cssVarName, cssVarValue
 };
 
-export type ColorCounters = Record<string, number>; // color -> count
+export type ColorCounters = {
+    counters: Record<string, number>; // color -> count
+};

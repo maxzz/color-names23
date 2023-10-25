@@ -11,9 +11,12 @@ export const shadcnPalette = proxy<ShadcnPalette>({
     varGroups: convertThemeVars(testTheme)?.[0] || [], // TODO: need to surround with try/catch; handle array values
 });
 
-export const colorCounters = proxy<ColorCounters>(makeColorCounters(shadcnPalette.varGroups));
-console.log('colorCounters', colorCounters);
+export const colorCounters = proxy<ColorCounters>({
+    counters: makeColorCounters(shadcnPalette.varGroups),
+});
+console.log('colorCounters', colorCounters.counters);
 
 subscribe(shadcnPalette.varGroups, () => {
-    console.log('shadcnPalette.vars changed', makeColorCounters(shadcnPalette.varGroups));
+    colorCounters.counters = makeColorCounters(shadcnPalette.varGroups);
+    console.log('shadcnPalette.vars changed', colorCounters.counters);
 });
