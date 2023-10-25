@@ -24,28 +24,10 @@ function makeColorCounters(vars: OneThemeVars): Record<string, number> {
     return Object.fromEntries(rv);
 }
 
-// function makeColorCounters(vars: OneThemeVars): Record<string, number> {
-//     const rv = new Map();
-
-//     vars.vars.reduce((acc, fb) => {
-//         const color = fb.b?.value || fb.f?.value;
-//         if (!color) {
-//             return acc;
-//         }
-//         if (!rv.has(color)) {
-//             rv.set(color, 0);
-//         }
-//         rv.set(color, rv.get(color) + 1);
-//         return acc;
-//     }, rv);
-
-//     return Object.fromEntries(rv);
-// }
-
 export const colorCounters = proxy<ColorCounters>({
     counters: makeColorCounters(shadcnPalette.varGroups),
 });
-console.log('colorCounters', colorCounters.counters);
+//console.log('colorCounters', colorCounters.counters);
 
 subscribe(shadcnPalette.varGroups, () => {
     colorCounters.counters = makeColorCounters(shadcnPalette.varGroups);

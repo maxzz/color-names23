@@ -5,7 +5,6 @@ import { HueSlider } from './hue-slider';
 import { LockButton } from './lock-button';
 import { HueToleranceInfo } from './info';
 import { MountHueTransition } from './mount-transition';
-import { classNames } from '@/utils';
 
 export function HueColorsStripe(props: HTMLAttributes<HTMLDivElement>) {
     const mono = useAtomValue(viewHueAtoms.monoAtom);
@@ -17,9 +16,8 @@ export function HueColorsStripe(props: HTMLAttributes<HTMLDivElement>) {
 
                 <HueSlider className="w-full h-12 rounded" />
 
-                    <HueToleranceInfo className="self-end" />
+                <HueToleranceInfo className="self-end" />
             </MountHueTransition>
         </div>
-
     );
 }
