@@ -7,7 +7,6 @@ import { classNames } from "@/utils";
 
 export function Section4_Chadcn({ className }: HTMLAttributes<HTMLUListElement>) {
     const { varGroups: { vars: snapItems } } = useSnapshot(shadcnPalette);
-    //const snapItems = snap.varGroups.vars;
     const items = shadcnPalette.varGroups.vars;
     return (
         <div className={classNames("p-4 h-full text-foreground bg-background border-muted border-b overflow-auto smallscroll flex flex-col", className)}>
