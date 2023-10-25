@@ -1,21 +1,18 @@
 import { useSnapshot } from "valtio";
-import { CssVarNameValue, ForeAndBack } from "@/store/4-shadcn/types";
-import { Input } from "@/components/ui/shadcn";
-import { ValuePreviewBox } from "./3-value-preview-box";
+import { ForeAndBack } from "@/store/4-shadcn/types";
+import { ColorInput } from "./3-color-input";
+import { ValuePreviewBox } from "./4-value-preview-box";
 
-function ColorInput({ color, colorSnap }: { color?: CssVarNameValue; colorSnap?: CssVarNameValue; }) {
-    return (<>
-        {color?.value && colorSnap?.value
-            ? <Input value={colorSnap.value} onChange={(e) => { color.value = e.target.value; }} />
-            : <div className=""></div>
-        }
-    </>);
-}
+type ValueInputAndBoxProps = {
+    both: ForeAndBack;
+    field: keyof ForeAndBack;
+    isBackOrFore?: boolean;
+};
 
-function ValueInputAndBox({ color, field, both, isBackOrFore }: { color?: CssVarNameValue; field: keyof ForeAndBack; both: ForeAndBack; isBackOrFore?: boolean; }) {
+function ValueInputAndBox({ both, field, isBackOrFore }: ValueInputAndBoxProps) {
     const bothSnap = useSnapshot(both, { sync: true });
     const colorSnap = bothSnap[field];
-    const isEmpty = !color?.value || !colorSnap?.value;
+    const color = both[field];
 
     const previewBoxProps = {
         valueName: colorSnap?.name || '',
@@ -23,20 +20,20 @@ function ValueInputAndBox({ color, field, both, isBackOrFore }: { color?: CssVar
         isUndefined: !colorSnap?.value && !isBackOrFore && (both.b?.isHsl || both.f?.isHsl),
         isColor: !!colorSnap?.value && colorSnap?.isHsl,
         isLength: !!colorSnap?.value && !colorSnap?.isHsl && isBackOrFore,
-        isBackOrFore: !isBackOrFore,
+        isBackOrFore: isBackOrFore,
     };
 
     return (<>
         {isBackOrFore
             ? (
                 <div className="flex items-center space-x-2">
-                    {!isEmpty && <ColorInput color={color} colorSnap={colorSnap} />}
+                    <ColorInput color={color} colorSnap={colorSnap} />
                     <ValuePreviewBox {...previewBoxProps} />
                 </div>
             ) : (
-                <div className="ml-2 flex items-center space-x-2">
+                <div className="pl-2 flex items-center space-x-2">
                     <ValuePreviewBox {...previewBoxProps} />
-                    {!isEmpty && <ColorInput color={color} colorSnap={colorSnap} />}
+                    <ColorInput color={color} colorSnap={colorSnap} />
                 </div>
             )
         }
@@ -44,14 +41,13 @@ function ValueInputAndBox({ color, field, both, isBackOrFore }: { color?: CssVar
 }
 
 export function GridRow({ foreAndBack }: { foreAndBack: ForeAndBack; }) {
-    const notHsl = !foreAndBack.b?.isHsl && !foreAndBack.f?.isHsl;
     //TODO: add preview foregraound over background
     return (<>
         <div className="mr-4 text-sm text-foreground/70 dark:text-foreground/50 flex items-center">
             {foreAndBack.b?.name || foreAndBack.f?.name}
         </div>
 
-        <ValueInputAndBox color={foreAndBack.b} field={'b'} both={foreAndBack} isBackOrFore={true} />
-        <ValueInputAndBox color={foreAndBack.f} field={'f'} both={foreAndBack} />
+        <ValueInputAndBox both={foreAndBack} field={'b'} isBackOrFore={true} />
+        <ValueInputAndBox both={foreAndBack} field={'f'} />
     </>);
 }
