@@ -41,8 +41,6 @@ type ValuePreviewBoxProps = {
 };
 
 export function ValuePreviewBox({ valueName, value, isUndefined, isColor, isLength, isBackOrFore }: ValuePreviewBoxProps) {
-    console.log('ValuePreviewBox', { valueName, value, isUndefined, isColor, isLength, isBackOrFore });
-    
     return (
         <div>
             {isColor && <ValuePreviewColor color={value} />}
