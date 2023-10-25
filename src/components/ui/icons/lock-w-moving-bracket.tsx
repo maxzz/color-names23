@@ -2,7 +2,7 @@ import { SVGAttributes } from 'react';
 import { a, useSpring } from '@react-spring/web';
 import { classNames } from '@/utils';
 
-export function IconMovingLock({ closed, className, ...rest }: { closed: boolean; } & SVGAttributes<SVGSVGElement>) {
+export function IconAnimatedLock({ closed, className, ...rest }: { closed: boolean; } & SVGAttributes<SVGSVGElement>) {
     const styles = useSpring({
         open: closed ? 1 : 0,
         x: closed ? 18.5 : 0,

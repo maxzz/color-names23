@@ -9,9 +9,9 @@ type SwitchCellProps = {
     setActive: () => void;
 };
 
-const shadowDarkClasses = "dark:shadow-[inset_2px_2px_5px_0.2px_#000000,inset_-0px_-2px_2px_0px_#e6e6e638] opacity-50";
-// const shadowClasses = "shadow-[inset_2px_2px_5px_0.2px_#000000,inset_-0px_-2px_2px_0px_#e6e6e638] opacity-50";
-const shadowLightClasses = "shadow-[inset_1px_2px_5px_0px_#0004,inset_-0px_-2px_2px_0px_#fffa] opacity-50";
+const shadowLightClasses = "shadow-[inset_1px_2px_5px_0px_#0004,inset_-0px_-2px_2px_0px_#fffa]";
+const shadowDarkClasses = "dark:shadow-[inset_2px_2px_5px_0.2px_#000000,inset_-0px_-2px_2px_0px_#e6e6e638]";
+const shadowClasses = `${shadowLightClasses} ${shadowDarkClasses} opacity-50`; //TODO: opacity should go to a separate div, not to text
 
 function SwitchCell({ label, active, toLeft, setActive, className, ...rest }: SwitchCellProps & HTMLAttributes<HTMLDivElement>) {
     const styles = useSpring({
@@ -29,7 +29,7 @@ function SwitchCell({ label, active, toLeft, setActive, className, ...rest }: Sw
         <div
             className={classNames(
                 "relative px-2 py-2 flex-0 flex items-end z-10",
-                active ? "bg-background font-bold" : `${shadowLightClasses} ${shadowDarkClasses}}`,
+                active ? "bg-background font-bold" : shadowClasses,
                 // TODO: substitute font-bold with alternative solution
                 className,
             )}

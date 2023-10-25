@@ -3,7 +3,7 @@ import { useAtom } from 'jotai';
 import { viewHueAtoms } from '@/store';
 import { classNames } from '@/utils';
 import { Button } from '@/components/ui/shadcn';
-import { IconMovingLock } from '@/components/ui/icons';
+import { IconAnimatedLock } from '@/components/ui/icons';
 
 export function LockButton({ className, ...rest }: HTMLAttributes<HTMLButtonElement>) {
     const [locked, setLocked] = useAtom(viewHueAtoms.lockedAtom);
@@ -16,7 +16,7 @@ export function LockButton({ className, ...rest }: HTMLAttributes<HTMLButtonElem
             onClick={() => setLocked((v) => !v)}
             {...rest}
         >
-            <IconMovingLock className="w-3 h-3" closed={locked} />
+            <IconAnimatedLock className="w-3 h-3" closed={locked} />
         </Button>
     );
 }
