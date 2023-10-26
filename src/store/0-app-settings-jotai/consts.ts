@@ -1,0 +1,1 @@
+export const STORAGE_KEY = 'react-name-colors23-01';

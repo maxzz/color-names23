@@ -1,0 +1,1 @@
+export const STORE_KEY = "color-names-23-app-settings";

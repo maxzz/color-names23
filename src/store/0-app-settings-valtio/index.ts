@@ -1,5 +1,6 @@
-import { Theme, themeApply } from "@/utils/theme-apply";
 import { proxy, subscribe } from "valtio";
+import { STORE_KEY } from "./consts";
+import { Theme, themeApply } from "@/utils/theme-apply";
 
 export type AppSettings = {
     theme: Theme;
@@ -8,8 +9,6 @@ export type AppSettings = {
 const defaultSettings: AppSettings = {
     theme: 'light',
 };
-
-const STORE_KEY = "color-names-23-app-settings";
 
 export const appSettings = proxy<AppSettings>(initSettings());
 

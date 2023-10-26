@@ -1,9 +1,8 @@
-import { initialData, setInitialData } from "./store-initial-data";
+import { STORAGE_KEY } from "./consts";
 import { Store } from "./types";
+import { initialData, setInitialData } from "./store-initial-data";
 
 // Local storage
-
-export const STORAGE_KEY = 'react-name-colors23-01';
 
 export function load() {
     const s = localStorage.getItem(STORAGE_KEY);
