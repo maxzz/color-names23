@@ -1,5 +1,5 @@
 import { consts } from "./consts";
-import { colorkeys } from "./utils/init-color-keys";
+import { colorkeys } from "./utils/initial-color-keys";
 import { createSlicePath } from "./utils/utils-svg";
 import { clickState, colorToCopyState, hueColorWheelState, hueCopyTimersState } from "./ui-state";
 
