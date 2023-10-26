@@ -1,5 +1,5 @@
 import { colorkeys } from "./utils/initial-color-keys";
-import { hueColorWheelState, hueCopyTimersState } from "./ui-state";
+import { clickState, colorToCopyState, hueColorWheelState, hueCopyTimersState } from "./ui-state";
 
 const localConsts = {
     barWidth: 600,
@@ -35,6 +35,19 @@ function GenerateSlices() {
                 data-key={`${color}`}
                 type='gray'
                 key={idx}
+
+                onClick={async (event) => {
+                    const colorName = color[3];
+                    if (colorName) {
+                        event.stopPropagation();
+                        if (event.ctrlKey) {
+                            clickState.colorName = color.join(',');
+                        } else {
+                            await navigator.clipboard.writeText(colorName);
+                            colorToCopyState.text = colorName;
+                        }
+                    }
+                }}
 
                 onMouseOverCapture={(e) => {
                     clearTimeout(hueCopyTimersState.grayTimeoutId);
