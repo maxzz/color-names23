@@ -7,6 +7,5 @@ subscribe(clickState, () => {
 });
 
 subscribe(hueColorWheelState, () => {
-    const name = (hueColorWheelState.selectedColor?.dataKey.split(',') as HslName)?.[3] || '';
-    colorOverBackground.color = name;
+    colorOverBackground.color = hueColorWheelState.selectedColor?.dataKey;
 });

@@ -34,7 +34,7 @@ function GenerateSpikeSlices() {
                     if (colorName) {
                         event.stopPropagation();
                         if (event.ctrlKey) {
-                            clickState.colorName = colorName;
+                            clickState.colorName = color.join(',');
                         } else {
                             await navigator.clipboard.writeText(colorName);
                             colorToCopyState.text = colorName;

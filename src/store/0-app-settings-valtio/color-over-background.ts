@@ -1,8 +1,8 @@
 import { proxy } from "valtio";
 
 export type ColorOverBackground = {
-    color: string | undefined;
-    background: string | undefined;
+    color: string | undefined;      // string as HslName
+    background: string | undefined; // string as HslName
 };
 
 export const colorOverBackground = proxy<ColorOverBackground>({
