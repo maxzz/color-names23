@@ -1,6 +1,7 @@
 import { HTMLAttributes } from "react";
 import { HuePicker, MessageHueColorCopied } from "@/components/ui/color-names-distribution";
 import { classNames } from "@/utils";
+import { ColorOverBackground } from "./color-over-background";
 
 export function PageHueWheel({ className }: HTMLAttributes<HTMLUListElement>) {
     return (
@@ -8,7 +9,8 @@ export function PageHueWheel({ className }: HTMLAttributes<HTMLUListElement>) {
             {/* overflow-hidden */}
             {/* <div className="container max-w-md mx-auto flex flex-col space-y-4"> */}
             <div className="flex-0 relative">
-                <MessageHueColorCopied className="absolute top-2 right-2" />
+                <ColorOverBackground className="absolute left-2 top-2" />
+                <MessageHueColorCopied className="absolute right-2 top-2" />
                 <HuePicker className="aspect-square" />
             </div>
             {/* </div> */}

@@ -1,5 +1,5 @@
 import { useSnapshot } from "valtio";
-import { appSettings } from "@/store/app-settings";
+import { appSettings } from "@/store/0-app-settings-valtio";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "./dropdown-menu";
 import { Button } from "./button";
 import { IconDark, IconLight, IconSystem } from "../icons";

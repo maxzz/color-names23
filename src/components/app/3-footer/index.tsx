@@ -1,6 +1,6 @@
 import { HTMLAttributes } from 'react';
 import { useAtomValue } from 'jotai';
-import { SectionName } from '@/store/types';
+import { SectionName } from '@/store/0-app-settings-jotai/types';
 import { AppAtoms } from '@/store';
 import { Link } from '@/components/ui';
 import { ThemeSwitch } from '@/components/ui/shadcn';
