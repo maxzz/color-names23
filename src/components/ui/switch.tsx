@@ -9,9 +9,10 @@ type SwitchCellProps = {
     setActive: () => void;
 };
 
-const shadowLightClasses = "shadow-[inset_1px_2px_5px_0px_#0004,inset_-0px_-2px_2px_0px_#fffa]";
-const shadowDarkClasses = "dark:shadow-[inset_2px_2px_5px_0.2px_#000000,inset_-0px_-2px_2px_0px_#e6e6e638]";
-const shadowClasses = `${shadowLightClasses} ${shadowDarkClasses} opacity-50`; //TODO: opacity should go to a separate div, not to text // TODO: substitute font-bold with alternative solution
+const shadowClasses = "\
+shadow-[inset_1px_2px_5px_0px_#0004,inset_-0px_-2px_2px_0px_#fffa] \
+dark:shadow-[inset_2px_2px_5px_0.2px_#000000,inset_-0px_-2px_2px_0px_#e6e6e638] \
+opacity-50"; //TODO: substitute font-bold with alternative solution; opacity should go to a separate div, not to text
 
 function SwitchCell({ label, active, toLeft, setActive, className, ...rest }: SwitchCellProps & HTMLAttributes<HTMLDivElement>) {
     const styles = useSpring({
@@ -27,7 +28,7 @@ function SwitchCell({ label, active, toLeft, setActive, className, ...rest }: Sw
     });
     return (
         <div
-            className={classNames("relative px-2 py-2 flex-0 flex items-end z-10", active ? "bg-background font-bold" : shadowClasses, className )}
+            className={classNames("relative px-2 py-2 flex-0 border-muted-foreground/70 flex items-end z-10", active ? "bg-background font-bold" : shadowClasses, className )}
             onClick={setActive}
             {...rest}
         >
@@ -38,7 +39,14 @@ function SwitchCell({ label, active, toLeft, setActive, className, ...rest }: Sw
     );
 }
 
-const SwitchClasses = "\
+type SwitchProps = {
+    on: boolean;
+    setOn: (v: SetStateAction<boolean>) => void;
+    labels: [string, string];
+    titles: [string, string];
+};
+
+const switchClasses = "\
 relative \
 max-w-fit \
 text-xs \
@@ -49,20 +57,13 @@ overflow-hidden \
 rounded shadow select-none cursor-pointer \
 flex items-center justify-between";
 
-type SwitchProps = {
-    on: boolean;
-    setOn: (v: SetStateAction<boolean>) => void;
-    labels: [string, string];
-    titles: [string, string];
-};
-
 export function Switch({ className, on, setOn, labels, titles }: SwitchProps & HTMLAttributes<HTMLDivElement>) {
     return (
-        <div className={classNames(SwitchClasses, className)}>
+        <div className={classNames(switchClasses, className)}>
             <SwitchCell
                 label={labels[0]}
                 title={titles[0]}
-                className={on ? "border-r border-muted-foreground/70": ""}
+                className={on ? "border-r": ""}
                 toLeft={false}
                 active={on}
                 setActive={() => setOn((v) => !v)}
@@ -70,7 +71,7 @@ export function Switch({ className, on, setOn, labels, titles }: SwitchProps & H
             <SwitchCell
                 label={labels[1]}
                 title={titles[1]}
-                className={!on ? "border-l border-muted-foreground/70": ""}
+                className={!on ? "border-l": ""}
                 toLeft={true}
                 active={!on}
                 setActive={() => setOn((v) => !v)}
