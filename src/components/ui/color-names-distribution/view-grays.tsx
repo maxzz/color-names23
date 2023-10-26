@@ -11,8 +11,7 @@ const localConsts = {
 };
 
 function GenerateSlices() {
-
-    var same = 0;
+    let same = 0;
     const rv = colorkeys.map((color, idx) => {
         const sat = color[1];
         const light = color[2];

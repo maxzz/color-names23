@@ -24,3 +24,8 @@ export const hueCopyTimersState = {
 export const colorToCopyState = proxy({
     text: '',
 });
+
+export const clickState = proxy({
+    colorName: '',
+    // withCtrl: false,
+});

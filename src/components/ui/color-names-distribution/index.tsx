@@ -5,7 +5,9 @@ import { useZoom } from "./action-zoom";
 import { SVGAttributes } from "react";
 import { useDrag } from "./action-drag";
 import { SelectedColor } from "./view-selected-color";
+import { clickState } from "./ui-state";
 
+export * from "./ui-state";
 export * from "./view-message-copied";
 
 export function HuePicker({ className, ...rest }: SVGAttributes<SVGSVGElement>) {
@@ -17,6 +19,7 @@ export function HuePicker({ className, ...rest }: SVGAttributes<SVGSVGElement>) 
             viewBox="0 0 1000 1200"
             version="1.1"
             id="color-wheel"
+            onClick={()=> clickState.colorName = ''}
             {...rest}
         >
             <defs>

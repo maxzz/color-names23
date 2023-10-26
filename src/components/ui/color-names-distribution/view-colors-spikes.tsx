@@ -1,10 +1,10 @@
 import { consts } from "./consts";
 import { colorkeys } from "./utils/init-color-keys";
 import { createSlicePath } from "./utils/utils-svg";
-import { colorToCopyState, hueColorWheelState, hueCopyTimersState } from "./ui-state";
+import { clickState, colorToCopyState, hueColorWheelState, hueCopyTimersState } from "./ui-state";
 
 function GenerateSpikeSlices() {
-    var same = 0;
+    let same = 0;
     const rv = colorkeys.map((color, idx) => {
         const hue = color[0];
         const sat = color[1];
@@ -29,10 +29,16 @@ function GenerateSpikeSlices() {
                 type='color'
                 key={idx}
 
-                onClick={async () => {
-                    if (color[3]) {
-                        await navigator.clipboard.writeText(color[3]);
-                        colorToCopyState.text = color[3];
+                onClick={async (event) => {
+                    const colorName = color[3];
+                    if (colorName) {
+                        event.stopPropagation();
+                        if (event.ctrlKey) {
+                            clickState.colorName = colorName;
+                        } else {
+                            await navigator.clipboard.writeText(colorName);
+                            colorToCopyState.text = colorName;
+                        }
                     }
                 }}
 

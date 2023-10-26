@@ -2,6 +2,7 @@ import { HTMLAttributes } from "react";
 import { HuePicker, MessageHueColorCopied } from "@/components/ui/color-names-distribution";
 import { classNames } from "@/utils";
 import { ColorOverBackground } from "./color-over-background";
+import './ui-state';
 
 export function PageHueWheel({ className }: HTMLAttributes<HTMLUListElement>) {
     return (
