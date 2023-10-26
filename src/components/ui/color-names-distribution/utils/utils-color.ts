@@ -9,13 +9,13 @@ export type HslName = [h: number, s: number, l: number, name?: string];
  * returns r, g, and b in the set [0, 1].
  * Lightly adapted from https://stackoverflow.com/questions/2353211/hsl-to-rgb-color-conversion
  *
- * @param   {number}  h       The hue
- * @param   {number}  s       The saturation
- * @param   {number}  l       The lightness
- * @return  {Array}           The RGB representation
+ * @param   {number}  h       The hue       : [0..360]
+ * @param   {number}  s       The saturation: [0..100]
+ * @param   {number}  l       The lightness : [0..100]
+ * @return  {Array}           The RGB representation: [r, g, b] : [0..1]
  */
 export function hslToRgb(hslColor: HslName): HslName {
-    let h = hslColor[0] / 360;
+    let h = hslColor[0] / 360; //TODO: Should it be modulo 360?
     let s = hslColor[1] / 100;
     let l = hslColor[2] / 100;
 
@@ -54,6 +54,10 @@ export function sorter(a: HslName, b: HslName): number {
     return ((a[0] - b[0]) || (b[2] - a[2]) || (al + bl));
 }
 
-export function isDark(c: HslName): boolean {
+export function isHslDark(c: HslName): boolean {
     return rgbLuminance(hslToRgb(c)) <= 0.6; // see also https://github.com/Qix-/color/blob/master/index.js#L298
+}
+
+export function isRgbDark(c: HslName): boolean {
+    return rgbLuminance(c) <= 0.6; // see also https://github.com/Qix-/color/blob/master/index.js#L298
 }

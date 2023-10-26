@@ -1,7 +1,7 @@
 import { useSnapshot } from "valtio";
 import { consts } from "./consts";
 import { hueColorWheelState } from "./ui-state";
-import { HslName, hslToRgb, rgbLuminance } from "./utils/utils-color";
+import { HslName, isHslDark } from "./utils/utils-color";
 
 function WheelWellCenter() {
     const { selectedColor, selectedGray } = useSnapshot(hueColorWheelState);
@@ -23,8 +23,7 @@ function ColorText() {
     }
     const keys = selectedColor.dataKey.split(',') as HslName;
     const name = keys[3];
-    const dark = rgbLuminance(hslToRgb(keys)) <= 0.6;
-    const fill = dark ? 'fill-white' : 'fill-black';
+    const fill = isHslDark(keys) ? 'fill-white' : 'fill-black';
     return (
         <text x={500} y={500}>
             <tspan textAnchor="middle" x={500} dy={-3} className={`font-bold text-2xl tracking-tight ${fill} stroke-black stroke-[.5]`}>{name}</tspan>
