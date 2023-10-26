@@ -1,7 +1,6 @@
 import { useSnapshot } from "valtio";
 import { Input } from "@/components/ui/shadcn";
-import { CssVarNameValue } from "@/store/4-shadcn/types";
-import { colorCounters } from "@/store/4-shadcn";
+import { CssVarNameValue, colorCounters } from "@/store";
 
 function ColorCounter({ color }: { color: string; }) {
     const { counters } = useSnapshot(colorCounters);

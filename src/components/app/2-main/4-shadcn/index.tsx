@@ -1,6 +1,6 @@
 import { Fragment, HTMLAttributes } from "react";
 import { useSnapshot } from "valtio";
-import { shadcnPalette } from "@/store/4-shadcn";
+import { shadcnPalette } from "@/store";
 import { Header, Header2 } from "./1-headers";
 import { GridRow } from "./2-grid-row";
 import { classNames } from "@/utils";

@@ -1,5 +1,5 @@
 import { useSnapshot } from "valtio";
-import { ForeAndBack } from "@/store/4-shadcn/types";
+import { ForeAndBack } from "@/store";
 import { ColorInput } from "./3-color-input";
 import { ValuePreviewBox } from "./4-value-preview-box";
 
