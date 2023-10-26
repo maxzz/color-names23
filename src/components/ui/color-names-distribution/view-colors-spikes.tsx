@@ -28,6 +28,7 @@ function GenerateSpikeSlices() {
                 data-key={`${color}`}
                 type='color'
                 key={idx}
+                style={{ cursor: 'pointer' }}
 
                 onClick={async (event) => {
                     const colorName = color[3];

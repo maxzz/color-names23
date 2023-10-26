@@ -30,23 +30,17 @@ function GenerateSlices() {
             width: localConsts.grayWidth,
             height: localConsts.grayHeight - 1.25,
         };
-//transform-origin:${pos.x + pos.width / 2}px_${pos.y + pos.height / 2}px
+
         return (
             <rect
                 {...pos}
-                // x={`${x}`}
-                // y={`${y}`}
-                // height={`${height}`}
-                // width={`${width}`}
                 fill={`hsl(0,0%,${light}%)`}
 
                 data-key={`${color}`}
                 type='gray'
                 key={idx}
                 style={{ cursor: 'pointer', transformOrigin: `${pos.x + pos.width / 2}px ${pos.y + pos.height / 2}px` }}
-                className={`active:scale-150 transition-transform
-                origin-center_
-                `}
+                className="active:scale-x-[5] active:scale-y-150 transition-transform"
 
                 onClick={async (event) => {
                     const colorName = color[3];
