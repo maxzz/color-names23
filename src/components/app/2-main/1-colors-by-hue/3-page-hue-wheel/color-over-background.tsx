@@ -3,20 +3,22 @@ import { useSnapshot } from "valtio";
 import { colorOverBackground } from "@/store";
 import { colorToCopyState } from "@/components/ui/color-names-distribution";
 import { HslName, classNames, isHslDark } from "@/utils";
+import { IconClipboard } from "@/components/ui/icons";
 
 const textClasses = "text-base scale-y-[1.1]";
 
 function CopyBackground({ colorName, isDark }: { colorName: string; isDark: boolean; }) {
     return (
         <button
-            className={textClasses}
+            className={classNames("group flex items-center justify-between space-x-1", textClasses)}
             style={{ color: isDark ? 'white' : 'black' }}
             onClick={async () => {
                 await navigator.clipboard.writeText(colorName);
                 colorToCopyState.text = colorName;
             }}
         >
-            {colorName}
+            <div>{colorName}</div>
+            <IconClipboard className="hidden group-hover:block w-4 h-4 stroke-[1.5]" />
         </button>
     );
 }
@@ -37,7 +39,7 @@ export function ColorOverBackground({ className, ...rest }: HTMLAttributes<HTMLD
                 </div>
             )}
 
-            <div className="absolute left-1 bottom-0.5">
+            <div className="absolute left-1.5 bottom-1">
                 {snap.background
                     ? <CopyBackground colorName={colorBg} isDark={isHslDark(keysBg)} />
                     : <div className="text-[.7rem] text-muted-foreground">Ctrl+click spike to select background color</div>
