@@ -9,7 +9,7 @@ export function PageHueWheel({ className }: HTMLAttributes<HTMLUListElement>) {
             {/* overflow-hidden */}
             {/* <div className="container max-w-md mx-auto flex flex-col space-y-4"> */}
             <div className="flex-0 relative">
-                <ColorOverBackground className="absolute left-2 top-2" />
+                <ColorOverBackground className="absolute left-0 -top-1" />
                 <MessageHueColorCopied className="absolute right-2 top-2" />
                 <HuePicker className="aspect-square" />
             </div>

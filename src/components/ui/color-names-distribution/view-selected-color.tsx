@@ -1,6 +1,6 @@
 import { useSnapshot } from "valtio";
 import { consts } from "./consts";
-import { hueColorWheelState } from "./state";
+import { hueColorWheelState } from "./ui-state";
 import { HslName, hslToRgb, rgbLuminance } from "./utils/utils-color";
 
 function WheelWellCenter() {

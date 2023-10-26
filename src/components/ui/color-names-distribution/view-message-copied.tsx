@@ -1,6 +1,6 @@
 import { HTMLAttributes } from "react";
 import { useSnapshot } from "valtio";
-import { colorToCopyState } from "./state";
+import { colorToCopyState } from "./ui-state";
 import { classNames } from "@/utils";
 import { a, easings, useSpring } from "@react-spring/web";
 

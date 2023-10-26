@@ -9,16 +9,17 @@ type Color = {
 type HueColorWheelState = {
     selectedColor: Color | null;
     selectedGray: Color | null;
-    colorTimeoutId: number;
-    grayTimeoutId: number;
 };
 
 export const hueColorWheelState = proxy<HueColorWheelState>({
     selectedColor: null,
     selectedGray: null,
+});
+
+export const hueCopyTimersState = {
     colorTimeoutId: 0,
     grayTimeoutId: 0,
-});
+};
 
 export const colorToCopyState = proxy({
     text: '',

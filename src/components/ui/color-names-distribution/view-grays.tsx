@@ -1,5 +1,5 @@
 import { colorkeys } from "./utils/init-color-keys";
-import { hueColorWheelState } from "./state";
+import { hueColorWheelState, hueCopyTimersState } from "./ui-state";
 
 const localConsts = {
     barWidth: 600,
@@ -38,7 +38,7 @@ function GenerateSlices() {
                 key={idx}
 
                 onMouseOverCapture={(e) => {
-                    clearTimeout(hueColorWheelState.grayTimeoutId);
+                    clearTimeout(hueCopyTimersState.grayTimeoutId);
                     hueColorWheelState.selectedGray = {
                         type: 'gray',
                         fill: `hsl(0,0%,${light}%)`,
@@ -46,7 +46,7 @@ function GenerateSlices() {
                     };
                 }}
                 onMouseOutCapture={(e) => {
-                    hueColorWheelState.grayTimeoutId = window.setTimeout(() => hueColorWheelState.selectedGray = null, 400);
+                    hueCopyTimersState.grayTimeoutId = window.setTimeout(() => hueColorWheelState.selectedGray = null, 400);
                 }}
 
             />
