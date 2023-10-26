@@ -13,6 +13,12 @@ export const compareNames = (a: ColorItem, b: ColorItem) => a.name.localeCompare
 export const compareRgb = (a: ColorItem, b: ColorItem) => compareColors(a.rgb, b.rgb);
 export const compareHsl = (a: ColorItem, b: ColorItem) => compareColors(a.hsl, b.hsl);
 
-export const sortColorItemsFn = (s: SortBy) => {
-    return s === SortBy.name ? compareNames : s === SortBy.rgb ? compareRgb : s === SortBy.hsl ? compareHsl : null;
-};
+export function sortColorItemsFn(s: SortBy) {
+    return s === SortBy.name
+        ? compareNames
+        : s === SortBy.rgb
+            ? compareRgb
+            : s === SortBy.hsl
+                ? compareHsl
+                : null;
+}

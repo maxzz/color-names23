@@ -19,7 +19,7 @@ export function isLightColor(color: string) {
         b = +clr[3];
     } else {
         // hex - http://gist.github.com/983661
-        const clr = +('0x' + color.slice(1).replace((color.length < 5) as any && /./g, '$&$&')); // doble numbers of short hand 3 or 4 digits form
+        const clr = +('0x' + color.slice(1).replace((color.length < 5) as any && /./g, '$&$&')); // double numbers of short hand 3 or 4 digits form
         r = clr >> 16;
         g = clr >> 8 & 255;
         b = clr & 255;
