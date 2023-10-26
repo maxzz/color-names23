@@ -1,5 +1,5 @@
 import { subscribe } from "valtio";
-import { HslName, clickState, hueColorWheelState } from "@/components/ui/color-names-distribution";
+import { clickState, hueColorWheelState } from "@/components/ui/color-names-distribution";
 import { colorOverBackground } from "@/store";
 
 subscribe(clickState, () => {

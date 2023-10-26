@@ -1,8 +1,7 @@
 import { HTMLAttributes } from "react";
 import { useSnapshot } from "valtio";
 import { colorOverBackground } from "@/store";
-import { classNames } from "@/utils";
-import { HslName, isHslDark } from "@/components/ui/color-names-distribution";
+import { HslName, classNames, isHslDark } from "@/utils";
 
 const containerClasses = "relative w-56 h-16 ring-muted-foreground/50 ring-offset-background ring-1 ring-offset-1 rounded grid place-items-center";
 
@@ -25,7 +24,7 @@ export function ColorOverBackground({ className, ...rest }: HTMLAttributes<HTMLD
                     : <div className="text-[.7rem] text-muted-foreground">Ctrl+click spike to select background color</div>
                 }
             </div>
-            
+
             {/* TDOD: Calc luminance text over background */}
             {/* <div className="absolute right-1 bottom-0.5">
                 {

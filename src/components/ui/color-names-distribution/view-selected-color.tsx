@@ -1,7 +1,7 @@
 import { useSnapshot } from "valtio";
 import { consts } from "./consts";
 import { hueColorWheelState } from "./ui-state";
-import { HslName, isHslDark } from "./utils/utils-color";
+import { HslName, isHslDark } from "@/utils";
 
 function WheelWellCenter() {
     const { selectedColor, selectedGray } = useSnapshot(hueColorWheelState);

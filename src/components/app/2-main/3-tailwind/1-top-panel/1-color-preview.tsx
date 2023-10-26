@@ -1,9 +1,9 @@
 import { useAtomValue } from 'jotai';
 import { CurrentTwColor, currentTwColorAtom } from '@/store';
-import { isLightColor } from '@/utils-color';
+import { isRgbColorLight } from '@/utils';
 
 function Box({ currentTwColor }: { currentTwColor: CurrentTwColor; }) {
-    const isLight = isLightColor(currentTwColor.value);
+    const isLight = isRgbColorLight(currentTwColor.value);
     const colorClasses = `transition-colors duration-[.5s] ${isLight ? 'text-black' : 'text-white'}`;
     return (
         <div className={`flex-1 px-1.5 py-0.5 flex items-end justify-between ${colorClasses}`}>

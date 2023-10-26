@@ -15,7 +15,7 @@ export type HslName = [h: number, s: number, l: number, name?: string];
  * @return  {Array}           The RGB representation: [r, g, b] : [0..1]
  */
 export function hslToRgb(hslColor: HslName): HslName {
-    let h = hslColor[0] / 360; //TODO: Should it be modulo 360?
+    let h = hslColor[0] % 360;
     let s = hslColor[1] / 100;
     let l = hslColor[2] / 100;
 
@@ -48,7 +48,7 @@ export function rgbLuminance(c: HslName): number {
     return (0.2126 * c[0]) + (0.7152 * c[1]) + (0.0722 * c[2]);
 }
 
-export function sorter(a: HslName, b: HslName): number {
+export function sorterByLuminance(a: HslName, b: HslName): number {
     let al = rgbLuminance(hslToRgb(a));
     let bl = rgbLuminance(hslToRgb(b));
     return ((a[0] - b[0]) || (b[2] - a[2]) || (al + bl));
@@ -60,4 +60,35 @@ export function isHslDark(c: HslName): boolean {
 
 export function isRgbDark(c: HslName): boolean {
     return rgbLuminance(c) <= 0.6; // see also https://github.com/Qix-/color/blob/master/index.js#L298
+}
+
+/**
+ * isLightOrDark
+ * @param color : string;
+ * @returns true - light; false - dark
+ * 
+ * https://awik.io/determine-color-bright-dark-using-javascript
+ */
+export function isRgbColorLight(color: string) {
+    let r: number, g: number, b: number;
+
+    if (color.match(/^rgb/)) {
+        // rgb(a)
+        const clr = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
+        if (!clr) {
+            return true;
+        }
+        r = +clr[1];
+        g = +clr[2];
+        b = +clr[3];
+    } else {
+        // hex - http://gist.github.com/983661
+        const clr = +('0x' + color.slice(1).replace((color.length < 5) as any && /./g, '$&$&')); // double numbers of short hand 3 or 4 digits form
+        r = clr >> 16;
+        g = clr >> 8 & 255;
+        b = clr & 255;
+    }
+
+    const hsp = Math.sqrt(0.299 * (r * r) + 0.587 * (g * g) + 0.114 * (b * b)); //http://alienryderflex.com/hsp.html
+    return hsp > 127.5;
 }

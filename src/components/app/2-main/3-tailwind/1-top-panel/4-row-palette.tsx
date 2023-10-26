@@ -1,8 +1,7 @@
 import { HTMLAttributes } from 'react';
 import { useAtom, useAtomValue } from 'jotai';
 import { allColorsAtom, colorNameCntAtom, currentTwColorAtom } from '@/store';
-import { isLightColor } from '@/utils-color';
-import { classNames } from '@/utils';
+import { classNames, isRgbColorLight } from '@/utils';
 
 const cellClasses = "relative pr-1 min-w-[2rem] h-16 cursor-pointer flex items-end justify-end";
 const selectedColorClasses = "\
@@ -29,7 +28,7 @@ export function RowPalette({ groupName, className }: { groupName: string; } & HT
                     onClick={() => setCurrentTwColor((v) => v && { group: v.group, key, value: color })}
                     key={idx}
                 >
-                    <div className={`font-bold ${isLightColor(color) ? "text-black" : "text-white"}`}>
+                    <div className={`font-bold ${isRgbColorLight(color) ? "text-black" : "text-white"}`}>
                         {key}
                     </div>
                 </div>

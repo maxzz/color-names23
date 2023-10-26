@@ -1,4 +1,4 @@
-import { HslName } from "./utils-color";
+import { HslName } from "@/utils";
 
 export const colorkeys: HslName[] = [
     [0, 0, 100, "white"],

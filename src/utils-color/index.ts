@@ -17,4 +17,3 @@ export const formatHSLMono = (hsl: ColorTuple3) => `hsl(${hsl.map((item, idx) =>
 export * from './sort-colors';
 export * from './all-colors';
 export * from './group-colors';
-export * from './is-light-color';
