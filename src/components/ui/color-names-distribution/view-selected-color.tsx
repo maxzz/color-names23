@@ -23,7 +23,7 @@ function ColorText() {
     }
     const keys = selectedColor.dataKey.split(',') as HslName;
     const name = keys[3];
-    const dark = rgbLuminance(hslToRgb(keys)) <= 0.6 ? true : false;
+    const dark = rgbLuminance(hslToRgb(keys)) <= 0.6;
     const fill = dark ? 'fill-white' : 'fill-black';
     return (
         <text x={500} y={500}>

@@ -8,6 +8,7 @@ import { SelectedColor } from "./view-selected-color";
 import { clickState } from "./ui-state";
 
 export * from "./ui-state";
+export * from "./utils/utils-color";
 export * from "./view-message-copied";
 
 export function HuePicker({ className, ...rest }: SVGAttributes<SVGSVGElement>) {

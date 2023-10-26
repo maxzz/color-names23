@@ -1,5 +1,5 @@
 import { subscribe } from "valtio";
-import { clickState, hueColorWheelState } from "@/components/ui/color-names-distribution";
+import { HslName, clickState, hueColorWheelState } from "@/components/ui/color-names-distribution";
 import { colorOverBackground } from "@/store";
 
 subscribe(clickState, () => {
@@ -7,6 +7,6 @@ subscribe(clickState, () => {
 });
 
 subscribe(hueColorWheelState, () => {
-    const name = hueColorWheelState.selectedColor?.dataKey.split(',')[3] || '';
+    const name = (hueColorWheelState.selectedColor?.dataKey.split(',') as HslName)?.[3] || '';
     colorOverBackground.color = name;
 });
