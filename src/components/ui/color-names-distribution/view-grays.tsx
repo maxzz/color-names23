@@ -24,17 +24,29 @@ function GenerateSlices() {
             same = 0;
         }
 
+        const pos = {
+            x: localConsts.barEdge + (localConsts.grayWidth * light),
+            y: localConsts.barTop - localConsts.grayHeight - (same++ * localConsts.grayHeight),
+            width: localConsts.grayWidth,
+            height: localConsts.grayHeight - 1.25,
+        };
+//transform-origin:${pos.x + pos.width / 2}px_${pos.y + pos.height / 2}px
         return (
             <rect
-                x={`${localConsts.barEdge + (localConsts.grayWidth * light)}`}
-                y={`${localConsts.barTop - localConsts.grayHeight - (same++ * localConsts.grayHeight)}`}
-                height={`${localConsts.grayHeight - 1.25}`}
-                width={`${localConsts.grayWidth}`}
+                {...pos}
+                // x={`${x}`}
+                // y={`${y}`}
+                // height={`${height}`}
+                // width={`${width}`}
                 fill={`hsl(0,0%,${light}%)`}
 
                 data-key={`${color}`}
                 type='gray'
                 key={idx}
+                style={{ cursor: 'pointer', transformOrigin: `${pos.x + pos.width / 2}px ${pos.y + pos.height / 2}px` }}
+                className={`active:scale-150 transition-transform
+                origin-center_
+                `}
 
                 onClick={async (event) => {
                     const colorName = color[3];
