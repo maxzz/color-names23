@@ -44,8 +44,14 @@ export function hslToRgb(hslColor: HslName): HslName {
     }
 }
 
-export function rgbLuminance(c: HslName): number {
+export function rgbLuminance(c: HslName): number { //https://www.w3.org/TR/WCAG20/#relativeluminancedef
     return (0.2126 * c[0]) + (0.7152 * c[1]) + (0.0722 * c[2]);
+}
+
+export function contrastRatio(a: HslName, b: HslName): number { //https://www.w3.org/TR/WCAG20/#contrast-ratiodef
+    let al = rgbLuminance(hslToRgb(a));
+    let bl = rgbLuminance(hslToRgb(b));
+    return (al + 0.05) / (bl + 0.05);
 }
 
 export function sorterByLuminance(a: HslName, b: HslName): number {
