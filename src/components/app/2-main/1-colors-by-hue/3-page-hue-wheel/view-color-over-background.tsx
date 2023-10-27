@@ -29,7 +29,7 @@ export function ViewColorOverBackground({ colorOverBackground, className, ...res
     const keysBg = snap.background?.split(',') as HslName;
     const colorBg = keysBg?.[3] || '';
     return (
-        <div className={classNames(containerClasses, className)} style={{ backgroundColor: colorBg }} {...rest}>
+        <div className={classNames(containerClasses, className)} style={{ backgroundColor: colorBg }} title="Text color compared to background contrast. Contrast ratios can range from 1 to 21" {...rest}>
 
             {snap.background && snap.color && (
                 <div className="text-base scale-y-[1.1]" style={{ color: keysTxt?.[3] }}>
@@ -46,7 +46,7 @@ export function ViewColorOverBackground({ colorOverBackground, className, ...res
 
             <div className="absolute right-1 bottom-0.5">
                 {colorOverBackground.contrast && 
-                    <div className="text-sm" style={{ color: isHslDark(keysBg) ? '#aaa' : '#777' }}>
+                    <div className="text-[.7rem]" style={{ color: isHslDark(keysBg) ? '#aaa' : '#777' }}>
                         {colorOverBackground.contrast}
                     </div>
                 }
