@@ -5,19 +5,17 @@ import { colorToCopyState } from "@/components/ui/color-names-distribution";
 import { HslName, classNames, isHslDark } from "@/utils";
 import { IconClipboard } from "@/components/ui/icons";
 
-const textClasses = "text-base scale-y-[1.1]";
-
 function CopyBackground({ colorName, isDark }: { colorName: string; isDark: boolean; }) {
     return (
         <button
-            className={classNames("group flex items-center justify-between space-x-1", textClasses)}
+            className={"group text-sm flex items-center justify-between space-x-0.5"}
             style={{ color: isDark ? 'white' : 'black' }}
             onClick={async () => {
                 await navigator.clipboard.writeText(colorName);
                 colorToCopyState.text = colorName;
             }}
         >
-            <div>{colorName}</div>
+            <div className="">{colorName}</div>
             <IconClipboard className="hidden group-hover:block w-4 h-4 stroke-[1.5]" />
         </button>
     );
@@ -34,12 +32,12 @@ export function ColorOverBackground({ className, ...rest }: HTMLAttributes<HTMLD
         <div className={classNames(containerClasses, className)} style={{ backgroundColor: colorBg }} {...rest}>
 
             {snap.background && snap.color && (
-                <div className={textClasses} style={{ color: keysTxt?.[3] }}>
+                <div className="text-base scale-y-[1.1]" style={{ color: keysTxt?.[3] }}>
                     {keysTxt?.[3]}
                 </div>
             )}
 
-            <div className="absolute left-1.5 bottom-1">
+            <div className="absolute left-1 bottom-0.5">
                 {snap.background
                     ? <CopyBackground colorName={colorBg} isDark={isHslDark(keysBg)} />
                     : <div className="text-[.7rem] text-muted-foreground">Ctrl+click spike to select background color</div>
