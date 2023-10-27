@@ -9,7 +9,7 @@ function CopyBackground({ colorName, isDark }: { colorName: string; isDark: bool
     return (
         <button
             className={"group text-sm flex items-center justify-between space-x-0.5"}
-            style={{ color: isDark ? 'white' : 'black' }}
+            style={{ color: isDark ? '#aaa' : '#777' }}
             onClick={async () => {
                 await navigator.clipboard.writeText(colorName);
                 colorToCopyState.text = colorName;
@@ -44,12 +44,13 @@ export function ViewColorOverBackground({ colorOverBackground, className, ...res
                 }
             </div>
 
-            {/* TDOD: Calc luminance text over background */}
-            {/* <div className="absolute right-1 bottom-0.5">
-                {
-                    <div className={textClasses} style={{color: 'black'}}>{}</div>
+            <div className="absolute right-1 bottom-0.5">
+                {colorOverBackground.contrast && 
+                    <div className="text-sm" style={{ color: isHslDark(keysBg) ? '#aaa' : '#777' }}>
+                        {colorOverBackground.contrast}
+                    </div>
                 }
-            </div> */}
+            </div>
         </div>
     );
 }
