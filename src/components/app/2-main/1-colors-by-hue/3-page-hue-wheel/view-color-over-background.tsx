@@ -23,7 +23,7 @@ function CopyBackground({ colorName, isDark }: { colorName: string; isDark: bool
 
 const containerClasses = "relative w-56 h-16 ring-muted-foreground/50 ring-offset-background ring-1 ring-offset-1 rounded grid place-items-center";
 
-export function ColorOverBackgroundBox({ colorOverBackground, className, ...rest }: { colorOverBackground: ColorOverBackground; } & HTMLAttributes<HTMLDivElement>) {
+export function ViewColorOverBackground({ colorOverBackground, className, ...rest }: { colorOverBackground: ColorOverBackground; } & HTMLAttributes<HTMLDivElement>) {
     const snap = useSnapshot(colorOverBackground);
     const keysTxt = snap.color?.split(',') as HslName;
     const keysBg = snap.background?.split(',') as HslName;
