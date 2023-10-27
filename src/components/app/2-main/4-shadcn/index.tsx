@@ -10,7 +10,7 @@ export function Section4_Chadcn({ className }: HTMLAttributes<HTMLUListElement>)
     const items = shadcnPalette.varGroups.vars;
     return (
         <div className={classNames("p-4 h-full text-foreground bg-background border-muted border-b overflow-auto smallscroll flex flex-col", className)}>
-            <div className="container mx-auto max-w-xl grid grid-cols-[auto,1fr,1fr] gap-y-2">
+            <div className="container mx-auto max-w-xl grid grid-cols-[min-content,minmax(0,12rem),minmax(0,12rem)] place-content-center gap-y-2">
                 <Header />
                 {snapItems.map((foreAndBack, idx) => (
                     <Fragment key={`${idx}`}>
