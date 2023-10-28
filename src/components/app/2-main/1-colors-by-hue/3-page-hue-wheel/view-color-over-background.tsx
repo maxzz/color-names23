@@ -5,11 +5,11 @@ import { colorToCopyState } from "@/components/ui/color-names-distribution";
 import { HslName, classNames, isHslDark } from "@/utils";
 import { IconClipboard } from "@/components/ui/icons";
 
-function CopyBackground({ colorName, textColor }: { colorName: string; textColor: string; }) {
+function CopyBackground({ colorName, ...rest }: { colorName: string; } & HTMLAttributes<HTMLButtonElement>) {
     return (
         <button
-            className={"group text-sm flex items-center justify-between space-x-0.5"}
-            style={{ color: textColor }}
+            className={"group text-sm flex hover:!text-white transition-colors items-center justify-between space-x-0.5"}
+            {...rest}
             onClick={async () => {
                 await navigator.clipboard.writeText(colorName);
                 colorToCopyState.text = colorName;
@@ -29,7 +29,7 @@ export function ViewColorOverBackground({ colorOverBackground, className, ...res
     const keysTxt = snap.color?.split(',') as HslName;
     const keysBg = snap.background?.split(',') as HslName;
     const bgColorName = keysBg?.[3] || '';
-    const textColor: string = keysBg && isHslDark(keysBg) ? '#aaa' : '#777';
+    const textColor = {color: keysBg && isHslDark(keysBg) ? '#ccc' : '#777'};
     return (
         <div className={classNames(containerClasses, className)} style={{ backgroundColor: bgColorName }} title={title} {...rest}>
 
@@ -41,14 +41,14 @@ export function ViewColorOverBackground({ colorOverBackground, className, ...res
 
             <div className="absolute left-1 bottom-0.5">
                 {snap.background
-                    ? <CopyBackground colorName={bgColorName} textColor={textColor} />
+                    ? <CopyBackground colorName={bgColorName} style={textColor} />
                     : <div className="text-[.7rem] text-muted-foreground">Ctrl+click spike to select background color</div>
                 }
             </div>
 
             <div className="absolute right-1 bottom-0.5">
                 {colorOverBackground.contrast &&
-                    <div className="text-[.7rem]" style={{ color: textColor }}>
+                    <div className="text-[.7rem]" style={textColor}>
                         {colorOverBackground.contrast}
                     </div>
                 }
