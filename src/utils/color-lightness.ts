@@ -2,6 +2,12 @@
 
 export type HslName = [h: number, s: number, l: number, name?: string];
 
+/**
+ * @param {number} h as an angle in [0,360]
+ * @param {number} s as a value in [0,1]
+ * @param {number} l as a value in [0,1]
+ * @return {Array} r,g,b in [0,1]
+ */
 function hsl2rgb(h: number, s: number, l: number) {
     // input: h as an angle in [0,360] and s,l in [0,1] - output: r,g,b in [0,1]
     let a = s * Math.min(l, 1 - l);
@@ -38,7 +44,7 @@ export function contrastRatio(a: HslName, b: HslName): number { //https://www.w3
     let al = rgbLuminance(hslToRgb(a));
     let bl = rgbLuminance(hslToRgb(b));
 
-    console.log('a =', a, 'b =', b, `al = ${al}.bl = ${bl} contrastRatio = ${(al + 0.05) / (bl + 0.05)}`);
+    //console.log('a =', a, 'b =', b, `al = ${al}.bl = ${bl} contrastRatio = ${(al + 0.05) / (bl + 0.05)}`);
 
     return (al + 0.05) / (bl + 0.05); //TODO: check if this is correct: purple color over black background has 1 contrast ratio instead of 21.5
 }
