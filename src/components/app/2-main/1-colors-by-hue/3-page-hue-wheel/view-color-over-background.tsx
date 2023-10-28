@@ -5,11 +5,11 @@ import { colorToCopyState } from "@/components/ui/color-names-distribution";
 import { HslName, classNames, isHslDark } from "@/utils";
 import { IconClipboard } from "@/components/ui/icons";
 
-function CopyBackground({ colorName, isDark }: { colorName: string; isDark: boolean; }) {
+function CopyBackground({ colorName, textColor }: { colorName: string; textColor: string; }) {
     return (
         <button
             className={"group text-sm flex items-center justify-between space-x-0.5"}
-            style={{ color: isDark ? '#aaa' : '#777' }}
+            style={{ color: textColor }}
             onClick={async () => {
                 await navigator.clipboard.writeText(colorName);
                 colorToCopyState.text = colorName;
@@ -28,10 +28,10 @@ export function ViewColorOverBackground({ colorOverBackground, className, ...res
     const snap = useSnapshot(colorOverBackground);
     const keysTxt = snap.color?.split(',') as HslName;
     const keysBg = snap.background?.split(',') as HslName;
-    const colorBg = keysBg?.[3] || '';
-    const isBgDark = keysBg && isHslDark(keysBg);
+    const bgColorName = keysBg?.[3] || '';
+    const textColor: string = keysBg && isHslDark(keysBg) ? '#aaa' : '#777';
     return (
-        <div className={classNames(containerClasses, className)} style={{ backgroundColor: colorBg }} title={title} {...rest}>
+        <div className={classNames(containerClasses, className)} style={{ backgroundColor: bgColorName }} title={title} {...rest}>
 
             {snap.background && snap.color && (
                 <div className="text-base scale-y-[1.1]" style={{ color: keysTxt?.[3] }}>
@@ -41,14 +41,14 @@ export function ViewColorOverBackground({ colorOverBackground, className, ...res
 
             <div className="absolute left-1 bottom-0.5">
                 {snap.background
-                    ? <CopyBackground colorName={colorBg} isDark={isBgDark} />
+                    ? <CopyBackground colorName={bgColorName} textColor={textColor} />
                     : <div className="text-[.7rem] text-muted-foreground">Ctrl+click spike to select background color</div>
                 }
             </div>
 
             <div className="absolute right-1 bottom-0.5">
                 {colorOverBackground.contrast &&
-                    <div className="text-[.7rem]" style={{ color: isBgDark ? '#aaa' : '#777' }}>
+                    <div className="text-[.7rem]" style={{ color: textColor }}>
                         {colorOverBackground.contrast}
                     </div>
                 }
