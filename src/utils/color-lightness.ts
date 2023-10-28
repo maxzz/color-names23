@@ -2,8 +2,8 @@
 
 export type HslName = [h: number, s: number, l: number, name?: string];
 
-// input: h as an angle in [0,360] and s,l in [0,1] - output: r,g,b in [0,1] //https://stackoverflow.com/questions/2353211/hsl-to-rgb-color-conversion G: 'hslToRgb'
 function hsl2rgb(h: number, s: number, l: number) {
+    // input: h as an angle in [0,360] and s,l in [0,1] - output: r,g,b in [0,1]
     let a = s * Math.min(l, 1 - l);
     let f = (n: number, k = (n + h / 30) % 12) => l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
     return [f(0), f(8), f(4)];
@@ -14,7 +14,7 @@ function hsl2rgb(h: number, s: number, l: number) {
  * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
  * Assumes h, s, and l are contained in the set [0, 1] and
  * returns r, g, and b in the set [0, 1].
- * Lightly adapted from https://stackoverflow.com/questions/2353211/hsl-to-rgb-color-conversion
+ * https://stackoverflow.com/questions/2353211/hsl-to-rgb-color-conversion //G: 'hslToRgb'
  *
  * @param   {number}  h       The hue       : [0..360]
  * @param   {number}  s       The saturation: [0..100]
@@ -26,37 +26,8 @@ export function hslToRgb(hslColor: HslName): HslName {
     let s = hslColor[1] / 100;
     let l = hslColor[2] / 100;
 
-    let r, g, b;
-
-    if (s == 0) {
-        r = g = b = l; // achromatic
-    } else {
-        let q = l < 0.5 ? l * (1 + s) : l + s - l * s; //https://stackoverflow.com/questions/2353211/hsl-to-rgb-color-conversion G: 'hslToRgb'
-        let p = 2 * l - q;
-
-        r = hue2rgb(p, q, h + 1 / 3);
-        g = hue2rgb(p, q, h);
-        b = hue2rgb(p, q, h - 1 / 3);
-    }
     const n = hsl2rgb(h, s, l);
-
-    console.log('hslToRgb', hslColor, `(h:${h},s:${s},l:${l})`, [r, g, b], 'hslToRgb end', n);
-
-    // a = (4) ['300', '100', '50', 'magenta'] b = (4) ['0', '0', '0', 'black'] al = 0.bl = 0 contrastRatio = 1
-    // hslToRgb (4) ['0', '0', '0', 'black']        (h:0,s:0,l:0) (3)     [0, 0, 0] hslToRgb end (3) [0, 0, 0]
-    // hslToRgb (4) ['300', '100', '50', 'magenta'] (h:300,s:1,l:0.5) (3) [0, 0, 0] hslToRgb end (3) [1, 0, 1] <- this is the problem: [0, 0, 0] but should be [1, 0, 1]
-    // hslToRgb (4) ['0', '0', '0', 'black']        (h:0,s:0,l:0) (3)     [0, 0, 0] hslToRgb end (3) [0, 0, 0]
-
-    return [r, g, b];
-
-    function hue2rgb(p: number, q: number, t: number) {
-        if (t < 0) t += 1;
-        if (t > 1) t -= 1;
-        if (t < 1 / 6) return p + (q - p) * 6 * t;
-        if (t < 1 / 2) return q;
-        if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
-        return p;
-    }
+    return n as HslName;
 }
 
 export function rgbLuminance(c: HslName): number { //https://www.w3.org/TR/WCAG20/#relativeluminancedef
