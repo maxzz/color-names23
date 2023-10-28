@@ -32,6 +32,7 @@ export function hslToRgb(hslColor: HslName): HslName {
         b = hue2rgb(p, q, h - 1 / 3);
     }
 
+    console.log('hslToRgb', hslColor, `(h:${h},s:${s},l:${l})`, [r, g, b], 'hslToRgb end');
     return [r, g, b];
 
     function hue2rgb(p: number, q: number, t: number) {
@@ -51,6 +52,9 @@ export function rgbLuminance(c: HslName): number { //https://www.w3.org/TR/WCAG2
 export function contrastRatio(a: HslName, b: HslName): number { //https://www.w3.org/TR/WCAG20/#contrast-ratiodef
     let al = rgbLuminance(hslToRgb(a));
     let bl = rgbLuminance(hslToRgb(b));
+    
+    console.log('a =', a, 'b =', b, `al = ${al}.bl = ${bl} contrastRatio = ${(al + 0.05) / (bl + 0.05)}`);
+    
     return (al + 0.05) / (bl + 0.05); //TODO: check if this is correct: purple color over black background has 1 contrast ratio instead of 21.5
 }
 

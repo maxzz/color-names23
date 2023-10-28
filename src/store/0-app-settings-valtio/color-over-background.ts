@@ -16,8 +16,8 @@ export const colorOverBackground = proxy<ColorOverBackground>({
 
 function updateContrast(): void {
     if (colorOverBackground.color && colorOverBackground.background) {
-        const f = colorOverBackground.color.split(',').map(Number) as HslName;
-        const b = colorOverBackground.background.split(',').map(Number) as HslName;
+        const f = colorOverBackground.color.split(',') as HslName;
+        const b = colorOverBackground.background.split(',')as HslName;
         colorOverBackground.contrast = +contrastRatio(f, b).toFixed(2);
     } else {
         colorOverBackground.contrast = undefined;
