@@ -22,14 +22,16 @@ function CopyBackground({ colorName, isDark }: { colorName: string; isDark: bool
 }
 
 const containerClasses = "relative w-56 h-16 ring-muted-foreground/50 ring-offset-background ring-1 ring-offset-1 rounded grid place-items-center";
+const title = "Text color compared to background contrast. Contrast ratios can range from 1 to 21";
 
 export function ViewColorOverBackground({ colorOverBackground, className, ...rest }: { colorOverBackground: ColorOverBackground; } & HTMLAttributes<HTMLDivElement>) {
     const snap = useSnapshot(colorOverBackground);
     const keysTxt = snap.color?.split(',') as HslName;
     const keysBg = snap.background?.split(',') as HslName;
     const colorBg = keysBg?.[3] || '';
+    const isBgDark = keysBg && isHslDark(keysBg);
     return (
-        <div className={classNames(containerClasses, className)} style={{ backgroundColor: colorBg }} title="Text color compared to background contrast. Contrast ratios can range from 1 to 21" {...rest}>
+        <div className={classNames(containerClasses, className)} style={{ backgroundColor: colorBg }} title={title} {...rest}>
 
             {snap.background && snap.color && (
                 <div className="text-base scale-y-[1.1]" style={{ color: keysTxt?.[3] }}>
@@ -39,14 +41,14 @@ export function ViewColorOverBackground({ colorOverBackground, className, ...res
 
             <div className="absolute left-1 bottom-0.5">
                 {snap.background
-                    ? <CopyBackground colorName={colorBg} isDark={isHslDark(keysBg)} />
+                    ? <CopyBackground colorName={colorBg} isDark={isBgDark} />
                     : <div className="text-[.7rem] text-muted-foreground">Ctrl+click spike to select background color</div>
                 }
             </div>
 
             <div className="absolute right-1 bottom-0.5">
-                {colorOverBackground.contrast && 
-                    <div className="text-[.7rem]" style={{ color: isHslDark(keysBg) ? '#aaa' : '#777' }}>
+                {colorOverBackground.contrast &&
+                    <div className="text-[.7rem]" style={{ color: isBgDark ? '#aaa' : '#777' }}>
                         {colorOverBackground.contrast}
                     </div>
                 }
