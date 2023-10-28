@@ -25,7 +25,7 @@ export function hslToRgb(hslColor: HslName): HslName {
     let h = hslColor[0] % 360;
     let s = hslColor[1] / 100;
     let l = hslColor[2] / 100;
-''
+
     let r, g, b;
 
     if (s == 0) {
@@ -41,6 +41,12 @@ export function hslToRgb(hslColor: HslName): HslName {
     const n = hsl2rgb(h, s, l);
 
     console.log('hslToRgb', hslColor, `(h:${h},s:${s},l:${l})`, [r, g, b], 'hslToRgb end', n);
+
+    // a = (4) ['300', '100', '50', 'magenta'] b = (4) ['0', '0', '0', 'black'] al = 0.bl = 0 contrastRatio = 1
+    // hslToRgb (4) ['0', '0', '0', 'black']        (h:0,s:0,l:0) (3)     [0, 0, 0] hslToRgb end (3) [0, 0, 0]
+    // hslToRgb (4) ['300', '100', '50', 'magenta'] (h:300,s:1,l:0.5) (3) [0, 0, 0] hslToRgb end (3) [1, 0, 1] <- this is the problem: [0, 0, 0] but should be [1, 0, 1]
+    // hslToRgb (4) ['0', '0', '0', 'black']        (h:0,s:0,l:0) (3)     [0, 0, 0] hslToRgb end (3) [0, 0, 0]
+
     return [r, g, b];
 
     function hue2rgb(p: number, q: number, t: number) {
