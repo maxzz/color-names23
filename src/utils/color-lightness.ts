@@ -2,6 +2,13 @@
 
 export type HslName = [h: number, s: number, l: number, name?: string];
 
+// input: h as an angle in [0,360] and s,l in [0,1] - output: r,g,b in [0,1] //https://stackoverflow.com/questions/2353211/hsl-to-rgb-color-conversion G: 'hslToRgb'
+function hsl2rgb(h: number, s: number, l: number) {
+    let a = s * Math.min(l, 1 - l);
+    let f = (n: number, k = (n + h / 30) % 12) => l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+    return [f(0), f(8), f(4)];
+}
+
 /**
  * Converts an HSL color value to RGB. Conversion formula
  * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
@@ -18,21 +25,22 @@ export function hslToRgb(hslColor: HslName): HslName {
     let h = hslColor[0] % 360;
     let s = hslColor[1] / 100;
     let l = hslColor[2] / 100;
-
+''
     let r, g, b;
 
     if (s == 0) {
         r = g = b = l; // achromatic
     } else {
-        let q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+        let q = l < 0.5 ? l * (1 + s) : l + s - l * s; //https://stackoverflow.com/questions/2353211/hsl-to-rgb-color-conversion G: 'hslToRgb'
         let p = 2 * l - q;
 
         r = hue2rgb(p, q, h + 1 / 3);
         g = hue2rgb(p, q, h);
         b = hue2rgb(p, q, h - 1 / 3);
     }
+    const n = hsl2rgb(h, s, l);
 
-    console.log('hslToRgb', hslColor, `(h:${h},s:${s},l:${l})`, [r, g, b], 'hslToRgb end');
+    console.log('hslToRgb', hslColor, `(h:${h},s:${s},l:${l})`, [r, g, b], 'hslToRgb end', n);
     return [r, g, b];
 
     function hue2rgb(p: number, q: number, t: number) {
@@ -52,9 +60,9 @@ export function rgbLuminance(c: HslName): number { //https://www.w3.org/TR/WCAG2
 export function contrastRatio(a: HslName, b: HslName): number { //https://www.w3.org/TR/WCAG20/#contrast-ratiodef
     let al = rgbLuminance(hslToRgb(a));
     let bl = rgbLuminance(hslToRgb(b));
-    
+
     console.log('a =', a, 'b =', b, `al = ${al}.bl = ${bl} contrastRatio = ${(al + 0.05) / (bl + 0.05)}`);
-    
+
     return (al + 0.05) / (bl + 0.05); //TODO: check if this is correct: purple color over black background has 1 contrast ratio instead of 21.5
 }
 
