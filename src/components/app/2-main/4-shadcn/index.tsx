@@ -4,7 +4,7 @@ import { shadcnPalette } from "@/store";
 import { Header, Header2 } from "./1-headers";
 import { GridRow } from "./2-grid-row";
 import { classNames } from "@/utils";
-import { parseTextAsCSSvars, testToParse } from "./parse";
+import { parseTextAsCSSvars, testToParse, testToParse2 } from "./parse";
 
 parseTextAsCSSvars(testToParse);
 
