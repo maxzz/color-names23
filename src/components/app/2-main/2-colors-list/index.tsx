@@ -21,3 +21,5 @@ export function Section2_ColorsList({ className }: HTMLAttributes<HTMLUListEleme
 //scrollbar-gutter: stable both-edges
 //font-size: calc(16px + (32 - 16) * (100vw - 320px) / (1280 - 320)); //https://codepen.io/jkantner/pen/eYygqJm
 //dark/light https://codepen.io/jkantner/pen/eYygqJm
+
+//TODO: 10.28.23 add only triple colors like on https://www.msfw.com/services/contrastratiocalculator 
