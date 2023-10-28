@@ -43,21 +43,21 @@ const isThemeNameRegex = /^\s*\.([a-zA-Z0-9\-]+)\s* \{\s*$/;
 const isCSSVarRegex = /^\s*--([a-zA-Z0-9\-]+)\s*:\s*([^;]+)\s*;?\s*$/;
 
 export function parseTextAsCSSvars(text: string) {
-    const lines = text.split(/\r?\n/);
-    const vars = lines.map((line) => {
-        const m = isCSSVarRegex.exec(line);
-        if (m) {
-            const [_, name, value] = m;
-            return { name, value: value.trim() };
-        }
-        else {
-            const m = isThemeNameRegex.exec(line);
-            if (m) {
-                console.log('line', line);
+    const vars = text.split(/\r?\n/)
+        .map((line) => {
+            const asVar = isCSSVarRegex.exec(line);
+            if (asVar) {
+                const [_, name, value] = asVar;
+                return { name, value: value.trim() };
+            } else {
+                const asName = isThemeNameRegex.exec(line);
+                if (asName) {
+                    const [_, name] = asName;
+                    console.log('name', name);
+                }
             }
-        }
-    }).filter(Boolean);
+        })
+        .filter(Boolean);
 
     console.log('vars', vars);
-    //console.log('lines', lines);
 }
