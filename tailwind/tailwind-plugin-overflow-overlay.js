@@ -54,4 +54,14 @@ module.exports = plugin(function ({ addUtilities }) {
     };
     addUtilities(smallscroll);
 
+    const resize = {
+        "&::-webkit-resizer": {
+            border: "2px solid black",
+            background: "red",
+            boxShadow: "0 0 5px 5px blue",
+            outline: "2px solid yellow"
+        }
+    };
+    addUtilities(resize);
+
 });

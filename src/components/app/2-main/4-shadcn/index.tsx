@@ -22,7 +22,7 @@ subscribe(parseText, () => {
 
 function PasteArea() {
     const snap = useSnapshot(parseText, { sync: true });
-    return (<>
+    return (<div className="py-4 resize-y bg-red-300">
         <Textarea
             value={snap.text}
             onChange={(e) => parseText.text = e.target.value}
@@ -31,8 +31,9 @@ function PasteArea() {
             placeholder="Paste theme vars here"
             spellCheck={false}
         />
-        <Input />
-    </>);
+        {/* <br/> */}
+        {/* <Input /> */}
+    </div>);
 }
 
 
