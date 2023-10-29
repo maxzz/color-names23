@@ -20,6 +20,22 @@ subscribe(parseText, () => {
     console.log('vars', vars);
 });
 
+function AutoGrowTextarea() {
+    //https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas
+    return (
+        <div className='
+        grid after:![content:attr(data-replicated-value)_"_"] after:whitespace-pre after:invisible1 after:pointer-events-none after:[grid-area:1/1/2/2]
+        after:px-3 after:py-2 after:text-sm
+        '>
+            <Textarea className="resize-none overflow-hidden [grid-area:1/1/2/2]"
+                onChange={(e) => {
+                    e.target.parentElement!.dataset.replicatedValue = e.target.value;
+                }}
+            />
+        </div>
+    );
+}
+
 function PasteArea() {
     const snap = useSnapshot(parseText, { sync: true });
     return (<div className="py-4 resize-y bg-red-300">
@@ -45,6 +61,7 @@ export function Section4_Chadcn({ className }: HTMLAttributes<HTMLUListElement>)
 
             <div className="my-4">
                 <PasteArea />
+                <AutoGrowTextarea />
             </div>
 
             <div className="container mx-auto max-w-xl grid grid-cols-[min-content,minmax(0,12rem),minmax(0,12rem)] place-content-center gap-y-2">
