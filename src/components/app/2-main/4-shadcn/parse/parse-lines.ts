@@ -89,7 +89,7 @@ addBase({
 `;
 
 const isThemeNameRegex = /^\s*(['"])?([\.\:]?[a-zA-Z0-9\-]+)(['"])?\s*:?\s* \{\s*$/; // <":root": {> or <:root: {> or <"dark": {> or <.dark: {>
-const isCSSVarRegex = /^\s*(['"])?--([a-zA-Z0-9\-]+)(['"])?\s*:\s*(['"])?([^;"']+)(['"])?\s*[;,]?\s*$/; // <"--background": "224 71% 4%",> or <--background: 159 65% 4%;>
+const isCSSVarRegex = /^\s*(['"])?--([a-zA-Z0-9\-]+)(?:['"])?\s*:\s*(?:['"])?([^;"']+)(?:['"])?\s*[;,]?\s*$/; // <"--background": "224 71% 4%",> or <--background: 159 65% 4%;>
 
 export function parseTextAsCSSvars(text: string) {
     text = testToParse;
@@ -97,14 +97,14 @@ export function parseTextAsCSSvars(text: string) {
         .map((line) => {
             const asVar = isCSSVarRegex.exec(line);
             if (asVar) {
-                const [_1, _2, name, _3, _4, value] = asVar;
-                //console.log('asVar', asVar);
+                const [_, _quata, name, value] = asVar;
+                console.log('asVar', asVar);
                 return { name, value: value.trim() };
             } else {
                 const asName = isThemeNameRegex.exec(line);
                 if (asName) {
-                    const [_, name] = asName;
-                    console.log('name', name);
+                    const [_, _quatas1, name] = asName;
+                    console.log('name', asName);
                 }
             }
         })
