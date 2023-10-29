@@ -4,7 +4,7 @@ import { shadcnPalette } from "@/store";
 import { Header, Header2 } from "./1-headers";
 import { GridRow } from "./2-grid-row";
 import { classNames } from "@/utils";
-import { parseTextAsCSSvars, testToParseCss, testToParseCss2, testToParseJs } from "./parse";
+import { parseTextAsCSSvars, testToParseCss, testToParseCss2, testToParseJs } from "@/store/4-shadcn/parse";
 
 const vars = parseTextAsCSSvars(testToParseCss2);
 console.log('vars', vars);
