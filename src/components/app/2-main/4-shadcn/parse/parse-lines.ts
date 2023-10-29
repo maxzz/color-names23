@@ -94,24 +94,39 @@ const isThemeNameRegex = /^\s*(['"])?([\.\:]?[a-zA-Z0-9\-]+)(?:['"])?\s*:?\s* \{
 // <"--background": "224 71% 4%",> or <--background: 159 65% 4%;>
 const isCSSVarRegex = /^\s*(['"])?--([a-zA-Z0-9\-]+)(?:['"])?\s*:\s*(?:['"])?([^;"']+)(?:['"])?\s*[;,]?\s*$/;
 
+type CSSVars = {
+    name: string;
+    values: Record<string, string>;
+};
+
 export function parseTextAsCSSvars(text: string) {
-    text = testToParse2;
-    const vars = text.split(/\r?\n/)
-        .map((line) => {
+    text = testToParse;
+
+    let rv: CSSVars[] = [];
+
+    let current: CSSVars = { name: 'root', values: {} };
+    rv.push(current);
+
+    text.split(/\r?\n/)
+        .forEach((line) => {
             const asVar = isCSSVarRegex.exec(line);
             if (asVar) {
                 const [_, _quata, name, value] = asVar;
                 //console.log('asVar', asVar);
-                return { name, value: value.trim() };
+                const newValue = { name, value: value.trim() };
+                current.values[name] = value;
             } else {
                 const asName = isThemeNameRegex.exec(line);
                 if (asName) {
-                    const [_, _quatas1, name] = asName;
-                    //console.log('name', asName);
+                    const [_, _quata, name] = asName;
+
+                    current = { name, values: {} };
+                    rv.push(current);
                 }
             }
-        })
-        .filter(Boolean);
+        });
 
-    console.log('vars', vars);
+    rv = rv.filter((group) => Object.keys(group.values).length > 0);
+
+    console.log('vars', rv);
 }
