@@ -1,9 +1,9 @@
-import { Fragment, HTMLAttributes } from "react";
+import { Fragment, HTMLAttributes, TextareaHTMLAttributes } from "react";
 import { proxy, subscribe, useSnapshot } from "valtio";
 import { shadcnPalette } from "@/store";
 import { Header, Header2 } from "./1-headers";
 import { GridRow } from "./2-grid-row";
-import { classNames } from "@/utils";
+import { classNames, cn } from "@/utils";
 import { parseTextAsCSSvars, testToParseCss, testToParseCss2, testToParseJs } from "@/store/4-shadcn/parse";
 import { Input } from "@/components/ui/shadcn";
 import { Textarea } from "@/components/ui/shadcn/textarea";
@@ -20,17 +20,21 @@ subscribe(parseText, () => {
     console.log('vars', vars);
 });
 
-function AutoGrowTextarea() {
-    //https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas
+//https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas
+const textAreaContainerClasses = 'grid after:![content:attr(data-replicated-value)_"_"] after:whitespace-pre after:invisible1 after:pointer-events-none after:[grid-area:1/1/2/2]';
+const textareaPaddingFontClasses = 'after:px-3 after:py-2 after:text-sm';
+
+function AutoGrowTextarea({ textareaPaddingFont = textareaPaddingFontClasses, className, onChange, ...rest }: { textareaPaddingFont?: string; } & TextareaHTMLAttributes<HTMLTextAreaElement>) {
     return (
-        <div className='
-        grid after:![content:attr(data-replicated-value)_"_"] after:whitespace-pre after:invisible1 after:pointer-events-none after:[grid-area:1/1/2/2]
-        after:px-3 after:py-2 after:text-sm
-        '>
-            <Textarea className="resize-none overflow-hidden [grid-area:1/1/2/2]"
+        <div className={cn(`${textAreaContainerClasses}`, textareaPaddingFont)}>
+            <Textarea
+                className={cn("resize-none overflow-hidden [grid-area:1/1/2/2]", className)}
+                value = "123"
                 onChange={(e) => {
                     e.target.parentElement!.dataset.replicatedValue = e.target.value;
+                    onChange?.(e);
                 }}
+                {...rest}
             />
         </div>
     );
