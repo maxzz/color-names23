@@ -6,6 +6,7 @@ import { GridRow } from "./2-grid-row";
 import { classNames } from "@/utils";
 import { parseTextAsCSSvars, testToParseCss, testToParseCss2, testToParseJs } from "@/store/4-shadcn/parse";
 import { Input } from "@/components/ui/shadcn";
+import { Textarea } from "@/components/ui/shadcn/textarea";
 
 // const vars = parseTextAsCSSvars(testToParseCss2);
 // console.log('vars', vars);
@@ -15,14 +16,23 @@ const parseText = proxy({
 });
 
 subscribe(parseText, () => {
-    parseTextAsCSSvars(parseText.text);
+    const vars = parseTextAsCSSvars(parseText.text);
+    console.log('vars', vars);
 });
 
 function PasteArea() {
     const snap = useSnapshot(parseText, { sync: true });
-    return (
-        <Input value={snap.text} onChange={(e) => parseText.text = e.target.value} placeholder="Paste theme vars here" />
-    );
+    return (<>
+        <Textarea
+            value={snap.text}
+            onChange={(e) => parseText.text = e.target.value}
+            className="min-h-[36px] smallscroll resize-none"
+            rows={1}
+            placeholder="Paste theme vars here"
+            spellCheck={false}
+        />
+        <Input />
+    </>);
 }
 
 
