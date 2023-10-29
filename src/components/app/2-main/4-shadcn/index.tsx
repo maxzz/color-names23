@@ -5,15 +5,21 @@ import { Header, Header2 } from "./1-headers";
 import { GridRow } from "./2-grid-row";
 import { classNames } from "@/utils";
 import { parseTextAsCSSvars, testToParseCss, testToParseCss2, testToParseJs } from "@/store/4-shadcn/parse";
+import { Input } from "@/components/ui/shadcn";
 
-const vars = parseTextAsCSSvars(testToParseCss2);
-console.log('vars', vars);
+// const vars = parseTextAsCSSvars(testToParseCss2);
+// console.log('vars', vars);
 
 export function Section4_Chadcn({ className }: HTMLAttributes<HTMLUListElement>) {
     const { varGroups: { vars: snapItems } } = useSnapshot(shadcnPalette);
     const items = shadcnPalette.varGroups.vars;
     return (
         <div className={classNames("p-4 h-full text-foreground bg-background border-muted border-b overflow-auto smallscroll flex flex-col", className)}>
+
+            <div className="my-4">
+                <Input placeholder="Paste theme vars here" />
+            </div>
+
             <div className="container mx-auto max-w-xl grid grid-cols-[min-content,minmax(0,12rem),minmax(0,12rem)] place-content-center gap-y-2">
                 <Header />
                 {snapItems.map((foreAndBack, idx) => (
