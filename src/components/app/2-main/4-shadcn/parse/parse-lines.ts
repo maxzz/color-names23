@@ -92,12 +92,13 @@ const isThemeNameRegex = /^\s*(['"])?([\.\:]?[a-zA-Z0-9\-]+)(['"])?\s*:?\s* \{\s
 const isCSSVarRegex = /^\s*(['"])?--([a-zA-Z0-9\-]+)(['"])?\s*:\s*(['"])?([^;"']+)(['"])?\s*[;,]?\s*$/; // <"--background": "224 71% 4%",> or <--background: 159 65% 4%;>
 
 export function parseTextAsCSSvars(text: string) {
+    text = testToParse;
     const vars = text.split(/\r?\n/)
         .map((line) => {
             const asVar = isCSSVarRegex.exec(line);
             if (asVar) {
-                const [_, name, value] = asVar;
-                console.log('asVar', asVar);
+                const [_1, _2, name, _3, _4, value] = asVar;
+                //console.log('asVar', asVar);
                 return { name, value: value.trim() };
             } else {
                 const asName = isThemeNameRegex.exec(line);
