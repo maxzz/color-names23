@@ -1,5 +1,5 @@
 //https://gradient.page/tools/shadcn-ui-theme-generator
-export const testToParse = `
+export const testToParseCss = `
 .theme-custom {
     /* Name: custom color palette
        Author: Ilias Ism
@@ -39,7 +39,7 @@ export const testToParse = `
 }
 `;
 
-export const testToParse2 = `
+export const testToParseJs = `
 addBase({
     ":root": {
         "--background": "0 0% 100%",
@@ -94,17 +94,15 @@ const isThemeNameRegex = /^\s*(['"])?([\.\:]?[a-zA-Z0-9\-]+)(?:['"])?\s*:?\s* \{
 // <"--background": "224 71% 4%",> or <--background: 159 65% 4%;>
 const isCSSVarRegex = /^\s*(['"])?--([a-zA-Z0-9\-]+)(?:['"])?\s*:\s*(?:['"])?([^;"']+)(?:['"])?\s*[;,]?\s*$/;
 
-type CSSVars = {
+type ThemeVars = {
     name: string;
     values: Record<string, string>;
 };
 
-export function parseTextAsCSSvars(text: string) {
-    text = testToParse;
+export function parseTextAsCSSvars(text: string): ThemeVars[] {
+    let rv: ThemeVars[] = [];
 
-    let rv: CSSVars[] = [];
-
-    let current: CSSVars = { name: 'root', values: {} };
+    let current: ThemeVars = { name: 'root', values: {} };
     rv.push(current);
 
     text.split(/\r?\n/)
@@ -112,9 +110,8 @@ export function parseTextAsCSSvars(text: string) {
             const asVar = isCSSVarRegex.exec(line);
             if (asVar) {
                 const [_, _quata, name, value] = asVar;
-                //console.log('asVar', asVar);
-                const newValue = { name, value: value.trim() };
-                current.values[name] = value;
+
+                current.values[name] = value.trim();
             } else {
                 const asName = isThemeNameRegex.exec(line);
                 if (asName) {
@@ -127,6 +124,5 @@ export function parseTextAsCSSvars(text: string) {
         });
 
     rv = rv.filter((group) => Object.keys(group.values).length > 0);
-
-    console.log('vars', rv);
+    return rv;
 }

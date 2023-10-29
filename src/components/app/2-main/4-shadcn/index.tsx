@@ -4,9 +4,10 @@ import { shadcnPalette } from "@/store";
 import { Header, Header2 } from "./1-headers";
 import { GridRow } from "./2-grid-row";
 import { classNames } from "@/utils";
-import { parseTextAsCSSvars, testToParse, testToParse2 } from "./parse";
+import { parseTextAsCSSvars, testToParseCss, testToParseJs } from "./parse";
 
-parseTextAsCSSvars(testToParse);
+const vars = parseTextAsCSSvars(testToParseCss);
+console.log('vars', vars);
 
 export function Section4_Chadcn({ className }: HTMLAttributes<HTMLUListElement>) {
     const { varGroups: { vars: snapItems } } = useSnapshot(shadcnPalette);
