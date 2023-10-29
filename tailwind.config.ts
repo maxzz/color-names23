@@ -88,6 +88,7 @@ module.exports = {
         require('./tailwind/tailwind-plugin-colors-bridge')({ prefix: '--tm-', groupName: 'primary' }),
         require('./tailwind/tailwind-plugin-all-colors'),
         require('./tailwind/tailwnd-plugin-debug-styles'),
+        require('./tailwind/tailwind-plugin-overflow-overlay'),
         debugScreens,
         require('@tailwindcss/forms')({ strategy: 'class' }),
         shadcnPlugin,
