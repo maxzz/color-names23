@@ -66,31 +66,33 @@ module.exports = plugin(function ({ addUtilities, addVariant }) {
     //     console.log(error);        
     // }
 
-    addVariant("scrollbar-button", ({ modifySelectors, separator }) => {
-        modifySelectors(({ className }) => {
-            return `.${e(
-                `scrollbar-button${separator}${className}`
-            )}::-webkit-scrollbar-button`;
-        });
-    });
+    // addVariant("scrollbar-button", ({ modifySelectors, separator }) => {
+    //     modifySelectors(({ className }) => {
+    //         return `.${e(
+    //             `scrollbar-button${separator}${className}`
+    //         )}::-webkit-scrollbar-button`;
+    //     });
+    // });
 
-    // Add scrollbar class
-    addUtilities({
-        ".scrollbar-rounded": {
-            "&::-webkit-scrollbar-button": {
-                width: '10px',
-                height: '10px',
-                display: 'block',
-            },
-        }
-    });
+    // // Add scrollbar class
+    // addUtilities({
+    //     ".scrollbar-rounded": {
+    //         "&::-webkit-scrollbar-button": {
+    //             width: '10px',
+    //             height: '10px',
+    //             display: 'block',
+    //         },
+    //     }
+    // });
 
     const resize = {
-        "&::-webkit-resizer": {
-            border: "2px solid black",
-            background: "red",
-            boxShadow: "0 0 5px 5px blue",
-            outline: "2px solid yellow"
+        ".resize-color": {
+            "&::-webkit-resizer": {
+                border: "2px solid black",
+                background: "red",
+                boxShadow: "0 0 5px 5px blue",
+                outline: "2px solid yellow"
+            }
         }
     };
     addUtilities(resize);
