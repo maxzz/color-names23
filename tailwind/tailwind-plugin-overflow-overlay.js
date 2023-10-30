@@ -118,11 +118,12 @@ module.exports = plugin(function ({ addUtilities, addVariant }) {
                 background: 'var(--resizer-color, hsl(var(--background)))',
                 */
 
+                backgroundColor: 'transparent',
                 //backgroundImage: 'url("../src/assets/resizer-inactive.png")',
                 backgroundImage: 'url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAAsSAAALEgHS3X78AAAAIGNIUk0AAG11AABzoAAA9q8AAIWZAABumgAA57sAADF9AAAXvQF2CngAAABESURBVHjajM67DQAgDENBw6x0WZDtHi3KR4klF5ausAAVvf8u0TGjgwFlMEUeepR+DCj72CJAC9AkW8OM4QMAAP//AwD5ltVB1vqf0gAAAABJRU5ErkJggg==")',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'bottom right',
-                backgroundSize: '90% 90%',
+                backgroundSize: '95% 95%',
             }
         }
     };

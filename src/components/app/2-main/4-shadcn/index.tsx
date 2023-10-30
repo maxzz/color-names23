@@ -25,7 +25,7 @@ function PasteArea() {
         <Textarea
             value={snap.text}
             onChange={(e) => parseText.text = e.target.value}
-            className="min-h-[36px] smallscroll resize-color [&::-webkit-resizer]:bg-transparent [&::-webkit-resizer]:b1g-red-500 [&::-webkit-resizer]:rounded"
+            className="min-h-[36px] smallscroll resize-color [&::-webkit-resizer]:b1g-transparent [&::-webkit-resizer]:b1g-red-500 [&::-webkit-resizer]:rounded"
             rows={3}
             placeholder="Paste theme vars here"
             spellCheck={false}
