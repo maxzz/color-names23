@@ -1,4 +1,4 @@
-import { Fragment, HTMLAttributes, TextareaHTMLAttributes } from "react";
+import { Fragment, HTMLAttributes, TextareaHTMLAttributes, useState } from "react";
 import { proxy, subscribe, useSnapshot } from "valtio";
 import { shadcnPalette } from "@/store";
 import { Header, Header2 } from "./1-headers";
@@ -21,17 +21,26 @@ subscribe(parseText, () => {
 });
 
 //https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas
-const textAreaContainerClasses = 'grid after:![content:attr(data-replicated-value)_"_"] after:whitespace-pre after:invisible1 after:pointer-events-none after:[grid-area:1/1/2/2]';
-const textareaPaddingFontClasses = 'after:px-3 after:py-2 after:text-sm';
+const textAreaContainerClasses = '\
+min-h-[36px] \
+grid \
+after:![content:attr(data-replicated)_"_"] \
+after:whitespace-pre \
+after:text-red-500 \
+after:border-transparent \
+after:invisible1 \
+after:pointer-events-none \
+after:[grid-area:1/1/2/2]';
+const textareaPaddingFontClasses = 'after:px-3 after:py-2 after:text-sm after:border';
 
-function AutoGrowTextarea({ textareaPaddingFont = textareaPaddingFontClasses, className, onChange, ...rest }: { textareaPaddingFont?: string; } & TextareaHTMLAttributes<HTMLTextAreaElement>) {
+function AutoGrowTextarea({ textareaPaddingFont = textareaPaddingFontClasses, className, value, onChange, ...rest }: { textareaPaddingFont?: string; } & TextareaHTMLAttributes<HTMLTextAreaElement>) {
     return (
-        <div className={cn(`${textAreaContainerClasses}`, textareaPaddingFont)}>
+        <div className={cn(`${textAreaContainerClasses}`, textareaPaddingFont)} data-replicated={value}>
             <Textarea
                 className={cn("resize-none overflow-hidden [grid-area:1/1/2/2]", className)}
-                value = "123"
+                value={value}
                 onChange={(e) => {
-                    e.target.parentElement!.dataset.replicatedValue = e.target.value;
+                    //e.target.parentElement!.dataset.replicatedValue = e.target.value;
                     onChange?.(e);
                 }}
                 {...rest}
@@ -60,12 +69,18 @@ function PasteArea() {
 export function Section4_Chadcn({ className }: HTMLAttributes<HTMLUListElement>) {
     const { varGroups: { vars: snapItems } } = useSnapshot(shadcnPalette);
     const items = shadcnPalette.varGroups.vars;
+    const [value, setValue] = useState('');
     return (
         <div className={classNames("p-4 h-full text-foreground bg-background border-muted border-b overflow-auto smallscroll flex flex-col", className)}>
 
             <div className="my-4">
                 <PasteArea />
-                <AutoGrowTextarea />
+                <AutoGrowTextarea
+                    rows={1}
+                    className="min-h-[36px]"
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                />
             </div>
 
             <div className="container mx-auto max-w-xl grid grid-cols-[min-content,minmax(0,12rem),minmax(0,12rem)] place-content-center gap-y-2">
