@@ -20,7 +20,7 @@ disabled:cursor-not-allowed \
 border rounded-md shadow-sm \
 flex";
 
-const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
+export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     ({ className, ...rest }, ref) => {
         return (
             <textarea className={cn(TextareaClasses, className)} ref={ref} {...rest} />
@@ -28,5 +28,3 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     }
 );
 Textarea.displayName = "Textarea";
-
-export { Textarea };

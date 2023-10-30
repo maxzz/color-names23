@@ -5,7 +5,7 @@ import { Header, Header2 } from "./1-headers";
 import { GridRow } from "./2-grid-row";
 import { classNames, cn } from "@/utils";
 import { parseTextAsCSSvars, testToParseCss, testToParseCss2, testToParseJs } from "@/store/4-shadcn/parse";
-import { Input } from "@/components/ui/shadcn";
+import { AutoGrowTextarea, Input, textareaPaddingFontClasses, textareaPaddingFontDebugClasses } from "@/components/ui/shadcn";
 import { Textarea } from "@/components/ui/shadcn/textarea";
 
 // const vars = parseTextAsCSSvars(testToParseCss2);
@@ -20,30 +20,6 @@ subscribe(parseText, () => {
     console.log('vars', vars);
 });
 
-// https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas
-const containerClasses = '\
-after:![content:attr(data-replicated)_"_"] \
-after:whitespace-pre \
-after:border-transparent \
-after:invisible \
-after:[grid-area:1/1/2/2] \
-grid';
-const textareaClasses = "resize-none overflow-hidden [grid-area:1/1/2/2]";
-
-// These are for container padding, font, and border adjustments
-export const textareaPaddingFontClasses = 'after:px-3 after:py-2 after:text-sm after:border';
-
-// These are for debugging
-export const textareaPaddingFontDebugClasses = "after:text-red-500 after:visible after:pointer-events-none";
-
-export function AutoGrowTextarea({ textareaPaddingFont = textareaPaddingFontClasses, className, value, ...rest }: { textareaPaddingFont?: string; } & TextareaHTMLAttributes<HTMLTextAreaElement>) {
-    return (
-        <div className={cn(containerClasses, textareaPaddingFont)} data-replicated={value}>
-            <Textarea className={cn(textareaClasses, className)} value={value} {...rest} />
-        </div>
-    );
-}
-
 function PasteArea() {
     const snap = useSnapshot(parseText, { sync: true });
     return (<div className="py-4 resize-y bg-red-300">
@@ -57,7 +33,6 @@ function PasteArea() {
         />
     </div>);
 }
-
 
 export function Section4_Chadcn({ className }: HTMLAttributes<HTMLUListElement>) {
     const { varGroups: { vars: snapItems } } = useSnapshot(shadcnPalette);
