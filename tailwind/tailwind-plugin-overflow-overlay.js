@@ -2,7 +2,7 @@ const plugin = require('tailwindcss/plugin');
 
 // Don't use plugin: tailwind cannot have two overlays: auto and overlay at the same time and will break for Firefox. Use index.css instead.
 
-module.exports = plugin(function ({ addUtilities }) {
+module.exports = plugin(function ({ addUtilities, addVariant }) {
     const utils = {
         '.overflow-overlay': {
             'overflow': 'auto',
@@ -53,6 +53,37 @@ module.exports = plugin(function ({ addUtilities }) {
         }
     };
     addUtilities(smallscroll);
+
+
+    // try {
+    //     addVariant('resizer', ({ modifySelectors, separator }) => {
+    //         modifySelectors(({ className }) => {
+    //             return `.${e(`textarea-resizer${separator}${className}`)}::-webkit-scrollbar-button`;
+    //         });
+    //     });
+
+    // } catch (error) {
+    //     console.log(error);        
+    // }
+
+    addVariant("scrollbar-button", ({ modifySelectors, separator }) => {
+        modifySelectors(({ className }) => {
+            return `.${e(
+                `scrollbar-button${separator}${className}`
+            )}::-webkit-scrollbar-button`;
+        });
+    });
+
+    // Add scrollbar class
+    addUtilities({
+        ".scrollbar-rounded": {
+            "&::-webkit-scrollbar-button": {
+                width: '10px',
+                height: '10px',
+                display: 'block',
+            },
+        }
+    });
 
     const resize = {
         "&::-webkit-resizer": {
