@@ -5,7 +5,7 @@ import { Header, Header2 } from "./1-headers";
 import { GridRow } from "./2-grid-row";
 import { classNames, cn } from "@/utils";
 import { parseTextAsCSSvars, testToParseCss, testToParseCss2, testToParseJs } from "@/store/4-shadcn/parse";
-import { AutoGrowTextarea, Input, Textarea, textareaPaddingFontClasses, textareaPaddingFontDebugClasses } from "@/components/ui/shadcn";
+import { TextareaAutoGrow, Input, Textarea, textareaPaddingFontClasses, textareaPaddingFontDebugClasses } from "@/components/ui/shadcn";
 
 // const vars = parseTextAsCSSvars(testToParseCss2);
 // console.log('vars', vars);
@@ -30,14 +30,16 @@ function PasteArea() {
             placeholder="Paste theme vars here"
             spellCheck={false}
         />
-                <AutoGrowTextarea
-                    rows={1}
-                    className="min-h-0"
-                    textareaPaddingFont={cn(textareaPaddingFontDebugClasses, textareaPaddingFontClasses)}
-                    value={snap.text}
-                    onChange={(e) => parseText.text = e.target.value}
-                    spellCheck={false}
-                />
+
+        <TextareaAutoGrow
+            value={snap.text}
+            onChange={(e) => parseText.text = e.target.value}
+            rows={1}
+            className="min-h-0"
+            
+            placeholder="Paste theme vars here"
+            spellCheck={false}
+        />
     </>);
 }
 

@@ -1,6 +1,6 @@
-import { TextareaHTMLAttributes, forwardRef } from "react";
+import { forwardRef } from "react";
 import { cn } from "@/utils";
-import { Textarea } from "./textarea";
+import { Textarea, TextareaProps } from "./textarea";
 
 // https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas
 const containerClasses = '\
@@ -18,7 +18,27 @@ export const textareaPaddingFontClasses = 'after:px-3 after:py-2 after:text-sm a
 // These are for debugging
 export const textareaPaddingFontDebugClasses = "after:text-red-500 after:visible after:pointer-events-none";
 
-export function AutoGrowTextarea({ textareaPaddingFont = textareaPaddingFontClasses, className, value, ...rest }: { textareaPaddingFont?: string; } & TextareaHTMLAttributes<HTMLTextAreaElement>) {
+/**
+ * Example:
+ *  ```
+ *  const snap = useSnapshot(parseText, { sync: true });
+ * 
+ *  <TextareaAutoGrow
+ *      value={snap.text}
+ *      onChange={(e) => parseText.text = e.target.value}
+ *      rows={1}
+ *      className="min-h-0"
+ *      // For debugging:
+ *      // textareaPaddingFont={cn(textareaPaddingFontDebugClasses, textareaPaddingFontClasses)}
+ *      placeholder="Paste theme vars here"
+ *      spellCheck={false}
+ *  />
+ *  ```
+ * @param param0 
+ * @returns 
+ */
+
+export function TextareaAutoGrow({ textareaPaddingFont = textareaPaddingFontClasses, className, value, ...rest }: { textareaPaddingFont?: string; } & TextareaProps) {
     return (
         <div className={cn(containerClasses, textareaPaddingFont)} data-replicated={value}>
             <Textarea className={cn(textareaClasses, className)} value={value} {...rest} />
