@@ -42,10 +42,10 @@ module.exports = plugin(function ({ addUtilities, addVariant }) {
         },
 
         ".smallscroll::-webkit-scrollbar-corner": {
-            // backgroundColor: "transparent",
-            backgroundColor: "red",
+            backgroundColor: "transparent",
+            // backgroundColor: "red",
             // borderRadius: "var(--sb-radius)"
-            borderRadius: "4px"
+            // borderRadius: "4px"
         },
 
         ".overflow-overlay": {
@@ -102,6 +102,7 @@ module.exports = plugin(function ({ addUtilities, addVariant }) {
 
                 // background: '#0000',
                 background: 'red',
+                borderRadius: '5px',
 
                 // '--resizer-color': 'green',
                 // background: 'var(--resizer-color)',
