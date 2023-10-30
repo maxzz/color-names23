@@ -37,8 +37,18 @@ export const textareaPaddingFontDebugClasses = "after:text-red-500 after:visible
  * @param param0 
  * @returns 
  */
+export const TextareaAutoGrow = forwardRef<HTMLTextAreaElement, { textareaPaddingFont?: string; } & TextareaProps>(
+    ({ textareaPaddingFont = textareaPaddingFontClasses, className, value, ...rest }, ref) => {
+        return (
+            <div className={cn(containerClasses, textareaPaddingFont)} data-replicated={value}>
+                <Textarea className={cn(textareaClasses, className)} value={value} ref={ref} {...rest} />
+            </div>
+        );
+    }
+);
+TextareaAutoGrow.displayName = "TextareaAutoGrow";
 
-export function TextareaAutoGrow({ textareaPaddingFont = textareaPaddingFontClasses, className, value, ...rest }: { textareaPaddingFont?: string; } & TextareaProps) {
+export function TextareaAutoGrowWoRef({ textareaPaddingFont = textareaPaddingFontClasses, className, value, ...rest }: { textareaPaddingFont?: string; } & TextareaProps) {
     return (
         <div className={cn(containerClasses, textareaPaddingFont)} data-replicated={value}>
             <Textarea className={cn(textareaClasses, className)} value={value} {...rest} />
