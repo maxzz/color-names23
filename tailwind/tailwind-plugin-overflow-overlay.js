@@ -102,7 +102,8 @@ module.exports = plugin(function ({ addUtilities, addVariant }) {
 
                 // background: '#0000',
                 //background: 'red',
-                borderRadius: '2px',
+                borderRadius: '5px',
+                //padding: '0px 0px 2px 2px',
 
                 // '--resizer-color': 'green',
                 // background: 'var(--resizer-color)',
@@ -117,9 +118,9 @@ module.exports = plugin(function ({ addUtilities, addVariant }) {
                 background: 'var(--resizer-color, hsl(var(--background)))',
                 */
 
-                'background-image': 'url("../src/assets/resizer-inactive.png")',
-                'background-repeat': 'no-repeat',
-                'background-position': 'bottom right',
+                backgroundImage: 'url("../src/assets/resizer-inactive.png")',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'bottom right',
                 backgroundSize: '90% 90%',
             }
         }
