@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+    .overflow-overlay {
+        overflow: auto;
+        overflow: overlay;
+    }
+}
+
 /* @layer utilities {
     /* Firefox scrollbars * /
     .smallscroll {

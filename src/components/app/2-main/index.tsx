@@ -14,7 +14,7 @@ export function App2_Main({ className }: HTMLAttributes<HTMLDivElement>) {
 
             {current === SectionName.hue &&
                 <div className="h-full flex flex-col">
-                    <Section1_ColorsByHue className="flex-1 overflow-overlay smallscroll" style={{ overflow: 'overlay' }} />
+                    <Section1_ColorsByHue className="flex-1 overflow-overlay smallscroll" />
                 </div>
             }
 
