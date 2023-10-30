@@ -88,10 +88,24 @@ module.exports = plugin(function ({ addUtilities, addVariant }) {
     const resize = {
         ".resize-color": {
             "&::-webkit-resizer": {
-                border: "2px solid black",
-                background: "red",
-                boxShadow: "0 0 5px 5px blue",
-                outline: "2px solid yellow"
+                // border: "2px solid black",
+                // background: "red",
+                // boxShadow: "0 0 5px 5px blue",
+                // outline: "2px solid yellow"
+
+                // background: '#0000',
+                background: 'red',
+
+                // '--resizer-color': 'green',
+                // background: 'var(--resizer-color)',
+
+                overflow: 'hidden',
+                borderRadius: '5px',
+                borderRadius: '1px',
+                transform: 'translate(-50%, -50%)',
+
+                color: 'red',
+                background: 'var(--resizer-color, hsl(var(--background)))',
             }
         }
     };
