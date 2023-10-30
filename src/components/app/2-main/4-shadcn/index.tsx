@@ -5,7 +5,7 @@ import { Header, Header2 } from "./1-headers";
 import { GridRow } from "./2-grid-row";
 import { classNames, cn } from "@/utils";
 import { parseTextAsCSSvars, testToParseCss, testToParseCss2, testToParseJs } from "@/store/4-shadcn/parse";
-import { TextareaAutoGrow, Input, Textarea, textareaPaddingFontClasses, textareaPaddingFontDebugClasses } from "@/components/ui/shadcn";
+import { TextareaAutoGrow, Input, Textarea, containerPaddingFontClasses, containerPaddingFontDebugClasses } from "@/components/ui/shadcn";
 
 // const vars = parseTextAsCSSvars(testToParseCss2);
 // console.log('vars', vars);

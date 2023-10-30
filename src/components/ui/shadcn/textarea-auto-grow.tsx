@@ -13,10 +13,10 @@ grid';
 const textareaClasses = "resize-none overflow-hidden [grid-area:1/1/2/2]";
 
 // These are for container padding, font, and border adjustments
-export const textareaPaddingFontClasses = 'after:px-3 after:py-2 after:text-sm after:border';
+export const containerPaddingFontClasses = 'after:px-3 after:py-2 after:text-sm after:border';
 
-// These are for debugging
-export const textareaPaddingFontDebugClasses = "after:text-red-500 after:visible after:pointer-events-none";
+// These are for debugging syncronization of elements ::after and textarea
+export const containerPaddingFontDebugClasses = "after:text-red-500 after:visible after:pointer-events-none";
 
 /**
  * Example:
@@ -37,10 +37,10 @@ export const textareaPaddingFontDebugClasses = "after:text-red-500 after:visible
  * @param param0 
  * @returns 
  */
-export const TextareaAutoGrow = forwardRef<HTMLTextAreaElement, { textareaPaddingFont?: string; } & TextareaProps>(
-    ({ textareaPaddingFont = textareaPaddingFontClasses, className, value, ...rest }, ref) => {
+export const TextareaAutoGrow = forwardRef<HTMLTextAreaElement, { containerPaddingFont?: string; } & TextareaProps>(
+    ({ containerPaddingFont = containerPaddingFontClasses, className, value, ...rest }, ref) => {
         return (
-            <div className={cn(containerClasses, textareaPaddingFont)} data-replicated={value}>
+            <div className={cn(containerClasses, containerPaddingFont)} data-replicated={value}>
                 <Textarea className={cn(textareaClasses, className)} value={value} ref={ref} {...rest} />
             </div>
         );
@@ -48,9 +48,9 @@ export const TextareaAutoGrow = forwardRef<HTMLTextAreaElement, { textareaPaddin
 );
 TextareaAutoGrow.displayName = "TextareaAutoGrow";
 
-export function TextareaAutoGrowWoRef({ textareaPaddingFont = textareaPaddingFontClasses, className, value, ...rest }: { textareaPaddingFont?: string; } & TextareaProps) {
+export function TextareaAutoGrowWoRef({ containerPaddingFont = containerPaddingFontClasses, className, value, ...rest }: { containerPaddingFont?: string; } & TextareaProps) {
     return (
-        <div className={cn(containerClasses, textareaPaddingFont)} data-replicated={value}>
+        <div className={cn(containerClasses, containerPaddingFont)} data-replicated={value}>
             <Textarea className={cn(textareaClasses, className)} value={value} {...rest} />
         </div>
     );
