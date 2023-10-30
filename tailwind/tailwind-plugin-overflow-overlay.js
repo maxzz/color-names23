@@ -41,6 +41,13 @@ module.exports = plugin(function ({ addUtilities, addVariant }) {
             borderRadius: "var(--sb-radius)"
         },
 
+        ".smallscroll::-webkit-scrollbar-corner": {
+            // backgroundColor: "transparent",
+            backgroundColor: "red",
+            // borderRadius: "var(--sb-radius)"
+            borderRadius: "4px"
+        },
+
         ".overflow-overlay": {
             overflow: 'auto',
             overflow: 'overlay',
@@ -94,7 +101,7 @@ module.exports = plugin(function ({ addUtilities, addVariant }) {
                 // outline: "2px solid yellow"
 
                 // background: '#0000',
-                //background: 'red',
+                background: 'red',
 
                 // '--resizer-color': 'green',
                 // background: 'var(--resizer-color)',
@@ -109,9 +116,9 @@ module.exports = plugin(function ({ addUtilities, addVariant }) {
                 background: 'var(--resizer-color, hsl(var(--background)))',
                 */
 
-                'background-image': 'url("../src/assets/resizer-inactive.png")',
-                'background-repeat': 'no-repeat',
-                'background-position': 'bottom right',
+                // 'background-image': 'url("../src/assets/resizer-inactive.png")',
+                // 'background-repeat': 'no-repeat',
+                // 'background-position': 'bottom right',
             }
         }
     };
