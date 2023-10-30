@@ -22,20 +22,22 @@ subscribe(parseText, () => {
 
 //https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas
 const textAreaContainerClasses = '\
-min-h-[36px] \
 grid \
 after:![content:attr(data-replicated)_"_"] \
 after:whitespace-pre \
-after:text-red-500 \
 after:border-transparent \
-after:invisible1 \
-after:pointer-events-none \
+after:invisible \
 after:[grid-area:1/1/2/2]';
-const textareaPaddingFontClasses = 'after:px-3 after:py-2 after:text-sm after:border';
 
-function AutoGrowTextarea({ textareaPaddingFont = textareaPaddingFontClasses, className, value, onChange, ...rest }: { textareaPaddingFont?: string; } & TextareaHTMLAttributes<HTMLTextAreaElement>) {
+//These are for container adjustments
+export const textareaPaddingFontClasses = 'after:px-3 after:py-2 after:text-sm after:border';
+
+//These are for debugging
+export const textareaPaddingFontDebugClasses = "after:text-red-500 after:visible after:pointer-events-none";
+
+export function AutoGrowTextarea({ textareaPaddingFont = textareaPaddingFontClasses, className, value, onChange, ...rest }: { textareaPaddingFont?: string; } & TextareaHTMLAttributes<HTMLTextAreaElement>) {
     return (
-        <div className={cn(`${textAreaContainerClasses}`, textareaPaddingFont)} data-replicated={value}>
+        <div className={cn(textAreaContainerClasses, textareaPaddingFont)} data-replicated={value}>
             <Textarea
                 className={cn("resize-none overflow-hidden [grid-area:1/1/2/2]", className)}
                 value={value}
@@ -78,6 +80,7 @@ export function Section4_Chadcn({ className }: HTMLAttributes<HTMLUListElement>)
                 <AutoGrowTextarea
                     rows={1}
                     className="min-h-[36px]"
+                    textareaPaddingFont={cn(textareaPaddingFontDebugClasses, textareaPaddingFontClasses)}
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                 />
