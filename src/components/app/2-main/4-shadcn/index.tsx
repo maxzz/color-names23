@@ -1,37 +1,13 @@
 import { Fragment, HTMLAttributes } from "react";
 import { useSnapshot } from "valtio";
-import { parseText, shadcnAll } from "@/store";
+import { shadcnAll, themesCount } from "@/store";
 import { classNames } from "@/utils";
-import { Textarea } from "@/components/ui/shadcn";
+import { PasteArea } from "./0-top-panel";
 import { GroupGrid } from "./5-group-grid";
 
-function PasteArea() {
-    const snap = useSnapshot(parseText, { sync: true });
-    return (<>
-        <Textarea
-            value={snap.text}
-            onChange={(e) => parseText.text = e.target.value}
-            className="min-h-[36px] text-xs smallscroll resizer [&::-webkit-resizer]:rounded [&::-webkit-resizer]:[backgroundSize:80%_80%]"
-            rows={1}
-            placeholder="Paste theme vars here"
-            spellCheck={false}
-        />
-
-        {/* <TextareaAutoGrow
-            value={snap.text}
-            onChange={(e) => parseText.text = e.target.value}
-            rows={1}
-            className="min-h-0"
-            
-            placeholder="Paste theme vars here"
-            spellCheck={false}
-        /> */}
-    </>);
-}
-
 export function Section4_Chadcn({className, ...rest}: HTMLAttributes<HTMLDivElement>) {
-    const { themes: varGroups } = useSnapshot(shadcnAll);
-    console.log('snapVarGroups', varGroups);
+    const { count } = useSnapshot(themesCount);
+    console.log('snapthemes', [...Array(count)].map(i=>0));
 
     return (
         <div className={classNames("p-4 h-full text-foreground bg-background border-muted border-b overflow-auto smallscroll flex flex-col", className)} {...rest}>
@@ -39,7 +15,7 @@ export function Section4_Chadcn({className, ...rest}: HTMLAttributes<HTMLDivElem
                 <PasteArea />
             </div>
 
-            {varGroups.map((themeVars, idx) => (
+            {[...Array(count)].map(i=>0).map((theme, idx) => (
                 <Fragment key={idx}>
                     <GroupGrid themeVars={shadcnAll.themes[idx]} />
                 </Fragment>
