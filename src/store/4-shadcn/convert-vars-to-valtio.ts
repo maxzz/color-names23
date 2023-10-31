@@ -58,6 +58,7 @@ export function convertFileThemeVarsToPairs(fileVars: FileThemeVars): OneThemeVa
                             isHsl,
                             order: idx,
                             id: uuid.asRelativeNumber(),
+                            themeName: varsName,
                         };
                     });
                 return {

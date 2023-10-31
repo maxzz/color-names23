@@ -8,10 +8,11 @@ export type ThemeVars = {               // as paste operation result
 export type CssVarNameValue = {
     name: string,                       // name wo/ '--' and wo/ '-foreground' suffix
     fore?: boolean;                     // true if name has '-foreground' suffix
-    value: string;
+    value: string;                      // hsl params, or it can be length value, or rgb parts, hex color3, or hex color6s
     order: number;                      // order in css file
     id: number;                         // id in memory only for react key
     isHsl?: boolean;                    // true if value is hsl() i.e. '222.2 47.4% 11.2%'
+    themeName: string;                  // theme name that this color belongs to
 };
 
 export type ForeAndBack = {
