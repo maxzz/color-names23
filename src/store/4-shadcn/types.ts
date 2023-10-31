@@ -1,5 +1,5 @@
-import { TailwindColorWDefault } from './tailwind-names';
-import { ThemeVars } from './css-vars';
+import { TailwindColorWDefault } from './tailwind-names/types';
+import { ThemeVars } from './css-vars/types';
 
 export type ShadcnAll = {
     allName: string;                                // name of all themes
@@ -7,5 +7,5 @@ export type ShadcnAll = {
     themes: ThemeVars[];                            // theme groups
 };
 
-export * from './css-vars';
-export * from './tailwind-names';
+export * from './css-vars/types';
+export * from './tailwind-names/types';

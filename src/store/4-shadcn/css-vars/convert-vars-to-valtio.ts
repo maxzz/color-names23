@@ -1,10 +1,10 @@
 import { ThemeVar, FileThemeVars, ThemeVarFB, ThemeVars } from "../types";
 import { uuid } from "@/utils";
 
-function groupByForeAndBack(vars: ThemeVar[], combineForeBack: boolean): ThemeVarFB[] {
+function groupByForeAndBack(themeVars: ThemeVar[], combineForeBack: boolean): ThemeVarFB[] {
     const map = new Map<string, ThemeVarFB>();
 
-    vars.forEach((v) => {
+    themeVars.forEach((v) => {
         let newForeAndBack = map.get(v.varName);
         if (!newForeAndBack) {
             newForeAndBack = {};
@@ -33,9 +33,9 @@ function groupByForeAndBack(vars: ThemeVar[], combineForeBack: boolean): ThemeVa
 const matchFore = /^\s*--([^-]+)(-foreground)?\s*$/;
 const matchHSL = /^\s*(hsl\()?(\d+\.?\d*)\s+(\d+\.?\d*)%\s+(\d+\.?\d*)%(\))?\s*$/;
 
-export function convertFileThemeVarsToPairs(fileVars: FileThemeVars): ThemeVars[] {
+export function convertFileThemeVarsToPairs(fileThemeVars: FileThemeVars): ThemeVars[] {
     const rv: ThemeVars[] =
-        Object.entries(fileVars)
+        Object.entries(fileThemeVars)
             .map((entry) => {
                 const [varsName, varsValues] = entry;
                 const varsValuesPairs = Object.entries(varsValues);

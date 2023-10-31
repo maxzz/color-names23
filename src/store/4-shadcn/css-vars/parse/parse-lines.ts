@@ -1,4 +1,4 @@
-import { FileThemeVars, ThemeVarsParsed } from "../types";
+import { FileThemeVars, ThemeVarsParsed } from "../../types";
 
 // ":root": {
 // :root: {

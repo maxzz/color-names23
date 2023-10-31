@@ -1,5 +1,5 @@
 import { proxy, subscribe } from "valtio";
-import { parseTextAsCSSvars, testToParseCss, testToParseCss2, testToParseJs } from "./parse";
+import { parseTextAsCSSvars, testToParseCss, testToParseCss2, testToParseJs } from "./css-vars/parse";
 import { shadcnAll } from "./store-all";
 import { convertFileThemeVarsToPairs } from "./css-vars/convert-vars-to-valtio";
 
