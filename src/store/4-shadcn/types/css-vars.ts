@@ -27,11 +27,7 @@ export type ThemeVars = {
 
 // Color counters
 
-export type GroupColorCounter = Record<string, number>; // color -> count
-
-export type GroupColorCounters = {
-    counters: GroupColorCounter;
-};
+export type GroupColorCounters = Record<string, number>; // color -> count
 
 export type AllColorCounters = {
     groups: Record<string, GroupColorCounters>; // group name -> ThemeCounters

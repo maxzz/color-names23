@@ -1,4 +1,4 @@
-import { FileThemeVars } from "./types";
+import { FileThemeVars } from "../types";
 
 export const testTheme: FileThemeVars = {
     ":root": {

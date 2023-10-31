@@ -53,7 +53,7 @@ function RenderGroup({ themeVars }: { themeVars: ThemeVars; }) {
 }
 
 export function Section4_Chadcn({className, ...rest}: HTMLAttributes<HTMLDivElement>) {
-    const { groups: varGroups } = useSnapshot(shadcnAll);
+    const { themes: varGroups } = useSnapshot(shadcnAll);
     console.log('snapVarGroups', varGroups);
 
     return (
@@ -64,7 +64,7 @@ export function Section4_Chadcn({className, ...rest}: HTMLAttributes<HTMLDivElem
 
             {varGroups.map((themeVars, idx) => (
                 <Fragment key={idx}>
-                    <RenderGroup themeVars={shadcnAll.groups[idx]} />
+                    <RenderGroup themeVars={shadcnAll.themes[idx]} />
                 </Fragment>
             ))}
         </div>

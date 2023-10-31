@@ -57,12 +57,12 @@ function makeCounterGroups(varGroups: ThemeVars[]): Record<string, GroupColorCou
 }
 
 export const colorCounters = proxy<AllColorCounters>({
-    groups: makeCounterGroups(shadcnAll.groups),
+    groups: makeCounterGroups(shadcnAll.themes),
 });
 //console.log('colorCounters', colorCounters.counters);
 
-subscribe(shadcnAll.groups, () => {
+subscribe(shadcnAll.themes, () => {
     // colorCounters.counters = makeColorCounters(shadcnPalette.varGroups);
     // console.log('shadcnPalette.vars changed', colorCounters.counters);
-    console.log('shadcnPalette.vars changed', makeCounterGroups(shadcnAll.groups));
+    console.log('shadcnPalette.vars changed', makeCounterGroups(shadcnAll.themes));
 });

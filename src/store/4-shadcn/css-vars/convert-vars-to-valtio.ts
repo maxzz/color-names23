@@ -1,4 +1,4 @@
-import { ThemeVar, FileThemeVars, ThemeVarFB, ThemeVars } from "./types";
+import { ThemeVar, FileThemeVars, ThemeVarFB, ThemeVars } from "../types";
 import { uuid } from "@/utils";
 
 function groupByForeAndBack(vars: ThemeVar[], combineForeBack: boolean): ThemeVarFB[] {
