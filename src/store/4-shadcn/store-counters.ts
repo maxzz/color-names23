@@ -1,5 +1,5 @@
 import { proxy, subscribe } from "valtio";
-import { ColorCounters, OneThemeVars } from "./types";
+import { ColorCounters, OneThemeVars, ThemeCounters } from "./types";
 import { shadcnPalette } from "./store-palette";
 
 function makeColorCounters(vars: OneThemeVars): Record<string, number> {
@@ -24,12 +24,45 @@ function makeColorCounters(vars: OneThemeVars): Record<string, number> {
     return Object.fromEntries(rv);
 }
 
+function makeCounterGroups(varGroups: OneThemeVars[]): Record<string, ThemeCounters> {
+    const rv = varGroups.map((varGroup) => {
+        return [varGroup.name, makeColorCounters(varGroup)];
+    });
+    
+    return Object.fromEntries(rv);
+
+
+
+    // const rv = varGroups.map((varGroup) => {
+    //     return {
+    //         [varGroup.name]: makeColorCounters(varGroup)
+    //     };
+    // });
+    
+    // return rv;
+
+
+
+    // const rv = new Map<string, ThemeCounters>();
+
+    // varGroups.forEach((varGroup) => {
+    //     rv.set(varGroup.name, {
+    //         counters: {
+    //             [varGroup.name]: makeColorCounters(varGroup)
+    //         }
+    //     });
+    // });
+
+    // return Object.fromEntries(rv);
+}
+
 export const colorCounters = proxy<ColorCounters>({
-    counters: makeColorCounters(shadcnPalette.varGroups),
+    groups: makeCounterGroups(shadcnPalette.varGroups),
 });
 //console.log('colorCounters', colorCounters.counters);
 
 subscribe(shadcnPalette.varGroups, () => {
-    colorCounters.counters = makeColorCounters(shadcnPalette.varGroups);
-    console.log('shadcnPalette.vars changed', colorCounters.counters);
+    // colorCounters.counters = makeColorCounters(shadcnPalette.varGroups);
+    // console.log('shadcnPalette.vars changed', colorCounters.counters);
+    console.log('shadcnPalette.vars changed', makeCounterGroups(shadcnPalette.varGroups));
 });
