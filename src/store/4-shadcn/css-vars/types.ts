@@ -6,7 +6,7 @@ export type ThemeVarsParsed = {               // as paste operation result
 };
 
 export type ThemeVar = {                // CSS var NameValue
-    themeName: string;                  // theme name that this color belongs to
+    themeId: number;                    // theme unique ID that this color belongs to
     varName: string,                    // name wo/ '--' and wo/ '-foreground' suffix
     varValue: string;                   // hsl params, or it can be length value, or rgb parts, hex color3, or hex color6
     isFore?: boolean;                   // true if name has '-foreground' suffix

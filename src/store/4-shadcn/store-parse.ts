@@ -9,10 +9,10 @@ export const parseText = proxy({
 
 subscribe(parseText, () => {
     const vars = parseTextAsCSSvars(parseText.text);
-    const pairs = convertFileThemeVarsToPairs(vars);
+    const themes = convertFileThemeVarsToPairs(vars);
     console.log('vars', vars);
-    console.log('pairs', pairs);
-    shadcnAll.themes = pairs;
+    console.log('themes', themes);
+    shadcnAll.themes = themes;
 });
 
 // const vars = parseTextAsCSSvars(testToParseCss2);

@@ -39,9 +39,10 @@ export function convertFileThemeVarsToPairs(fileThemeVars: FileThemeVars): Theme
             .map((entry) => {
                 const [varsName, varsValues] = entry;
                 const varsValuesPairs = Object.entries(varsValues);
+                const themeId = uuid.asRelativeNumber();
 
                 const vars = varsValuesPairs
-                    .map(([name, color], idx) => {
+                    .map<ThemeVar>(([name, color], idx) => {
                         const m = name.match(matchFore);
                         if (!m) {
                             throw new Error(`Invalid css var name: ${name}. Name should start with '--'`);
@@ -53,15 +54,17 @@ export function convertFileThemeVarsToPairs(fileThemeVars: FileThemeVars): Theme
                         const m2 = color.match(matchHSL);
                         const isHsl = !!m2;
 
-                        return {
+                        const rv: ThemeVar = {
                             varName: nameWoDash,
-                            fore: !!fore,
+                            isFore: !!fore,
                             varValue: color,
                             isHsl,
                             order: idx,
                             id: uuid.asRelativeNumber(),
-                            themeName: varsName,
-                        };
+                            themeId,
+                        }
+
+                        return rv;
                     });
                 return {
                     name: varsName,

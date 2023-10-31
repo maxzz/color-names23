@@ -12,14 +12,9 @@ export const shadcnAll = proxy<ShadcnAll>({
 });
 
 export const themesCount = proxy({
-    count: 0,
+    count: shadcnAll.themes.length,
 });
 
-themesCount.count = shadcnAll.themes.length;
-console.log('shadcnAll.themes ini', shadcnAll.themes.length, themesCount.count);
-
 subscribe(shadcnAll, () => {
-    console.log('shadcnAll.themes', shadcnAll.themes);
-    
     themesCount.count = shadcnAll.themes.length;
 });

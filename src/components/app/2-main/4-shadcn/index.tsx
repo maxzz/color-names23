@@ -5,9 +5,10 @@ import { classNames } from "@/utils";
 import { PasteArea } from "./0-top-panel";
 import { GroupGrid } from "./5-group-grid";
 
-export function Section4_Chadcn({className, ...rest}: HTMLAttributes<HTMLDivElement>) {
+export function Section4_Chadcn({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     const { count } = useSnapshot(themesCount);
-    console.log('snapthemes', [...Array(count)].map(i=>0));
+    const themesArray = [...Array(count)].map(() => 0);
+    console.log('snapthemes', themesArray);
 
     return (
         <div className={classNames("p-4 h-full text-foreground bg-background border-muted border-b overflow-auto smallscroll flex flex-col", className)} {...rest}>
@@ -15,7 +16,7 @@ export function Section4_Chadcn({className, ...rest}: HTMLAttributes<HTMLDivElem
                 <PasteArea />
             </div>
 
-            {[...Array(count)].map(i=>0).map((theme, idx) => (
+            {themesArray.map((theme, idx) => (
                 <Fragment key={idx}>
                     <GroupGrid themeVars={shadcnAll.themes[idx]} />
                 </Fragment>
