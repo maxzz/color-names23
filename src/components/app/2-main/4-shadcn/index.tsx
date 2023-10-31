@@ -30,49 +30,43 @@ function PasteArea() {
     </>);
 }
 
-function RenderGroup({ themeVars, className, ...rest }: { themeVars: OneThemeVars; } & HTMLAttributes<HTMLDivElement>) {
+function RenderGroup({ themeVars }: { themeVars: OneThemeVars; }) {
     const snap = useSnapshot(themeVars);
-    return (<>
-        <div className={classNames("p-4 h-full text-foreground bg-background border-muted border-b overflow-auto smallscroll flex flex-col", className)} {...rest}>
+    return (
+        <div className="container mx-auto max-w-xl grid grid-cols-[min-content,minmax(0,12rem),minmax(0,12rem)] place-content-center gap-y-2">
+            <Header />
+            {snap.vars.map((foreAndBack, idx) => (
+                <Fragment key={`${idx}`}>
+                    {(foreAndBack.b?.isHsl || foreAndBack.f?.isHsl) && <GridRow foreAndBack={themeVars.vars[idx]} />}
+                </Fragment>
+            ))}
 
-            <div className="container mx-auto max-w-xl grid grid-cols-[min-content,minmax(0,12rem),minmax(0,12rem)] place-content-center gap-y-2">
-                <Header />
-                {snap.vars.map((foreAndBack, idx) => (
-                    <Fragment key={`${idx}`}>
-                        {(foreAndBack.b?.isHsl || foreAndBack.f?.isHsl) && <GridRow foreAndBack={themeVars.vars[idx]} />}
-                    </Fragment>
-                ))}
+            <Header2 />
+            {snap.vars.map((foreAndBack, idx) => (
+                <Fragment key={`${idx}-length`}>
+                    {(!foreAndBack.b?.isHsl && !foreAndBack.f?.isHsl) && <GridRow foreAndBack={themeVars.vars[idx]} />}
+                </Fragment>
+            ))}
 
-                <Header2 />
-                {snap.vars.map((foreAndBack, idx) => (
-                    <Fragment key={`${idx}-length`}>
-                        {(!foreAndBack.b?.isHsl && !foreAndBack.f?.isHsl) && <GridRow foreAndBack={themeVars.vars[idx]} />}
-                    </Fragment>
-                ))}
-
-            </div>
         </div>
-
-    </>);
+    );
 }
 
-export function Section4_Chadcn(props: HTMLAttributes<HTMLDivElement>) {
-    const { varGroups: snapVarGroups } = useSnapshot(shadcnPalette);
-    console.log('snapVarGroups', snapVarGroups);
-    
+export function Section4_Chadcn({className, ...rest}: HTMLAttributes<HTMLDivElement>) {
+    const { varGroups } = useSnapshot(shadcnPalette);
+    console.log('snapVarGroups', varGroups);
+
     return (
-        <div {...props}>
+        <div className={classNames("p-4 h-full text-foreground bg-background border-muted border-b overflow-auto smallscroll flex flex-col", className)} {...rest}>
             <div className="my-4">
                 <PasteArea />
             </div>
 
-            {!!snapVarGroups.length && (
-                snapVarGroups.map((themeVars, idx) => (
-                    <Fragment key={idx}>
-                        <RenderGroup themeVars={shadcnPalette.varGroups[idx]} />
-                    </Fragment>
-                ))
-            )}
+            {varGroups.map((themeVars, idx) => (
+                <Fragment key={idx}>
+                    <RenderGroup themeVars={shadcnPalette.varGroups[idx]} />
+                </Fragment>
+            ))}
         </div>
     );
 }
