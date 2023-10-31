@@ -1,10 +1,9 @@
 import { Fragment, HTMLAttributes } from "react";
 import { useSnapshot } from "valtio";
-import { ThemeVars, parseText, shadcnAll } from "@/store";
-import { Header, Header2 } from "./1-headers";
-import { GridRow } from "./2-grid-row";
+import { parseText, shadcnAll } from "@/store";
 import { classNames } from "@/utils";
 import { Textarea } from "@/components/ui/shadcn";
+import { GroupGrid } from "./5-group-grid";
 
 function PasteArea() {
     const snap = useSnapshot(parseText, { sync: true });
@@ -30,28 +29,6 @@ function PasteArea() {
     </>);
 }
 
-function RenderGroup({ themeVars }: { themeVars: ThemeVars; }) {
-    const snap = useSnapshot(themeVars);
-    return (
-        <div className="container mx-auto max-w-xl grid grid-cols-[min-content,minmax(0,12rem),minmax(0,12rem)] place-content-center gap-y-2">
-            <Header />
-            {snap.vars.map((foreAndBack, idx) => (
-                <Fragment key={`${idx}`}>
-                    {(foreAndBack.b?.isHsl || foreAndBack.f?.isHsl) && <GridRow foreAndBack={themeVars.vars[idx]} />}
-                </Fragment>
-            ))}
-
-            <Header2 />
-            {snap.vars.map((foreAndBack, idx) => (
-                <Fragment key={`${idx}-length`}>
-                    {(!foreAndBack.b?.isHsl && !foreAndBack.f?.isHsl) && <GridRow foreAndBack={themeVars.vars[idx]} />}
-                </Fragment>
-            ))}
-
-        </div>
-    );
-}
-
 export function Section4_Chadcn({className, ...rest}: HTMLAttributes<HTMLDivElement>) {
     const { themes: varGroups } = useSnapshot(shadcnAll);
     console.log('snapVarGroups', varGroups);
@@ -64,7 +41,7 @@ export function Section4_Chadcn({className, ...rest}: HTMLAttributes<HTMLDivElem
 
             {varGroups.map((themeVars, idx) => (
                 <Fragment key={idx}>
-                    <RenderGroup themeVars={shadcnAll.themes[idx]} />
+                    <GroupGrid themeVars={shadcnAll.themes[idx]} />
                 </Fragment>
             ))}
         </div>
