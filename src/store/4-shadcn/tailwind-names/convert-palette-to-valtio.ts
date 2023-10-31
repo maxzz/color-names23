@@ -1,4 +1,4 @@
-import { ShadcnPaletteTemplate, FileTwDoubleColor, TwDoubleColor } from "./types";
+import { ShadcnPaletteTemplate, FileTwDoubleColor, TwDoubleColor } from "../types";
 
 export function convertDefaultPaletteToArray(shadcnDefaultColor: ShadcnPaletteTemplate<FileTwDoubleColor>): TwDoubleColor[] {
     const colors = Object.entries(shadcnDefaultColor.colors)

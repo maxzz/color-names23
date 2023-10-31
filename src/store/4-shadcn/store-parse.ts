@@ -1,6 +1,6 @@
 import { proxy, subscribe } from "valtio";
 import { parseTextAsCSSvars, testToParseCss, testToParseCss2, testToParseJs } from "./parse";
-import { shadcnPalette } from "./store-palette";
+import { shadcnAll } from "./store-all";
 import { convertFileThemeVarsToPairs } from "./convert-vars-to-valtio";
 
 export const parseText = proxy({
@@ -12,7 +12,7 @@ subscribe(parseText, () => {
     const pairs = convertFileThemeVarsToPairs(vars);
     console.log('vars', vars);
     console.log('pairs', pairs);
-    shadcnPalette.varGroups = pairs;
+    shadcnAll.groups = pairs;
 });
 
 // const vars = parseTextAsCSSvars(testToParseCss2);

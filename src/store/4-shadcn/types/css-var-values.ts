@@ -5,7 +5,7 @@ export type ThemeVars = {               // as paste operation result
     values: Record<string, string>;     // cssVarName w/ '--', cssVarValue
 };
 
-export type CssVarNameValue = {
+export type ThemeVar = {                // CSS var NameValue
     name: string,                       // name wo/ '--' and wo/ '-foreground' suffix
     fore?: boolean;                     // true if name has '-foreground' suffix
     value: string;                      // hsl params, or it can be length value, or rgb parts, hex color3, or hex color6s
@@ -15,22 +15,24 @@ export type CssVarNameValue = {
     themeName: string;                  // theme name that this color belongs to
 };
 
-export type ForeAndBack = {
-    f?: CssVarNameValue;                // foreground
-    b?: CssVarNameValue;                // background
+export type ThemeVarFB = {              // CSS var NameValue pair with foreground and background
+    f?: ThemeVar;                       // foreground
+    b?: ThemeVar;                       // background
 };
 
-export type OneThemeVars = {
-    name: string;                       // name inside theme (like :root or .dark)
-    vars: ForeAndBack[];                // cssVarName, cssVarValue
+export type OneTheme = {
+    name: string;                       // theme name inside theme (like :root or .dark)
+    vars: ThemeVarFB[];                 // cssVarName, cssVarValue
 };
 
 //
 
-export type ThemeCounters = {   // color -> count
-    counters: Record<string, number>;
+export type GroupColorCounter = Record<string, number>; // color -> count
+
+export type GroupColorCounters = {
+    counters: GroupColorCounter;
 };
 
-export type ColorCounters = {
-    groups: Record<string, ThemeCounters>; // group name -> ThemeCounters
+export type AllColorCounters = {
+    groups: Record<string, GroupColorCounters>; // group name -> ThemeCounters
 }

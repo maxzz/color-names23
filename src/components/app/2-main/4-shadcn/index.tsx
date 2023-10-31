@@ -1,6 +1,6 @@
 import { Fragment, HTMLAttributes } from "react";
 import { useSnapshot } from "valtio";
-import { OneThemeVars, parseText, shadcnPalette } from "@/store";
+import { OneTheme, parseText, shadcnAll } from "@/store";
 import { Header, Header2 } from "./1-headers";
 import { GridRow } from "./2-grid-row";
 import { classNames } from "@/utils";
@@ -30,7 +30,7 @@ function PasteArea() {
     </>);
 }
 
-function RenderGroup({ themeVars }: { themeVars: OneThemeVars; }) {
+function RenderGroup({ themeVars }: { themeVars: OneTheme; }) {
     const snap = useSnapshot(themeVars);
     return (
         <div className="container mx-auto max-w-xl grid grid-cols-[min-content,minmax(0,12rem),minmax(0,12rem)] place-content-center gap-y-2">
@@ -53,7 +53,7 @@ function RenderGroup({ themeVars }: { themeVars: OneThemeVars; }) {
 }
 
 export function Section4_Chadcn({className, ...rest}: HTMLAttributes<HTMLDivElement>) {
-    const { varGroups } = useSnapshot(shadcnPalette);
+    const { groups: varGroups } = useSnapshot(shadcnAll);
     console.log('snapVarGroups', varGroups);
 
     return (
@@ -64,7 +64,7 @@ export function Section4_Chadcn({className, ...rest}: HTMLAttributes<HTMLDivElem
 
             {varGroups.map((themeVars, idx) => (
                 <Fragment key={idx}>
-                    <RenderGroup themeVars={shadcnPalette.varGroups[idx]} />
+                    <RenderGroup themeVars={shadcnAll.groups[idx]} />
                 </Fragment>
             ))}
         </div>

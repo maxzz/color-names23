@@ -1,4 +1,4 @@
-import { ShadcnPaletteTemplate, FileTwDoubleColor } from "./types";
+import { ShadcnPaletteTemplate, FileTwDoubleColor } from "../types";
 
 export const shadcnDefaultColor: ShadcnPaletteTemplate<FileTwDoubleColor> = {
     colors: {

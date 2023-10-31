@@ -1,8 +1,8 @@
-import { CssVarNameValue, FileThemeVars, ForeAndBack, OneThemeVars } from "./types";
+import { ThemeVar, FileThemeVars, ThemeVarFB, OneTheme } from "./types";
 import { uuid } from "@/utils";
 
-function groupByForeAndBack(vars: CssVarNameValue[], combineForeBack: boolean): ForeAndBack[] {
-    const map = new Map<string, ForeAndBack>();
+function groupByForeAndBack(vars: ThemeVar[], combineForeBack: boolean): ThemeVarFB[] {
+    const map = new Map<string, ThemeVarFB>();
 
     vars.forEach((v) => {
         let newForeAndBack = map.get(v.name);
@@ -24,7 +24,7 @@ function groupByForeAndBack(vars: CssVarNameValue[], combineForeBack: boolean): 
         }
     }
 
-    let rv: ForeAndBack[] = [...map.values()];
+    let rv: ThemeVarFB[] = [...map.values()];
     rv = rv.filter((fb) => fb.b || fb.f);
 
     return rv;
@@ -33,8 +33,8 @@ function groupByForeAndBack(vars: CssVarNameValue[], combineForeBack: boolean): 
 const matchFore = /^\s*--([^-]+)(-foreground)?\s*$/;
 const matchHSL = /^\s*(hsl\()?(\d+\.?\d*)\s+(\d+\.?\d*)%\s+(\d+\.?\d*)%(\))?\s*$/;
 
-export function convertFileThemeVarsToPairs(fileVars: FileThemeVars): OneThemeVars[] {
-    const rv: OneThemeVars[] =
+export function convertFileThemeVarsToPairs(fileVars: FileThemeVars): OneTheme[] {
+    const rv: OneTheme[] =
         Object.entries(fileVars)
             .map((entry) => {
                 const [varsName, varsValues] = entry;
@@ -47,6 +47,8 @@ export function convertFileThemeVarsToPairs(fileVars: FileThemeVars): OneThemeVa
                             throw new Error(`Invalid css var name: ${name}. Name should start with '--'`);
                         }
                         const [, nameWoDash, fore] = m;
+
+                        //TODO: add check if new name exists in the current theme, then create a new theme
 
                         const m2 = color.match(matchHSL);
                         const isHsl = !!m2;
