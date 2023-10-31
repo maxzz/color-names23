@@ -1,24 +1,24 @@
-import { ThemeVar, FileThemeVars, ThemeVarFB, OneTheme } from "./types";
+import { ThemeVar, FileThemeVars, ThemeVarFB, ThemeVars } from "./types";
 import { uuid } from "@/utils";
 
 function groupByForeAndBack(vars: ThemeVar[], combineForeBack: boolean): ThemeVarFB[] {
     const map = new Map<string, ThemeVarFB>();
 
     vars.forEach((v) => {
-        let newForeAndBack = map.get(v.name);
+        let newForeAndBack = map.get(v.varName);
         if (!newForeAndBack) {
             newForeAndBack = {};
-            map.set(v.name, newForeAndBack);
+            map.set(v.varName, newForeAndBack);
         }
-        newForeAndBack[v.fore ? 'f' : 'b'] = v;
+        newForeAndBack[v.isFore ? 'f' : 'b'] = v;
     });
 
     if (combineForeBack) {
         const bg = map.get('background');
         const fg = map.get('foreground');
         if (bg && fg && fg.b) {
-            fg.b.fore = true;
-            fg.b.name = 'background';
+            fg.b.isFore = true;
+            fg.b.varName = 'background';
             bg.f = fg.b;
             map.delete('foreground');
         }
@@ -33,8 +33,8 @@ function groupByForeAndBack(vars: ThemeVar[], combineForeBack: boolean): ThemeVa
 const matchFore = /^\s*--([^-]+)(-foreground)?\s*$/;
 const matchHSL = /^\s*(hsl\()?(\d+\.?\d*)\s+(\d+\.?\d*)%\s+(\d+\.?\d*)%(\))?\s*$/;
 
-export function convertFileThemeVarsToPairs(fileVars: FileThemeVars): OneTheme[] {
-    const rv: OneTheme[] =
+export function convertFileThemeVarsToPairs(fileVars: FileThemeVars): ThemeVars[] {
+    const rv: ThemeVars[] =
         Object.entries(fileVars)
             .map((entry) => {
                 const [varsName, varsValues] = entry;
@@ -54,9 +54,9 @@ export function convertFileThemeVarsToPairs(fileVars: FileThemeVars): OneTheme[]
                         const isHsl = !!m2;
 
                         return {
-                            name: nameWoDash,
+                            varName: nameWoDash,
                             fore: !!fore,
-                            value: color,
+                            varValue: color,
                             isHsl,
                             order: idx,
                             id: uuid.asRelativeNumber(),

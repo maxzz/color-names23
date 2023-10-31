@@ -1,8 +1,8 @@
 import { proxy, subscribe } from "valtio";
-import { AllColorCounters, OneTheme, GroupColorCounters } from "./types";
+import { AllColorCounters, ThemeVars, GroupColorCounters } from "./types";
 import { shadcnAll } from "./store-all";
 
-function makeColorCounters(vars: OneTheme): Record<string, number> {
+function makeColorCounters(vars: ThemeVars): Record<string, number> {
     const rv = new Map();
 
     function checkColor(color: string | undefined) {
@@ -16,15 +16,15 @@ function makeColorCounters(vars: OneTheme): Record<string, number> {
     }
 
     vars.vars.reduce((acc, fb) => {
-        checkColor(fb.b?.value);
-        checkColor(fb.f?.value);
+        checkColor(fb.b?.varValue);
+        checkColor(fb.f?.varValue);
         return acc;
     }, rv);
 
     return Object.fromEntries(rv);
 }
 
-function makeCounterGroups(varGroups: OneTheme[]): Record<string, GroupColorCounters> {
+function makeCounterGroups(varGroups: ThemeVars[]): Record<string, GroupColorCounters> {
     const rv = varGroups.map((varGroup) => {
         return [varGroup.name, makeColorCounters(varGroup)];
     });

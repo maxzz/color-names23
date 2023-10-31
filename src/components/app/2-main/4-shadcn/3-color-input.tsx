@@ -16,14 +16,14 @@ import { ThemeVar, colorCounters } from "@/store";
 // }
 
 export function ColorInput({ color, colorSnap }: { color?: ThemeVar; colorSnap?: ThemeVar; }) {
-    if (!color?.value || !colorSnap?.value) {
+    if (!color?.varValue || !colorSnap?.varValue) {
         return <div />;
     }
     return (
         <div className="relative">
-            <Input value={colorSnap.value} onChange={(e) => color.value = e.target.value} />
+            <Input value={colorSnap.varValue} onChange={(e) => color.varValue = e.target.value} />
             <div className="absolute top-0.5 right-0 text-muted-foreground bg-transparent">
-                {/* <ColorCounter color={colorSnap.value} /> */}
+                {/* <ColorCounter color={colorSnap.varValue} /> */}
                 {/* TODO: add lock color */}
             </div>
         </div>

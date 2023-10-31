@@ -15,11 +15,11 @@ function ValueInputAndBox({ both, field, isBackOrFore }: ValueInputAndBoxProps) 
     const color = both[field];
 
     const previewBoxProps = {
-        valueName: colorSnap?.name || '',
-        value: colorSnap?.value || '',
-        isUndefined: !colorSnap?.value && !isBackOrFore && (both.b?.isHsl || both.f?.isHsl),
-        isColor: !!colorSnap?.value && colorSnap?.isHsl,
-        isLength: !!colorSnap?.value && !colorSnap?.isHsl && isBackOrFore,
+        valueName: colorSnap?.varName || '',
+        value: colorSnap?.varValue || '',
+        isUndefined: !colorSnap?.varValue && !isBackOrFore && (both.b?.isHsl || both.f?.isHsl),
+        isColor: !!colorSnap?.varValue && colorSnap?.isHsl,
+        isLength: !!colorSnap?.varValue && !colorSnap?.isHsl && isBackOrFore,
         isBackOrFore: isBackOrFore,
     };
 
@@ -44,7 +44,7 @@ export function GridRow({ foreAndBack }: { foreAndBack: ThemeVarFB; }) {
     //TODO: add preview foregraound over background
     return (<>
         <div className="mr-4 text-sm text-foreground/70 dark:text-foreground/50 flex items-center">
-            {foreAndBack.b?.name || foreAndBack.f?.name}
+            {foreAndBack.b?.varName || foreAndBack.f?.varName}
         </div>
 
         <ValueInputAndBox both={foreAndBack} field={'b'} isBackOrFore={true} />
