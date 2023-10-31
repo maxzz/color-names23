@@ -22,7 +22,7 @@ export function parseTextToThemeVarsArray(text: string): ThemeVars[] {
             if (isVar) {
                 const [_, _quata, name, value] = isVar;
 
-                current.values[name] = value.trim();
+                current.values[`--${name}`] = value.trim();
             } else {
                 const isName = isThemeNameRegex.exec(line);
                 if (isName) {

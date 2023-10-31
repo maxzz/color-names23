@@ -2,7 +2,7 @@ export type FileThemeVars = Record<string, Record<string, string>>; // name insi
 
 export type ThemeVars = {               // as paste operation result
     name: string;
-    values: Record<string, string>;     // cssVarName wo/ '--', cssVarValue
+    values: Record<string, string>;     // cssVarName w/ '--', cssVarValue
 };
 
 export type CssVarNameValue = {
@@ -26,6 +26,10 @@ export type OneThemeVars = {
 
 //
 
-export type ColorCounters = {
-    counters: Record<string, number>;   // color -> count
+export type ThemeCounters = {   // color -> count
+    counters: Record<string, number>;
 };
+
+export type ColorCounters = {
+    groups: Record<string, ThemeCounters>; // group name -> ThemeCounters
+}
