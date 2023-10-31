@@ -1,4 +1,4 @@
-export type ShadcnPaletteTemplate<T> = {
+export type ShadcnTailwindClassNamesTemplate<T> = {
     colors: {
         border: T;              // SingleColor
         input: T;               // SingleColor
@@ -20,14 +20,14 @@ export type ShadcnPaletteTemplate<T> = {
     },
 };
 
-export type FileTwDoubleColor =
+export type TailwindColorWDefaultInFile =
     | {
         DEFAULT: string;
         foreground?: string;
     }
     | string;
 
-export type TwDoubleColor = {
+export type TailwindColorWDefault = {
     name: string;               // js key name
     DEFAULT: string;
     foreground?: string;

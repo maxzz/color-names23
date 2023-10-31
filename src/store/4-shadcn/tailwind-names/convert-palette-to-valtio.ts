@@ -1,6 +1,6 @@
-import { ShadcnPaletteTemplate, FileTwDoubleColor, TwDoubleColor } from "../types";
+import { ShadcnTailwindClassNamesTemplate, TailwindColorWDefaultInFile, TailwindColorWDefault } from "../types";
 
-export function convertDefaultPaletteToArray(shadcnDefaultColor: ShadcnPaletteTemplate<FileTwDoubleColor>): TwDoubleColor[] {
+export function convertDefaultPaletteToArray(shadcnDefaultColor: ShadcnTailwindClassNamesTemplate<TailwindColorWDefaultInFile>): TailwindColorWDefault[] {
     const colors = Object.entries(shadcnDefaultColor.colors)
         .map(([name, color]) => {
             if (typeof color === "string") {

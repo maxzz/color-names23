@@ -1,6 +1,6 @@
-import { ShadcnPaletteTemplate, FileTwDoubleColor } from "../types";
+import { ShadcnTailwindClassNamesTemplate, TailwindColorWDefaultInFile } from "../types";
 
-export const shadcnDefaultColor: ShadcnPaletteTemplate<FileTwDoubleColor> = {
+export const shadcnDefaultColor: ShadcnTailwindClassNamesTemplate<TailwindColorWDefaultInFile> = {
     colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

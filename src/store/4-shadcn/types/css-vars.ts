@@ -25,7 +25,7 @@ export type ThemeVars = {
     vars: ThemeVarFB[];                 // cssVarName, cssVarValue
 };
 
-//
+// Color counters
 
 export type GroupColorCounter = Record<string, number>; // color -> count
 
