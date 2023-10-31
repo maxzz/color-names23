@@ -1,2 +1,2 @@
 export * from './parse-lines';
-export * from './parse-tests';
+export * from './parse-example-tests';

@@ -1,23 +1,10 @@
-import { Fragment, HTMLAttributes, TextareaHTMLAttributes, useState } from "react";
-import { proxy, subscribe, useSnapshot } from "valtio";
-import { shadcnPalette } from "@/store";
+import { Fragment, HTMLAttributes } from "react";
+import { useSnapshot } from "valtio";
+import { parseText, shadcnPalette } from "@/store";
 import { Header, Header2 } from "./1-headers";
 import { GridRow } from "./2-grid-row";
-import { classNames, cn } from "@/utils";
-import { parseTextAsCSSvars, testToParseCss, testToParseCss2, testToParseJs } from "@/store/4-shadcn/parse";
-import { TextareaAutoGrow, Input, Textarea, containerPaddingFontClasses, containerPaddingFontDebugClasses } from "@/components/ui/shadcn";
-
-// const vars = parseTextAsCSSvars(testToParseCss2);
-// console.log('vars', vars);
-
-const parseText = proxy({
-    text: '',
-});
-
-subscribe(parseText, () => {
-    const vars = parseTextAsCSSvars(parseText.text);
-    console.log('vars', vars);
-});
+import { classNames } from "@/utils";
+import { Textarea } from "@/components/ui/shadcn";
 
 function PasteArea() {
     const snap = useSnapshot(parseText, { sync: true });
@@ -25,13 +12,13 @@ function PasteArea() {
         <Textarea
             value={snap.text}
             onChange={(e) => parseText.text = e.target.value}
-            className="min-h-[36px] smallscroll resizer [&::-webkit-resizer]:rounded"
-            rows={3}
+            className="min-h-[36px] text-xs smallscroll resizer [&::-webkit-resizer]:rounded [&::-webkit-resizer]:[backgroundSize:80%_80%]"
+            rows={1}
             placeholder="Paste theme vars here"
             spellCheck={false}
         />
 
-        <TextareaAutoGrow
+        {/* <TextareaAutoGrow
             value={snap.text}
             onChange={(e) => parseText.text = e.target.value}
             rows={1}
@@ -39,7 +26,7 @@ function PasteArea() {
             
             placeholder="Paste theme vars here"
             spellCheck={false}
-        />
+        /> */}
     </>);
 }
 
