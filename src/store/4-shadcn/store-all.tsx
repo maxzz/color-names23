@@ -11,10 +11,10 @@ export const shadcnAll = proxy<ShadcnAll>({
     themes: convertFileThemeVarsToPairs(testTheme) || [], // TODO: need to surround with try/catch; handle array values
 });
 
-export const themesCount = proxy({
-    count: shadcnAll.themes.length,
-});
+// export const themesCount = proxy({
+//     count: shadcnAll.themes.length,
+// });
 
-subscribe(shadcnAll, () => {
-    themesCount.count = shadcnAll.themes.length;
-});
+// subscribe(shadcnAll, () => {
+//     themesCount.count = shadcnAll.themes.length;
+// });
