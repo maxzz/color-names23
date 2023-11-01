@@ -33,6 +33,22 @@ function groupByForeAndBack(themeVars: ThemeVar[], combineForeBack: boolean): Th
 const matchFore = /^\s*--([^-]+)(-foreground)?\s*$/;
 const matchHSL = /^\s*(hsl\()?(\d+\.?\d*)\s+(\d+\.?\d*)%\s+(\d+\.?\d*)%(\))?\s*$/;
 
+/**
+ * @param fileThemeVars
+ * ```
+ * {
+ *     ":root": {
+ *         "--background": "0 0% 100%",
+ *         "--foreground": "222.2 47.4% 11.2%",
+ *         "--muted": "210 40% 96.1%",
+ *         "--muted-foreground": "215.4 16.3% 46.9%",
+ *         ...
+ *         "--ring": "215 20.2% 65.1%",
+ *         "--radius": "0.5rem"
+ *     }
+ * }
+ * ```
+ */
 export function convertFileThemeVarsToPairs(fileThemeVars: FileThemeVars): ThemeVars[] {
     const rv: ThemeVars[] =
         Object.entries(fileThemeVars)
@@ -62,11 +78,13 @@ export function convertFileThemeVarsToPairs(fileThemeVars: FileThemeVars): Theme
                             order: idx,
                             id: uuid.asRelativeNumber(),
                             themeId,
-                        }
+                        };
 
                         return rv;
                     });
+
                 return {
+                    themeId,
                     name: varsName,
                     vars: groupByForeAndBack(vars, true),
                 };

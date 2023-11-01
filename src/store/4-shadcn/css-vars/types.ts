@@ -1,6 +1,6 @@
 export type FileThemeVars = Record<string, Record<string, string>>; // name inside theme (like :root or .dark) -> {cssVarName: cssVarValue}
 
-export type ThemeVarsParsed = {               // as paste operation result
+export type ThemeVarsParsed = {         // as paste operation result
     name: string;
     values: Record<string, string>;     // cssVarName w/ '--', cssVarValue
 };
@@ -21,13 +21,14 @@ export type ThemeVarFB = {              // CSS var NameValue pair with foregroun
 };
 
 export type ThemeVars = {
+    themeId: number;                    // unique id in memory only for counters
     name: string;                       // theme name inside theme (like :root or .dark)
     vars: ThemeVarFB[];                 // cssVarName, cssVarValue
 };
 
 // Color counters
 
-export type GroupColorCounters = Record<string, number>; // color -> count
+export type GroupColorCounters = Record<string, number>; // CSS var color value -> count
 
 export type AllColorCounters = {
     groups: Record<string, GroupColorCounters>; // group name -> ThemeCounters
