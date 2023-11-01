@@ -52,7 +52,9 @@ export const colorCounters = proxy<AllThemeCounters>({
 });
 console.log('colorCounters', colorCounters.themeRoot);
 
-subscribe(shadcnAll.themes, () => {
+export function updateColorCounters() {
     colorCounters.themeRoot = makeCounterGroups(shadcnAll.themes);
     console.log('shadcnPalette.vars changed', makeCounterGroups(shadcnAll.themes));
-});
+}
+
+subscribe(shadcnAll.themes, updateColorCounters);
