@@ -18,7 +18,7 @@ file:font-medium \
 placeholder:text-muted-foreground \
 \
 focus-visible:outline-none \
-focus-visible:ring-1 \
+focus-visible:ring-2 \
 focus-visible:ring-ring \
 \
 disabled:opacity-50 \
