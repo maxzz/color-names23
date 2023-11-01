@@ -45,40 +45,14 @@ function makeCounterGroups(themeVars: ThemeVars[]): Record<number, GroupColorCou
         return [themeVar.themeId, makeColorCounters(themeVar)];
     });
     return Object.fromEntries(rv);
-
-
-
-    // const rv = varGroups.map((varGroup) => {
-    //     return {
-    //         [varGroup.name]: makeColorCounters(varGroup)
-    //     };
-    // });
-    
-    // return rv;
-
-
-
-    // const rv = new Map<string, ThemeCounters>();
-
-    // varGroups.forEach((varGroup) => {
-    //     rv.set(varGroup.name, {
-    //         counters: {
-    //             [varGroup.name]: makeColorCounters(varGroup)
-    //         }
-    //     });
-    // });
-
-    // return Object.fromEntries(rv);
 }
 
 export const colorCounters = proxy<AllThemeCounters>({
     themeRoot: makeCounterGroups(shadcnAll.themes),
 });
-//console.log('colorCounters', colorCounters.counters);
+console.log('colorCounters', colorCounters.themeRoot);
 
 subscribe(shadcnAll.themes, () => {
-    // colorCounters.counters = makeColorCounters(shadcnPalette.varGroups);
-    // console.log('shadcnPalette.vars changed', colorCounters.counters);
     colorCounters.themeRoot = makeCounterGroups(shadcnAll.themes);
     console.log('shadcnPalette.vars changed', makeCounterGroups(shadcnAll.themes));
 });

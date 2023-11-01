@@ -33,4 +33,3 @@ export type GroupColorCounters = Record<string, number>; // CSS var color value 
 export type AllThemeCounters = {
     themeRoot: Record<number, GroupColorCounters>; // themeId -> ThemeCounters
 }
-
