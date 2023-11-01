@@ -13,8 +13,12 @@ subscribe(parseText, () => {
     const themes = convertFileThemeVarsToPairs(vars);
     console.log('vars', vars);
     console.log('themes', themes);
-    shadcnAll.themes = themes;
-    updateColorCounters(); // because themes is array, not object, so we need to update counters manually.
+
+    // shadcnAll.themes.splice(0, shadcnAll.themes.length, ...themes);
+    shadcnAll.themes.splice(0, Infinity, ...themes);
+    
+    // shadcnAll.themes = themes;
+    //updateColorCounters(); // because themes is array, not object, so we need to update counters manually.
 });
 
 // const vars = parseTextAsCSSvars(testToParseCss2);
