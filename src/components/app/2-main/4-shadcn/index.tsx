@@ -22,21 +22,3 @@ export function Section4_Chadcn({ className, ...rest }: HTMLAttributes<HTMLDivEl
         </div>
     );
 }
-
-// export function Section4_Chadcn({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-//     const { count } = useSnapshot(themesCount);
-//     const themesArray = Array(count).fill(0);
-//     return (
-//         <div className={classNames("p-4 h-full text-foreground bg-background border-muted border-b overflow-auto smallscroll flex flex-col", className)} {...rest}>
-
-//             <div className="my-4">
-//                 <PasteArea />
-//             </div>
-
-//             {themesArray.map((_, idx) => (
-//                 <GroupGrid themeVars={shadcnAll.themes[idx]} key={idx} />
-//             ))}
-            
-//         </div>
-//     );
-// }

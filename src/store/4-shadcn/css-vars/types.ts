@@ -1,4 +1,5 @@
-export type FileThemeVars = Record<string, Record<string, string>>; // name inside theme (like :root or .dark) -> {cssVarName: cssVarValue}
+export type CSSVarNameValue = Record<string, string>; // cssVarName -> cssVarValue
+export type FileThemeVars = Record<string, CSSVarNameValue>; // name inside theme (like :root or .dark) -> {cssVarName: cssVarValue}
 
 export type ThemeVarsParsed = {         // as paste operation result
     name: string;

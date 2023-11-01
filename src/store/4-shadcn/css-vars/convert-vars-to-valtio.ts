@@ -48,11 +48,110 @@ const matchHSL = /^\s*(hsl\()?(\d+\.?\d*)\s+(\d+\.?\d*)%\s+(\d+\.?\d*)%(\))?\s*$
  *     }
  * }
  * ```
+ * @returns
+ * ```
+ * [
+ *     {
+ *         "themeId": 521725,
+ *         "name": ":root",
+ *         "vars": [
+ *             {
+ *                 "b": {
+ *                     "varName": "background",
+ *                     "isFore": false,
+ *                     "varValue": "0 0% 100%",
+ *                     "isHsl": true,
+ *                     "order": 0,
+ *                     "id": 521726,
+ *                     "themeId": 521725
+ *                 },
+ *                 "f": {
+ *                     "varName": "background",
+ *                     "isFore": true,
+ *                     "varValue": "222.2 47.4% 11.2%",
+ *                     "isHsl": true,
+ *                     "order": 1,
+ *                     "id": 521727,
+ *                     "themeId": 521725
+ *                 }
+ *             },
+ *             {
+ *                 "b": {
+ *                     "varName": "muted",
+ *                     "isFore": false,
+ *                     "varValue": "210 40% 96.1%",
+ *                     "isHsl": true,
+ *                     "order": 2,
+ *                     "id": 521728,
+ *                     "themeId": 521725
+ *                 },
+ *                 "f": {
+ *                     "varName": "muted",
+ *                     "isFore": true,
+ *                     "varValue": "215.4 16.3% 46.9%",
+ *                     "isHsl": true,
+ *                     "order": 3,
+ *                     "id": 521729,
+ *                     "themeId": 521725
+ *                 }
+ *             },
+ *             ...
+ *         ]
+ *     },
+ *     {
+ *         "themeId": 521746,
+ *         "name": ".dark",
+ *         "vars": [
+ *             {
+ *                 "b": {
+ *                     "varName": "background",
+ *                     "isFore": false,
+ *                     "varValue": "224 71% 4%",
+ *                     "isHsl": true,
+ *                     "order": 0,
+ *                     "id": 521747,
+ *                     "themeId": 521746
+ *                 },
+ *                 "f": {
+ *                     "varName": "background",
+ *                     "isFore": true,
+ *                     "varValue": "213 31% 91%",
+ *                     "isHsl": true,
+ *                     "order": 1,
+ *                     "id": 521748,
+ *                     "themeId": 521746
+ *                 }
+ *             },
+ *             {
+ *                 "b": {
+ *                     "varName": "muted",
+ *                     "isFore": false,
+ *                     "varValue": "223 47% 11%",
+ *                     "isHsl": true,
+ *                     "order": 2,
+ *                     "id": 521749,
+ *                     "themeId": 521746
+ *                 },
+ *                 "f": {
+ *                     "varName": "muted",
+ *                     "isFore": true,
+ *                     "varValue": "215.4 16.3% 56.9%",
+ *                     "isHsl": true,
+ *                     "order": 3,
+ *                     "id": 521750,
+ *                     "themeId": 521746
+ *                 }
+ *             },
+ *             ...
+ *        ]
+ *     }
+ * ]
+ * ```
  */
 export function convertFileThemeVarsToPairs(fileThemeVars: FileThemeVars): ThemeVars[] {
     const rv: ThemeVars[] =
         Object.entries(fileThemeVars)
-            .map((entry) => {
+            .map<ThemeVars>((entry) => {
                 const [varsName, varsValues] = entry;
                 const varsValuesPairs = Object.entries(varsValues);
                 const themeId = uuid.asRelativeNumber();
