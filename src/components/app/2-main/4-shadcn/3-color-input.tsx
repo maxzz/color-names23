@@ -18,7 +18,7 @@ import { ThemeVar, colorCounters } from "@/store";
 function ColorCounter({ color, themeId }: { color: string; themeId: number }) {
     const counters = useSnapshot(colorCounters);
     const counter = counters.themeRoot[themeId]?.[color];
-    if (!counter) {
+    if (!counter || counter === 1) {
         return <div />;
     }
     return (
