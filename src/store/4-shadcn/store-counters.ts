@@ -1,5 +1,5 @@
 import { proxy, subscribe } from "valtio";
-import { AllColorCounters, ThemeVars, GroupColorCounters } from "./types";
+import { AllThemeCounters, ThemeVars, GroupColorCounters } from "./types";
 import { shadcnAll } from "./store-all";
 
 /**
@@ -42,7 +42,7 @@ function makeColorCounters(vars: ThemeVars): GroupColorCounters {
 
 function makeCounterGroups(themeVars: ThemeVars[]): Record<string, GroupColorCounters> {
     const rv = themeVars.map((themeVar) => {
-        return [themeVar.name, makeColorCounters(themeVar)];
+        return [themeVar.themeId, makeColorCounters(themeVar)];
     });
     return Object.fromEntries(rv);
 
@@ -71,13 +71,15 @@ function makeCounterGroups(themeVars: ThemeVars[]): Record<string, GroupColorCou
     // return Object.fromEntries(rv);
 }
 
-export const colorCounters = proxy<AllColorCounters>({
-    groups: makeCounterGroups(shadcnAll.themes),
-});
+// export const colorCounters = proxy<AllThemeCounters>({
+//     groups: makeCounterGroups(shadcnAll.themes),
+// });
+export const colorCounters = proxy<AllThemeCounters>(makeCounterGroups(shadcnAll.themes));
 //console.log('colorCounters', colorCounters.counters);
 
 subscribe(shadcnAll.themes, () => {
     // colorCounters.counters = makeColorCounters(shadcnPalette.varGroups);
     // console.log('shadcnPalette.vars changed', colorCounters.counters);
+    colorCounters = makeColorCounters(shadcnPalette.varGroups);
     console.log('shadcnPalette.vars changed', makeCounterGroups(shadcnAll.themes));
 });
