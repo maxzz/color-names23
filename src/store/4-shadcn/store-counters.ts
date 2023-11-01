@@ -40,7 +40,7 @@ function makeColorCounters(vars: ThemeVars): GroupColorCounters {
     }
 }
 
-function makeCounterGroups(themeVars: ThemeVars[]): Record<string, GroupColorCounters> {
+function makeCounterGroups(themeVars: ThemeVars[]): Record<number, GroupColorCounters> {
     const rv = themeVars.map((themeVar) => {
         return [themeVar.themeId, makeColorCounters(themeVar)];
     });
@@ -71,15 +71,14 @@ function makeCounterGroups(themeVars: ThemeVars[]): Record<string, GroupColorCou
     // return Object.fromEntries(rv);
 }
 
-// export const colorCounters = proxy<AllThemeCounters>({
-//     groups: makeCounterGroups(shadcnAll.themes),
-// });
-export const colorCounters = proxy<AllThemeCounters>(makeCounterGroups(shadcnAll.themes));
+export const colorCounters = proxy<AllThemeCounters>({
+    themeRoot: makeCounterGroups(shadcnAll.themes),
+});
 //console.log('colorCounters', colorCounters.counters);
 
 subscribe(shadcnAll.themes, () => {
     // colorCounters.counters = makeColorCounters(shadcnPalette.varGroups);
     // console.log('shadcnPalette.vars changed', colorCounters.counters);
-    colorCounters = makeColorCounters(shadcnPalette.varGroups);
+    colorCounters.themeRoot = makeCounterGroups(shadcnAll.themes);
     console.log('shadcnPalette.vars changed', makeCounterGroups(shadcnAll.themes));
 });

@@ -30,7 +30,7 @@ export type ThemeVars = {
 
 export type GroupColorCounters = Record<string, number>; // CSS var color value -> count
 
-// export type AllThemeCounters = {
-//     groups: Record<number, GroupColorCounters>; // themeId -> ThemeCounters
-// }
-export type AllThemeCounters = Record<number, GroupColorCounters>; // themeId -> ThemeCounters
+export type AllThemeCounters = {
+    themeRoot: Record<number, GroupColorCounters>; // themeId -> ThemeCounters
+}
+
