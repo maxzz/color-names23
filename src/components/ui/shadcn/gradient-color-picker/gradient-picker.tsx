@@ -44,6 +44,95 @@ const images = [
     'url(https://images.unsplash.com/photo-1691225850735-6e4e51834cad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2532&q=90)',
 ];
 
+function Trigger({ background, className, }: { background: string; className?: string; }) {
+    return (
+        <PopoverTrigger asChild>
+            <Button variant={'outline'} className={cn('w-[220px] justify-start text-left font-normal', !background && 'text-muted-foreground', className)}>
+                <div className="flex w-full items-center gap-2">
+                    {background
+                        ? (
+                            <div className="h-4 w-4 rounded !bg-cover !bg-center transition-all" style={{ background }} />
+                        ) : (
+                            <Paintbrush className="h-4 w-4" />
+                        )}
+                    <div className="flex-1 truncate">
+                        {background ? background : 'Pick a color'}
+                    </div>
+                </div>
+            </Button>
+        </PopoverTrigger>
+    );
+}
+
+function TabSolid({ background, setBackground }: { background: string; setBackground: (background: string) => void; }) {
+    return (
+        <TabsContent value="solid" className="mt-0 flex flex-wrap gap-1">
+            {solids.map((s) => (
+                <div
+                    key={s}
+                    style={{ background: s }}
+                    className="h-6 w-6 cursor-pointer rounded-md active:scale-105"
+                    onClick={() => setBackground(s)}
+                />
+            ))}
+        </TabsContent>
+    );
+}
+
+function TabGradient({ background, setBackground }: { background: string; setBackground: (background: string) => void; }) {
+    return (
+        <TabsContent value="gradient" className="mt-0">
+            <div className="mb-2 flex flex-wrap gap-1">
+                {gradients.map((s) => (
+                    <div
+                        key={s}
+                        style={{ background: s }}
+                        className="h-6 w-6 cursor-pointer rounded-md active:scale-105"
+                        onClick={() => setBackground(s)}
+                    />
+                ))}
+            </div>
+
+            <GradientButton background={background}>
+                💡 Get more at{' '}
+                <a href="https://gradient.page/css/ui-gradients" className="font-bold hover:underline" target="_blank">
+                    GradientPage
+                </a>
+            </GradientButton>
+        </TabsContent>
+    );
+}
+
+function TabImage({ background, setBackground }: { background: string; setBackground: (background: string) => void; }) {
+    return (
+        <TabsContent value="image" className="mt-0">
+            <div className="mb-2 grid grid-cols-2 gap-1">
+                {images.map((s) => (
+                    <div
+                        key={s}
+                        style={{ backgroundImage: s }}
+                        className="h-12 w-full cursor-pointer rounded-md bg-cover bg-center active:scale-105"
+                        onClick={() => setBackground(s)}
+                    />
+                ))}
+            </div>
+
+            <GradientButton background={background}>
+                🔓 Get more{' '}
+                <a href="https://gradient.page/wallpapers" className="font-bold hover:underline" target="_blank">
+                    wallpapers
+                </a>
+                <br />
+                <div className='text-[10px]'>
+                    App dev? Refer <a href="https://gradient.page/affiliate" className="font-bold hover:underline" target="_blank">
+                        GradientPage
+                    </a>, get 80%
+                </div>
+            </GradientButton>
+        </TabsContent>
+    );
+}
+
 export function GradientPicker({ background, setBackground, className, }: { background: string; setBackground: (background: string) => void; className?: string; }) {
 
     const defaultTab = useMemo(() => {
@@ -55,21 +144,7 @@ export function GradientPicker({ background, setBackground, className, }: { back
     return (
         <Popover>
 
-            <PopoverTrigger asChild>
-                <Button variant={'outline'} className={cn('w-[220px] justify-start text-left font-normal', !background && 'text-muted-foreground', className)}>
-                    <div className="flex w-full items-center gap-2">
-                        {background
-                            ? (
-                                <div className="h-4 w-4 rounded !bg-cover !bg-center transition-all" style={{ background }} />
-                            ) : (
-                                <Paintbrush className="h-4 w-4" />
-                            )}
-                        <div className="flex-1 truncate">
-                            {background ? background : 'Pick a color'}
-                        </div>
-                    </div>
-                </Button>
-            </PopoverTrigger>
+            <Trigger className={className} background={background} />
 
             <PopoverContent className="w-64">
                 <Tabs defaultValue={defaultTab} className="w-full">
@@ -79,62 +154,9 @@ export function GradientPicker({ background, setBackground, className, }: { back
                         <TabsTrigger className="flex-1" value="image">Image</TabsTrigger>
                     </TabsList>
 
-                    <TabsContent value="solid" className="mt-0 flex flex-wrap gap-1">
-                        {solids.map((s) => (
-                            <div
-                                key={s}
-                                style={{ background: s }}
-                                className="h-6 w-6 cursor-pointer rounded-md active:scale-105"
-                                onClick={() => setBackground(s)}
-                            />
-                        ))}
-                    </TabsContent>
-
-                    <TabsContent value="gradient" className="mt-0">
-                        <div className="mb-2 flex flex-wrap gap-1">
-                            {gradients.map((s) => (
-                                <div
-                                    key={s}
-                                    style={{ background: s }}
-                                    className="h-6 w-6 cursor-pointer rounded-md active:scale-105"
-                                    onClick={() => setBackground(s)}
-                                />
-                            ))}
-                        </div>
-
-                        <GradientButton background={background}>
-                            💡 Get more at{' '}
-                            <a href="https://gradient.page/css/ui-gradients" className="font-bold hover:underline" target="_blank">
-                                GradientPage
-                            </a>
-                        </GradientButton>
-                    </TabsContent>
-
-                    <TabsContent value="image" className="mt-0">
-                        <div className="mb-2 grid grid-cols-2 gap-1">
-                            {images.map((s) => (
-                                <div
-                                    key={s}
-                                    style={{ backgroundImage: s }}
-                                    className="h-12 w-full cursor-pointer rounded-md bg-cover bg-center active:scale-105"
-                                    onClick={() => setBackground(s)}
-                                />
-                            ))}
-                        </div>
-
-                        <GradientButton background={background}>
-                            🔓 Get more{' '}
-                            <a href="https://gradient.page/wallpapers" className="font-bold hover:underline" target="_blank">
-                                wallpapers
-                            </a>
-                            <br />
-                            <div className='text-[10px]'>
-                                App dev? Refer <a href="https://gradient.page/affiliate" className="font-bold hover:underline" target="_blank">
-                                    GradientPage
-                                </a>, get 80%
-                            </div>
-                        </GradientButton>
-                    </TabsContent>
+                    <TabSolid background={background} setBackground={setBackground}/>
+                    <TabGradient background={background} setBackground={setBackground}/>
+                    <TabImage background={background} setBackground={setBackground}/>
                 </Tabs>
 
                 <Input
