@@ -8,11 +8,16 @@ import { PickerExample } from "@/components/ui/shadcn/gradient-color-picker";
 
 const GroupGridMemo = memo(GroupGrid);
 
-export function Section4_Chadcn({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
+function BottomPanel() {
     const themes = useSnapshot(shadcnAll.themes);
-    const themesArray = Array(length).fill(0);
-    console.log('themesArray', themesArray);
+    return (<>
+        {themes.map((_, idx) => (
+            <GroupGridMemo idx={idx} key={idx} />
+        ))}
+    </>);
+}
 
+export function Section4_Chadcn({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     return (
         <div className={classNames("p-4 h-full text-foreground bg-background border-muted border-b overflow-auto smallscroll flex flex-col", className)} {...rest}>
 
@@ -21,10 +26,7 @@ export function Section4_Chadcn({ className, ...rest }: HTMLAttributes<HTMLDivEl
                 {/* <PickerExample /> */}
             </div>
 
-            {themes.map((_, idx) => (
-                <GroupGridMemo themeVars={shadcnAll.themes[idx]} idx={idx} key={idx} />
-            ))}
-
+            <BottomPanel />
         </div>
     );
 }

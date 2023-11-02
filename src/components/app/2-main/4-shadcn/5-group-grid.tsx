@@ -20,12 +20,12 @@ import { GridRow } from "./2-grid-row";
     --primary: 0 100% 50%;
 }
 */
-export function GroupGrid({ themeVars, idx }: { themeVars: ThemeVars; idx: number }) {
-    const snapT = useSnapshot(shadcnAll.themes);
-    const snap = snapT[idx];
+export function GroupGrid({ idx }: { idx: number }) {
+    const themeVars: ThemeVars = shadcnAll.themes[idx];
+    const snap = useSnapshot(themeVars);
     console.log('snap idx', idx);
     console.log('snap', snap);
-    console.log('snapT', snapT, idx);
+    
     if (!snap) {
         return null;
     }
