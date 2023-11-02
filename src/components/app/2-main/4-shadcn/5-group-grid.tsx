@@ -5,11 +5,11 @@ import { HeaderColorValues, HeaderLengthValues } from "./1-headers";
 import { GridRow } from "./4-grid-row";
 
 export function GroupGrid({ themeVars, idx }: { themeVars: ThemeVars; idx: number }) {
-    const snapT = useSnapshot(shadcnAll.themes);
-    const snap = snapT[idx];
-    console.log('snap idx', idx);
-    console.log('snap', snap);
-    console.log('snapT', snapT, idx);
+    const snapThemes = useSnapshot(shadcnAll.themes);
+    const snap = snapThemes[idx];
+    console.log(`---1 store store themeVars.vars = `, JSON.stringify(themeVars.vars, null, 4));
+    console.log(`---2 snapThemes`, JSON.stringify(snapThemes, null, 4));
+    console.log(`---3 snap[${idx}]`, JSON.stringify(snap, null, 4));
     if (!snap) {
         return null;
     }
