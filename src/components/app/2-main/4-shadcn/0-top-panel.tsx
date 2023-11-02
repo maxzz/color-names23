@@ -2,12 +2,13 @@ import { useSnapshot } from "valtio";
 import { parseText } from "@/store";
 import { Button, Textarea } from "@/components/ui/shadcn";
 import { IconMenuBurger } from "@/components/ui/icons";
+import { TestButtons } from "./9-test-buttons";
 
 export function PasteArea() {
     const snap = useSnapshot(parseText, { sync: true });
     return (
         <div className="-mx-4 px-4 py-4 bg-muted/50 flex items-center space-x-2">
-            <Button variant={"outline"} size={"icon"}>
+            <Button className="flex-none" variant={"outline"} size={"icon"}>
                 <IconMenuBurger className="w-4 h-4" />
             </Button>
 
@@ -19,6 +20,8 @@ export function PasteArea() {
                 placeholder="Paste theme vars here"
                 spellCheck={false}
             />
+
+            <TestButtons />
         </div>
     );
 }
