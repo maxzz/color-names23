@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/shadcn";
 import { parseText } from "@/store";
 
 
-const test1 = ``;
+const test1 = ` `;
 
 const test2 = `--primary: 0 100% 50%;
 `;

@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { useSnapshot } from "valtio";
 import { ThemeVars, shadcnAll } from "@/store";
 import { HeaderColorValues, HeaderLengthValues } from "./1-headers";
-import { GridRow } from "./2-grid-row";
+import { GridRow } from "./4-grid-row";
 
 export function GroupGrid({ themeVars, idx }: { themeVars: ThemeVars; idx: number }) {
     const snapT = useSnapshot(shadcnAll.themes);

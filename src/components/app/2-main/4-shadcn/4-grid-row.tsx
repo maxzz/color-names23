@@ -1,7 +1,7 @@
 import { useSnapshot } from "valtio";
 import { ThemeVarFB } from "@/store";
-import { ColorInput } from "./3-color-input";
-import { ValuePreviewBox } from "./4-value-preview-box";
+import { ColorInput } from "./2-color-input";
+import { ValuePreviewBox } from "./3-value-preview-box";
 
 type ValueInputAndBoxProps = {
     both: ThemeVarFB;
