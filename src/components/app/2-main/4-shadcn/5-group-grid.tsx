@@ -4,22 +4,6 @@ import { ThemeVars, shadcnAll } from "@/store";
 import { HeaderColorValues, HeaderLengthValues } from "./1-headers";
 import { GridRow } from "./2-grid-row";
 
-/*
---primary: 161 56% 35%;
---background: 159 65% 4%;
---foreground: 159 10% 97.5%;
-
- --primary: 0 100% 50%;
-
-:root {
-    --primary: 161 56% 35%;
-    --background: 159 65% 4%;
-    --foreground: 159 10% 97.5%;
-}
-.dark {
-    --primary: 0 100% 50%;
-}
-*/
 export function GroupGrid({ themeVars, idx }: { themeVars: ThemeVars; idx: number }) {
     const snapT = useSnapshot(shadcnAll.themes);
     const snap = snapT[idx];
