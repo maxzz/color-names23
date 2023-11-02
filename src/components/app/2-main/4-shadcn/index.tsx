@@ -3,7 +3,7 @@ import { useSnapshot } from "valtio";
 import { shadcnAll } from "@/store";
 import { classNames } from "@/utils";
 import { PasteArea } from "./0-top-panel";
-import { GroupGrid } from "./5-group-grid";
+import { Grid, GroupGrid } from "./5-group-grid";
 import { PickerExample } from "@/components/ui/shadcn/gradient-color-picker";
 
 const GroupGridMemo = memo(GroupGrid);
@@ -12,8 +12,17 @@ function BottomPanel() {
     const themes = useSnapshot(shadcnAll.themes);
     return (<>
         {themes.map((_, idx) => (
-            <GroupGridMemo idx={idx} key={idx} />
+            <Grid idx={idx} key={idx} />
         ))}
+    </>);
+}
+
+function BottomPanel2() {
+    //const themes = useSnapshot(shadcnAll.themes);
+    return (<>
+        <GroupGrid>
+            <BottomPanel />
+        </GroupGrid>
     </>);
 }
 
@@ -26,7 +35,8 @@ export function Section4_Chadcn({ className, ...rest }: HTMLAttributes<HTMLDivEl
                 {/* <PickerExample /> */}
             </div>
 
-            <BottomPanel />
+
+            <BottomPanel2 />
         </div>
     );
 }
