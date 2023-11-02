@@ -4,6 +4,10 @@ import { ThemeVars, shadcnAll } from "@/store";
 import { HeaderColorValues, HeaderLengthValues } from "./1-headers";
 import { GridRow } from "./2-grid-row";
 
+/*
+ --primary: 161 56% 35%;
+ --primary: 0 100% 50%;
+*/
 export function GroupGrid({ themeVars, idx }: { themeVars: ThemeVars; idx: number }) {
     const snapT = useSnapshot(shadcnAll.themes);
     const snap = snapT[idx];

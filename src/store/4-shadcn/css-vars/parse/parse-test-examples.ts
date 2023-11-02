@@ -1,4 +1,4 @@
-//https://gradient.page/tools/shadcn-ui-theme-generator
+//https://gradient.page/tools/shadcn-ui-theme-generator //<-- TODO: gradient rgb
 export const testToParseCss = `
 .theme-custom {
     /* Name: custom color palette
@@ -40,7 +40,7 @@ export const testToParseCss = `
 `;
 
 
-//https://gradient.page/tools/shadcn-ui-theme-generator
+//https://gradient.page/tools/shadcn-ui-theme-generator //<-- TODO: gradient url
 export const testToParseCssWithUrl = `
 .theme-custom {
     /* Name: custom color palette

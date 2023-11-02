@@ -16,7 +16,7 @@ export function Section4_Chadcn({ className, ...rest }: HTMLAttributes<HTMLDivEl
 
             <div className="my-4">
                 <PasteArea />
-                <PickerExample />
+                {/* <PickerExample /> */}
             </div>
 
             {themesArray.map((_, idx) => (
