@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, memo } from "react";
 import { useSnapshot } from "valtio";
 import { ThemeVars, shadcnAll } from "@/store";
 import { HeaderColorValues, HeaderLengthValues } from "./1-headers";
@@ -20,15 +20,18 @@ import { GridRow } from "./2-grid-row";
     --primary: 0 100% 50%;
 }
 */
+
+const GridRowMemo = memo(GridRow)
+
 export function GroupGrid({ idx }: { idx: number }) {
     const themeVars: ThemeVars = shadcnAll.themes[idx];
     const snap = useSnapshot(themeVars);
-    console.log('snap idx', idx);
-    console.log('snap', snap);
+    // console.log('snap idx', idx);
+    // console.log('snap', snap);
     
-    if (!snap) {
-        return null;
-    }
+    // if (!snap) {
+    //     return null;
+    // }
     
     
     return (
@@ -38,14 +41,14 @@ export function GroupGrid({ idx }: { idx: number }) {
                 <HeaderColorValues />
                 {snap.vars.map((foreAndBack, idx) => (
                     <Fragment key={`${idx}`}>
-                        {(foreAndBack.b?.isHsl || foreAndBack.f?.isHsl) && <GridRow foreAndBack={themeVars.vars[idx]} />}
+                        {(foreAndBack.b?.isHsl || foreAndBack.f?.isHsl) && <GridRowMemo foreAndBack={themeVars.vars[idx]} />}
                     </Fragment>
                 ))}
 
                 <HeaderLengthValues />
                 {snap.vars.map((foreAndBack, idx) => (
                     <Fragment key={`${idx}-length`}>
-                        {(!foreAndBack.b?.isHsl && !foreAndBack.f?.isHsl) && <GridRow foreAndBack={themeVars.vars[idx]} />}
+                        {(!foreAndBack.b?.isHsl && !foreAndBack.f?.isHsl) && <GridRowMemo foreAndBack={themeVars.vars[idx]} />}
                     </Fragment>
                 ))}
             </>)}
