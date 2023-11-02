@@ -9,6 +9,8 @@ import { PickerExample } from "@/components/ui/shadcn/gradient-color-picker";
 export function Section4_Chadcn({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     const { length } = useSnapshot(shadcnAll.themes);
     const themesArray = Array(length).fill(0);
+    console.log('themesArray', themesArray);
+    
     return (
         <div className={classNames("p-4 h-full text-foreground bg-background border-muted border-b overflow-auto smallscroll flex flex-col", className)} {...rest}>
 
@@ -18,7 +20,7 @@ export function Section4_Chadcn({ className, ...rest }: HTMLAttributes<HTMLDivEl
             </div>
 
             {themesArray.map((_, idx) => (
-                <GroupGrid themeVars={shadcnAll.themes[idx]} key={idx} />
+                <GroupGrid themeVars={shadcnAll.themes[idx]} idx={idx} key={idx} />
             ))}
             
         </div>
