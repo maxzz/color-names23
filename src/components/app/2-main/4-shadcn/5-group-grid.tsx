@@ -1,52 +1,9 @@
 import { Fragment } from "react";
-import { INTERNAL_Snapshot, useSnapshot } from "valtio";
-import { ThemeVarFB, ThemeVars, shadcnAll } from "@/store";
+import { useSnapshot } from "valtio";
+import { ThemeVars, shadcnAll } from "@/store";
 import { HeaderColorValues, HeaderLengthValues } from "./1-headers";
 import { GridRow } from "./4-grid-row";
-
-function strStringify(obj: object) {
-    return Object.entries(obj)
-        .map(([key, value]) => {
-            if (typeof value === 'string') {
-                value = `'${value}`;
-            }
-            return [key, value];
-        })
-        .map(([key, value]) => `${key}: ${value}`)
-        .join(', ');
-}
-
-export function strThemeVarFB(tv: ThemeVarFB) {
-    const f = tv.f ? `f: {${strStringify(tv.f)}}` : '';
-    const b = tv.b ? `b: {${strStringify(tv.b)}}` : '';
-    const rv = [f, b].filter((v) => v).join(',\n    ');
-    return `{\n    ${rv}\n}`;
-}
-
-export function strThemeVarFBArr(tv: ThemeVarFB[]) {
-    return tv.map((v) => strThemeVarFB(v))
-        .join(',\n')
-        .replaceAll(/},\r?\n\s*{/g, '    }, {');
-}
-
-export function strThemeVars(tv: INTERNAL_Snapshot<ThemeVars>) {
-    return JSON.stringify({
-        ...tv,
-        vars: tv.vars.map((v) => ({
-            ...(v.f && { f: strStringify(v.f) }),
-            ...(v.b && { b: strStringify(v.b) }),
-        }))
-    }, null, 4)
-        .replaceAll(/},\r?\n\s*{/g, '}, {')
-        .replaceAll(/\[\r?\n\s*{/g, '[ {');
-}
-
-export function strThemesVars(tv?: INTERNAL_Snapshot<ThemeVars[]>) {
-    if (!tv?.length) {
-        return '[]';
-    }
-    return (tv || []).map((v) => strThemeVars(v)).join('\n');
-}
+import { strThemesVars } from "./9-test-trace";
 
 export function GroupGrid({ themeVars, idx }: { themeVars: ThemeVars; idx: number; }) {
     const snapThemes = useSnapshot(shadcnAll.themes);

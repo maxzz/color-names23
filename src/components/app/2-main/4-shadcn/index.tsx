@@ -3,8 +3,9 @@ import { useSnapshot } from "valtio";
 import { shadcnAll } from "@/store";
 import { classNames } from "@/utils";
 import { PasteArea } from "./0-top-panel";
-import { GroupGrid, strThemesVars } from "./5-group-grid";
+import { GroupGrid } from "./5-group-grid";
 import { PickerExample } from "@/components/ui/shadcn/gradient-color-picker";
+import { strThemesVars } from "./9-test-trace";
 
 // export function Section4_Chadcn({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
 //     const {themes} = useSnapshot(shadcnAll);
