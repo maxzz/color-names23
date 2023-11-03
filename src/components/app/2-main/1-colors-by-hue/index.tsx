@@ -29,3 +29,7 @@ export function Section1_ColorsByHue({ className, ...rest }: HTMLAttributes<HTML
         </div>
     );
 }
+
+//TODO: alt+click over color to copy 'background: darkgreen; color:lavender'
+//TODO: fix gray scale as color over background
+//TODO: allow to select any non-named color from wheel

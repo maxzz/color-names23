@@ -51,9 +51,9 @@ export function strThemesVars(tv?: /*ThemeVars[]*/any[]) {
 export function GroupGrid({ themeVars, idx }: { themeVars: ThemeVars; idx: number; }) {
     const snapThemes = useSnapshot(shadcnAll.themes);
     const snap = snapThemes[idx];
-    console.log(`---1 store store themeVars.vars = ${strThemeVarFBArr(themeVars.vars)}`);
+    console.log(`%c---1 store store themeVars.vars = ${strThemeVarFBArr(themeVars.vars)}`, 'background: navy; color:ghostwhite');
     // console.log(`---2 snapThemes`, JSON.stringify(snapThemes, null, 4));
-    //console.log(`---3 snap[${idx}]`, strThemeVars(snap));
+    console.log(`---3 snap[${idx}]`, strThemeVars(snap));
     if (!snap) {
         return null;
     }
