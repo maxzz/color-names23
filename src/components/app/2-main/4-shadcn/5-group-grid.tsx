@@ -16,8 +16,10 @@ export function strThemeVars(tv: /*ThemeVars*/any) {
     return JSON.stringify({
         ...tv,
         vars: tv.vars.map((v: any) => ({
-            f: v.f ? JSON.stringify(v.f) : undefined,
-            b: v.b ? JSON.stringify(v.b) : undefined,
+            ...(v.f && {f: JSON.stringify(v.f)}),
+            ...(v.b && {b: JSON.stringify(v.b)}),
+            //f: v.f ? JSON.stringify(v.f) : undefined,
+            //b: v.b ? JSON.stringify(v.b) : undefined,
         }))
     }, null, 4)
         .replaceAll(/},\r?\n\s*{/g, '}, {')
