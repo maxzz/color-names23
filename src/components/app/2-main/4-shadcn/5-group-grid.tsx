@@ -1,12 +1,11 @@
-import { Fragment } from "react";
 import { INTERNAL_Snapshot, useSnapshot } from "valtio";
 import { ThemeVarFB, shadcnAll } from "@/store";
 import { HeaderColorValues, HeaderLengthValues } from "./1-headers";
 import { GridRow } from "./4-grid-row";
 
-type ThemeVarFBGroup = { idx: number; key: number | string; };
+type SplitItems = { idx: number; key: number | string; };
 
-function splitColorAndLengths<T extends INTERNAL_Snapshot<ThemeVarFB[]>>(vars: T) {
+function splitColorAndLengths(vars: INTERNAL_Snapshot<ThemeVarFB[]>) {
     return vars.reduce(
         (acc, curr, idx) => {
             const isColor = curr.b?.isHsl || curr.f?.isHsl;
@@ -17,8 +16,8 @@ function splitColorAndLengths<T extends INTERNAL_Snapshot<ThemeVarFB[]>>(vars: T
             return acc;
         },
         {
-            colors: [] as ThemeVarFBGroup[],
-            lengths: [] as ThemeVarFBGroup[],
+            colors: [] as SplitItems[],
+            lengths: [] as SplitItems[],
         }
     );
 }
