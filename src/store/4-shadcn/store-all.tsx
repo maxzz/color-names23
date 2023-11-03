@@ -8,5 +8,8 @@ import { convertFileThemeVarsToPairs } from "./css-vars/convert-vars-to-valtio";
 export const shadcnAll = proxy<ShadcnAll>({
     allName: 'shadcn',
     tailwindClassNames: convertDefaultPaletteToArray(shadcnDefaultColor),
-    themes: convertFileThemeVarsToPairs(testTheme) || [], // TODO: need to surround with try/catch; handle array values
+
+    // themes: convertFileThemeVarsToPairs(testTheme) || [], // TODO: need to surround with try/catch; handle array values
+    // for debugging:
+    themes: [], // TODO: need to surround with try/catch; handle array values
 });

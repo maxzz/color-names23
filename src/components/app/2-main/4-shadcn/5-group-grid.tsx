@@ -61,19 +61,27 @@ export function GroupGrid({ themeVars, idx }: { themeVars: ThemeVars; idx: numbe
 
     return (
         <div className="container mx-auto max-w-xl grid grid-cols-[min-content,minmax(0,12rem),minmax(0,12rem)] place-content-center gap-y-2">
-
+            {/* version w/ keys */}
             {snap.vars.length && (<>
                 <HeaderColorValues />
                 {snap.vars.map((foreAndBack, idx) => (
                     <Fragment key={`${foreAndBack.b?.id || foreAndBack.f?.id || idx}`}>
-                        {(foreAndBack.b?.isHsl || foreAndBack.f?.isHsl) && <GridRow foreAndBack={themeVars.vars[idx]} />}
+                        {console.log({foreAndBack, idx}) as any as boolean || null}
+
+                        {(foreAndBack.b?.isHsl || foreAndBack.f?.isHsl) &&
+                            <GridRow foreAndBack={themeVars.vars[idx]} />
+                        }
                     </Fragment>
                 ))}
 
                 <HeaderLengthValues />
                 {snap.vars.map((foreAndBack, idx) => (
                     <Fragment key={`${foreAndBack.b?.id || foreAndBack.f?.id || idx}-length`}>
-                        {(!foreAndBack.b?.isHsl && !foreAndBack.f?.isHsl) && <GridRow foreAndBack={themeVars.vars[idx]} />}
+                        {console.log({foreAndBack, idx}) as any as boolean || null}
+                        
+                        {(!foreAndBack.b?.isHsl && !foreAndBack.f?.isHsl) &&
+                            <GridRow foreAndBack={themeVars.vars[idx]} />
+                        }
                     </Fragment>
                 ))}
             </>)}
