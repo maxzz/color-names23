@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { useSnapshot } from "valtio";
+import { INTERNAL_Snapshot, useSnapshot } from "valtio";
 import { ThemeVarFB, ThemeVars, shadcnAll } from "@/store";
 import { HeaderColorValues, HeaderLengthValues } from "./1-headers";
 import { GridRow } from "./4-grid-row";
@@ -29,10 +29,10 @@ export function strThemeVarFBArr(tv: ThemeVarFB[]) {
         .replaceAll(/},\r?\n\s*{/g, '    }, {');
 }
 
-export function strThemeVars(tv: /*ThemeVars*/any) {
+export function strThemeVars(tv: INTERNAL_Snapshot<ThemeVars>) {
     return JSON.stringify({
         ...tv,
-        vars: tv.vars.map((v: any) => ({
+        vars: tv.vars.map((v) => ({
             ...(v.f && { f: strStringify(v.f) }),
             ...(v.b && { b: strStringify(v.b) }),
         }))
@@ -41,7 +41,7 @@ export function strThemeVars(tv: /*ThemeVars*/any) {
         .replaceAll(/\[\r?\n\s*{/g, '[ {');
 }
 
-export function strThemesVars(tv?: /*ThemeVars[]*/any[]) {
+export function strThemesVars(tv?: INTERNAL_Snapshot<ThemeVars[]>) {
     if (!tv?.length) {
         return '[]';
     }
@@ -51,9 +51,12 @@ export function strThemesVars(tv?: /*ThemeVars[]*/any[]) {
 export function GroupGrid({ themeVars, idx }: { themeVars: ThemeVars; idx: number; }) {
     const snapThemes = useSnapshot(shadcnAll.themes);
     const snap = snapThemes[idx];
-    console.log(`%c---1 store store themeVars.vars = ${strThemeVarFBArr(themeVars.vars)}`, 'background: navy; color:ghostwhite');
+    // console.log(`%c---1 store store themeVars.vars = ${strThemeVarFBArr(themeVars.vars)}`, 'background: navy; color:ghostwhite');
     // console.log(`---2 snapThemes`, JSON.stringify(snapThemes, null, 4));
-    console.log(`---3 snap[${idx}]`, strThemeVars(snap));
+    // console.log(`---3 snap[${idx}]`, strThemeVars(snap));
+
+    console.log(`%c---1 store store themeVars.vars = ${strThemesVars(shadcnAll.themes)}`, 'background: navy; color:ghostwhite');
+    console.log(`---3 snapThemes`, strThemesVars(snapThemes));
     if (!snap) {
         return null;
     }
@@ -77,7 +80,7 @@ export function GroupGrid({ themeVars, idx }: { themeVars: ThemeVars; idx: numbe
                 <HeaderLengthValues />
                 {snap.vars.map((foreAndBack, idx) => (
                     <Fragment key={`${foreAndBack.b?.id || foreAndBack.f?.id || idx}-length`}>
-                        {console.log({foreAndBack, idx}) as any as boolean || null}
+                        {console.log({foreAndBack, idx}, 'length value') as any as boolean || null}
                         
                         {(!foreAndBack.b?.isHsl && !foreAndBack.f?.isHsl) &&
                             <GridRow foreAndBack={themeVars.vars[idx]} />
