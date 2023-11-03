@@ -42,10 +42,6 @@ function ValueInputAndBox({ both, field, isBackOrFore }: ValueInputAndBoxProps) 
 
 export function GridRow({ foreAndBack }: { foreAndBack: ThemeVarFB; }) {
     //TODO: add preview foregraound over background
-    if (!foreAndBack) {
-        console.log('%cGridRow: !foreAndBack', 'color: red', foreAndBack);
-        return null;
-    }
     return (<>
         <div className="mr-4 text-sm text-foreground/70 dark:text-foreground/50 flex items-center">
             {foreAndBack.b?.varName || foreAndBack.f?.varName}

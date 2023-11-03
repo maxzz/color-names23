@@ -1,45 +1,21 @@
 import { Fragment } from "react";
 import { useSnapshot } from "valtio";
-import { ThemeVars, shadcnAll } from "@/store";
+import { shadcnAll } from "@/store";
 import { HeaderColorValues, HeaderLengthValues } from "./1-headers";
 import { GridRow } from "./4-grid-row";
-import { strThemeVarFBArr, strThemesVars } from "./9-test-trace";
 
-export function GroupGrid({ themeVars, idx }: { themeVars: ThemeVars; idx: number; }) {
+export function GroupGrid({ idx }: { idx: number; }) {
     const snapThemes = useSnapshot(shadcnAll.themes);
     const snap = snapThemes[idx];
-    // console.log(`%c---1 store store themeVars.vars = ${strThemeVarFBArr(themeVars.vars)}`, 'background: navy; color:ghostwhite');
-    // console.log(`---2 snapThemes`, JSON.stringify(snapThemes, null, 4));
-    // console.log(`---3 snap[${idx}]`, strThemeVars(snap));
     const theRightTheme = shadcnAll.themes[idx];
-
-    console.log(`%c---1 store store themeVars.vars = ${strThemesVars(shadcnAll.themes)}`, 'background: navy; color:ghostwhite');
-    console.log(`---3 snapThemes`, strThemesVars(snapThemes));
-    if (!snap) {
-        return null;
-    }
-
-
     return (
         <div className="container mx-auto max-w-xl grid grid-cols-[min-content,minmax(0,12rem),minmax(0,12rem)] place-content-center gap-y-2">
             {/* version w/ keys */}
             {snap.vars.length && (<>
+
                 <HeaderColorValues />
-
-                {console.log(`%c${strThemeVarFBArr(snap.vars)}`, 'color: green') as any as boolean || null}
-                {console.log(`%c${strThemeVarFBArr(shadcnAll.themes[idx].vars)}`, 'color: limegreen') as any as boolean || null}
-                {console.log(`%c${strThemeVarFBArr(themeVars.vars)}`, 'color: saddlebrown') as any as boolean || null}
-                {/* 
-                    // themeVars.vars was the problem
-                {    b: {themeId: 158557, varName: 'primary, id: 158558}    }, {    f: {themeId: 158557, varName: 'background, id: 158560},    b: {themeId: 158557, varName: 'background, id: 158559}}
-                {    b: {themeId: 158557, varName: 'primary, id: 158558}    }, {    f: {themeId: 158557, varName: 'background, id: 158560},    b: {themeId: 158557, varName: 'background, id: 158559}}
-                {    b: {themeId: 157673, varName: 'primary, id: 157674}}
-                */}
-
                 {snap.vars.map((foreAndBack, idx) => (
                     <Fragment key={`${foreAndBack.b?.id || foreAndBack.f?.id || idx}`}>
-                        {console.log({foreAndBack, idx}) as any as boolean || null}
-
                         {(foreAndBack.b?.isHsl || foreAndBack.f?.isHsl) &&
                             <GridRow foreAndBack={theRightTheme.vars[idx]} />
                         }
@@ -49,8 +25,6 @@ export function GroupGrid({ themeVars, idx }: { themeVars: ThemeVars; idx: numbe
                 <HeaderLengthValues />
                 {snap.vars.map((foreAndBack, idx) => (
                     <Fragment key={`${foreAndBack.b?.id || foreAndBack.f?.id || idx}-length`}>
-                        {console.log({foreAndBack, idx}, 'length value') as any as boolean || null}
-                        
                         {(!foreAndBack.b?.isHsl && !foreAndBack.f?.isHsl) &&
                             <GridRow foreAndBack={theRightTheme.vars[idx]} />
                         }
@@ -60,26 +34,4 @@ export function GroupGrid({ themeVars, idx }: { themeVars: ThemeVars; idx: numbe
 
         </div>
     );
-    // return (
-    //     <div className="container mx-auto max-w-xl grid grid-cols-[min-content,minmax(0,12rem),minmax(0,12rem)] place-content-center gap-y-2">
-
-    //         {snap.vars.length && (<>
-    //             <HeaderColorValues />
-    //             {snap.vars.map((foreAndBack, idx) => (
-    //                 <Fragment key={`${idx}`}>
-    //                     {(foreAndBack.b?.isHsl || foreAndBack.f?.isHsl) && <GridRow foreAndBack={themeVars.vars[idx]} />}
-    //                 </Fragment>
-    //             ))}
-
-    //             <HeaderLengthValues />
-    //             {snap.vars.map((foreAndBack, idx) => (
-    //                 <Fragment key={`${idx}-length`}>
-    //                     {(!foreAndBack.b?.isHsl && !foreAndBack.f?.isHsl) && <GridRow foreAndBack={themeVars.vars[idx]} />}
-    //                 </Fragment>
-    //             ))}
-    //         </>)}
-
-    //     </div>
-    // );
 }
-
