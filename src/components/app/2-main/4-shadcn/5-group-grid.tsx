@@ -4,15 +4,25 @@ import { ThemeVarFB, ThemeVars, shadcnAll } from "@/store";
 import { HeaderColorValues, HeaderLengthValues } from "./1-headers";
 import { GridRow } from "./4-grid-row";
 
+function strStringify(obj: object) {
+    return Object.entries(obj)
+        .map(([key, value]) => {
+            if (typeof value === 'string') {
+                value = `'${value}`;
+            }
+            return [key, value];
+        }).join(', ');
+}
+
 export function strThemeVarFB(tv: ThemeVarFB) {
     // return `f: ${tv.f ? JSON.stringify(tv.f) : ''}\nb: ${tv.b ? JSON.stringify(tv.b) : ''}`;
 
     const rv = {
-        ...(tv.f && {f: JSON.stringify(tv.f)}),
-        ...(tv.b && {b: JSON.stringify(tv.b)}),
-    }
+        ...(tv.f && { f: strStringify(tv.f) }),
+        ...(tv.b && { b: strStringify(tv.b) }),
+    };
 
-    
+
     return `${JSON.stringify(rv, null, 4)}`;
 }
 
@@ -24,10 +34,8 @@ export function strThemeVars(tv: /*ThemeVars*/any) {
     return JSON.stringify({
         ...tv,
         vars: tv.vars.map((v: any) => ({
-            ...(v.f && {f: JSON.stringify(v.f)}),
-            ...(v.b && {b: JSON.stringify(v.b)}),
-            //f: v.f ? JSON.stringify(v.f) : undefined,
-            //b: v.b ? JSON.stringify(v.b) : undefined,
+            ...(v.f && { f: strStringify(v.f) }),
+            ...(v.b && { b: strStringify(v.b) }),
         }))
     }, null, 4)
         .replaceAll(/},\r?\n\s*{/g, '}, {')
