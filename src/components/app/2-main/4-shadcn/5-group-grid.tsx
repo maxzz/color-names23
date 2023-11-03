@@ -12,14 +12,19 @@ export function strThemeVarFBArr(tv: ThemeVarFB[]) {
     return tv.map((v) => strThemeVarFB(v)).join('\n\n');
 }
 
-export function strThemeVars(tv: any) {
+export function strThemeVars(tv: /*ThemeVars*/any) {
     return JSON.stringify({
         ...tv,
-        vars: tv.vars.map((v: any) => strThemeVarFB(v))
-    }, null, 4);
+        vars: tv.vars.map((v: any) => ({
+            f: v.f ? JSON.stringify(v.f) : undefined,
+            b: v.b ? JSON.stringify(v.b) : undefined,
+        }))
+    }, null, 4)
+        .replaceAll(/},\r?\n\s*{/g, '}, {')
+        .replaceAll(/\[\r?\n\s*{/g, '[ {');
 }
 
-export function strThemesVars(tv?: any[]) {
+export function strThemesVars(tv?: /*ThemeVars[]*/any[]) {
     return (tv || []).map((v) => strThemeVars(v)).join('\n');
 }
 
