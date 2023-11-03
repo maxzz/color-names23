@@ -5,7 +5,15 @@ import { HeaderColorValues, HeaderLengthValues } from "./1-headers";
 import { GridRow } from "./4-grid-row";
 
 export function strThemeVarFB(tv: ThemeVarFB) {
-    return `f: ${tv.f ? JSON.stringify(tv.f) : ''}\nb: ${tv.b ? JSON.stringify(tv.b) : ''}`;
+    // return `f: ${tv.f ? JSON.stringify(tv.f) : ''}\nb: ${tv.b ? JSON.stringify(tv.b) : ''}`;
+
+    const rv = {
+        ...(tv.f && {f: JSON.stringify(tv.f)}),
+        ...(tv.b && {b: JSON.stringify(tv.b)}),
+    }
+
+    
+    return `${JSON.stringify(rv, null, 4)}`;
 }
 
 export function strThemeVarFBArr(tv: ThemeVarFB[]) {
@@ -36,7 +44,7 @@ export function strThemesVars(tv?: /*ThemeVars[]*/any[]) {
 export function GroupGrid({ themeVars, idx }: { themeVars: ThemeVars; idx: number; }) {
     const snapThemes = useSnapshot(shadcnAll.themes);
     const snap = snapThemes[idx];
-    console.log(`---1 store store themeVars.vars = \n${strThemeVarFBArr(themeVars.vars)}`);
+    console.log(`---1 store store themeVars.vars = ${strThemeVarFBArr(themeVars.vars)}`);
     // console.log(`---2 snapThemes`, JSON.stringify(snapThemes, null, 4));
     console.log(`---3 snap[${idx}]`, strThemeVars(snap));
     if (!snap) {
