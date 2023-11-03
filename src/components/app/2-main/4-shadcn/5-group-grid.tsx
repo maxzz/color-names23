@@ -19,12 +19,17 @@ function strStringify(obj: object) {
 export function strThemeVarFB(tv: ThemeVarFB) {
     // return `f: ${tv.f ? JSON.stringify(tv.f) : ''}\nb: ${tv.b ? JSON.stringify(tv.b) : ''}`;
 
-    const rv = {
-        ...(tv.f && { f: strStringify(tv.f) }),
-        ...(tv.b && { b: strStringify(tv.b) }),
-    };
+    const f = tv.f ? `f: {${strStringify(tv.f)}}` : '';
+    const b = tv.b ? `b: {${strStringify(tv.b)}}` : '';
+    const rv = [f, b].filter((v) => v).join(',\n    ');
+    return `{\n    ${rv}\n}`;
 
-    return `{\n    ${strStringify(rv)}\n}`;
+    // const rv = {
+    //     ...(tv.f && { f: strStringify(tv.f) }),
+    //     ...(tv.b && { b: strStringify(tv.b) }),
+    // };
+
+    // return `{\n    ${strStringify(rv)}\n}`;
 }
 
 export function strThemeVarFBArr(tv: ThemeVarFB[]) {
