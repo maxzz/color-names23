@@ -25,13 +25,16 @@ export function strThemeVars(tv: /*ThemeVars*/any) {
 }
 
 export function strThemesVars(tv?: /*ThemeVars[]*/any[]) {
+    if (!tv?.length) {
+        return '[]';
+    }
     return (tv || []).map((v) => strThemeVars(v)).join('\n');
 }
 
 export function GroupGrid({ themeVars, idx }: { themeVars: ThemeVars; idx: number; }) {
     const snapThemes = useSnapshot(shadcnAll.themes);
     const snap = snapThemes[idx];
-    //console.log(`---1 store store themeVars.vars = \n${strThemeVarFBArr(themeVars.vars)}`);
+    console.log(`---1 store store themeVars.vars = \n${strThemeVarFBArr(themeVars.vars)}`);
     // console.log(`---2 snapThemes`, JSON.stringify(snapThemes, null, 4));
     console.log(`---3 snap[${idx}]`, strThemeVars(snap));
     if (!snap) {
