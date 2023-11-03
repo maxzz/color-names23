@@ -3,7 +3,7 @@ import { useSnapshot } from "valtio";
 import { ThemeVars, shadcnAll } from "@/store";
 import { HeaderColorValues, HeaderLengthValues } from "./1-headers";
 import { GridRow } from "./4-grid-row";
-import { strThemesVars } from "./9-test-trace";
+import { strThemeVarFBArr, strThemesVars } from "./9-test-trace";
 
 export function GroupGrid({ themeVars, idx }: { themeVars: ThemeVars; idx: number; }) {
     const snapThemes = useSnapshot(shadcnAll.themes);
@@ -24,6 +24,9 @@ export function GroupGrid({ themeVars, idx }: { themeVars: ThemeVars; idx: numbe
             {/* version w/ keys */}
             {snap.vars.length && (<>
                 <HeaderColorValues />
+                {console.log(`%c${strThemeVarFBArr(snap.vars)}`, 'color: green') as any as boolean || null}
+                {console.log(`%c${strThemeVarFBArr(shadcnAll.themes[idx].vars)}`, 'color: limegreen') as any as boolean || null}
+                {console.log(`%c${strThemeVarFBArr(themeVars.vars)}`, 'color: saddlebrown') as any as boolean || null}
                 {snap.vars.map((foreAndBack, idx) => (
                     <Fragment key={`${foreAndBack.b?.id || foreAndBack.f?.id || idx}`}>
                         {console.log({foreAndBack, idx}) as any as boolean || null}
@@ -34,7 +37,7 @@ export function GroupGrid({ themeVars, idx }: { themeVars: ThemeVars; idx: numbe
                     </Fragment>
                 ))}
 
-                <HeaderLengthValues />
+                {/* <HeaderLengthValues />
                 {snap.vars.map((foreAndBack, idx) => (
                     <Fragment key={`${foreAndBack.b?.id || foreAndBack.f?.id || idx}-length`}>
                         {console.log({foreAndBack, idx}, 'length value') as any as boolean || null}
@@ -43,7 +46,7 @@ export function GroupGrid({ themeVars, idx }: { themeVars: ThemeVars; idx: numbe
                             <GridRow foreAndBack={themeVars.vars[idx]} />
                         }
                     </Fragment>
-                ))}
+                ))} */}
             </>)}
 
         </div>

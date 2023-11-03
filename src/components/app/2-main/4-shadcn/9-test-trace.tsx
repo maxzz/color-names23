@@ -25,7 +25,7 @@ export function strThemeVarFB(tv: ThemeVarFB) {
     return `{\n    ${rv}\n}`;
 }
 
-export function strThemeVarFBArr(tv: ThemeVarFB[]) {
+export function strThemeVarFBArr(tv: INTERNAL_Snapshot<ThemeVarFB[]>) {
     return tv.map((v) => strThemeVarFB(v))
         .join(',\n')
         .replaceAll(/},\r?\n\s*{/g, '    }, {');
