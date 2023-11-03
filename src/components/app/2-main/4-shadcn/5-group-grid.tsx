@@ -11,7 +11,9 @@ function strStringify(obj: object) {
                 value = `'${value}`;
             }
             return [key, value];
-        }).join(', ');
+        })
+        .map(([key, value]) => `${key}: ${value}`)
+        .join(', ');
 }
 
 export function strThemeVarFB(tv: ThemeVarFB) {
@@ -22,12 +24,13 @@ export function strThemeVarFB(tv: ThemeVarFB) {
         ...(tv.b && { b: strStringify(tv.b) }),
     };
 
-
-    return `${JSON.stringify(rv, null, 4)}`;
+    return `{\n    ${strStringify(rv)}\n}`;
 }
 
 export function strThemeVarFBArr(tv: ThemeVarFB[]) {
-    return tv.map((v) => strThemeVarFB(v)).join('\n\n');
+    return tv.map((v) => strThemeVarFB(v))
+        .join(',\n')
+        .replaceAll(/},\r?\n\s*{/g, '}, {');
 }
 
 export function strThemeVars(tv: /*ThemeVars*/any) {
@@ -54,7 +57,7 @@ export function GroupGrid({ themeVars, idx }: { themeVars: ThemeVars; idx: numbe
     const snap = snapThemes[idx];
     console.log(`---1 store store themeVars.vars = ${strThemeVarFBArr(themeVars.vars)}`);
     // console.log(`---2 snapThemes`, JSON.stringify(snapThemes, null, 4));
-    console.log(`---3 snap[${idx}]`, strThemeVars(snap));
+    //console.log(`---3 snap[${idx}]`, strThemeVars(snap));
     if (!snap) {
         return null;
     }
