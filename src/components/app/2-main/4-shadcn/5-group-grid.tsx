@@ -26,23 +26,19 @@ export function GroupGrid({ idx }: { idx: number; }) {
     const snap = useSnapshot(shadcnAll.themes)[idx];
     const theRightTheme = shadcnAll.themes[idx];
     const { colors, lengths } = splitColorAndLengths(snap.vars);
-    return (
-        <div className="container mx-auto max-w-xl grid grid-cols-[min-content,minmax(0,12rem),minmax(0,12rem)] place-content-center gap-y-2">
+    return (<>
+        {!!colors.length && (<>
+            <HeaderColorValues />
+            {colors.map(({ key, idx }) => (
+                <GridRow foreAndBack={theRightTheme.vars[idx]} key={key} />
+            ))}
+        </>)}
 
-            {!!colors.length && (<>
-                <HeaderColorValues />
-                {colors.map(({ key, idx }) => (
-                    <GridRow foreAndBack={theRightTheme.vars[idx]} key={key} />
-                ))}
-            </>)}
-
-            {!!lengths.length && (<>
-                <HeaderLengthValues />
-                {lengths.map(({ key, idx }) => (
-                    <GridRow foreAndBack={theRightTheme.vars[idx]} key={key} />
-                ))}
-            </>)}
-
-        </div>
-    );
+        {!!lengths.length && (<>
+            <HeaderLengthValues />
+            {lengths.map(({ key, idx }) => (
+                <GridRow foreAndBack={theRightTheme.vars[idx]} key={key} />
+            ))}
+        </>)}
+    </>);
 }

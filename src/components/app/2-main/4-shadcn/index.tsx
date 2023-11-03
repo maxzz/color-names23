@@ -16,9 +16,11 @@ export function Section4_Chadcn({ className, ...rest }: HTMLAttributes<HTMLDivEl
                 {/* <PickerExample /> */}
             </div>
 
-            {Array(length).fill(0).map((_, idx) => (
-                <GroupGrid idx={idx} key={shadcnAll.themes[idx].themeId} />
-            ))}
+            <div className="container mx-auto max-w-xl grid grid-cols-[min-content,minmax(0,12rem),minmax(0,12rem)] place-content-center gap-y-2">
+                {Array(length).fill(0).map((_, idx) => (
+                    <GroupGrid idx={idx} key={shadcnAll.themes[idx].themeId} />
+                ))}
+            </div>
 
         </div>
     );
