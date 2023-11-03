@@ -1,15 +1,31 @@
 import { Fragment } from "react";
 import { useSnapshot } from "valtio";
-import { ThemeVars, shadcnAll } from "@/store";
+import { ThemeVarFB, ThemeVars, shadcnAll } from "@/store";
 import { HeaderColorValues, HeaderLengthValues } from "./1-headers";
 import { GridRow } from "./4-grid-row";
+
+export function strThemeVarFB(v: ThemeVarFB) {
+    return `f: ${v.f ? JSON.stringify(v.f) : ''}\nb: ${v.b ? JSON.stringify(v.b) : ''}`;
+}
+
+export function strThemeVarFBArr(v: ThemeVarFB[]) {
+    return v.map((v) => strThemeVarFB(v)).join('\n');
+}
+
+export function strThemeVars(v: any) {
+    return JSON.stringify({...v, vars: strThemeVarFBArr(v.vars)}, null, 4);
+}
+
+export function strThemesVars(v?: ThemeVars[]) {
+    return (v || []).map((v) => strThemeVars(v)).join('\n');
+}
 
 export function GroupGrid({ themeVars, idx }: { themeVars: ThemeVars; idx: number }) {
     const snapThemes = useSnapshot(shadcnAll.themes);
     const snap = snapThemes[idx];
-    console.log(`---1 store store themeVars.vars = `, JSON.stringify(themeVars.vars, null, 4));
-    console.log(`---2 snapThemes`, JSON.stringify(snapThemes, null, 4));
-    console.log(`---3 snap[${idx}]`, JSON.stringify(snap, null, 4));
+    console.log(`---1 store store themeVars.vars = \n${strThemeVarFBArr(themeVars.vars)}`);
+    // console.log(`---2 snapThemes`, JSON.stringify(snapThemes, null, 4));
+    console.log(`---3 snap[${idx}]`, strThemeVars(snap));
     if (!snap) {
         return null;
     }
