@@ -1,5 +1,5 @@
 import { CSSProperties, HTMLAttributes, forwardRef, useMemo } from 'react';
-import { HsvaColor, hsvaToHslaString } from '../color-conver';
+import { HsvaColor, hsvaToHslaString } from '../color-convert';
 import { Interaction, Interactive } from './interactive';
 import { Pointer, PointerProps } from './pointer';
 import { classNames } from '@/utils';
