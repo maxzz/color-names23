@@ -1,27 +1,25 @@
-import React, { useMemo } from 'react';
-import { HsvaColor, hsvaToHslaString } from './color-conver';
-import { Interaction, Interactive } from './react-drag-event-interactive';
+import { CSSProperties, HTMLAttributes, forwardRef, useMemo } from 'react';
+import { HsvaColor, hsvaToHslaString } from '../color-conver';
+import { Interaction, Interactive } from './interactive';
 import { Pointer, PointerProps } from './pointer';
 import { classNames } from '@/utils';
 
-export interface SaturationProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
+export type SaturationProps = Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> & {
     prefixCls?: string;
-    /** hsva => `{ h: 0, s: 75, v: 82, a: 1 }` */
-    hsva?: HsvaColor;
+    hsva?: HsvaColor; // hsva => `{ h: 0, s: 75, v: 82, a: 1 }`
     hue?: number;
-    radius?: React.CSSProperties['borderRadius'];
-    /** React Component, Custom pointer component */
-    pointer?: ({ prefixCls, left, top, color }: PointerProps) => JSX.Element;
+    radius?: CSSProperties['borderRadius'];
+    pointer?: ({ prefixCls, left, top, color }: PointerProps) => JSX.Element; // React Component, Custom pointer component/
     onChange?: (newColor: HsvaColor) => void;
 }
 
-const containerStyle: React.CSSProperties = {
+const containerStyle: CSSProperties = {
     width: 200,
     height: 200,
     position: 'relative',
 };
 
-export const Saturation = React.forwardRef<HTMLDivElement, SaturationProps>((props, ref) => {
+export const Saturation = forwardRef<HTMLDivElement, SaturationProps>((props, ref) => {
     const { prefixCls = 'w-color-saturation', radius = 0, pointer, className, hue = 0, style, hsva, onChange, ...rest } = props;
 
     const handleChange = (interaction: Interaction, event: MouseEvent | TouchEvent) => {
@@ -75,4 +73,5 @@ export const Saturation = React.forwardRef<HTMLDivElement, SaturationProps>((pro
         </Interactive>
     );
 });
+
 Saturation.displayName = 'Saturation';
