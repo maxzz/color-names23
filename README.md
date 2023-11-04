@@ -17,3 +17,6 @@ CSS color names selector.
 * [The Lezer Parser System](https://lezer.codemirror.net)
 * [color.js: Give me a color and I'll name it](https://github.com/colorjs/color-namer)
  
+
+* [color-picker](https://github.com/uiwjs/react-color)
+* 
