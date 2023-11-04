@@ -1,26 +1,34 @@
 import { useRef, useState, useCallback, useEffect, HTMLAttributes, forwardRef } from 'react';
 import { isTouch, preventDefaultMove, getRelativePosition, Interaction, useEventCallback } from './react-drag-event-interactive-utils';
 
-export * from './react-drag-event-interactive-utils';
-
 export type InteractiveProps = HTMLAttributes<HTMLDivElement> & {
     prefixCls?: string;
     onMove?: (interaction: Interaction, event: MouseEvent | TouchEvent) => void;
     onDown?: (offset: Interaction, event: MouseEvent | TouchEvent) => void;
 };
 
-export const Interactive = forwardRef<HTMLDivElement, InteractiveProps>((props, ref) => {
-    const { prefixCls = 'w-color-interactive', className, onMove, onDown, ...reset } = props;
+export const Interactive = forwardRef<HTMLDivElement, InteractiveProps>((props, ref) => { //TODO: ref is not used
+    const {
+        prefixCls = 'w-color-interactive',
+        className,
+        onMove,
+        onDown,
+        ...rest
+    } = props;
+
     const container = useRef<HTMLDivElement>(null);
     const hasTouched = useRef(false);
     const [isDragging, setDragging] = useState(false);
+
     const onMoveCallback = useEventCallback<Interaction, MouseEvent | TouchEvent>(onMove);
     const onKeyCallback = useEventCallback<Interaction, MouseEvent | TouchEvent>(onDown);
 
     // Prevent mobile browsers from handling mouse events (conflicting with touch ones).
     // If we detected a touch interaction before, we prefer reacting to touch events only.
     const isValid = (event: MouseEvent | TouchEvent): boolean => {
-        if (hasTouched.current && !isTouch(event)) return false;
+        if (hasTouched.current && !isTouch(event)) {
+            return false;
+        }
         hasTouched.current = isTouch(event);
         return true;
     };
@@ -39,23 +47,25 @@ export const Interactive = forwardRef<HTMLDivElement, InteractiveProps>((props, 
             } else {
                 setDragging(false);
             }
-        },
-        [onMoveCallback],
+        }, [onMoveCallback],
     );
 
     const handleMoveEnd = useCallback(() => setDragging(false), []);
+
     const toggleDocumentEvents = useCallback((state: boolean) => {
-        const toggleEvent = state ? window.addEventListener : window.removeEventListener;
-        toggleEvent(hasTouched.current ? 'touchmove' : 'mousemove', handleMove);
-        toggleEvent(hasTouched.current ? 'touchend' : 'mouseup', handleMoveEnd);
+        const fn = state ? window.addEventListener : window.removeEventListener;
+        fn(hasTouched.current ? 'touchmove' : 'mousemove', handleMove);
+        fn(hasTouched.current ? 'touchend' : 'mouseup', handleMoveEnd);
     }, []);
 
-    useEffect(() => {
-        toggleDocumentEvents(isDragging);
-        return () => {
-            isDragging && toggleDocumentEvents(false);
-        };
-    }, [isDragging, toggleDocumentEvents]);
+    useEffect(
+        () => {
+            toggleDocumentEvents(isDragging);
+            return () => {
+                isDragging && toggleDocumentEvents(false);
+            };
+        }, [isDragging, toggleDocumentEvents]
+    );
 
     const handleMoveStart = useCallback(
         (event: React.MouseEvent | React.TouchEvent) => {
@@ -63,19 +73,15 @@ export const Interactive = forwardRef<HTMLDivElement, InteractiveProps>((props, 
             if (!isValid(event.nativeEvent)) return;
             onKeyCallback && onKeyCallback(getRelativePosition(container.current!, event.nativeEvent), event.nativeEvent);
             setDragging(true);
-        },
-        [onKeyCallback],
+        }, [onKeyCallback],
     );
 
     return (
         <div
-            {...reset}
-            className={[prefixCls, className || ''].filter(Boolean).join(' ')}
-            style={{
-                ...reset.style,
-                touchAction: 'none',
-            }}
             ref={container}
+            {...rest}
+            className={[prefixCls, className || ''].filter(Boolean).join(' ')}
+            style={{ ...rest.style, touchAction: 'none' }}
             tabIndex={0}
             onMouseDown={handleMoveStart}
             onTouchStart={handleMoveStart}

@@ -11,7 +11,7 @@ export type SaturationProps = Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> &
     radius?: CSSProperties['borderRadius'];
     pointer?: ({ prefixCls, left, top, color }: PointerProps) => JSX.Element; // React Component, Custom pointer component/
     onChange?: (newColor: HsvaColor) => void;
-}
+};
 
 const containerStyle: CSSProperties = {
     width: 200,
@@ -20,7 +20,17 @@ const containerStyle: CSSProperties = {
 };
 
 export const Saturation = forwardRef<HTMLDivElement, SaturationProps>((props, ref) => {
-    const { prefixCls = 'w-color-saturation', radius = 0, pointer, className, hue = 0, style, hsva, onChange, ...rest } = props;
+    const {
+        prefixCls = 'w-color-saturation',
+        radius = 0,
+        pointer,
+        className,
+        hue = 0,
+        style,
+        hsva,
+        onChange,
+        ...rest
+    } = props;
 
     const handleChange = (interaction: Interaction, event: MouseEvent | TouchEvent) => {
         hsva && onChange?.({

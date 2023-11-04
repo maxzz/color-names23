@@ -1,5 +1,5 @@
-import { HTMLAttributes, useState } from "react";
-import { classNames } from "@/utils";
+import { HTMLAttributes, useCallback, useState } from "react";
+import { classNames, debounce } from "@/utils";
 import { TopPanel } from "./0-top-panel";
 import { ThemeGrids } from "./6-grids";
 import { PickerExample } from "@/components/ui/shadcn/gradient-color-picker";
@@ -8,14 +8,17 @@ import { HsvaColor, Saturation, hsvaToHex, hsvaToHexa, hsvaToHslaString, hsvaToR
 function SaturationSelector() {
     const [hsvaColor, setHsvaColor] = useState<HsvaColor>({ h: 0, s: 0, v: 0, a: 1 } as HsvaColor);
     const [color, setColor] = useState<string>('');
+    
+    const onColorChange = useCallback(debounce((newColor: HsvaColor) => {
+        console.log('newColor', newColor);
+        setHsvaColor(newColor);
+        setColor(hsvaToHex(newColor));
+    }, 200), []);
+        
     return (<>
         <Saturation
             hsva={hsvaColor}
-            onChange={(newColor: HsvaColor) => {
-                console.log('newColor', newColor);
-                setHsvaColor(newColor);
-                setColor(hsvaToHex(newColor));
-            }}
+            onChange={onColorChange}
         />
 
         <div className="flex items-center space-x-2">
