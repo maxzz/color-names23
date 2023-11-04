@@ -1,5 +1,4 @@
-import { hexToRgba } from './color-conver-index';
-import { ObjectColor } from './color-conver-index';
+import { ObjectColor, hexToRgba } from "./convert";
 
 export function equalColorObjects(first: ObjectColor, second: ObjectColor): boolean {
     if (first === second) {

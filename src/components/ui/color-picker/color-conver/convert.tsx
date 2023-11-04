@@ -1,7 +1,4 @@
-import { validHex } from './color-convert-utils';
-
-export * from './color-convert-utils';
-export * from './color-convert-getContrastingColor';
+import { validHex } from './utils';
 
 const RGB_MAX = 255;
 const HUE_MAX = 360;

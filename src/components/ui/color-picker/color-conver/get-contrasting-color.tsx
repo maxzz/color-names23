@@ -1,4 +1,4 @@
-import { HsvaColor, color } from './color-conver-index';
+import { HsvaColor, color } from "./convert";
 
 export function getContrastingColor(str: string | HsvaColor) {
     if (!str) {

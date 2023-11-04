@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { HsvaColor, hsvaToHslaString } from './color-convert';
+import { HsvaColor, hsvaToHslaString } from './color-conver';
 import { Interaction, Interactive } from './react-drag-event-interactive';
 import { Pointer, PointerProps } from './pointer';
 import { classNames } from '@/utils';
