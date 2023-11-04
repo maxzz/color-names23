@@ -14,7 +14,7 @@ export interface SaturationProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   onChange?: (newColor: HsvaColor) => void;
 }
 
-const Saturation = React.forwardRef<HTMLDivElement, SaturationProps>((props, ref) => {
+export const Saturation = React.forwardRef<HTMLDivElement, SaturationProps>((props, ref) => {
   const { prefixCls = 'w-color-saturation', radius = 0, pointer, className, hue = 0, style, hsva, onChange, ...other } = props;
   const containerStyle: React.CSSProperties = {
     width: 200,
@@ -70,7 +70,4 @@ const Saturation = React.forwardRef<HTMLDivElement, SaturationProps>((props, ref
     </Interactive>
   );
 });
-
 Saturation.displayName = 'Saturation';
-
-export default Saturation;
