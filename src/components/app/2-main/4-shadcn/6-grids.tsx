@@ -1,4 +1,3 @@
-import { HTMLAttributes } from "react";
 import { useSnapshot } from "valtio";
 import { shadcnAll } from "@/store";
 import { GroupGrid } from "./5-group-grid";

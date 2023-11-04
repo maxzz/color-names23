@@ -1,6 +1,6 @@
 import { INTERNAL_Snapshot, useSnapshot } from "valtio";
 import { ThemeVarFB, shadcnAll } from "@/store";
-import { HeaderColorValues, HeaderLengthValues } from "./1-headers";
+import { HeaderColorValues, HeaderLengthValues } from "./1-grid-headers";
 import { GridRow } from "./4-grid-row";
 
 type SplitItems = { idx: number; key: number | string; };
