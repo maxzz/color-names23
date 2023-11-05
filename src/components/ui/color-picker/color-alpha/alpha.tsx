@@ -16,8 +16,8 @@ export interface AlphaProps extends Omit<React.HTMLAttributes<HTMLDivElement>, '
 }
 
 // this is checkboard pattern. see 'src/assets/tests/checkboard.png'
-// export const BACKGROUND_IMG =
-//     'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMUlEQVQ4T2NkYGAQYcAP3uCTZhw1gGGYhAGBZIA/nYDCgBDAm9BGDWAAJyRCgLaBCAAgXwixzAS0pgAAAABJRU5ErkJggg==';
+export const BACKGROUND_IMG =
+    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMUlEQVQ4T2NkYGAQYcAP3uCTZhw1gGGYhAGBZIA/nYDCgBDAm9BGDWAAJyRCgLaBCAAgXwixzAS0pgAAAABJRU5ErkJggg==';
 
 export const alphaBackgroundGradient = (isVertical: boolean, colorTo: string) => `linear-gradient(to ${isVertical ? 'bottom' : 'right'}, rgba(244, 67, 54, 0) 0%, ${colorTo} 100%)`
 
@@ -38,9 +38,6 @@ export const Alpha = React.forwardRef<HTMLDivElement, AlphaProps>((props, ref) =
         ...rest
     } = props;
 
-    console.log('Alpha re-render', hsv);
-    
-
     const isVertical = direction !== 'horizontal';
     const colorTo = hsvaToHslaString({...hsv, a: 1});
 
@@ -49,7 +46,7 @@ export const Alpha = React.forwardRef<HTMLDivElement, AlphaProps>((props, ref) =
         '--alpha-background-color': '#fff',
         '--alpha-pointer-background-color': 'rgb(248, 248, 248)',
         '--alpha-pointer-box-shadow': 'rgb(0 0 0 / 37%) 0px 1px 4px 0px',
-        //background: `url(${BACKGROUND_IMG}) left center`,
+        background: `url(${BACKGROUND_IMG}) left center`,
         backgroundColor: 'var(--alpha-background-color)',
         // borderRadius: radius,
         ...style,

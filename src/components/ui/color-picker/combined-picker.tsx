@@ -21,11 +21,24 @@ function AlphaView() {
     const snap = useSnapshot(colorPickerState);
     const { h, s, v } = snap.hsvaColor;
     return (
-        <Alpha className="w-80 h-8 border-foreground border" hsv={{ h, s, v }} onChange={(newAlpha) => colorPickerState.hsvaColor.a = newAlpha}>
+        <Alpha className="w-80 h-8 border-foreground border" hsv={{ h, s, v }} onChange={(newAlpha) => {
+            colorPickerState.hsvaColor.a = newAlpha;
+            colorPickerState.hexaColor = hsvaToHexa(colorPickerState.hsvaColor);
+        }}>
             <PointerCircleAlpha />
         </Alpha>
     );
 }
+
+// function AlphaView() {
+//     const snap = useSnapshot(colorPickerState);
+//     const { h, s, v } = snap.hsvaColor;
+//     return (
+//         <Alpha className="w-80 h-8 border-foreground border" hsv={{ h, s, v }} onChange={(newAlpha) => colorPickerState.hsvaColor.a = newAlpha}>
+//             <PointerCircleAlpha />
+//         </Alpha>
+//     );
+// }
 
 export function SaturationSelector() {
     const snap = useSnapshot(colorPickerState);
