@@ -1,15 +1,14 @@
-import { CSSProperties, HTMLAttributes, forwardRef, useMemo } from 'react';
-import { HsvaColor, hsvaToHslaString } from '../color-convert';
-import { Interaction, Interactive } from './interactive';
-import { Pointer, PointerProps, PointerView } from './pointer';
+import { CSSProperties, HTMLAttributes, forwardRef } from 'react';
+import { HsvaColor } from '../color-convert';
+import { Interaction, Interactive } from './react-drag-event-interactive';
+import { PointerProps, PointerView } from './pointer';
 import { classNames } from '@/utils';
 
 export type SaturationProps = Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> & {
-    prefixCls?: string;
     hsva?: HsvaColor; // hsva => `{ h: 0, s: 75, v: 82, a: 1 }`
     hue?: number;
     radius?: CSSProperties['borderRadius'];
-    pointer?: ({ prefixCls, left, top, color }: PointerProps) => JSX.Element; // React Component, Custom pointer component
+    pointer?: ({ left, top, color }: PointerProps) => JSX.Element; // React Component, Custom pointer component
     onChange?: (newColor: HsvaColor) => void;
 };
 
@@ -21,7 +20,6 @@ const containerStyle: CSSProperties = {
 
 export const Saturation = forwardRef<HTMLDivElement, SaturationProps>((props, ref) => {
     const {
-        prefixCls = 'w-color-saturation',
         radius = 0,
         pointer,
         className,
@@ -45,7 +43,7 @@ export const Saturation = forwardRef<HTMLDivElement, SaturationProps>((props, re
     return (
         <Interactive
             ref={ref}
-            className={classNames(prefixCls, className)}
+            className={classNames('w-color-saturation', className)}
             style={{
                 position: 'absolute',
                 inset: 0,
@@ -59,7 +57,7 @@ export const Saturation = forwardRef<HTMLDivElement, SaturationProps>((props, re
             onDown={handleChange}
             {...rest}
         >
-            <PointerView hsva={hsva} pointer={pointer} prefixCls={prefixCls} />
+            <PointerView hsva={hsva} pointer={pointer} prefixCls={'w-color-saturation'} />
         </Interactive>
     );
 });

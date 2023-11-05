@@ -1,13 +1,12 @@
 import { CSSProperties, HTMLAttributes } from 'react';
 
 export interface PointerProps extends HTMLAttributes<HTMLDivElement> {
-    prefixCls?: string;
     left?: string;
     top?: string;
     fillProps?: HTMLAttributes<HTMLDivElement>;
 }
 
-export const Pointer = ({ className, prefixCls, left, top, style, fillProps, ...rest }: PointerProps): JSX.Element => {
+export const Pointer = ({ className, left, top, style, fillProps, ...rest }: PointerProps): JSX.Element => {
     const styleWrapper: CSSProperties = {
         position: 'absolute',
         left,
@@ -27,8 +26,16 @@ export const Pointer = ({ className, prefixCls, left, top, style, fillProps, ...
     } as CSSProperties;
 
     return (
-        <div className={`${prefixCls}-pointer ${className || ''}`} style={styleWrapper} {...rest}>
-            <div className={`${prefixCls}-fill`} {...fillProps} style={stylePointer} />
+        <div
+            className={`interactive-pointer ${className || ''}`}
+            style={styleWrapper}
+            {...rest}
+        >
+            <div
+                className={`interactive-fill`}
+                {...fillProps}
+                style={stylePointer}
+            />
         </div>
     );
 };
