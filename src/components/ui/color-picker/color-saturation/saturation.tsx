@@ -10,7 +10,7 @@ export type SaturationProps =
     & Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>;
 
 const containerStyle: CSSProperties = {
-    width: 200,
+    width: 400,
     height: 200,
     position: 'relative',
 };
@@ -39,7 +39,7 @@ export const Saturation = forwardRef<HTMLDivElement, SaturationProps>((props, re
     return (
         <Interactive
             ref={ref}
-            className="border-foreground border overflow-hidden"
+            className="relative border-foreground border overflow-hidden"
             style={{
                 position: 'absolute',
                 inset: 0,

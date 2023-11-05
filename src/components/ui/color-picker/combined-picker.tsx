@@ -27,9 +27,18 @@ export function SaturationSelector() {
     //     }, 50), []
     // );
     const onColorChange = useCallback((newColor: HsvaColor) => {
+        const hexCurrent = hsvaToHex(snap.hsvaColor);
+        const hexNew = hsvaToHex(newColor);
+        console.log('compare', hexCurrent, hexNew);
+        if (hexCurrent === hexNew) {
+            console.log('the same', hexCurrent, hexNew);
+            
+            return;
+        }
+
         console.log('newColor', hsvaToHex(newColor), newColor);
         colorPickerState.hsvaColor = newColor;
-    }, []
+    }, [snap.hsvaColor]
     );
 
     console.log('SaturationSelector re-render');
