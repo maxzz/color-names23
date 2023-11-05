@@ -1,12 +1,11 @@
-import { CSSProperties, HTMLAttributes, forwardRef } from 'react';
+import { CSSProperties, Children, HTMLAttributes, forwardRef } from 'react';
 import { HsvaColor } from '../color-convert';
 import { Interaction, Interactive } from './react-drag-event-interactive';
 import { PointerProps, PointerView } from './pointer';
 import { classNames } from '@/utils';
 
 export type SaturationProps = Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> & {
-    hsva?: HsvaColor; // hsva => `{ h: 0, s: 75, v: 82, a: 1 }`
-    hue?: number;
+    hue: number;
     radius?: CSSProperties['borderRadius'];
     pointer?: ({ left, top, color }: PointerProps) => JSX.Element; // React Component, Custom pointer component
     onChange?: (newColor: HsvaColor) => void;
@@ -23,19 +22,19 @@ export const Saturation = forwardRef<HTMLDivElement, SaturationProps>((props, re
         radius = 0,
         pointer,
         className,
-        hue = 0,
+        hue,
         style,
-        hsva,
         onChange,
+        children,
         ...rest
     } = props;
 
     const handleChange = (interaction: Interaction, event: MouseEvent | TouchEvent) => {
-        hsva && onChange?.({
-            h: hsva.h,
+        onChange?.({
+            h: hue,
             s: interaction.left * 100,
             v: (1 - interaction.top) * 100,
-            a: hsva.a,
+            a: 1, // alpha controlled from outside
             // source: 'hsv',
         });
     };
@@ -48,7 +47,7 @@ export const Saturation = forwardRef<HTMLDivElement, SaturationProps>((props, re
                 position: 'absolute',
                 inset: 0,
                 cursor: 'crosshair',
-                backgroundImage: `linear-gradient(0deg, #000, transparent), linear-gradient(90deg, #fff, hsl(${hsva?.h ?? hue}, 100%, 50%))`,
+                backgroundImage: `linear-gradient(0deg, #000, transparent), linear-gradient(90deg, #fff, hsl(${hue}, 100%, 50%))`,
                 ...containerStyle,
                 borderRadius: radius,
                 ...style,
@@ -57,7 +56,7 @@ export const Saturation = forwardRef<HTMLDivElement, SaturationProps>((props, re
             onDown={handleChange}
             {...rest}
         >
-            <PointerView hsva={hsva} pointer={pointer} prefixCls={'w-color-saturation'} />
+            {children}
         </Interactive>
     );
 });

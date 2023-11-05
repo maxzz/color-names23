@@ -1,7 +1,7 @@
 import { HsvaColor, hsvaToHslaString } from "../../color-convert";
 import { Pointer, PointerProps } from "./default-pointer";
 
-export function PointerView({ hsva, pointer}: { hsva?: HsvaColor; pointer?: ({ left, top, color }: PointerProps) => JSX.Element; prefixCls?: string; }) {
+export function PointerView({ hsva, pointer}: { hsva?: HsvaColor; pointer?: ({ left, top, color }: PointerProps) => JSX.Element; }) {
     if (!hsva) {
         return null;
     }

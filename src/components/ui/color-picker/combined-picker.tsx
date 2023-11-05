@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import { Saturation } from "./color-saturation";
 import { HsvaColor, hsvaToHex } from "./color-convert";
 import { debounce } from "@/utils";
+import { PointerView } from "./color-saturation/pointer";
 
 export function SaturationSelector() {
     const [hsvaColor, setHsvaColor] = useState<HsvaColor>({ h: 0, s: 0, v: 0, a: 1 } as HsvaColor);
@@ -17,9 +18,11 @@ export function SaturationSelector() {
 
     return (<>
         <Saturation
-            hsva={hsvaColor}
+            hue={hsvaColor.h}
             onChange={onColorChange}
-        />
+        >
+            <PointerView hsva={hsvaColor} />
+        </Saturation>
 
         <div className="flex items-center space-x-2">
             <div className="w-4 h-4" style={{ background: color }}></div>
