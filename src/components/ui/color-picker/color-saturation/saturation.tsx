@@ -34,6 +34,8 @@ export const Saturation = forwardRef<HTMLDivElement, SaturationProps>((props, re
         });
     };
 
+    console.log('Saturation re-render');
+
     return (
         <Interactive
             ref={ref}

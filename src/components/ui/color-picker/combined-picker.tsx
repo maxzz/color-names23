@@ -2,31 +2,39 @@ import { useState, useCallback } from "react";
 import { Saturation } from "./color-saturation";
 import { HsvaColor, hsvaToHex } from "./color-convert";
 import { debounce } from "@/utils";
-import { PointerView } from "./color-saturation/pointer";
+import { PointerCircle } from "./color-saturation/pointer";
+import { useSnapshot } from "valtio";
+import { colorPickerState } from "./ui-state";
+
+function ColorNumbers() {
+    const snap = useSnapshot(colorPickerState);
+    const color = hsvaToHex(snap.hsvaColor);
+    return (
+        <div className="flex items-center space-x-2">
+            <div className="w-4 h-4" style={{ background: color }}></div>
+            <div className="">{color}</div>
+        </div>
+    );
+}
 
 export function SaturationSelector() {
-    const [hsvaColor, setHsvaColor] = useState<HsvaColor>({ h: 0, s: 0, v: 0, a: 1 } as HsvaColor);
-    const [color, setColor] = useState<string>('');
+    const snap = useSnapshot(colorPickerState);
 
     const onColorChange = useCallback(
         debounce((newColor: HsvaColor) => {
             console.log('newColor', newColor);
-            setHsvaColor(newColor);
-            setColor(hsvaToHex(newColor));
+            colorPickerState.hsvaColor = newColor;
         }, 200), []
     );
 
     return (<>
         <Saturation
-            hue={hsvaColor.h}
+            hue={snap.hsvaColor.h}
             onChange={onColorChange}
         >
-            <PointerView hsva={hsvaColor} />
+            <PointerCircle />
         </Saturation>
 
-        <div className="flex items-center space-x-2">
-            <div className="w-4 h-4" style={{ background: color }}></div>
-            <div className="">{color}</div>
-        </div>
+        <ColorNumbers />
     </>);
 }
