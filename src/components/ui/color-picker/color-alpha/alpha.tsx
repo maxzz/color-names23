@@ -1,17 +1,17 @@
-import React, { CSSProperties, FC, memo, useCallback, useMemo } from 'react';
-import { HsvaColor, hsvaToHslaString } from '../color-convert';
+import React, { CSSProperties } from 'react';
+import { HsvColor, hsvaToHslaString } from '../color-convert';
 import { Interactive, Interaction } from '../color-saturation';
 
 export interface AlphaProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
-    hsva: HsvaColor;                                    // hsva => `{ h: 0, s: 75, v: 82, a: 1 }`
+    hsv: HsvColor;                                    // hsva => `{ h: 0, s: 75, v: 82, a: 1 }`
     onChange?: (newAlpha: number, offset: Interaction) => void;
 
     // width?: React.CSSProperties['width'];               // String, Pixel value for picker width. Default `316px`
     // height?: React.CSSProperties['height'];             // String, Pixel value for picker height. Default `16px`
-    radius?: React.CSSProperties['borderRadius'];       // Set rounded corners.
-    background?: string;                                // Set the background color.
-    bgProps?: React.HTMLAttributes<HTMLDivElement>;     // Set the background element props.
-    innerProps?: React.HTMLAttributes<HTMLDivElement>;  // Set the interactive element props.
+    // radius?: React.CSSProperties['borderRadius'];       // Set rounded corners.
+    // background?: string;                                // Set the background color.
+    // bgProps?: React.HTMLAttributes<HTMLDivElement>;     // Set the background element props.
+    // innerProps?: React.HTMLAttributes<HTMLDivElement>;  // Set the interactive element props.
     direction?: 'vertical' | 'horizontal';
 }
 
@@ -23,14 +23,14 @@ export const alphaBackgroundGradient = (isVertical: boolean, colorTo: string) =>
 
 export const Alpha = React.forwardRef<HTMLDivElement, AlphaProps>((props, ref) => {
     const {
-        hsva,
+        hsv,
         onChange,
         children,
 
-        background,
-        bgProps = {},
-        innerProps = {},
-        radius = 0,
+        // background,
+        // bgProps = {},
+        // innerProps = {},
+        // radius = 0,
         // width,
         // height = 16,
         direction = 'horizontal',
@@ -38,8 +38,11 @@ export const Alpha = React.forwardRef<HTMLDivElement, AlphaProps>((props, ref) =
         ...rest
     } = props;
 
+    console.log('Alpha re-render', hsv);
+    
+
     const isVertical = direction !== 'horizontal';
-    const colorTo = hsvaToHslaString(Object.assign({}, hsva, { a: 1 }));
+    const colorTo = hsvaToHslaString({...hsv, a: 1});
 
     const styleWrapper = {
         position: 'relative',
@@ -48,7 +51,7 @@ export const Alpha = React.forwardRef<HTMLDivElement, AlphaProps>((props, ref) =
         '--alpha-pointer-box-shadow': 'rgb(0 0 0 / 37%) 0px 1px 4px 0px',
         //background: `url(${BACKGROUND_IMG}) left center`,
         backgroundColor: 'var(--alpha-background-color)',
-        borderRadius: radius,
+        // borderRadius: radius,
         ...style,
         // ...{ width, height },
     } as CSSProperties;
@@ -63,23 +66,23 @@ export const Alpha = React.forwardRef<HTMLDivElement, AlphaProps>((props, ref) =
                 style={{
                     inset: 0,
                     position: 'absolute',
-                    background: background || alphaBackgroundGradient(isVertical, colorTo),
-                    borderRadius: radius,
-                    ...bgProps.style,
+                    background: alphaBackgroundGradient(isVertical, colorTo),
+                    // borderRadius: radius,
+                    // ...bgProps.style,
                 }}
-                {...bgProps}
+                // {...bgProps}
             />
 
             <Interactive
                 style={{
-                    ...innerProps.style,
+                    // ...innerProps.style,
                     inset: 0,
                     zIndex: 1,
                     position: 'absolute',
                 }}
                 onMove={handleChange}
                 onDown={handleChange}
-                {...innerProps}
+                // {...innerProps}
             >
                 {children}
             </Interactive>

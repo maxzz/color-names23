@@ -19,8 +19,9 @@ function ColorNumbers() {
 
 function AlphaView() {
     const snap = useSnapshot(colorPickerState);
+    const { h, s, v } = snap.hsvaColor;
     return (
-        <Alpha className="w-80 h-8 border-foreground border" hsva={snap.hsvaColor} onChange={(newAlpha) => colorPickerState.hsvaColor.a = newAlpha}>
+        <Alpha className="w-80 h-8 border-foreground border" hsv={{ h, s, v }} onChange={(newAlpha) => colorPickerState.hsvaColor.a = newAlpha}>
             <PointerCircleAlpha />
         </Alpha>
     );
@@ -29,14 +30,15 @@ function AlphaView() {
 export function SaturationSelector() {
     const snap = useSnapshot(colorPickerState);
 
-    const onColorChange = useCallback((newColor: HsvaColor) => {
-        const hexaNew = hsvaToHexa(newColor);
-        if (colorPickerState.hexaColor === hexaNew) {
-            return;
-        }
-        colorPickerState.hsvaColor = newColor;
-        colorPickerState.hexaColor = hexaNew;
-    }, [snap.hsvaColor]
+    const onColorChange = useCallback(
+        (newColor: HsvaColor) => {
+            const hexaNew = hsvaToHexa(newColor);
+            if (colorPickerState.hexaColor === hexaNew) {
+                return;
+            }
+            colorPickerState.hsvaColor = newColor;
+            colorPickerState.hexaColor = hexaNew;
+        }, [snap.hsvaColor]
     );
 
     console.log('SaturationSelector re-render');

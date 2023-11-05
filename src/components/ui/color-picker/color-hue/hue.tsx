@@ -33,7 +33,7 @@ export const Hue = React.forwardRef<HTMLDivElement, HueProps>((props, ref) => {
             className={`${prefixCls} ${className || ''}`}
             direction={direction}
             background={bkgGradient(direction)}
-            hsva={{ h: hue, s: 100, v: 100, a: hue / 360 }}
+            hsv={{ h: hue, s: 100, v: 100, a: hue / 360 }}
             onChange={(_, interaction) => {
                 onChange?.({ h: direction === 'horizontal' ? 360 * interaction.left : 360 * interaction.top });
             }}
