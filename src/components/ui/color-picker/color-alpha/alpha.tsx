@@ -5,25 +5,16 @@ import { Pointer, PointerProps } from '../color-saturation/Pointer';
 
 export interface AlphaProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
     prefixCls?: string;
-    /** String, Pixel value for picker width. Default `316px` */
-    width?: React.CSSProperties['width'];
-    /** String, Pixel value for picker height. Default `16px` */
-    height?: React.CSSProperties['height'];
-    /** hsva => `{ h: 0, s: 75, v: 82, a: 1 }` */
-    hsva: HsvaColor;
-    /** React Component, Custom pointer component */
-    pointer?: (props: PointerProps) => JSX.Element;
-    /** Set rounded corners. */
-    radius?: React.CSSProperties['borderRadius'];
-    /** Set the background color. */
-    background?: string;
-    /** Set the background element props. */
-    bgProps?: React.HTMLAttributes<HTMLDivElement>;
-    /** Set the interactive element props. */
-    innerProps?: React.HTMLAttributes<HTMLDivElement>;
+    width?: React.CSSProperties['width'];               // String, Pixel value for picker width. Default `316px`
+    height?: React.CSSProperties['height'];             // String, Pixel value for picker height. Default `16px`
+    hsva: HsvaColor;                                    // hsva => `{ h: 0, s: 75, v: 82, a: 1 }`
+    pointer?: (props: PointerProps) => JSX.Element;     // React Component, Custom pointer component
+    radius?: React.CSSProperties['borderRadius'];       // Set rounded corners.
+    background?: string;                                // Set the background color.
+    bgProps?: React.HTMLAttributes<HTMLDivElement>;     // Set the background element props.
+    innerProps?: React.HTMLAttributes<HTMLDivElement>;  // Set the interactive element props.
     pointerProps?: PointerProps;
-    /** String Enum, horizontal or vertical. Default `horizontal` */
-    direction?: 'vertical' | 'horizontal';
+    direction?: 'vertical' | 'horizontal';              // String Enum, horizontal or vertical. Default `horizontal`
     onChange?: (newAlpha: { a: number; }, offset: Interaction) => void;
 }
 
@@ -46,22 +37,23 @@ export const Alpha = React.forwardRef<HTMLDivElement, AlphaProps>((props, ref) =
         style,
         onChange,
         pointer,
-        ...other
+        ...rest
     } = props;
 
     const handleChange = (offset: Interaction) => {
-        onChange && onChange({ ...hsva, a: direction === 'horizontal' ? offset.left : offset.top }, offset);
+        onChange?.({ ...hsva, a: direction === 'horizontal' ? offset.left : offset.top }, offset);
     };
 
     const colorTo = hsvaToHslaString(Object.assign({}, hsva, { a: 1 }));
-    const innerBackground = `linear-gradient(to ${direction === 'horizontal' ? 'right' : 'bottom'
-        }, rgba(244, 67, 54, 0) 0%, ${colorTo} 100%)`;
+    const innerBackground = `linear-gradient(to ${direction === 'horizontal' ? 'right' : 'bottom'}, rgba(244, 67, 54, 0) 0%, ${colorTo} 100%)`;
     const comProps: { left?: string; top?: string; } = {};
+
     if (direction === 'horizontal') {
         comProps.left = `${hsva.a * 100}%`;
     } else {
         comProps.top = `${hsva.a * 100}%`;
     }
+
     const styleWrapper = {
         '--alpha-background-color': '#fff',
         '--alpha-pointer-background-color': 'rgb(248, 248, 248)',
@@ -74,22 +66,22 @@ export const Alpha = React.forwardRef<HTMLDivElement, AlphaProps>((props, ref) =
         ...{ width, height },
     } as CSSProperties;
 
-    const pointerElement =
-        pointer && typeof pointer === 'function' ? (
+    const pointerElement = typeof pointer === 'function'
+        ? (
             pointer({ prefixCls, ...pointerProps, ...comProps })
-        ) : (
+        )
+        : (
             <Pointer {...pointerProps} prefixCls={prefixCls} {...comProps} />
         );
 
     return (
         <div
-            {...other}
+            ref={ref}
             className={[prefixCls, `${prefixCls}-${direction}`, className || ''].filter(Boolean).join(' ')}
             style={styleWrapper}
-            ref={ref}
+            {...rest}
         >
             <div
-                {...bgProps}
                 style={{
                     inset: 0,
                     position: 'absolute',
@@ -97,9 +89,9 @@ export const Alpha = React.forwardRef<HTMLDivElement, AlphaProps>((props, ref) =
                     borderRadius: radius,
                     ...bgProps.style,
                 }}
+                {...bgProps}
             />
             <Interactive
-                {...innerProps}
                 style={{
                     ...innerProps.style,
                     inset: 0,
@@ -108,6 +100,7 @@ export const Alpha = React.forwardRef<HTMLDivElement, AlphaProps>((props, ref) =
                 }}
                 onMove={handleChange}
                 onDown={handleChange}
+                {...innerProps}
             >
                 {pointerElement}
             </Interactive>
