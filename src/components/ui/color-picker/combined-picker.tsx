@@ -20,12 +20,19 @@ function ColorNumbers() {
 export function SaturationSelector() {
     const snap = useSnapshot(colorPickerState);
 
-    const onColorChange = useCallback(
-        debounce((newColor: HsvaColor) => {
-            console.log('newColor', newColor);
-            colorPickerState.hsvaColor = newColor;
-        }, 200), []
+    // const onColorChange = useCallback(
+    //     debounce((newColor: HsvaColor) => {
+    //         console.log('newColor', newColor);
+    //         colorPickerState.hsvaColor = newColor;
+    //     }, 50), []
+    // );
+    const onColorChange = useCallback((newColor: HsvaColor) => {
+        console.log('newColor', newColor);
+        colorPickerState.hsvaColor = newColor;
+    }, []
     );
+
+    console.log('SaturationSelector re-render');
 
     return (<>
         <Saturation
