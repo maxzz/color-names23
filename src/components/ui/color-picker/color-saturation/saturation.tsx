@@ -1,15 +1,13 @@
-import { CSSProperties, Children, HTMLAttributes, forwardRef } from 'react';
+import { CSSProperties, HTMLAttributes, forwardRef } from 'react';
 import { HsvaColor } from '../color-convert';
 import { Interaction, Interactive } from './react-drag-event-interactive';
-import { PointerProps, PointerView } from './pointer';
-import { classNames } from '@/utils';
 
-export type SaturationProps = Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> & {
-    hue: number;
-    radius?: CSSProperties['borderRadius'];
-    pointer?: ({ left, top, color }: PointerProps) => JSX.Element; // React Component, Custom pointer component
-    onChange?: (newColor: HsvaColor) => void;
-};
+export type SaturationProps =
+    & {
+        hue: number;
+        onChange?: (newColor: HsvaColor) => void;
+    }
+    & Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>;
 
 const containerStyle: CSSProperties = {
     width: 200,
@@ -19,9 +17,6 @@ const containerStyle: CSSProperties = {
 
 export const Saturation = forwardRef<HTMLDivElement, SaturationProps>((props, ref) => {
     const {
-        radius = 0,
-        pointer,
-        className,
         hue,
         style,
         onChange,
@@ -42,14 +37,13 @@ export const Saturation = forwardRef<HTMLDivElement, SaturationProps>((props, re
     return (
         <Interactive
             ref={ref}
-            className={classNames('w-color-saturation', className)}
+            className="border-foreground border overflow-hidden"
             style={{
                 position: 'absolute',
                 inset: 0,
                 cursor: 'crosshair',
                 backgroundImage: `linear-gradient(0deg, #000, transparent), linear-gradient(90deg, #fff, hsl(${hue}, 100%, 50%))`,
                 ...containerStyle,
-                borderRadius: radius,
                 ...style,
             }}
             onMove={handleChange}

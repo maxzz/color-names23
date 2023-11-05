@@ -1,7 +1,9 @@
 import { HsvaColor, hsvaToHslaString } from "../../color-convert";
-import { Pointer, PointerProps } from "./default-pointer";
+import { DefaultPointer, PointerProps } from "./default-pointer";
 
-export function PointerView({ hsva, pointer}: { hsva?: HsvaColor; pointer?: ({ left, top, color }: PointerProps) => JSX.Element; }) {
+export type PointerType = ({ left, top, color }: PointerProps) => JSX.Element; // React Component, Custom pointer component
+
+export function PointerView({ hsva, pointer }: { hsva?: HsvaColor; pointer?: PointerType; }) {
     if (!hsva) {
         return null;
     }
@@ -13,10 +15,10 @@ export function PointerView({ hsva, pointer}: { hsva?: HsvaColor; pointer?: ({ l
     };
 
     if (typeof pointer === 'function') {
-        return pointer({ ...comProps });
+        return pointer(comProps);
     }
 
     return (
-        <Pointer {...comProps} />
+        <DefaultPointer {...comProps} />
     );
 }

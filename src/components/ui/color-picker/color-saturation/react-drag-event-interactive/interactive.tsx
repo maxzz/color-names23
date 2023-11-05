@@ -2,22 +2,26 @@ import { useRef, useState, useCallback, useEffect, HTMLAttributes, forwardRef } 
 import { isTouch, preventDefaultMove, getRelativePosition, Interaction, useEventCallback } from './utils';
 import { mergeRefs } from '@/utils';
 
-export type InteractiveProps = HTMLAttributes<HTMLDivElement> & {
-    onMove?: (interaction: Interaction, event: MouseEvent | TouchEvent) => void;
-    onDown?: (offset: Interaction, event: MouseEvent | TouchEvent) => void;
-};
+export type NativePoinerEvent = MouseEvent | TouchEvent;
+
+export type InteractiveProps =
+    & {
+        onMove?: (interaction: Interaction, event: NativePoinerEvent) => void;
+        onDown?: (offset: Interaction, event: NativePoinerEvent) => void;
+    }
+    & HTMLAttributes<HTMLDivElement>;
 
 export const Interactive = forwardRef<HTMLDivElement, InteractiveProps>((props, ref) => {
-    const { onMove, onDown, ...rest } = props;
+    const { onMove, onDown, style, ...rest } = props;
 
-    const onMoveCallback = useEventCallback<Interaction, MouseEvent | TouchEvent>(onMove);
-    const onKeyCallback = useEventCallback<Interaction, MouseEvent | TouchEvent>(onDown);
+    const onMoveCallback = useEventCallback<Interaction, NativePoinerEvent>(onMove);
+    const onKeyCallback = useEventCallback<Interaction, NativePoinerEvent>(onDown);
 
     const container = useRef<HTMLDivElement>(null);
     const hasTouched = useRef(false);
     const [isDragging, setDragging] = useState(false);
 
-    const isValid = (event: MouseEvent | TouchEvent): boolean => {
+    const isValid = (event: NativePoinerEvent): boolean => {
         // Prevent mobile browsers from handling mouse events (conflicting with touch ones).
         // If we detected a touch interaction before, we prefer reacting to touch events only.
         if (hasTouched.current && !isTouch(event)) {
@@ -28,7 +32,7 @@ export const Interactive = forwardRef<HTMLDivElement, InteractiveProps>((props, 
     };
 
     const handleMove = useCallback(
-        (event: MouseEvent | TouchEvent) => {
+        (event: NativePoinerEvent) => {
             preventDefaultMove(event);
 
             // If user moves the pointer outside of the window or iframe bounds and release it there,
@@ -81,7 +85,7 @@ export const Interactive = forwardRef<HTMLDivElement, InteractiveProps>((props, 
     return (
         <div
             ref={mergeRefs([container, ref])}
-            style={{ ...rest.style, touchAction: 'none' }}
+            style={{ ...style, touchAction: 'none' }}
             tabIndex={0}
             onMouseDown={handleMoveStart}
             onTouchStart={handleMoveStart}

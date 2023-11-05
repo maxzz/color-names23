@@ -1,13 +1,19 @@
 import { CSSProperties, HTMLAttributes } from 'react';
 
-export interface PointerProps extends HTMLAttributes<HTMLDivElement> {
-    left?: string;
-    top?: string;
-    fillProps?: HTMLAttributes<HTMLDivElement>;
-}
+export type PointerProps =
+    & {
+        left?: string;  //TODO: this is used as boolean
+        top?: string;   //TODO: top is not used
+        fillProps?: HTMLAttributes<HTMLDivElement>;
+    }
+    & HTMLAttributes<HTMLDivElement>;
 
-export const Pointer = ({ className, left, top, style, fillProps, ...rest }: PointerProps): JSX.Element => {
-    const styleWrapper: CSSProperties = {
+const pointerShadow = 'rgb(255 255 255) 0px 0px 0px 1.5px, rgb(0 0 0 / 30%) 0px 0px 1px 1px inset, rgb(0 0 0 / 40%) 0px 0px 1px 2px';
+
+// controlled by --alpha-pointer-background-color
+
+export function DefaultPointer({ left, top, style, fillProps, ...rest }: PointerProps) {
+    const allStyles: CSSProperties = {
         position: 'absolute',
         left,
         top,
@@ -15,27 +21,20 @@ export const Pointer = ({ className, left, top, style, fillProps, ...rest }: Poi
     };
 
     const stylePointer = {
-        width: 18,
-        height: 18,
-        transform: left ? 'translate(-9px, -1px)' : 'translate(-1px, -9px)',
+        width: '18px',
+        height: '18px',
+        transform: left ? 'translate(-9px, -9px)' : 'translate(-9px, -9px)',
         borderRadius: '50%',
-        '--saturation-pointer-box-shadow': 'rgb(255 255 255) 0px 0px 0px 1.5px, rgb(0 0 0 / 30%) 0px 0px 1px 1px inset, rgb(0 0 0 / 40%) 0px 0px 1px 2px',
+
         backgroundColor: 'var(--alpha-pointer-background-color)',
         boxShadow: 'var(--alpha-pointer-box-shadow)',
+        '--alpha-pointer-box-shadow': pointerShadow,
         ...fillProps?.style,
     } as CSSProperties;
 
     return (
-        <div
-            className={`interactive-pointer ${className || ''}`}
-            style={styleWrapper}
-            {...rest}
-        >
-            <div
-                className={`interactive-fill`}
-                {...fillProps}
-                style={stylePointer}
-            />
+        <div style={allStyles} {...rest}>
+            <div style={stylePointer} {...fillProps} />
         </div>
     );
-};
+}
