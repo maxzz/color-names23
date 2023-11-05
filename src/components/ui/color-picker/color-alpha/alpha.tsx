@@ -15,12 +15,18 @@ export interface AlphaProps extends Omit<React.HTMLAttributes<HTMLDivElement>, '
     direction?: 'vertical' | 'horizontal';
 }
 
-export const BACKGROUND_IMG =
-    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMUlEQVQ4T2NkYGAQYcAP3uCTZhw1gGGYhAGBZIA/nYDCgBDAm9BGDWAAJyRCgLaBCAAgXwixzAS0pgAAAABJRU5ErkJggg==';
+// this is checkboard pattern. see 'src/assets/tests/checkboard.png'
+// export const BACKGROUND_IMG =
+//     'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMUlEQVQ4T2NkYGAQYcAP3uCTZhw1gGGYhAGBZIA/nYDCgBDAm9BGDWAAJyRCgLaBCAAgXwixzAS0pgAAAABJRU5ErkJggg==';
+
+export const alphaBackgroundGradient = (isVertical: boolean, colorTo: string) => `linear-gradient(to ${isVertical ? 'bottom' : 'right'}, rgba(244, 67, 54, 0) 0%, ${colorTo} 100%)`
 
 export const Alpha = React.forwardRef<HTMLDivElement, AlphaProps>((props, ref) => {
     const {
         hsva,
+        onChange,
+        children,
+
         background,
         bgProps = {},
         innerProps = {},
@@ -29,29 +35,27 @@ export const Alpha = React.forwardRef<HTMLDivElement, AlphaProps>((props, ref) =
         // height = 16,
         direction = 'horizontal',
         style,
-        onChange,
-        children,
         ...rest
     } = props;
 
-    function handleChange(offset: Interaction) {
-        onChange?.(direction === 'horizontal' ? offset.left : offset.top, offset);
-    }
-
+    const isVertical = direction !== 'horizontal';
     const colorTo = hsvaToHslaString(Object.assign({}, hsva, { a: 1 }));
-    const innerBackground = `linear-gradient(to ${direction === 'horizontal' ? 'right' : 'bottom'}, rgba(244, 67, 54, 0) 0%, ${colorTo} 100%)`;
 
     const styleWrapper = {
         position: 'relative',
         '--alpha-background-color': '#fff',
         '--alpha-pointer-background-color': 'rgb(248, 248, 248)',
         '--alpha-pointer-box-shadow': 'rgb(0 0 0 / 37%) 0px 1px 4px 0px',
-        background: `url(${BACKGROUND_IMG}) left center`,
+        //background: `url(${BACKGROUND_IMG}) left center`,
         backgroundColor: 'var(--alpha-background-color)',
         borderRadius: radius,
         ...style,
         // ...{ width, height },
     } as CSSProperties;
+
+    function handleChange(offset: Interaction) {
+        onChange?.(isVertical ? offset.top : offset.left, offset);
+    }
 
     return (
         <div ref={ref} style={styleWrapper} {...rest}>
@@ -59,7 +63,7 @@ export const Alpha = React.forwardRef<HTMLDivElement, AlphaProps>((props, ref) =
                 style={{
                     inset: 0,
                     position: 'absolute',
-                    background: background || innerBackground,
+                    background: background || alphaBackgroundGradient(isVertical, colorTo),
                     borderRadius: radius,
                     ...bgProps.style,
                 }}
