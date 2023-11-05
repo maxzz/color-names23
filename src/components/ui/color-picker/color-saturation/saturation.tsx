@@ -1,7 +1,7 @@
 import { CSSProperties, HTMLAttributes, forwardRef, useMemo } from 'react';
 import { HsvaColor, hsvaToHslaString } from '../color-convert';
 import { Interaction, Interactive } from './interactive';
-import { Pointer, PointerProps } from './pointer';
+import { Pointer, PointerProps, PointerView } from './pointer';
 import { classNames } from '@/utils';
 
 export type SaturationProps = Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> & {
@@ -18,24 +18,6 @@ const containerStyle: CSSProperties = {
     height: 200,
     position: 'relative',
 };
-
-function PointerView({ hsva, pointer, prefixCls }: { hsva?: HsvaColor; pointer?: ({ prefixCls, left, top, color }: PointerProps) => JSX.Element; prefixCls?: string; }) {
-    if (!hsva) return null;
-
-    const comProps = {
-        top: `${100 - hsva.v}%`,
-        left: `${hsva.s}%`,
-        color: hsvaToHslaString(hsva),
-    };
-
-    if (pointer && typeof pointer === 'function') {
-        return pointer({ prefixCls, ...comProps });
-    }
-
-    return (
-        <Pointer prefixCls={prefixCls} {...comProps} />
-    );
-}
 
 export const Saturation = forwardRef<HTMLDivElement, SaturationProps>((props, ref) => {
     const {
@@ -60,26 +42,6 @@ export const Saturation = forwardRef<HTMLDivElement, SaturationProps>((props, re
         });
     };
 
-    // const pointerElement = useMemo(
-    //     () => {
-    //         if (!hsva) return null;
-
-    //         const comProps = {
-    //             top: `${100 - hsva.v}%`,
-    //             left: `${hsva.s}%`,
-    //             color: hsvaToHslaString(hsva),
-    //         };
-
-    //         if (pointer && typeof pointer === 'function') {
-    //             return pointer({ prefixCls, ...comProps });
-    //         }
-
-    //         return (
-    //             <Pointer prefixCls={prefixCls} {...comProps} />
-    //         );
-    //     }, [hsva, pointer, prefixCls]
-    // );
-
     return (
         <Interactive
             ref={ref}
@@ -97,7 +59,6 @@ export const Saturation = forwardRef<HTMLDivElement, SaturationProps>((props, re
             onDown={handleChange}
             {...rest}
         >
-            {/* {pointerElement} */}
             <PointerView hsva={hsva} pointer={pointer} prefixCls={prefixCls} />
         </Interactive>
     );
