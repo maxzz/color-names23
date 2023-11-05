@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 import { Saturation } from "./color-saturation";
 import { HsvaColor, hsvaToHex } from "./color-convert";
 import { debounce } from "@/utils";
@@ -27,7 +27,7 @@ export function SaturationSelector() {
     //     }, 50), []
     // );
     const onColorChange = useCallback((newColor: HsvaColor) => {
-        console.log('newColor', newColor);
+        console.log('newColor', hsvaToHex(newColor), newColor);
         colorPickerState.hsvaColor = newColor;
     }, []
     );
