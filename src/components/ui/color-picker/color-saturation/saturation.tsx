@@ -10,8 +10,8 @@ export type SaturationProps =
     & Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>;
 
 const containerStyle: CSSProperties = {
-    width: 400,
-    height: 200,
+    // width: 400,
+    // height: 200,
     position: 'relative',
 };
 
@@ -41,7 +41,7 @@ export const Saturation = forwardRef<HTMLDivElement, SaturationProps>((props, re
             ref={ref}
             className="relative border-foreground border overflow-hidden"
             style={{
-                position: 'absolute',
+                // position: 'absolute',
                 inset: 0,
                 cursor: 'crosshair',
                 backgroundImage: `linear-gradient(0deg, #000, transparent), linear-gradient(90deg, #fff, hsl(${hue}, 100%, 50%))`,

@@ -1,21 +1,18 @@
 import React, { CSSProperties, FC, memo, useCallback, useMemo } from 'react';
 import { HsvaColor, hsvaToHslaString } from '../color-convert';
 import { Interactive, Interaction } from '../color-saturation';
-import { Pointer, PointerProps } from '../color-saturation/Pointer';
 
 export interface AlphaProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
-    prefixCls?: string;
-    width?: React.CSSProperties['width'];               // String, Pixel value for picker width. Default `316px`
-    height?: React.CSSProperties['height'];             // String, Pixel value for picker height. Default `16px`
     hsva: HsvaColor;                                    // hsva => `{ h: 0, s: 75, v: 82, a: 1 }`
-    pointer?: (props: PointerProps) => JSX.Element;     // React Component, Custom pointer component
+    onChange?: (newAlpha: number, offset: Interaction) => void;
+
+    // width?: React.CSSProperties['width'];               // String, Pixel value for picker width. Default `316px`
+    // height?: React.CSSProperties['height'];             // String, Pixel value for picker height. Default `16px`
     radius?: React.CSSProperties['borderRadius'];       // Set rounded corners.
     background?: string;                                // Set the background color.
     bgProps?: React.HTMLAttributes<HTMLDivElement>;     // Set the background element props.
     innerProps?: React.HTMLAttributes<HTMLDivElement>;  // Set the interactive element props.
-    pointerProps?: PointerProps;
-    direction?: 'vertical' | 'horizontal';              // String Enum, horizontal or vertical. Default `horizontal`
-    onChange?: (newAlpha: { a: number; }, offset: Interaction) => void;
+    direction?: 'vertical' | 'horizontal';
 }
 
 export const BACKGROUND_IMG =
@@ -23,64 +20,41 @@ export const BACKGROUND_IMG =
 
 export const Alpha = React.forwardRef<HTMLDivElement, AlphaProps>((props, ref) => {
     const {
-        prefixCls = 'w-color-alpha',
-        className,
         hsva,
         background,
         bgProps = {},
         innerProps = {},
-        pointerProps = {},
         radius = 0,
-        width,
-        height = 16,
+        // width,
+        // height = 16,
         direction = 'horizontal',
         style,
         onChange,
-        pointer,
+        children,
         ...rest
     } = props;
 
-    const handleChange = (offset: Interaction) => {
-        onChange?.({ ...hsva, a: direction === 'horizontal' ? offset.left : offset.top }, offset);
-    };
+    function handleChange(offset: Interaction) {
+        onChange?.(direction === 'horizontal' ? offset.left : offset.top, offset);
+    }
 
     const colorTo = hsvaToHslaString(Object.assign({}, hsva, { a: 1 }));
     const innerBackground = `linear-gradient(to ${direction === 'horizontal' ? 'right' : 'bottom'}, rgba(244, 67, 54, 0) 0%, ${colorTo} 100%)`;
-    const comProps: { left?: string; top?: string; } = {};
-
-    if (direction === 'horizontal') {
-        comProps.left = `${hsva.a * 100}%`;
-    } else {
-        comProps.top = `${hsva.a * 100}%`;
-    }
 
     const styleWrapper = {
+        position: 'relative',
         '--alpha-background-color': '#fff',
         '--alpha-pointer-background-color': 'rgb(248, 248, 248)',
         '--alpha-pointer-box-shadow': 'rgb(0 0 0 / 37%) 0px 1px 4px 0px',
-        borderRadius: radius,
         background: `url(${BACKGROUND_IMG}) left center`,
         backgroundColor: 'var(--alpha-background-color)',
+        borderRadius: radius,
         ...style,
-        position: 'relative',
-        ...{ width, height },
+        // ...{ width, height },
     } as CSSProperties;
 
-    const pointerElement = typeof pointer === 'function'
-        ? (
-            pointer({ prefixCls, ...pointerProps, ...comProps })
-        )
-        : (
-            <Pointer {...pointerProps} prefixCls={prefixCls} {...comProps} />
-        );
-
     return (
-        <div
-            ref={ref}
-            className={[prefixCls, `${prefixCls}-${direction}`, className || ''].filter(Boolean).join(' ')}
-            style={styleWrapper}
-            {...rest}
-        >
+        <div ref={ref} style={styleWrapper} {...rest}>
             <div
                 style={{
                     inset: 0,
@@ -91,6 +65,7 @@ export const Alpha = React.forwardRef<HTMLDivElement, AlphaProps>((props, ref) =
                 }}
                 {...bgProps}
             />
+
             <Interactive
                 style={{
                     ...innerProps.style,
@@ -102,7 +77,7 @@ export const Alpha = React.forwardRef<HTMLDivElement, AlphaProps>((props, ref) =
                 onDown={handleChange}
                 {...innerProps}
             >
-                {pointerElement}
+                {children}
             </Interactive>
         </div>
     );

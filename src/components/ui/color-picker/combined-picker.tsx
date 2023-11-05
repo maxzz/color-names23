@@ -4,6 +4,7 @@ import { HsvaColor, hsvaToHex, hsvaToHexa } from "./color-convert";
 import { PointerCircle } from "./color-saturation/pointer";
 import { useSnapshot } from "valtio";
 import { colorPickerState } from "./ui-state";
+import { Alpha, PointerCircleAlpha } from "./color-alpha";
 
 function ColorNumbers() {
     const snap = useSnapshot(colorPickerState);
@@ -13,6 +14,15 @@ function ColorNumbers() {
             <div className="w-4 h-4" style={{ background: hexa }}></div>
             <div className="">{hexa}</div>
         </div>
+    );
+}
+
+function AlphaView() {
+    const snap = useSnapshot(colorPickerState);
+    return (
+        <Alpha className="w-80 h-8 border-foreground border" hsva={snap.hsvaColor} onChange={(newAlpha) => colorPickerState.hsvaColor.a = newAlpha}>
+            <PointerCircleAlpha />
+        </Alpha>
     );
 }
 
@@ -32,12 +42,17 @@ export function SaturationSelector() {
     console.log('SaturationSelector re-render');
 
     return (<>
-        <Saturation
-            hue={snap.hsvaColor.h}
-            onChange={onColorChange}
-        >
-            <PointerCircle />
-        </Saturation>
+        <div className="grid gap-y-2">
+            <Saturation
+                className="w-80 h-52 border-foreground border"
+                hue={snap.hsvaColor.h}
+                onChange={onColorChange}
+            >
+                <PointerCircle />
+            </Saturation>
+
+            <AlphaView />
+        </div>
 
         <ColorNumbers />
     </>);
