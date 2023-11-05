@@ -1,17 +1,17 @@
 import { useCallback } from "react";
 import { Saturation } from "./color-saturation";
-import { HsvaColor, hsvaToHex } from "./color-convert";
+import { HsvaColor, hsvaToHex, hsvaToHexa } from "./color-convert";
 import { PointerCircle } from "./color-saturation/pointer";
 import { useSnapshot } from "valtio";
 import { colorPickerState } from "./ui-state";
 
 function ColorNumbers() {
     const snap = useSnapshot(colorPickerState);
-    const color = snap.hexColor;
+    const hexa = snap.hexaColor; //TODO: don't show alpha if it's 1
     return (
         <div className="flex items-center space-x-2">
-            <div className="w-4 h-4" style={{ background: color }}></div>
-            <div className="">{color}</div>
+            <div className="w-4 h-4" style={{ background: hexa }}></div>
+            <div className="">{hexa}</div>
         </div>
     );
 }
@@ -20,12 +20,12 @@ export function SaturationSelector() {
     const snap = useSnapshot(colorPickerState);
 
     const onColorChange = useCallback((newColor: HsvaColor) => {
-        const hexNew = hsvaToHex(newColor);
-        if (colorPickerState.hexColor === hexNew) {
+        const hexaNew = hsvaToHexa(newColor);
+        if (colorPickerState.hexaColor === hexaNew) {
             return;
         }
         colorPickerState.hsvaColor = newColor;
-        colorPickerState.hexColor = hexNew;
+        colorPickerState.hexaColor = hexaNew;
     }, [snap.hsvaColor]
     );
 
