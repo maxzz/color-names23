@@ -25,7 +25,7 @@ export function DefaultPointer({ left, top, style, fillProps, ...rest }: Pointer
     const stylePointer = {
         width: '18px',
         height: '18px',
-        transform: left ? 'translate(-9px, -9px)' : 'translate(-9px, -9px)',
+        transform: left ? 'translate(-9px, -1px)' : 'translate(-1px, -9px)',
         borderRadius: '50%',
 
         backgroundColor: 'var(--alpha-pointer-background-color)',
