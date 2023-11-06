@@ -1,4 +1,4 @@
-import React from 'react';
+import { forwardRef } from 'react';
 import { Alpha, AlphaProps } from '../view-alpha';
 
 export type HueProps =
@@ -18,26 +18,14 @@ rgb(0, 0, 255) 67%, \
 rgb(255, 0, 255) 83%, \
 rgb(255, 0, 0) 100%)`;
 
-export const Hue = React.forwardRef<HTMLDivElement, HueProps>((props, ref) => {
-    const {
-        hue,
-        onChange,
-        isVertical,
-        ...rest
-    } = props;
+export const Hue = forwardRef<HTMLDivElement, HueProps>(({ hue, onChange, isVertical, ...rest }, ref) => {
     return (
         <Alpha
             ref={ref}
-            isVertical={isVertical}
-            background={bkgGradient(isVertical)}
-            // hsv={{ h: hue, s: 100, v: 100, a: hue / 360 }}
             hsv={{ h: hue, s: 100, v: 100 }}
-
-            onChange={(_, interaction) => {
-                //console.log('hue handleChange', interaction.left);
-                onChange?.(Math.round(isVertical ? 360 * interaction.top : 360 * interaction.left));
-            }}
-
+            onChange={(_, interaction) => onChange?.(Math.round(isVertical ? 360 * interaction.top : 360 * interaction.left))}
+            background={bkgGradient(isVertical)}
+            isVertical={isVertical}
             {...rest}
         />
     );
