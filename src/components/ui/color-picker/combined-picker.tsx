@@ -5,8 +5,9 @@ import { PointerCircle } from "./color-saturation/pointer";
 import { useSnapshot } from "valtio";
 import { colorPickerState } from "./ui-state";
 import { Alpha, PointerCircleAlpha } from "./color-alpha";
+import { Hue } from "./color-hue";
 
-function ColorNumbers() {
+function ColorNumbersDisplay() {
     const snap = useSnapshot(colorPickerState);
     const hexa = snap.hexaColor; //TODO: don't show alpha if it's 1
     return (
@@ -20,31 +21,11 @@ function ColorNumbers() {
 function AlphaView() {
     const snap = useSnapshot(colorPickerState);
     const { h, s, v } = snap.hsvaColor;
-    return (
-        <Alpha className="w-80 h-8 border-foreground border" hsv={{ h, s, v }} onChange={(newAlpha) => {
-            colorPickerState.hsvaColor.a = newAlpha;
-            colorPickerState.hexaColor = hsvaToHexa(colorPickerState.hsvaColor);
-        }}>
-            <PointerCircleAlpha />
-        </Alpha>
-    );
-}
 
-// function AlphaView() {
-//     const snap = useSnapshot(colorPickerState);
-//     const { h, s, v } = snap.hsvaColor;
-//     return (
-//         <Alpha className="w-80 h-8 border-foreground border" hsv={{ h, s, v }} onChange={(newAlpha) => colorPickerState.hsvaColor.a = newAlpha}>
-//             <PointerCircleAlpha />
-//         </Alpha>
-//     );
-// }
-
-export function SaturationSelector() {
-    const snap = useSnapshot(colorPickerState);
-
-    const onColorChange = useCallback(
-        (newColor: HsvaColor) => {
+    const onAlphaChange = useCallback(
+        (newAlpha: number) => {
+            const { h, s, v } = colorPickerState.hsvaColor;
+            const newColor: HsvaColor = { h, s, v, a: newAlpha };
             const hexaNew = hsvaToHexa(newColor);
             if (colorPickerState.hexaColor === hexaNew) {
                 return;
@@ -54,21 +35,88 @@ export function SaturationSelector() {
         }, [snap.hsvaColor]
     );
 
-    console.log('SaturationSelector re-render');
+    return (
+        <Alpha
+            className="w-80 h-8 border-foreground border"
+            hsv={{ h, s, v }}
+            onChange={onAlphaChange}
+        >
+            <PointerCircleAlpha />
+        </Alpha>
+    );
+}
 
+function HueView() {
+    const snap = useSnapshot(colorPickerState);
+    const { h } = snap.hsvaColor;
+
+    const onHueChange = useCallback(
+        (newHue: number) => {
+            //console.log('new Hue', newHue);
+
+            newHue = Math.round(newHue)
+
+            const { h, s, v, a } = colorPickerState.hsvaColor;
+            
+            
+            
+
+            if (colorPickerState.hsvaColor.h === newHue) {
+                //console.log('hexaNew', hexaNew, colorPickerState.hexaColor);
+                return;
+            }
+            const newColor: HsvaColor = { h: Math.round(newHue), s, v, a };
+            const hexaNew = hsvaToHexa(newColor);
+            console.log('newColor', hexaNew, newColor);
+            
+            colorPickerState.hsvaColor = newColor;
+            colorPickerState.hexaColor = hexaNew;
+        }, [snap.hsvaColor]
+    );
+
+    return (
+        <Hue
+            className="w-80 h-8 border-foreground border"
+            hue={h}
+            onChange={onHueChange}
+        >
+            <PointerCircleAlpha />
+        </Hue>
+    );
+}
+
+function SaturationView() {
+    const snap = useSnapshot(colorPickerState);
+
+    const onSaturationValueChange = useCallback(
+        (newColor: HsvaColor) => {
+            const hexaNew = hsvaToHexa(newColor);
+            if (colorPickerState.hexaColor === hexaNew) {
+                return;
+            }
+            colorPickerState.hsvaColor = newColor;
+            colorPickerState.hexaColor = hexaNew;
+        }, [snap.hsvaColor]
+    );
+    return (
+        <Saturation
+            className="w-80 h-52 border-foreground border"
+            hue={snap.hsvaColor.h}
+            onChange={onSaturationValueChange}
+        >
+            <PointerCircle />
+        </Saturation>
+    );
+}
+
+export function SaturationSelector() {
     return (<>
         <div className="grid gap-y-2">
-            <Saturation
-                className="w-80 h-52 border-foreground border"
-                hue={snap.hsvaColor.h}
-                onChange={onColorChange}
-            >
-                <PointerCircle />
-            </Saturation>
-
+            <SaturationView />
+            <HueView />
             <AlphaView />
         </div>
 
-        <ColorNumbers />
+        <ColorNumbersDisplay />
     </>);
 }
