@@ -41,7 +41,7 @@ function AlphaView() {
             hsv={{ h, s, v }}
             onChange={onAlphaChange}
         >
-            <PointerCircleAlpha value={a} />
+            <PointerCircleAlpha value={a * 100} />
         </Alpha>
     );
 }
@@ -53,13 +53,13 @@ function HueView() {
     const onHueChange = useCallback(
         (newHue: number) => {
             if (colorPickerState.hsvaColor.h === newHue) {
-                console.log('hexaNew', colorPickerState.hsvaColor);
                 return;
             }
             colorPickerState.hsvaColor.h = newHue;
             const hexaNew = hsvaToHexa(colorPickerState.hsvaColor);
             colorPickerState.hexaColor = hexaNew;
-            //console.log('newColor', hexaNew, colorPickerState.hsvaColor);
+            
+            console.log('hexaNew', colorPickerState.hsvaColor);
         }, [snap.hsvaColor]
     );
 
@@ -69,7 +69,7 @@ function HueView() {
             hue={h}
             onChange={onHueChange}
         >
-            <PointerCircleAlpha value={h} />
+            <PointerCircleAlpha value={(h / 360) * 100} />
         </Hue>
     );
 }
