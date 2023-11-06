@@ -1,4 +1,4 @@
-import { DefaultPointer, PointerProps } from "../color-saturation";
+import { DefaultPointer, PointerProps } from "../view-saturation";
 
 export type PointerType = ({ left, top, color }: PointerProps) => JSX.Element; // React Component, Custom pointer component
 

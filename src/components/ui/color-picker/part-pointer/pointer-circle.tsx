@@ -1,7 +1,7 @@
 import { useSnapshot } from "valtio";
-import { hsvaToHslaString } from "../../color-convert";
+import { hsvaToHslaString } from "../color-convert";
 import { DefaultPointer, PointerProps } from "./default-pointer";
-import { colorPickerState } from "../../ui-state";
+import { colorPickerState } from "../ui-state";
 
 export type PointerType = ({ left, top, color }: PointerProps) => JSX.Element; // React Component, Custom pointer component
 

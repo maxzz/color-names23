@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alpha, AlphaProps } from '../color-alpha';
+import { Alpha, AlphaProps } from '../view-alpha';
 
 export type HueProps =
     & {

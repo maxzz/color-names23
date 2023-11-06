@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 import { HsvColor, hsvaToHslaString } from '../color-convert';
-import { Interactive, Interaction } from '../color-saturation';
+import { Interactive, Interaction } from '../view-saturation';
 
 export interface AlphaProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
     hsv: HsvColor;                                    // hsva => `{ h: 0, s: 75, v: 82, a: 1 }`

@@ -1,6 +1,6 @@
 import { CSSProperties, HTMLAttributes, forwardRef } from 'react';
 import { HsvaColor } from '../color-convert';
-import { Interaction, Interactive } from './react-drag-event-interactive';
+import { Interaction, Interactive } from '../part-interactive';
 
 export type SaturationProps =
     & {

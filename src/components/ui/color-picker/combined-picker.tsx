@@ -1,11 +1,11 @@
 import { useCallback } from "react";
-import { Saturation } from "./color-saturation";
+import { Saturation } from "./view-saturation";
 import { HsvaColor, hsvaToHex, hsvaToHexa } from "./color-convert";
-import { PointerCircle } from "./color-saturation/pointer";
+import { PointerCircle } from "./part-pointer";
 import { useSnapshot } from "valtio";
 import { colorPickerState } from "./ui-state";
-import { Alpha, PointerCircleAlpha } from "./color-alpha";
-import { Hue } from "./color-hue";
+import { Alpha, PointerCircleAlpha } from "./view-alpha";
+import { Hue } from "./view-hue";
 
 function ColorNumbersDisplay() {
     const snap = useSnapshot(colorPickerState);
