@@ -22,7 +22,7 @@ function AlphaView({ className, ...rest }: Omit<HTMLAttributes<HTMLDivElement>, 
 
     return (
         <Alpha
-            className={classNames("w-56 h-6 border-foreground border", className)}
+            className={classNames("w-full h-5 border-foreground border", className)}
             hsv={{ h, s, v }}
             onChange={onAlphaChange}
             {...rest}
@@ -46,7 +46,7 @@ function HueView({ className, ...rest }: Omit<HTMLAttributes<HTMLDivElement>, 'o
 
     return (
         <Hue
-            className={classNames("w-56 h-6 border-foreground border", className)}
+            className={classNames("w-full h-5 border-foreground border", className)}
             hue={h}
             onChange={onHueChange}
             {...rest}
@@ -70,21 +70,13 @@ function SaturationView({ className, ...rest }: Omit<HTMLAttributes<HTMLDivEleme
 
     return (
         <Saturation
-            className={classNames("w-56 h-52 border-foreground border", className)}
+            className={classNames("w-full h-52 border-foreground border overflow-hidden cursor-crosshair", className)}
             hue={snap.hsvaColor.h}
             onChange={onSaturationValueChange}
             {...rest}
         >
             <PointerCircle />
         </Saturation>
-    );
-}
-
-function ColorDisplay() {
-    const snap = useSnapshot(colorPickerState);
-    const hexa = hsvaToHex(snap.hsvaColor);
-    return (
-        <div className="w-8 h-8 rounded-full" style={{ background: hexa }}></div>
     );
 }
 
@@ -99,15 +91,30 @@ function ColorNumbersDisplay() {
     );
 }
 
+function ColorDisplay({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
+    const snap = useSnapshot(colorPickerState);
+    const hexa = hsvaToHex(snap.hsvaColor);
+    return (
+        <div
+            className={classNames("w-10 h-10 ring-muted-foreground/50 ring-1 rounded-full cursor-pointer active:scale-[.97]", className)}
+            style={{ background: hexa }}
+            onClick={() => navigator.clipboard.writeText(hexa)}
+            {...rest}
+        />
+    );
+}
+
 export function SaturationSelector() {
     return (<>
-        <div className="p-2 inline-block bg-muted">
-            <div className="grid grid-cols-2 gap-y-1">
-                <SaturationView />
+        <div className="w-56 inline-block bg-muted rounded">
+            <div className="grid grid-cols-[auto,1fr] gap-y-1">
+                <SaturationView className="col-span-2" />
 
-                <ColorDisplay />
+                <div className="p-2 grid place-items-center">
+                    <ColorDisplay />
+                </div>
 
-                <div className="grid gap-y-1">
+                <div className="pl-4 pr-6 grid">
                     <HueView />
                     <AlphaView />
                 </div>

@@ -20,6 +20,8 @@ export function DefaultPointer({ left, top, style, fillProps, ...rest }: Pointer
         ...style,
     };
 
+    const { style: styleFill, ...restFill } = fillProps || {};
+
     const stylePointer = {
         width: '18px',
         height: '18px',
@@ -29,12 +31,12 @@ export function DefaultPointer({ left, top, style, fillProps, ...rest }: Pointer
         backgroundColor: 'var(--alpha-pointer-background-color)',
         boxShadow: 'var(--alpha-pointer-box-shadow)',
         '--alpha-pointer-box-shadow': pointerShadow,
-        ...fillProps?.style,
+        ...styleFill,
     } as CSSProperties;
 
     return (
         <div style={allStyles} {...rest}>
-            <div style={stylePointer} {...fillProps} />
+            <div style={stylePointer} {...restFill} />
         </div>
     );
 }

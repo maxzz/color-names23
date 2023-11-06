@@ -32,7 +32,7 @@ export const Saturation = forwardRef<HTMLDivElement, SaturationProps>((props, re
     return (
         <Interactive
             ref={ref}
-            className={classNames("relative border-foreground border overflow-hidden cursor-crosshair", className)}
+            className={classNames("relative", className)}
             style={{ backgroundImage: bgGradient(hue), ...style }}
             onMove={handleChange}
             onDown={handleChange}
