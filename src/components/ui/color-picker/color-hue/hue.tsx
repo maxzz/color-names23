@@ -35,7 +35,7 @@ export const Hue = React.forwardRef<HTMLDivElement, HueProps>((props, ref) => {
 
             onChange={(_, interaction) => {
                 //console.log('hue handleChange', interaction.left);
-                onChange?.(isVertical ? 360 * interaction.top : 360 * interaction.left);
+                onChange?.(Math.round(isVertical ? 360 * interaction.top : 360 * interaction.left));
             }}
 
             {...rest}

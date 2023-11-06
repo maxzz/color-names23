@@ -74,10 +74,10 @@ export const Alpha = React.forwardRef<HTMLDivElement, AlphaProps>((props, ref) =
 
             <Interactive
                 style={{
-                    // ...innerProps.style,
+                    position: 'absolute',
                     inset: 0,
                     zIndex: 1,
-                    position: 'absolute',
+                    // ...innerProps.style,
                 }}
                 onMove={handleChange}
                 onDown={handleChange}

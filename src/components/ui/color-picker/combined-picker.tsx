@@ -20,7 +20,7 @@ function ColorNumbersDisplay() {
 
 function AlphaView() {
     const snap = useSnapshot(colorPickerState);
-    const { h, s, v } = snap.hsvaColor;
+    const { h, s, v, a } = snap.hsvaColor;
 
     const onAlphaChange = useCallback(
         (newAlpha: number) => {
@@ -41,7 +41,7 @@ function AlphaView() {
             hsv={{ h, s, v }}
             onChange={onAlphaChange}
         >
-            <PointerCircleAlpha />
+            <PointerCircleAlpha value={a} />
         </Alpha>
     );
 }
@@ -52,25 +52,14 @@ function HueView() {
 
     const onHueChange = useCallback(
         (newHue: number) => {
-            //console.log('new Hue', newHue);
-
-            newHue = Math.round(newHue)
-
-            const { h, s, v, a } = colorPickerState.hsvaColor;
-            
-            
-            
-
             if (colorPickerState.hsvaColor.h === newHue) {
-                //console.log('hexaNew', hexaNew, colorPickerState.hexaColor);
+                console.log('hexaNew', colorPickerState.hsvaColor);
                 return;
             }
-            const newColor: HsvaColor = { h: Math.round(newHue), s, v, a };
-            const hexaNew = hsvaToHexa(newColor);
-            console.log('newColor', hexaNew, newColor);
-            
-            colorPickerState.hsvaColor = newColor;
+            colorPickerState.hsvaColor.h = newHue;
+            const hexaNew = hsvaToHexa(colorPickerState.hsvaColor);
             colorPickerState.hexaColor = hexaNew;
+            //console.log('newColor', hexaNew, colorPickerState.hsvaColor);
         }, [snap.hsvaColor]
     );
 
@@ -80,7 +69,7 @@ function HueView() {
             hue={h}
             onChange={onHueChange}
         >
-            <PointerCircleAlpha />
+            <PointerCircleAlpha value={h} />
         </Hue>
     );
 }
