@@ -3,7 +3,7 @@ import { useSnapshot } from "valtio";
 import { Saturation } from "./view-saturation";
 import { Alpha } from "./view-alpha";
 import { Hue } from "./view-hue";
-import { PointerOverBox, PointerOverLine } from "./part-pointer";
+import { PointerOverBox, PointerOverLine, checkerBoardImg } from "./part-pointer";
 import { colorPickerState } from "./ui-state";
 import { hsvaToHex, hsvaToHexa } from "./color-convert";
 import { classNames } from "@/utils";
@@ -93,11 +93,11 @@ function ColorNumbersDisplay() {
 
 function ColorDisplay({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     const snap = useSnapshot(colorPickerState);
-    const hexa = hsvaToHex(snap.hsvaColor);
+    const hexa = snap.hsvaColor.a === 1 ? hsvaToHex(snap.hsvaColor) : hsvaToHexa(snap.hsvaColor);
     return (
         <div
             className={classNames("w-10 h-10 ring-muted-foreground/50 ring-1 rounded-full cursor-pointer active:scale-[.97]", className)}
-            style={{ background: hexa }}
+            style={{ backgroundImage: `url(${checkerBoardImg})`, backgroundPosition: 'left center', backgroundColor: hexa, }}
             onClick={() => navigator.clipboard.writeText(hexa)}
             {...rest}
         />

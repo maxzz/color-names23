@@ -1,5 +1,5 @@
 import { useSnapshot } from "valtio";
-import { DefaultPointer } from "./default-pointer";
+import { DefaultPointer, pointerShadow } from "./default-pointer";
 import { hsvaToHslaString } from "../color-convert";
 import { colorPickerState } from "../ui-state";
 import { HTMLAttributes } from "react";
@@ -10,6 +10,7 @@ const circleFillProps = (isVerical: boolean | undefined): HTMLAttributes<HTMLDiv
         height: '18px',
         transform: isVerical ? 'translate(-9px, -9px)' : 'translate(-9px, -9px)',
         borderRadius: '50%',
+        '--alpha-pointer-box-shadow': pointerShadow,
     },
 });
 

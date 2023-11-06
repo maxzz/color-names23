@@ -2,6 +2,11 @@ import { CSSProperties, HTMLAttributes } from 'react';
 
 // export type PointerType = ({ left, top, color }: PointerProps) => JSX.Element; // React Component, Custom pointer component
 
+export const pointerShadow = 'rgb(255 255 255) 0px 0px 0px 1.5px, rgb(0 0 0 / 30%) 0px 0px 1px 1px inset, rgb(0 0 0 / 40%) 0px 0px 1px 2px';
+
+export const checkerBoardImg =
+    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMUlEQVQ4T2NkYGAQYcAP3uCTZhw1gGGYhAGBZIA/nYDCgBDAm9BGDWAAJyRCgLaBCAAgXwixzAS0pgAAAABJRU5ErkJggg==';
+
 export type PointerProps =
     & {
         left?: string;  //TODO: this is used as boolean
@@ -10,8 +15,6 @@ export type PointerProps =
         fillAttrs?: HTMLAttributes<HTMLDivElement>;
     }
     & HTMLAttributes<HTMLDivElement>;
-
-const pointerShadow = 'rgb(255 255 255) 0px 0px 0px 1.5px, rgb(0 0 0 / 30%) 0px 0px 1px 1px inset, rgb(0 0 0 / 40%) 0px 0px 1px 2px';
 
 // controlled by --alpha-pointer-background-color
 
@@ -33,7 +36,7 @@ export function DefaultPointer({ left, top, style, isVertical, fillAttrs: fillPr
 
         backgroundColor: 'var(--alpha-pointer-background-color)',
         boxShadow: 'var(--alpha-pointer-box-shadow)',
-        '--alpha-pointer-box-shadow': pointerShadow,
+        //'--alpha-pointer-box-shadow': pointerShadow,
         ...fillStyles,
     } as CSSProperties;
 

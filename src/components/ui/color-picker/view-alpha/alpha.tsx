@@ -1,6 +1,7 @@
 import { CSSProperties, HTMLAttributes, forwardRef } from 'react';
 import { HsvColor, hsvaToHslaString } from '../color-convert';
-import { Interactive, Interaction } from '../view-saturation';
+import { checkerBoardImg } from '../part-pointer';
+import { Interaction, Interactive } from '../part-interactive';
 
 export interface AlphaProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
     hsv: HsvColor;
@@ -8,9 +9,6 @@ export interface AlphaProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChan
     background?: string;
     isVertical?: boolean;
 }
-
-export const checkerBoardImg =
-    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMUlEQVQ4T2NkYGAQYcAP3uCTZhw1gGGYhAGBZIA/nYDCgBDAm9BGDWAAJyRCgLaBCAAgXwixzAS0pgAAAABJRU5ErkJggg==';
 
 export const alphaBackgroundGradient = (isVertical: boolean | undefined, colorTo: string) => `linear-gradient(to ${isVertical ? 'bottom' : 'right'}, rgba(244, 67, 54, 0) 0%, ${colorTo} 100%)`;
 
@@ -22,7 +20,7 @@ export const Alpha = forwardRef<HTMLDivElement, AlphaProps>((props, ref) => {
     const styleWrapper = {
         position: 'relative',
         '--alpha-background-color': '#fff',
-        '--alpha-pointer-background-color': 'rgb(248, 248, 248)',
+        '--alpha-pointer-background-color': '#f8f8f8',
         '--alpha-pointer-box-shadow': 'rgb(0 0 0 / 37%) 0px 1px 4px 0px',
         background: `url(${checkerBoardImg}) left center`,
         backgroundColor: 'var(--alpha-background-color)',
