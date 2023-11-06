@@ -13,7 +13,7 @@ const circleFillProps = (isVerical: boolean | undefined): HTMLAttributes<HTMLDiv
     },
 });
 
-export function PointerCircle({ pointer, isVerical  }: { pointer?: PointerType; isVerical?: boolean | undefined; }) {
+export function PointerOverBox({ pointer, isVerical  }: { pointer?: PointerType; isVerical?: boolean | undefined; }) {
     const snap = useSnapshot(colorPickerState);
 
     const comProps = {

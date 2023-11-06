@@ -3,7 +3,7 @@ import { useSnapshot } from "valtio";
 import { Saturation } from "./view-saturation";
 import { Alpha } from "./view-alpha";
 import { Hue } from "./view-hue";
-import { PointerCircle, PointerCircleAlpha } from "./part-pointer";
+import { PointerOverBox, PointerOverLine } from "./part-pointer";
 import { colorPickerState } from "./ui-state";
 import { hsvaToHex, hsvaToHexa } from "./color-convert";
 import { classNames } from "@/utils";
@@ -27,7 +27,7 @@ function AlphaView({ className, ...rest }: Omit<HTMLAttributes<HTMLDivElement>, 
             onChange={onAlphaChange}
             {...rest}
         >
-            <PointerCircleAlpha value={a * 100} />
+            <PointerOverLine value={a * 100} />
         </Alpha>
     );
 }
@@ -51,7 +51,7 @@ function HueView({ className, ...rest }: Omit<HTMLAttributes<HTMLDivElement>, 'o
             onChange={onHueChange}
             {...rest}
         >
-            <PointerCircleAlpha value={(h / 360) * 100} />
+            <PointerOverLine value={(h / 360) * 100} />
         </Hue>
     );
 }
@@ -75,7 +75,7 @@ function SaturationView({ className, ...rest }: Omit<HTMLAttributes<HTMLDivEleme
             onChange={onSaturationValueChange}
             {...rest}
         >
-            <PointerCircle />
+            <PointerOverBox />
         </Saturation>
     );
 }

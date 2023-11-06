@@ -19,7 +19,7 @@ const boxFillProps = (isVerical: boolean | undefined): HTMLAttributes<HTMLDivEle
     },
 });
 
-export function PointerCircleAlpha({ value, pointer, isVerical }: { value: number; pointer?: PointerType; isVerical?: boolean | undefined; }) {
+export function PointerOverLine({ value, pointer, isVerical }: { value: number; pointer?: PointerType; isVerical?: boolean | undefined; }) {
     const comProps: PointerProps = {};
     comProps[isVerical ? 'top' : 'left'] = `${value}%`;
     comProps[isVerical ? 'left' : 'top'] = '0%';

@@ -1,3 +1,3 @@
 export * from './default-pointer';
-export * from './pointer-circle';
-export * from './pointer-circle-alpha';
+export * from './pointer-over-box';
+export * from './pointer-over-line';
