@@ -1,5 +1,4 @@
 import { HTMLAttributes, forwardRef } from 'react';
-import { HsvaColor } from '../color-convert';
 import { Interaction, Interactive } from '../part-interactive';
 import { classNames } from '@/utils';
 

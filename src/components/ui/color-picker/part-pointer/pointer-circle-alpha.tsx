@@ -1,14 +1,21 @@
 import { HTMLAttributes } from "react";
-import { DefaultPointer, PointerProps } from "../view-saturation";
-
-export type PointerType = ({ left, top, color }: PointerProps) => JSX.Element; // React Component, Custom pointer component
+import { DefaultPointer, PointerProps, PointerType } from "./default-pointer";
 
 const circleFillProps = (isVerical: boolean | undefined): HTMLAttributes<HTMLDivElement> => ({
     style: {
         width: '18px',
         height: '18px',
-        transform: isVerical ? 'translate(-0px, -9px)' : 'translate(-9px, 1px)',
+        transform: isVerical ? 'translate(-0px, -9px)' : 'translate(-9px, 0px)',
         borderRadius: '50%',
+    },
+});
+
+const boxFillProps = (isVerical: boolean | undefined): HTMLAttributes<HTMLDivElement> => ({
+    style: {
+        width: '4px',
+        height: '100%',
+        transform: isVerical ? 'translate(-0px, -4px)' : 'translate(-2px, 0px)',
+        borderRadius: '1px',
     },
 });
 
@@ -22,6 +29,6 @@ export function PointerCircleAlpha({ value, pointer, isVerical }: { value: numbe
     }
 
     return (
-        <DefaultPointer {...comProps} {...circleFillProps(isVerical)} />
+        <DefaultPointer {...comProps} className="h-full" fillAttrs={circleFillProps(isVerical)} />
     );
 }
