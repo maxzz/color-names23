@@ -6,7 +6,7 @@ import { classNames } from '@/utils';
 export type SaturationProps =
     & {
         hue: number;
-        onChange?: (newColor: HsvaColor) => void;
+        onChange?: ({ s, v }: { s: number; v: number; }) => void;
     }
     & Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>;
 
@@ -24,11 +24,8 @@ export const Saturation = forwardRef<HTMLDivElement, SaturationProps>((props, re
 
     const handleChange = (interaction: Interaction, event: MouseEvent | TouchEvent) => {
         onChange?.({
-            h: hue,
             s: interaction.left * 100,
             v: (1 - interaction.top) * 100,
-            a: 1, // alpha controlled from outside
-            // source: 'hsv',
         });
     };
 

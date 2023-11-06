@@ -24,14 +24,11 @@ function AlphaView() {
 
     const onAlphaChange = useCallback(
         (newAlpha: number) => {
-            const { h, s, v } = colorPickerState.hsvaColor;
-            const newColor: HsvaColor = { h, s, v, a: newAlpha };
-            const hexaNew = hsvaToHexa(newColor);
-            if (colorPickerState.hexaColor === hexaNew) {
+            if (colorPickerState.hsvaColor.a === newAlpha) {
                 return;
             }
-            colorPickerState.hsvaColor = newColor;
-            colorPickerState.hexaColor = hexaNew;
+            colorPickerState.hsvaColor.a = newAlpha;
+            colorPickerState.hexaColor = hsvaToHexa(colorPickerState.hsvaColor);
         }, [snap.hsvaColor]
     );
 
@@ -56,10 +53,7 @@ function HueView() {
                 return;
             }
             colorPickerState.hsvaColor.h = newHue;
-            const hexaNew = hsvaToHexa(colorPickerState.hsvaColor);
-            colorPickerState.hexaColor = hexaNew;
-
-            console.log('hexaNew', colorPickerState.hsvaColor);
+            colorPickerState.hexaColor = hsvaToHexa(colorPickerState.hsvaColor);
         }, [snap.hsvaColor]
     );
 
@@ -78,16 +72,16 @@ function SaturationView() {
     const snap = useSnapshot(colorPickerState);
 
     const onSaturationValueChange = useCallback(
-        (newColor: HsvaColor) => {
-            const hexaNew = hsvaToHexa(newColor);
-            if (colorPickerState.hexaColor === hexaNew) {
+        ({ s, v }: { s: number; v: number; }) => {
+            if (colorPickerState.hsvaColor.s === s && colorPickerState.hsvaColor.v === v) {
                 return;
             }
-            colorPickerState.hsvaColor = newColor;
-            colorPickerState.hexaColor = hexaNew;
+            colorPickerState.hsvaColor.v = v;
+            colorPickerState.hsvaColor.s = s;
+            colorPickerState.hexaColor = hsvaToHexa(colorPickerState.hsvaColor);
         }, [snap.hsvaColor]
     );
-    
+
     return (
         <Saturation
             className="w-80 h-52 border-foreground border"
