@@ -1,5 +1,5 @@
 import { HTMLAttributes } from "react";
-import { DefaultPointer, PointerProps, PointerType } from "./default-pointer";
+import { DefaultPointer, PointerProps } from "./default-pointer";
 
 const circleFillProps = (isVerical: boolean | undefined): HTMLAttributes<HTMLDivElement> => ({
     style: {
@@ -19,14 +19,10 @@ const boxFillProps = (isVerical: boolean | undefined): HTMLAttributes<HTMLDivEle
     },
 });
 
-export function PointerOverLine({ value, pointer, isVerical }: { value: number; pointer?: PointerType; isVerical?: boolean | undefined; }) {
+export function PointerOverLine({ value, isVerical }: { value: number; isVerical?: boolean | undefined; }) {
     const comProps: PointerProps = {};
     comProps[isVerical ? 'top' : 'left'] = `${value}%`;
     comProps[isVerical ? 'left' : 'top'] = '0%';
-
-    if (typeof pointer === 'function') {
-        return pointer(comProps);
-    }
 
     return (
         <DefaultPointer {...comProps} className="h-full" fillAttrs={circleFillProps(isVerical)} />

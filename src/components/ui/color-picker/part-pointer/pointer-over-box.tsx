@@ -1,5 +1,5 @@
 import { useSnapshot } from "valtio";
-import { DefaultPointer, PointerType } from "./default-pointer";
+import { DefaultPointer } from "./default-pointer";
 import { hsvaToHslaString } from "../color-convert";
 import { colorPickerState } from "../ui-state";
 import { HTMLAttributes } from "react";
@@ -13,7 +13,7 @@ const circleFillProps = (isVerical: boolean | undefined): HTMLAttributes<HTMLDiv
     },
 });
 
-export function PointerOverBox({ pointer, isVerical  }: { pointer?: PointerType; isVerical?: boolean | undefined; }) {
+export function PointerOverBox({ isVerical  }: { isVerical?: boolean | undefined; }) {
     const snap = useSnapshot(colorPickerState);
 
     const comProps = {
@@ -21,10 +21,6 @@ export function PointerOverBox({ pointer, isVerical  }: { pointer?: PointerType;
         left: `${snap.hsvaColor.s}%`,
         color: hsvaToHslaString(snap.hsvaColor),
     };
-
-    if (typeof pointer === 'function') {
-        return pointer(comProps);
-    }
 
     return (
         <DefaultPointer {...comProps} fillAttrs={circleFillProps(isVerical)} />

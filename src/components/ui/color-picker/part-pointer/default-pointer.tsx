@@ -1,6 +1,6 @@
 import { CSSProperties, HTMLAttributes } from 'react';
 
-export type PointerType = ({ left, top, color }: PointerProps) => JSX.Element; // React Component, Custom pointer component
+// export type PointerType = ({ left, top, color }: PointerProps) => JSX.Element; // React Component, Custom pointer component
 
 export type PointerProps =
     & {
