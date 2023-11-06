@@ -58,7 +58,7 @@ function HueView() {
             colorPickerState.hsvaColor.h = newHue;
             const hexaNew = hsvaToHexa(colorPickerState.hsvaColor);
             colorPickerState.hexaColor = hexaNew;
-            
+
             console.log('hexaNew', colorPickerState.hsvaColor);
         }, [snap.hsvaColor]
     );
@@ -87,6 +87,7 @@ function SaturationView() {
             colorPickerState.hexaColor = hexaNew;
         }, [snap.hsvaColor]
     );
+    
     return (
         <Saturation
             className="w-80 h-52 border-foreground border"

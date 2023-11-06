@@ -1,6 +1,7 @@
-import { CSSProperties, HTMLAttributes, forwardRef } from 'react';
+import { HTMLAttributes, forwardRef } from 'react';
 import { HsvaColor } from '../color-convert';
 import { Interaction, Interactive } from '../part-interactive';
+import { classNames } from '@/utils';
 
 export type SaturationProps =
     & {
@@ -9,17 +10,14 @@ export type SaturationProps =
     }
     & Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>;
 
-const containerStyle: CSSProperties = {
-    // width: 400,
-    // height: 200,
-    position: 'relative',
-};
+const bgGradient = (hue: number) => `linear-gradient(0deg, #000, transparent), linear-gradient(90deg, #fff, hsl(${hue}, 100%, 50%))`;
 
 export const Saturation = forwardRef<HTMLDivElement, SaturationProps>((props, ref) => {
     const {
         hue,
-        style,
         onChange,
+        style,
+        className,
         children,
         ...rest
     } = props;
@@ -37,15 +35,8 @@ export const Saturation = forwardRef<HTMLDivElement, SaturationProps>((props, re
     return (
         <Interactive
             ref={ref}
-            className="relative border-foreground border overflow-hidden"
-            style={{
-                // position: 'absolute',
-                inset: 0,
-                cursor: 'crosshair',
-                backgroundImage: `linear-gradient(0deg, #000, transparent), linear-gradient(90deg, #fff, hsl(${hue}, 100%, 50%))`,
-                ...containerStyle,
-                ...style,
-            }}
+            className={classNames("relative border-foreground border overflow-hidden cursor-crosshair", className)}
+            style={{ backgroundImage: bgGradient(hue), ...style }}
             onMove={handleChange}
             onDown={handleChange}
             {...rest}
