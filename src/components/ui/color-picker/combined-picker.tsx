@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { Saturation } from "./view-saturation";
-import { HsvaColor, hsvaToHex, hsvaToHexa } from "./color-convert";
+import { hsvaToHex, hsvaToHexa } from "./color-convert";
 import { PointerCircle } from "./part-pointer";
 import { useSnapshot } from "valtio";
 import { colorPickerState } from "./ui-state";
@@ -9,7 +9,7 @@ import { Hue } from "./view-hue";
 
 function ColorNumbersDisplay() {
     const snap = useSnapshot(colorPickerState);
-    const hexa = snap.hexaColor; //TODO: don't show alpha if it's 1
+    const hexa = snap.hsvaColor.a === 1 ? hsvaToHex(snap.hsvaColor): hsvaToHexa(snap.hsvaColor);
     return (
         <div className="flex items-center space-x-2">
             <div className="w-4 h-4" style={{ background: hexa }}></div>
@@ -28,7 +28,6 @@ function AlphaView() {
                 return;
             }
             colorPickerState.hsvaColor.a = newAlpha;
-            colorPickerState.hexaColor = hsvaToHexa(colorPickerState.hsvaColor);
         }, [snap.hsvaColor]
     );
 
@@ -53,7 +52,6 @@ function HueView() {
                 return;
             }
             colorPickerState.hsvaColor.h = newHue;
-            colorPickerState.hexaColor = hsvaToHexa(colorPickerState.hsvaColor);
         }, [snap.hsvaColor]
     );
 
@@ -78,7 +76,6 @@ function SaturationView() {
             }
             colorPickerState.hsvaColor.v = v;
             colorPickerState.hsvaColor.s = s;
-            colorPickerState.hexaColor = hsvaToHexa(colorPickerState.hsvaColor);
         }, [snap.hsvaColor]
     );
 
