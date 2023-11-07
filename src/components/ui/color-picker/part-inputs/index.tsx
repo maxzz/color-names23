@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, InputHTMLAttributes } from "react";
 import { useSnapshot } from "valtio";
 import { Input, Label } from "../../shadcn";
 import { hsvaToHex, hsvaToHexa, hsvaToRgba } from "../color-convert";
@@ -8,6 +8,17 @@ import { classNames } from "@/utils";
 const boxClasses = "flex flex-col items-center";
 const inputClasses = "px-0 text-xs text-center h-6";
 const labelClasses = "text-xs ";
+
+function InputWithValidate({value, onChange}: Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onChange"> & {value: number, onChange?: (value: number) => void}) {
+    const snap = useSnapshot(colorPickerState);
+    function validate(event: React.ChangeEvent<HTMLInputElement>) {
+        value = +event.target.value;
+        onChange?.(value);
+    }
+    return (
+        <Input className={inputClasses} value={value} onChange={validate} />
+    );
+}
 
 function InputColorPart() {
     const snap = useSnapshot(colorPickerState);
