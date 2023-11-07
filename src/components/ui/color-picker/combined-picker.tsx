@@ -7,7 +7,7 @@ import { PointerOverBox, PointerOverLine, checkerBoardBkg } from "./part-pointer
 import { colorPickerState } from "./ui-state";
 import { hsvaToHex, hsvaToHexa } from "./color-convert";
 import { classNames } from "@/utils";
-import { ColorInputs } from "./part-inputs";
+import { ColorInputs } from "./view-inputs";
 
 function AlphaView({ className, ...rest }: Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>) {
     const snap = useSnapshot(colorPickerState);
