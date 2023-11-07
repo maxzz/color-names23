@@ -19,16 +19,12 @@ export const Alpha = forwardRef<HTMLDivElement, AlphaProps>((props, ref) => {
 
     const { background: containerBkg, ...stylesRest } = style || {};
 
-    console.log('Alpha', { containerBkg, stylesRest });
-    
-
     const containerStyles = {
         position: 'relative',
         '--alpha-background-color': '#fff',
         '--alpha-pointer-background-color': '#f8f8f8',
         '--alpha-pointer-box-shadow': 'rgb(0 0 0 / 37%) 0px 1px 4px 0px',
         ...(containerBkg !== undefined ? { background: containerBkg} : { background: `url(${checkerBoardImg}) left center var(--alpha-background-color)` }),
-        // background: `url(${checkerBoardImg}) left center var(--alpha-background-color)`,
         ...stylesRest,
     } as CSSProperties;
 

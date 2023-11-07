@@ -7,6 +7,7 @@ import { PointerOverBox, PointerOverLine, checkerBoardBkg } from "./part-pointer
 import { colorPickerState } from "./ui-state";
 import { hsvaToHex, hsvaToHexa } from "./color-convert";
 import { classNames } from "@/utils";
+import { ColorInputs } from "./part-inputs";
 
 function AlphaView({ className, ...rest }: Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>) {
     const snap = useSnapshot(colorPickerState);
@@ -70,7 +71,7 @@ function SaturationView({ className, ...rest }: Omit<HTMLAttributes<HTMLDivEleme
 
     return (
         <Saturation
-            className={classNames("w-full h-52 border-foreground border overflow-hidden cursor-crosshair", className)}
+            className={classNames("w-full h-[127px] overflow-hidden cursor-crosshair", className)}
             hue={snap.hsvaColor.h}
             onChange={onSaturationValueChange}
             {...rest}
@@ -111,7 +112,7 @@ function ColorDisplay({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
 
 export function SaturationSelector() {
     return (<>
-        <div className="w-56 inline-block bg-muted rounded">
+        <div className="w-[232px] inline-block bg-muted border-foreground border rounded overflow-hidden">
             <div className="grid grid-cols-[auto,1fr] gap-y-1">
                 <SaturationView className="col-span-2" />
 
@@ -124,6 +125,8 @@ export function SaturationSelector() {
                     <AlphaView />
                 </div>
             </div>
+
+            <ColorInputs />
         </div>
 
         <ColorNumbersDisplay />
