@@ -120,13 +120,13 @@ export function SaturationSelector() {
                     <ColorDisplay />
                 </div>
 
-                <div className="pl-1 pr-4 py-2 grid">
+                <div className="pl-1 pr-4 py-2 flex flex-col justify-center space-y-2">
                     <HueView />
                     <AlphaView />
                 </div>
             </div>
 
-            <ColorInputs className="px-2 py-4" />
+            <ColorInputs className="px-2 pb-3" />
         </div>
 
         {/* <ColorNumbersDisplay /> */}
