@@ -22,8 +22,7 @@ export const Alpha = forwardRef<HTMLDivElement, AlphaProps>((props, ref) => {
         '--alpha-background-color': '#fff',
         '--alpha-pointer-background-color': '#f8f8f8',
         '--alpha-pointer-box-shadow': 'rgb(0 0 0 / 37%) 0px 1px 4px 0px',
-        background: `url(${checkerBoardImg}) left center`,
-        backgroundColor: 'var(--alpha-background-color)',
+        background: `url(${checkerBoardImg}) left center var(--alpha-background-color)`,
         ...style,
     } as CSSProperties;
 

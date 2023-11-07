@@ -3,7 +3,7 @@ import { useSnapshot } from "valtio";
 import { Saturation } from "./view-saturation";
 import { Alpha } from "./view-alpha";
 import { Hue } from "./view-hue";
-import { PointerOverBox, PointerOverLine, checkerBoardImg } from "./part-pointer";
+import { PointerOverBox, PointerOverLine, checkerBoardBkg } from "./part-pointer";
 import { colorPickerState } from "./ui-state";
 import { hsvaToHex, hsvaToHexa } from "./color-convert";
 import { classNames } from "@/utils";
@@ -82,11 +82,14 @@ function SaturationView({ className, ...rest }: Omit<HTMLAttributes<HTMLDivEleme
 
 function ColorNumbersDisplay() {
     const snap = useSnapshot(colorPickerState);
-    const hexa = snap.hsvaColor.a === 1 ? hsvaToHex(snap.hsvaColor) : hsvaToHexa(snap.hsvaColor);
+    const hexa = hsvaToHexa(snap.hsvaColor);
+    const hexaTxt = snap.hsvaColor.a === 1 ? hsvaToHex(snap.hsvaColor) : hexa;
     return (
         <div className="flex items-center space-x-2">
-            <div className="w-4 h-4" style={{ backgroundImage: `url(${checkerBoardImg})`, backgroundPosition: 'left center', backgroundColor: hexa, }}></div>
-            <div className="">{hexa}</div>
+            <div className="relative w-6 h-6 overflow-hidden" style={{ background: checkerBoardBkg }}>
+                <div className="absolute inset-0 z-10" style={{ background: hexa, }}></div>
+            </div>
+            <div className="">{hexaTxt}</div>
         </div>
     );
 }
@@ -94,12 +97,10 @@ function ColorNumbersDisplay() {
 function ColorDisplay({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     const snap = useSnapshot(colorPickerState);
     const hexa = hsvaToHexa(snap.hsvaColor);
-    // const img = snap.hsvaColor.a === 1 ? undefined : `url(${checkerBoardImg})`;
-    const img = `url(${checkerBoardImg})`;
     return (
         <div
             className={classNames("relative w-10 h-10 ring-muted-foreground/50 ring-1 rounded-full overflow-hidden cursor-pointer active:scale-[.97]", className)}
-            style={{ backgroundImage: `url(${checkerBoardImg})`, backgroundPosition: 'left center', backgroundColor: '#fff', }}
+            style={{ background: checkerBoardBkg }}
             onClick={() => navigator.clipboard.writeText(hexa)}
             {...rest}
         >

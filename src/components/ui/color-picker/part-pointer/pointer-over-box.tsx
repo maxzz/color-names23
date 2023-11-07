@@ -6,9 +6,9 @@ import { HTMLAttributes } from "react";
 
 const circleFillProps = (isVerical: boolean | undefined): HTMLAttributes<HTMLDivElement> => ({
     style: {
-        width: '18px',
-        height: '18px',
-        transform: isVerical ? 'translate(-9px, -9px)' : 'translate(-9px, -9px)',
+        width: '16px',
+        height: '16px',
+        transform: isVerical ? 'translate(-7px, -7px)' : 'translate(-7px, -7px)',
         borderRadius: '50%',
         '--alpha-pointer-box-shadow': pointerShadow,
     },
