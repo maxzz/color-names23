@@ -112,23 +112,23 @@ function ColorDisplay({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
 
 export function SaturationSelector() {
     return (<>
-        <div className="w-[232px] inline-block bg-muted border-foreground border rounded overflow-hidden">
+        <div className="w-[232px] inline-block bg-muted border-muted-foreground border rounded overflow-hidden">
             <div className="grid grid-cols-[auto,1fr] gap-y-1">
                 <SaturationView className="col-span-2" />
 
-                <div className="p-2 grid place-items-center">
+                <div className="p-3 grid place-items-center">
                     <ColorDisplay />
                 </div>
 
-                <div className="pl-4 pr-6 grid">
+                <div className="pl-1 pr-4 grid">
                     <HueView />
                     <AlphaView />
                 </div>
             </div>
 
-            <ColorInputs />
+            <ColorInputs className="px-2" />
         </div>
 
-        <ColorNumbersDisplay />
+        {/* <ColorNumbersDisplay /> */}
     </>);
 }

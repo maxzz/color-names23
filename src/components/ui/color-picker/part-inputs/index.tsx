@@ -3,17 +3,18 @@ import { useSnapshot } from "valtio";
 import { Input, Label } from "../../shadcn";
 import { hsvaToHex, hsvaToHexa } from "../color-convert";
 import { colorPickerState } from "../ui-state";
+import { classNames } from "@/utils";
 
 const boxClasses = "flex flex-col items-center";
 const inputClasses = "px-0 text-xs text-center h-6";
-const labelClasses = "text-xs";
+const labelClasses = "text-xs ";
 
 export function ColorInputs({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     const snap = useSnapshot(colorPickerState);
     const hex = hsvaToHex(snap.hsvaColor);
     return (
-        <div className="flex space-x-2">
-            <div className={`min-w-[72px] ${{boxClasses}}`}>
+        <div className={classNames("flex space-x-2", className)} {...rest}>
+            <div className={`min-w-[72px] ${boxClasses}`}>
                 <Input className={inputClasses} value={hex} onChange={(e) => colorPickerState.hsvaColor.h = +e.target.value} />
                 <Label className={labelClasses}>Hex</Label>
             </div>
