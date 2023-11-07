@@ -85,7 +85,7 @@ function ColorNumbersDisplay() {
     const hexa = snap.hsvaColor.a === 1 ? hsvaToHex(snap.hsvaColor) : hsvaToHexa(snap.hsvaColor);
     return (
         <div className="flex items-center space-x-2">
-            <div className="w-4 h-4" style={{ background: hexa }}></div>
+            <div className="w-4 h-4" style={{ backgroundImage: `url(${checkerBoardImg})`, backgroundPosition: 'left center', backgroundColor: hexa, }}></div>
             <div className="">{hexa}</div>
         </div>
     );
@@ -93,14 +93,18 @@ function ColorNumbersDisplay() {
 
 function ColorDisplay({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     const snap = useSnapshot(colorPickerState);
-    const hexa = snap.hsvaColor.a === 1 ? hsvaToHex(snap.hsvaColor) : hsvaToHexa(snap.hsvaColor);
+    const hexa = hsvaToHexa(snap.hsvaColor);
+    // const img = snap.hsvaColor.a === 1 ? undefined : `url(${checkerBoardImg})`;
+    const img = `url(${checkerBoardImg})`;
     return (
         <div
-            className={classNames("w-10 h-10 ring-muted-foreground/50 ring-1 rounded-full cursor-pointer active:scale-[.97]", className)}
-            style={{ backgroundImage: `url(${checkerBoardImg})`, backgroundPosition: 'left center', backgroundColor: hexa, }}
+            className={classNames("relative w-10 h-10 ring-muted-foreground/50 ring-1 rounded-full overflow-hidden cursor-pointer active:scale-[.97]", className)}
+            style={{ backgroundImage: `url(${checkerBoardImg})`, backgroundPosition: 'left center', backgroundColor: '#fff', }}
             onClick={() => navigator.clipboard.writeText(hexa)}
             {...rest}
-        />
+        >
+            <div className="absolute inset-0 z-10" style={{ background: hexa, }}></div>
+        </div>
     );
 }
 
