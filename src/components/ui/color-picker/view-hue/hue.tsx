@@ -24,6 +24,7 @@ export const Hue = forwardRef<HTMLDivElement, HueProps>(({ hue, onChange, isVert
             ref={ref}
             hsv={{ h: hue, s: 100, v: 100 }}
             onChange={(_, interaction) => onChange?.(Math.round(isVertical ? 360 * interaction.top : 360 * interaction.left))}
+            style={{background: ''}}
             background={bkgGradient(isVertical)}
             isVertical={isVertical}
             {...rest}
