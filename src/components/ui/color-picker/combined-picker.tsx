@@ -23,7 +23,7 @@ function AlphaView({ className, ...rest }: Omit<HTMLAttributes<HTMLDivElement>, 
 
     return (
         <Alpha
-            className={classNames("w-full h-5 border-foreground border", className)}
+            className={classNames("w-full h-3", className)}
             hsv={{ h, s, v }}
             onChange={onAlphaChange}
             {...rest}
@@ -47,7 +47,7 @@ function HueView({ className, ...rest }: Omit<HTMLAttributes<HTMLDivElement>, 'o
 
     return (
         <Hue
-            className={classNames("w-full h-5 border-foreground border", className)}
+            className={classNames("w-full h-3", className)}
             hue={h}
             onChange={onHueChange}
             {...rest}
@@ -120,13 +120,13 @@ export function SaturationSelector() {
                     <ColorDisplay />
                 </div>
 
-                <div className="pl-1 pr-4 grid">
+                <div className="pl-1 pr-4 py-2 grid">
                     <HueView />
                     <AlphaView />
                 </div>
             </div>
 
-            <ColorInputs className="px-2" />
+            <ColorInputs className="px-2 py-4" />
         </div>
 
         {/* <ColorNumbersDisplay /> */}
