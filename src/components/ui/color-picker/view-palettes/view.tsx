@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, HTMLAttributes } from "react";
+import { ButtonHTMLAttributes, HTMLAttributes, useRef, useState } from "react";
 import { classNames } from "@/utils";
 import { MaterialPaletteShades, materialPalette } from "./material-palette";
 import { IconMenuBurger } from "../../icons";
@@ -9,6 +9,8 @@ import { hexToHsva } from "../color-convert";
 const cellClasses = "w-4 h-4 rounded transition-opacity duration-500 delay-100";
 
 function PaletteCell({ className, color, ...rest }: ButtonHTMLAttributes<HTMLButtonElement> & { color: string; }) {
+    const timerId = useRef<NodeJS.Timeout | null>(null);
+    const [showShades, setShowShades] = useState(false);
     return (
         <button
             className={classNames("group relative m-1 active:scale-95", cellClasses, className)}
@@ -17,7 +19,16 @@ function PaletteCell({ className, color, ...rest }: ButtonHTMLAttributes<HTMLBut
             onClick={(e) => {
                 e.stopPropagation();
                 colorPickerState.hsvaColor = hexToHsva(color);
-             }}
+            }}
+            onMouseDown={(e) => {
+                clearTimeout(timerId.current!);
+                timerId.current = setTimeout(() => {
+                    setShowShades(true);
+                    console.log('show shades');
+                    
+                }, 1500);
+
+            }}
             {...rest}
         >
             <div
@@ -40,7 +51,7 @@ export function PaletteSelector({ className, ...rest }: HTMLAttributes<HTMLDivEl
 
             <div className="flex-1 flex flex-wrap">
                 {materialPalette.colors.map((color, idx) => (
-                    <PaletteCell color={color} />
+                    <PaletteCell color={color} key={idx} />
                 ))}
             </div>
 
