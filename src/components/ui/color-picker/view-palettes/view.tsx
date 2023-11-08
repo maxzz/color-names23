@@ -12,7 +12,19 @@ function AdditionalColorsPopup({ open, setOpen, className, ...rest }: { open: bo
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <Anchor className="w-4 h-4 flex-none" />
-            <PopoverContent className="w-64">
+            <PopoverContent className="p-1 w-auto flex flex-col space-y-2 border-muted-foreground border">
+                <div
+                    className={classNames("w-6 h-6", cellClasses, className)}
+                    style={{ background: 'red' }}
+                />
+                <div
+                    className={classNames("w-6 h-6", cellClasses, className)}
+                    style={{ background: 'red' }}
+                />
+                <div
+                    className={classNames("w-6 h-6", cellClasses, className)}
+                    style={{ background: 'red' }}
+                />
                 <div
                     className={classNames("w-6 h-6", cellClasses, className)}
                     style={{ background: 'red' }}
