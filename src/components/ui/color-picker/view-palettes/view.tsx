@@ -9,32 +9,58 @@ import { Popover, PopoverContent } from "../../shadcn/popover";
 import { Anchor } from "@radix-ui/react-popover";
 
 function AdditionalColorsPopup({ open, setOpen, className, ...rest }: { open: boolean; setOpen: (open: boolean) => void; className?: string; }) {
+    function onColorClick(color: string) {
+        colorPickerState.hsvaColor = hexToHsva(color);
+        setOpen(false);
+    }
     return (
         <Popover open={open} onOpenChange={setOpen}>
-            <Anchor className="w-4 h-4 flex-none" />
+            <Anchor className="w-4 h-4" />
             <PopoverContent className="p-1 w-auto flex flex-col space-y-2 border-muted-foreground border">
                 <div
-                    className={classNames("w-6 h-6", cellClasses, className)}
+                    className={classNames("w-3 h-3", cellClasses, className)}
                     style={{ background: 'red' }}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        onColorClick('#ff00ff');
+                    }}
                 />
                 <div
-                    className={classNames("w-6 h-6", cellClasses, className)}
+                    className={classNames("w-3 h-3", cellClasses, className)}
                     style={{ background: 'red' }}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        onColorClick('#ff00ff');
+                    }}
                 />
                 <div
-                    className={classNames("w-6 h-6", cellClasses, className)}
+                    className={classNames("w-3 h-3", cellClasses, className)}
                     style={{ background: 'red' }}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        onColorClick('#ff00ff');
+                    }}
                 />
                 <div
-                    className={classNames("w-6 h-6", cellClasses, className)}
+                    className={classNames("w-3 h-3", cellClasses, className)}
                     style={{ background: 'red' }}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        onColorClick('#ff00ff');
+                    }}
                 />
             </PopoverContent>
         </Popover>
     );
 }
 
-const cellClasses = "w-4 h-4 rounded transition-opacity duration-500 delay-100";
+// const cellClasses = "w-4 h-4 rounded transition-opacity duration-500 delay-100";
+// const cellClasses = "w-4 h-4 rounded transition-opacity [transition-duration:500] delay-100";
+const cellClasses = "w-4 h-4 rounded transition-opacity delay-100";
 
 function PaletteCell({ className, color, ...rest }: ButtonHTMLAttributes<HTMLButtonElement> & { color: string; }) {
     const timerId = useRef<NodeJS.Timeout | null>(null);
@@ -49,13 +75,19 @@ function PaletteCell({ className, color, ...rest }: ButtonHTMLAttributes<HTMLBut
                 colorPickerState.hsvaColor = hexToHsva(color);
             }}
             onMouseDown={(e) => {
-                clearTimeout(timerId.current!);
+                console.log('mousedown');
+
+                clearTimeout(timerId.current!); //TODO: calc deff between mousedown and mouseup and do it on mouseup
                 timerId.current = setTimeout(() => {
                     setShowShades(true);
 
                     console.log('show shades');
-                }, 1500);
+                }, 500);
+            }}
+            onMouseUp={(e) => {
+                console.log('mouseup');
 
+                clearTimeout(timerId.current!);
             }}
             {...rest}
         >

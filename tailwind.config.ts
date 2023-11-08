@@ -89,6 +89,7 @@ module.exports = {
         require('./tailwind/tailwind-plugin-all-colors'),
         require('./tailwind/tailwnd-plugin-debug-styles'),
         require('./tailwind/tailwind-plugin-overflow-overlay'),
+        require('tailwindcss-animate'),
         debugScreens,
         require('@tailwindcss/forms')({ strategy: 'class' }),
         shadcnPlugin,
