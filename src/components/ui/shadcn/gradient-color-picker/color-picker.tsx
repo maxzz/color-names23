@@ -27,7 +27,6 @@ function Trigger({ background, className, }: { background: string; className?: s
     );
 }
 
-
 export function GradientPicker({ background, setBackground, className, }: { background: string; setBackground: (background: string) => void; className?: string; }) {
 
     const defaultTab = useMemo(() => {

@@ -5,6 +5,20 @@ import { IconMenuBurger } from "../../icons";
 import { Button } from "../../shadcn";
 import { colorPickerState } from "../ui-state";
 import { hexToHsva } from "../color-convert";
+import { Popover, PopoverContent } from "../../shadcn/popover";
+
+function AdditionalColorsPopup({open, setOpen, className, ...rest}: {open: boolean; setOpen: (open: boolean) => void; className?: string;}) {
+    return (
+        <Popover open={open} onOpenChange={setOpen}>
+            <PopoverContent className="w-64">
+                <div
+                    className={classNames("w-6 h-6", cellClasses, className)}
+                    style={{ background: 'red' }}
+                />
+            </PopoverContent>
+        </Popover>
+    );
+}
 
 const cellClasses = "w-4 h-4 rounded transition-opacity duration-500 delay-100";
 
@@ -25,7 +39,7 @@ function PaletteCell({ className, color, ...rest }: ButtonHTMLAttributes<HTMLBut
                 timerId.current = setTimeout(() => {
                     setShowShades(true);
                     console.log('show shades');
-                    
+
                 }, 1500);
 
             }}
@@ -41,6 +55,8 @@ function PaletteCell({ className, color, ...rest }: ButtonHTMLAttributes<HTMLBut
                 style={{ background: color }}
             >
             </div>
+
+            <AdditionalColorsPopup open={showShades} setOpen={setShowShades} />
         </button>
     );
 }
