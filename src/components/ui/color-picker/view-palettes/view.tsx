@@ -58,8 +58,6 @@ function AdditionalColorsPopup({ open, setOpen, className, ...rest }: { open: bo
     );
 }
 
-// const cellClasses = "w-4 h-4 rounded transition-opacity duration-500 delay-100";
-// const cellClasses = "w-4 h-4 rounded transition-opacity [transition-duration:500] delay-100";
 const cellClasses = "w-4 h-4 rounded transition-opacity delay-100";
 
 function PaletteCell({ className, color, ...rest }: ButtonHTMLAttributes<HTMLButtonElement> & { color: string; }) {
