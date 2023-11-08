@@ -86,17 +86,17 @@ module.exports = plugin(
 		)
 
 		matchUtilities(
-			{ duration: (value) => ({ animationDuration: value }) },
+			{ "duration-ani": (value) => ({ animationDuration: value }) },
 			{ values: filterDefault(theme("animationDuration")) },
 		)
 
 		matchUtilities(
-			{ delay: (value) => ({ animationDelay: value }) },
+			{ "delay-ani": (value) => ({ animationDelay: value }) },
 			{ values: theme("animationDelay") },
 		)
 
 		matchUtilities(
-			{ ease: (value) => ({ animationTimingFunction: value }) },
+			{ "ease-ani": (value) => ({ animationTimingFunction: value }) },
 			{ values: filterDefault(theme("animationTimingFunction")) },
 		)
 

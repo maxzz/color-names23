@@ -16,7 +16,7 @@ function AdditionalColorsPopup({ open, setOpen, className, ...rest }: { open: bo
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <Anchor className="w-4 h-4" />
-            <PopoverContent className="p-1 w-auto flex flex-col space-y-2 border-muted-foreground border">
+            <PopoverContent className="p-1 w-auto flex flex-col space-y-2 border-muted-foreground border !duration-ani-[4000ms]" {...rest}>
                 <div
                     className={classNames("w-3 h-3", cellClasses, className)}
                     style={{ background: 'red' }}
