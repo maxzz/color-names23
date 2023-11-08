@@ -1,12 +1,10 @@
 import { ButtonHTMLAttributes, HTMLAttributes, useRef, useState } from "react";
-import { classNames } from "@/utils";
-import { MaterialPaletteShades, materialPalette } from "./material-palette";
-import { IconMenuBurger } from "../../icons";
-import { Button } from "../../shadcn";
 import { colorPickerState } from "../ui-state";
+import { Button, Popover, PopoverAnchor, PopoverContent } from "../../shadcn";
+import { MaterialPaletteShades, materialPalette } from "./material-palette";
 import { hexToHsva } from "../color-convert";
-import { Popover, PopoverContent } from "../../shadcn/popover";
-import { Anchor } from "@radix-ui/react-popover";
+import { IconMenuBurger } from "../../icons";
+import { classNames } from "@/utils";
 
 function AdditionalColorsPopup({ open, setOpen, className, ...rest }: { open: boolean; setOpen: (open: boolean) => void; className?: string; }) {
     function onColorClick(color: string) {
@@ -15,10 +13,10 @@ function AdditionalColorsPopup({ open, setOpen, className, ...rest }: { open: bo
     }
     return (
         <Popover open={open} onOpenChange={setOpen}>
-            <Anchor className="w-4 h-4" />
-            <PopoverContent className="p-1 w-auto flex flex-col space-y-2 border-muted-foreground border !duration-ani-[4000ms]" {...rest}>
+            <PopoverAnchor className="w-4 h-4" />
+            <PopoverContent className={classNames("p-1 w-auto flex flex-col space-y-2 border-muted-foreground border !duration-ani-300", className)} {...rest}>
                 <div
-                    className={classNames("w-3 h-3", cellClasses, className)}
+                    className={classNames("w-3 h-3", cellClasses)}
                     style={{ background: 'red' }}
                     onClick={(e) => {
                         e.stopPropagation();
@@ -27,7 +25,7 @@ function AdditionalColorsPopup({ open, setOpen, className, ...rest }: { open: bo
                     }}
                 />
                 <div
-                    className={classNames("w-3 h-3", cellClasses, className)}
+                    className={classNames("w-3 h-3", cellClasses)}
                     style={{ background: 'red' }}
                     onClick={(e) => {
                         e.stopPropagation();
@@ -36,7 +34,7 @@ function AdditionalColorsPopup({ open, setOpen, className, ...rest }: { open: bo
                     }}
                 />
                 <div
-                    className={classNames("w-3 h-3", cellClasses, className)}
+                    className={classNames("w-3 h-3", cellClasses)}
                     style={{ background: 'red' }}
                     onClick={(e) => {
                         e.stopPropagation();
@@ -45,7 +43,7 @@ function AdditionalColorsPopup({ open, setOpen, className, ...rest }: { open: bo
                     }}
                 />
                 <div
-                    className={classNames("w-3 h-3", cellClasses, className)}
+                    className={classNames("w-3 h-3", cellClasses)}
                     style={{ background: 'red' }}
                     onClick={(e) => {
                         e.stopPropagation();
