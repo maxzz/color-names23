@@ -4,23 +4,23 @@ import { MaterialPaletteShades, materialPalette } from "./material-palette";
 import { IconMenuBurger } from "../../icons";
 import { Button } from "../../shadcn";
 
-const cellClassess = "w-4 h-4 rounded";
+const cellClasses = "w-4 h-4 rounded transition-opacity duration-500 delay-100";
 
 function PaletteCell({ className, color, ...rest }: HTMLAttributes<HTMLDivElement> & { color: string; }) {
     return (
         <div
-            className={classNames("group relative m-1", cellClassess, className)}
+            className={classNames("group relative m-1", cellClasses, className)}
             style={{ background: color }}
             title={`Long click to show alternative shades of ${color}`}
             {...rest}
         >
             <div
-                className={classNames("absolute left-[3px] -top-[2px] opacity-0 group-hover:opacity-60 transition-opacity", cellClassess, className)}
+                className={classNames("absolute left-[3px] -top-[2px] opacity-0 group-hover:opacity-60", cellClasses, className)}
                 style={{ background: color }}
             >
             </div>
             <div
-                className={classNames("absolute left-[5px] -top-[4px] opacity-0 group-hover:opacity-30 transition-opacity", cellClassess, className)}
+                className={classNames("absolute left-[5px] -top-[4px] opacity-0 group-hover:opacity-30", cellClasses, className)}
                 style={{ background: color }}
             >
             </div>
