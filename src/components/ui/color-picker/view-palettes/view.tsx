@@ -6,10 +6,12 @@ import { Button } from "../../shadcn";
 import { colorPickerState } from "../ui-state";
 import { hexToHsva } from "../color-convert";
 import { Popover, PopoverContent } from "../../shadcn/popover";
+import { Anchor } from "@radix-ui/react-popover";
 
-function AdditionalColorsPopup({open, setOpen, className, ...rest}: {open: boolean; setOpen: (open: boolean) => void; className?: string;}) {
+function AdditionalColorsPopup({ open, setOpen, className, ...rest }: { open: boolean; setOpen: (open: boolean) => void; className?: string; }) {
     return (
         <Popover open={open} onOpenChange={setOpen}>
+            <Anchor className="w-4 h-4 flex-none" />
             <PopoverContent className="w-64">
                 <div
                     className={classNames("w-6 h-6", cellClasses, className)}
@@ -38,8 +40,8 @@ function PaletteCell({ className, color, ...rest }: ButtonHTMLAttributes<HTMLBut
                 clearTimeout(timerId.current!);
                 timerId.current = setTimeout(() => {
                     setShowShades(true);
-                    console.log('show shades');
 
+                    console.log('show shades');
                 }, 1500);
 
             }}
