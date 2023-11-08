@@ -8,6 +8,7 @@ import { colorPickerState } from "./ui-state";
 import { hsvaToHex, hsvaToHexa } from "./color-convert";
 import { classNames } from "@/utils";
 import { ColorInputs } from "./view-inputs";
+import { PaletteSelector } from "./view-palettes";
 
 function AlphaView({ className, ...rest }: Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>) {
     const snap = useSnapshot(colorPickerState);
@@ -127,6 +128,10 @@ export function SaturationSelector() {
             </div>
 
             <ColorInputs className="px-2 pb-3" />
+
+            <hr/>
+
+            <PaletteSelector />
         </div>
 
         {/* <ColorNumbersDisplay /> */}

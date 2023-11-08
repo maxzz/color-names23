@@ -1,5 +1,5 @@
 //https://github.com/ChromeDevTools/devtools-frontend/blob/main/front_end/ui/legacy/components/color_picker/Spectrum.ts#L1532C1-L1618C1
-const MaterialPaletteShades = new Map([
+export const MaterialPaletteShades = new Map([
     ['#F44336', ['#FFEBEE', '#FFCDD2', '#EF9A9A', '#E57373', '#EF5350', '#F44336', '#E53935', '#D32F2F', '#C62828', '#B71C1C'],],
     ['#E91E63', ['#FCE4EC', '#F8BBD0', '#F48FB1', '#F06292', '#EC407A', '#E91E63', '#D81B60', '#C2185B', '#AD1457', '#880E4F'],],
     ['#9C27B0', ['#F3E5F5', '#E1BEE7', '#CE93D8', '#BA68C8', '#AB47BC', '#9C27B0', '#8E24AA', '#7B1FA2', '#6A1B9A', '#4A148C'],],
