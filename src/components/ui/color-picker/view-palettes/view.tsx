@@ -4,7 +4,7 @@ import { MaterialPaletteShades, materialPalette } from "./material-palette";
 import { IconMenuBurger } from "../../icons";
 import { Button } from "../../shadcn";
 
-const cellClassess = "w-5 h-5 rounded";
+const cellClassess = "w-4 h-4 rounded";
 
 function PaletteCell({ className, color, ...rest }: HTMLAttributes<HTMLDivElement> & { color: string; }) {
     return (
@@ -14,12 +14,12 @@ function PaletteCell({ className, color, ...rest }: HTMLAttributes<HTMLDivElemen
             {...rest}
         >
             <div
-                className={classNames("absolute left-px -top-2 m-1 opacity-75", cellClassess, className)}
+                className={classNames("absolute left-[1px] -top-[8px] m-1 opacity-75", cellClassess, className)}
                 style={{ background: color }}
             >
             </div>
             <div
-                className={classNames("absolute left-1.5 -top-3 m-1 opacity-50", cellClassess, className)}
+                className={classNames("absolute left-[5px] -top-[13px] m-1 opacity-50", cellClassess, className)}
                 style={{ background: color }}
             >
             </div>
