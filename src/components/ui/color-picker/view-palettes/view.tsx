@@ -1,17 +1,23 @@
-import { HTMLAttributes } from "react";
+import { ButtonHTMLAttributes, HTMLAttributes } from "react";
 import { classNames } from "@/utils";
 import { MaterialPaletteShades, materialPalette } from "./material-palette";
 import { IconMenuBurger } from "../../icons";
 import { Button } from "../../shadcn";
+import { colorPickerState } from "../ui-state";
+import { hexToHsva } from "../color-convert";
 
 const cellClasses = "w-4 h-4 rounded transition-opacity duration-500 delay-100";
 
-function PaletteCell({ className, color, ...rest }: HTMLAttributes<HTMLDivElement> & { color: string; }) {
+function PaletteCell({ className, color, ...rest }: ButtonHTMLAttributes<HTMLButtonElement> & { color: string; }) {
     return (
-        <div
-            className={classNames("group relative m-1", cellClasses, className)}
+        <button
+            className={classNames("group relative m-1 active:scale-95", cellClasses, className)}
             style={{ background: color }}
             title={`Long click to show alternative shades of ${color}`}
+            onClick={(e) => {
+                e.stopPropagation();
+                colorPickerState.hsvaColor = hexToHsva(color);
+             }}
             {...rest}
         >
             <div
@@ -24,7 +30,7 @@ function PaletteCell({ className, color, ...rest }: HTMLAttributes<HTMLDivElemen
                 style={{ background: color }}
             >
             </div>
-        </div>
+        </button>
     );
 }
 
