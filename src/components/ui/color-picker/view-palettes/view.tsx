@@ -14,12 +14,12 @@ function PaletteCell({ className, color, ...rest }: HTMLAttributes<HTMLDivElemen
             {...rest}
         >
             <div
-                className={classNames("absolute left-[1px] -top-[8px] m-1 opacity-75", cellClassess, className)}
+                className={classNames("absolute left-[3px] -top-[2px] opacity-60", cellClassess, className)}
                 style={{ background: color }}
             >
             </div>
             <div
-                className={classNames("absolute left-[5px] -top-[13px] m-1 opacity-50", cellClassess, className)}
+                className={classNames("absolute left-[5px] -top-[4px] opacity-30", cellClassess, className)}
                 style={{ background: color }}
             >
             </div>
