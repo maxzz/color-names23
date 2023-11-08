@@ -4,20 +4,22 @@ import { MaterialPaletteShades, materialPalette } from "./material-palette";
 import { IconMenuBurger } from "../../icons";
 import { Button } from "../../shadcn";
 
+const cellClassess = "w-5 h-5 rounded";
+
 function PaletteCell({ className, color, ...rest }: HTMLAttributes<HTMLDivElement> & { color: string; }) {
     return (
         <div
-            className={classNames("relative m-1 w-3 h-3 rounded", className)}
+            className={classNames("relative m-1", cellClassess, className)}
             style={{ background: color }}
             {...rest}
         >
             <div
-                className={classNames("absolute left-1 -top-1 m-1 w-3 h-3 rounded opacity-75", className)}
+                className={classNames("absolute left-px -top-2 m-1 opacity-75", cellClassess, className)}
                 style={{ background: color }}
             >
             </div>
             <div
-                className={classNames("absolute left-2 -top-2 m-1 w-3 h-3 rounded opacity-50", className)}
+                className={classNames("absolute left-1.5 -top-3 m-1 opacity-50", cellClassess, className)}
                 style={{ background: color }}
             >
             </div>
