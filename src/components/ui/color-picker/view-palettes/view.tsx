@@ -6,7 +6,7 @@ import { hexToHsva } from "../color-convert";
 import { IconMenuBurger } from "../../icons";
 import { classNames } from "@/utils";
 
-function AdditionalColorsPopup({ open, setOpen, className, ...rest }: { open: boolean; setOpen: (open: boolean) => void; className?: string; }) {
+function AdditionalColorsPopup({ colorGroup, open, setOpen, className, ...rest }: { colorGroup: string; open: boolean; setOpen: (open: boolean) => void; className?: string; }) {
     function onColorClick(color: string) {
         colorPickerState.hsvaColor = hexToHsva(color);
         setOpen(false);
@@ -61,13 +61,17 @@ const cellClasses = "w-4 h-4 rounded transition-opacity delay-100";
 function PaletteCell({ colorGroup, className, ...rest }: { colorGroup: string; } & ButtonHTMLAttributes<HTMLButtonElement>) {
     const timerId = useRef<NodeJS.Timeout | null>(null);
     const [showShades, setShowShades] = useState(false);
-    const colorgroup = materialPalette.shades.get(colorGroup);
-    const color = colorgroup?.[materialPalette.shadeIdx] || '';
+    const group = materialPalette.shades.get(colorGroup);
+    const color = group?.[materialPalette.shadeIdx];
+    if (!color) {
+        return null;
+    }
     return (
         <button
             className={classNames("group relative m-1 active:scale-95", cellClasses, className)}
             style={{ background: color }}
-            title={`Long click to show alternative shades of ${color}`}
+            tabIndex={-1}
+            title={`${colorGroup}\nLong click to show alternative shades`}
             onClick={(e) => {
                 e.stopPropagation();
                 colorPickerState.hsvaColor = hexToHsva(color);
@@ -92,14 +96,14 @@ function PaletteCell({ colorGroup, className, ...rest }: { colorGroup: string; }
             >
             </div>
 
-            <AdditionalColorsPopup open={showShades} setOpen={setShowShades} />
+            <AdditionalColorsPopup colorGroup={colorGroup} open={showShades} setOpen={setShowShades} />
         </button>
     );
 }
 
 export function PaletteSelector({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     return (
-        <div className={classNames("px-3 py-2 flex space-x-2", className)} {...rest}>
+        <div className={classNames("px-2 py-2 flex ", className)} {...rest}>
 
             <div className="flex-1 flex flex-wrap">
                 {materialPalette.colors.map((colorGroup, idx) => (
@@ -107,8 +111,8 @@ export function PaletteSelector({ className, ...rest }: HTMLAttributes<HTMLDivEl
                 ))}
             </div>
 
-            <Button variant={'outline'} size={'icon'} className="w-4 h-4 flex-none">
-                <IconMenuBurger className="w-4 h-4" />
+            <Button variant={'outline'} size={'icon'} className="p-0.5 w-5 h-5 flex-none">
+                <IconMenuBurger  />
             </Button>
         </div>
     );
