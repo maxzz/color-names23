@@ -6,7 +6,8 @@ import { hexToHsva } from "../color-convert";
 import { IconMenuBurger } from "../../icons";
 import { classNames } from "@/utils";
 
-function AdditionalColorsPopup({ colorGroup, open, setOpen, className, ...rest }: { colorGroup: string; open: boolean; setOpen: (open: boolean) => void; className?: string; }) {
+function ShadesPopup({ colorGroup, open, setOpen, className, ...rest }: { colorGroup: string; open: boolean; setOpen: (open: boolean) => void; className?: string; }) {
+    const group = materialPalette.shades.get(colorGroup)!;
     function onColorClick(color: string) {
         colorPickerState.hsvaColor = hexToHsva(color);
         setOpen(false);
@@ -15,42 +16,18 @@ function AdditionalColorsPopup({ colorGroup, open, setOpen, className, ...rest }
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverAnchor className="w-4 h-4" />
             <PopoverContent className={classNames("p-1 w-auto flex flex-col space-y-2 border-muted-foreground border !duration-ani-300", className)} {...rest}>
-                <div
-                    className={classNames("w-3 h-3", cellClasses)}
-                    style={{ background: 'red' }}
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        onColorClick('#ff00ff');
-                    }}
-                />
-                <div
-                    className={classNames("w-3 h-3", cellClasses)}
-                    style={{ background: 'red' }}
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        onColorClick('#ff00ff');
-                    }}
-                />
-                <div
-                    className={classNames("w-3 h-3", cellClasses)}
-                    style={{ background: 'red' }}
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        onColorClick('#ff00ff');
-                    }}
-                />
-                <div
-                    className={classNames("w-3 h-3", cellClasses)}
-                    style={{ background: 'red' }}
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        onColorClick('#ff00ff');
-                    }}
-                />
+                {group.map((color, idx) => (
+                    <div
+                        className={classNames("w-3 h-3", cellClasses)}
+                        style={{ background: color }}
+                        key={idx}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            onColorClick(color);
+                        }}
+                    />
+                ))}
             </PopoverContent>
         </Popover>
     );
@@ -96,7 +73,7 @@ function PaletteCell({ colorGroup, className, ...rest }: { colorGroup: string; }
             >
             </div>
 
-            <AdditionalColorsPopup colorGroup={colorGroup} open={showShades} setOpen={setShowShades} />
+            <ShadesPopup colorGroup={colorGroup} open={showShades} setOpen={setShowShades} />
         </button>
     );
 }
@@ -112,7 +89,7 @@ export function PaletteSelector({ className, ...rest }: HTMLAttributes<HTMLDivEl
             </div>
 
             <Button variant={'outline'} size={'icon'} className="p-0.5 w-5 h-5 flex-none">
-                <IconMenuBurger  />
+                <IconMenuBurger />
             </Button>
         </div>
     );
