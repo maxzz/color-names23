@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes, HTMLAttributes, useRef, useState } from "react";
 import { colorPickerState } from "../ui-state";
 import { Button, Popover, PopoverAnchor, PopoverContent } from "../../shadcn";
-import { MaterialPaletteShades, materialPalette } from "./material-palette";
+import { materialPalette } from "./material-palette";
 import { hexToHsva } from "../color-convert";
 import { IconMenuBurger } from "../../icons";
 import { classNames } from "@/utils";
@@ -58,9 +58,11 @@ function AdditionalColorsPopup({ open, setOpen, className, ...rest }: { open: bo
 
 const cellClasses = "w-4 h-4 rounded transition-opacity delay-100";
 
-function PaletteCell({ className, color, ...rest }: ButtonHTMLAttributes<HTMLButtonElement> & { color: string; }) {
+function PaletteCell({ colorGroup, className, ...rest }: { colorGroup: string; } & ButtonHTMLAttributes<HTMLButtonElement>) {
     const timerId = useRef<NodeJS.Timeout | null>(null);
     const [showShades, setShowShades] = useState(false);
+    const colorgroup = materialPalette.shades.get(colorGroup);
+    const color = colorgroup?.[materialPalette.shadeIdx] || '';
     return (
         <button
             className={classNames("group relative m-1 active:scale-95", cellClasses, className)}
@@ -71,18 +73,10 @@ function PaletteCell({ className, color, ...rest }: ButtonHTMLAttributes<HTMLBut
                 colorPickerState.hsvaColor = hexToHsva(color);
             }}
             onMouseDown={(e) => {
-                console.log('mousedown');
-
-                clearTimeout(timerId.current!); //TODO: calc deff between mousedown and mouseup and do it on mouseup
-                timerId.current = setTimeout(() => {
-                    setShowShades(true);
-
-                    console.log('show shades');
-                }, 500);
+                clearTimeout(timerId.current!);
+                timerId.current = setTimeout(() => setShowShades(true), 500);
             }}
             onMouseUp={(e) => {
-                console.log('mouseup');
-
                 clearTimeout(timerId.current!);
             }}
             {...rest}
@@ -108,8 +102,8 @@ export function PaletteSelector({ className, ...rest }: HTMLAttributes<HTMLDivEl
         <div className={classNames("px-3 py-2 flex space-x-2", className)} {...rest}>
 
             <div className="flex-1 flex flex-wrap">
-                {materialPalette.colors.map((color, idx) => (
-                    <PaletteCell color={color} key={idx} />
+                {materialPalette.colors.map((colorGroup, idx) => (
+                    <PaletteCell colorGroup={colorGroup} key={idx} />
                 ))}
             </div>
 
