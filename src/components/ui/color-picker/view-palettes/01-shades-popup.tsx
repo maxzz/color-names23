@@ -54,9 +54,10 @@ export function ShadesPopup({ colorGroup, open, setOpen, className, ...rest }: S
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverAnchor className="w-4 h-4" />
             <PopoverContent className={classNames(contentClasses, className)} align="end" alignOffset={-4} {...rest}>
-                <div className="py-1.5 text-xs text-muted-foreground [writing-mode:vertical-rl] rotate-180 flex space-y-1">
-                    <div className="text-muted-foreground/70">{palette.title}:</div>
-                    <div className="font-semibold">{colorGroup}</div>
+
+                <div className="px-[3px] py-1.5 text-xs tracking-wider text-muted-foreground [writing-mode:vertical-rl] rotate-180 scale-x-125 flex space-y-1">
+                    <div className="text-muted-foreground/70">{palette.title}</div>
+                    <div className="">{colorGroup.replace(/([A-Z])/g, ' $1').toLowerCase()}</div>
                 </div>
 
                 <div className={`${popupClasses}`}>

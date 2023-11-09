@@ -44,7 +44,7 @@ const MaterialPaletteShades = new Map([
 ]);
 
 export const materialPalette: ColorPickerPalette = {
-    title: 'Material UI',
+    title: 'Material',
     colors: [...MaterialPaletteShades.keys()],
     shades: MaterialPaletteShades,
     shadeNames: materialShadeNames,
