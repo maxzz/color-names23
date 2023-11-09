@@ -2,7 +2,7 @@ import { HTMLAttributes, InputHTMLAttributes } from "react";
 import { useSnapshot } from "valtio";
 import { Input, Label } from "../../shadcn";
 import { hsvaToHex, hsvaToHexa, hsvaToRgba } from "../color-convert";
-import { colorPickerState } from "../ui-state";
+import { colorPickerState } from "../ui-state-color";
 import { classNames } from "@/utils";
 
 const boxClasses = "flex flex-col items-center";

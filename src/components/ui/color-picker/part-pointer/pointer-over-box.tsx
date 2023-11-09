@@ -1,7 +1,7 @@
 import { useSnapshot } from "valtio";
 import { DefaultPointer, pointerShadow } from "./default-pointer";
 import { hsvaToHslaString } from "../color-convert";
-import { colorPickerState } from "../ui-state";
+import { colorPickerState } from "../ui-state-color";
 import { HTMLAttributes } from "react";
 
 const circleFillProps = (isVerical: boolean | undefined): HTMLAttributes<HTMLDivElement> => ({
