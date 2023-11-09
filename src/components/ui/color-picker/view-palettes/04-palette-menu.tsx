@@ -1,4 +1,6 @@
 import { ButtonHTMLAttributes } from "react";
+import { useSnapshot } from "valtio";
+import { palettePickerState, paletteList } from "./ui-state-palette";
 import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../../shadcn";
 import { IconCheckbox, IconMenuBurger } from "@/components/ui/icons";
 
@@ -6,7 +8,9 @@ function Item({ label, paletteName, currentPaletteName }: { label: string; palet
     return (
         <DropdownMenuItem
             className="text-xs grid grid-cols-[16px,1fr] items-center gap-x-2"
-            onClick={() => {}}
+            onClick={() => {
+                palettePickerState.activePaletteIdx = paletteList.findIndex((palette) => palette.title === paletteName);
+            }}
         >
             {paletteName === currentPaletteName && <IconCheckbox className="w-4 h-4" />}
 
@@ -18,6 +22,9 @@ function Item({ label, paletteName, currentPaletteName }: { label: string; palet
 }
 
 export function PaletteMenu({ className, ...rest }: ButtonHTMLAttributes<HTMLButtonElement>) {
+    const { activePaletteIdx } = useSnapshot(palettePickerState);
+    const palette = paletteList[activePaletteIdx];
+    const currentPaletteName = palette.title;
     return (
         <DropdownMenu>
 
@@ -28,8 +35,11 @@ export function PaletteMenu({ className, ...rest }: ButtonHTMLAttributes<HTMLBut
             </DropdownMenuTrigger>
 
             <DropdownMenuContent align="start" alignOffset={-10}>
-                <Item label="Material UI" paletteName="M" currentPaletteName="M"/>
-                <Item label="Tailwind CSS" paletteName="T" currentPaletteName="M"/>
+                {
+                    paletteList.map((palette, idx) => (
+                        <Item label={palette.title} paletteName={palette.title} currentPaletteName={currentPaletteName} key={idx} />
+                    ))
+                }
             </DropdownMenuContent>
 
         </DropdownMenu>

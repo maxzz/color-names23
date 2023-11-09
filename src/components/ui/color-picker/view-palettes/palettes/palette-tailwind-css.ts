@@ -42,7 +42,7 @@ const TailwindPaletteShades = new Map([
 ]);
 
 export const tailwindPalette: ColorPickerPalette = {
-    title: 'Material',
+    title: 'Tailwind CSS',
     colors: [...TailwindPaletteShades.keys()],
     shades: TailwindPaletteShades,
     shadeNames: tailwindShadeNames,
