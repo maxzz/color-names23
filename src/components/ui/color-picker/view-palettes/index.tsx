@@ -1,2 +1,2 @@
-export * from './material-palette';
+export * from './palette-material-ui';
 export * from './view';

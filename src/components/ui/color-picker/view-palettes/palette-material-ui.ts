@@ -42,11 +42,12 @@ const MaterialPaletteShades = new Map([
 ]);
 
 export type ColorPickerPalette = {
-	title: string;			// Palette name
-	colors: string[];		// palette color names
+	title: string;					// Palette name
+	colors: string[];				// palette color names
 	shades: Map<string, string[]>;	// shades of the palette color
-	shadeNames: string[];	// names of the shades: 50-900, A100-A700 (by the length of longest palette)
-	shadeIdx: number;		// index of the default shade '500'
+	shadeNames: string[];			// names of the shades: 50-900, A100-A700 (by the length of longest palette)
+	defShadeIdx: number;			// index of the default shade '500'
+	extraIdx: number;				// index of the extra shade 'A100'
 };
 
 export const materialPalette: ColorPickerPalette = {
@@ -54,5 +55,6 @@ export const materialPalette: ColorPickerPalette = {
 	colors: [...MaterialPaletteShades.keys()],
 	shades: MaterialPaletteShades,
 	shadeNames: materialShadeNames,
-	shadeIdx: 5, // '500'
+	defShadeIdx: 5, // '500'
+	extraIdx: 10, 	// 'A100'
 };

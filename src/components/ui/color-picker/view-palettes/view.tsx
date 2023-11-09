@@ -1,7 +1,7 @@
-import { ButtonHTMLAttributes, HTMLAttributes, useRef, useState } from "react";
+import { ButtonHTMLAttributes, Fragment, HTMLAttributes, useRef, useState } from "react";
 import { colorPickerState } from "../ui-state";
 import { Button, Popover, PopoverAnchor, PopoverContent } from "../../shadcn";
-import { materialPalette } from "./material-palette";
+import { materialPalette } from "./palette-material-ui";
 import { hexToHsva } from "../color-convert";
 import { IconMenuBurger } from "../../icons";
 import { classNames } from "@/utils";
@@ -17,16 +17,21 @@ function ShadesPopup({ colorGroup, open, setOpen, className, ...rest }: { colorG
             <PopoverAnchor className="w-4 h-4" />
             <PopoverContent className={classNames("p-1 w-auto flex flex-col space-y-2 border-muted-foreground border !duration-ani-300", className)} {...rest}>
                 {group.map((color, idx) => (
-                    <div
-                        className={classNames("w-3 h-3", cellClasses)}
-                        style={{ background: color }}
-                        key={idx}
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            e.preventDefault();
-                            onColorClick(color);
-                        }}
-                    />
+                    <Fragment key={idx}>
+                        {idx === materialPalette.extraIdx && (
+                            <div className="-mx-1 h-px bg-muted-foreground/50" />
+                        )}
+
+                        <div
+                            className={classNames("w-3 h-3", cellClasses)}
+                            style={{ background: color }}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                e.preventDefault();
+                                onColorClick(color);
+                            }}
+                        />
+                    </Fragment>
                 ))}
             </PopoverContent>
         </Popover>
@@ -39,7 +44,7 @@ function PaletteCell({ colorGroup, className, ...rest }: { colorGroup: string; }
     const timerId = useRef<NodeJS.Timeout | null>(null);
     const [showShades, setShowShades] = useState(false);
     const group = materialPalette.shades.get(colorGroup);
-    const color = group?.[materialPalette.shadeIdx];
+    const color = group?.[materialPalette.defShadeIdx];
     if (!color) {
         return null;
     }
