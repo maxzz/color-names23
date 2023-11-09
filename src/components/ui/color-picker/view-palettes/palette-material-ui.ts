@@ -1,3 +1,12 @@
+export type ColorPickerPalette = {
+	title: string;					// Palette name
+	colors: string[];				// palette color names
+	shades: Map<string, string[]>;	// shades of the palette color
+	shadeNames: string[];			// names of the shades: 50-900, A100-A700 (by the length of longest palette)
+	defShadeIdx: number;			// index of the default shade '500'
+	extraIdx: number;				// index of the extra shade 'A100'
+};
+
 //https://m2.material.io/design/color/the-color-system.html '2014 Material Design color palettes'
 //https://github.com/PCloud63514/react-native-integration-ui/blob/main/src/styles/colors/material/colorPaltte.tsx
 //https://github.com/ChromeDevTools/devtools-frontend/blob/main/front_end/ui/legacy/components/color_picker/Spectrum.ts#L1532C1-L1618C1
@@ -40,15 +49,6 @@ const MaterialPaletteShades = new Map([
 	['gray', 		/**/['#FAFAFA', '#F5F5F5', '#EEEEEE', '#E0E0E0', '#BDBDBD', '#9E9E9E', '#757575', '#616161', '#424242', '#212121'],],
 	['blueGray', 	/**/['#ECEFF1', '#CFD8DC', '#B0BEC5', '#90A4AE', '#78909C', '#607D8B', '#546E7A', '#455A64', '#37474F', '#263238'],],
 ]);
-
-export type ColorPickerPalette = {
-	title: string;					// Palette name
-	colors: string[];				// palette color names
-	shades: Map<string, string[]>;	// shades of the palette color
-	shadeNames: string[];			// names of the shades: 50-900, A100-A700 (by the length of longest palette)
-	defShadeIdx: number;			// index of the default shade '500'
-	extraIdx: number;				// index of the extra shade 'A100'
-};
 
 export const materialPalette: ColorPickerPalette = {
 	title: 'Material',
