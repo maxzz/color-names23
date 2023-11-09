@@ -1,9 +1,15 @@
 import { proxy } from "valtio";
+import { ColorPickerPalette, materialPalette, tailwindPalette } from "./palettes";
+
+export const paletteList: ColorPickerPalette[] = [
+    materialPalette,
+    tailwindPalette,
+];
 
 export type PalettePickerState = {
-    paletteName: string;
+    activePaletteIdx: number;
 }
 
 export const palettePickerState = proxy<PalettePickerState>({
-    paletteName: '',
+    activePaletteIdx: 0,
 });
