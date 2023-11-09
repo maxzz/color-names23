@@ -5,9 +5,26 @@ import { materialPalette } from "./palette-material-ui";
 import { hexToHsva } from "../color-convert";
 import { classNames } from "@/utils";
 
-export const cellClasses = "w-4 h-4 rounded transition-opacity delay-100";
+type ShadesPopupProps = {
+    colorGroup: string;
+    open: boolean;
+    setOpen: (open: boolean) => void;
+    className?: string;
+};
 
-export function ShadesPopup({ colorGroup, open, setOpen, className, ...rest }: { colorGroup: string; open: boolean; setOpen: (open: boolean) => void; className?: string; }) {
+export const cellClasses = "w-4 h-4 rounded transition-opacity delay-100";
+export const contentClasses = "\
+p-1 \
+w-auto \
+text-[.65rem] \
+space-y-2 \
+border-muted-foreground \
+border \
+!duration-ani-300 \
+select-none \
+grid grid-cols-[auto,auto] gap-x-1";
+
+export function ShadesPopup({ colorGroup, open, setOpen, className, ...rest }: ShadesPopupProps) {
     const group = materialPalette.shades.get(colorGroup)!;
     function onColorClick(color: string) {
         colorPickerState.hsvaColor = hexToHsva(color);
@@ -16,7 +33,7 @@ export function ShadesPopup({ colorGroup, open, setOpen, className, ...rest }: {
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverAnchor className="w-4 h-4" />
-            <PopoverContent className={classNames("p-1 w-auto text-[.65rem] space-y-2 border-muted-foreground border !duration-ani-300 grid grid-cols-[auto,auto] gap-x-1", className)} {...rest}>
+            <PopoverContent className={classNames(contentClasses, className)} align="end" alignOffset={-4} {...rest}>
                 {group.map((color, idx) => (
                     <Fragment key={idx}>
                         {idx === materialPalette.extraIdx && (

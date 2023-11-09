@@ -13,12 +13,13 @@ export function PaletteCell({ colorGroup, className, ...rest }: { colorGroup: st
     if (!color) {
         return null;
     }
+    const title = `${colorGroup.replace(/([A-Z])/g, ' $1').toLowerCase()} ${materialPalette.shadeNames[materialPalette.defShadeIdx]}\nLong click to show alternative shades`;
     return (
         <button
             className={classNames("group relative m-1 active:scale-95", cellClasses, className)}
             style={{ background: color }}
             tabIndex={-1}
-            title={`${colorGroup}\nLong click to show alternative shades`}
+            title={title}
             onClick={(e) => {
                 e.stopPropagation();
                 colorPickerState.hsvaColor = hexToHsva(color);
