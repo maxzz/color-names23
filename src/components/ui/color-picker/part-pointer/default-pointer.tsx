@@ -7,6 +7,11 @@ export const pointerCircleShadow = "\
 #0005 0px 0px 1px 1px inset, \
 #0005 0px 0px 1px 2px";
 
+export const pointerSliderShadow = "\
+#000f 0px 0px 0px 1px, \
+#fff5 0px 0px 1px 1px inset, \
+#fff5 0px 0px 1px 2px";
+
 export const checkerBoardImg = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMUlEQVQ4T2NkYGAQYcAP3uCTZhw1gGGYhAGBZIA/nYDCgBDAm9BGDWAAJyRCgLaBCAAgXwixzAS0pgAAAABJRU5ErkJggg==';
 export const checkerBoardBkg = `url(${checkerBoardImg}) left center #fff`;
 
