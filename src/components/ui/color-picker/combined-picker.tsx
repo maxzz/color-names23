@@ -129,7 +129,7 @@ export function SaturationSelector() {
 
             <ColorInputs className="px-2 pb-3" />
 
-            <hr/>
+            <hr />
 
             <PaletteSelector />
         </div>
