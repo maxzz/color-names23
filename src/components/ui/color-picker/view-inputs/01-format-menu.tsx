@@ -8,9 +8,9 @@ function Item({ label, formatIdx, currentFormatIdx }: { label: string; formatIdx
     return (
         <DropdownMenuItem
             className="text-xs grid grid-cols-[16px,1fr] items-center gap-x-2"
-            // onClick={() => {
-            //     palettePickerState.activePaletteIdx = paletteList.findIndex((palette) => palette.title === paletteName);
-            // }}
+            onClick={() => {
+                formatPickerState.formatIdx = formatIdx;
+            }}
         >
             {formatIdx === currentFormatIdx && <IconCheckbox className="w-4 h-4" />}
 
