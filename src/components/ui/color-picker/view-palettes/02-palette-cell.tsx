@@ -25,16 +25,15 @@ export function PaletteCell({ colorGroup, className, ...rest }: { colorGroup: st
             style={{ background: color }}
             tabIndex={-1}
             title={title}
-            onClick={(e) => {
-                e.stopPropagation();
-                colorPickerState.hsvaColor = hexToHsva(color);
-            }}
             onMouseDown={(e) => {
                 clearTimeout(timerId.current!);
                 timerId.current = setTimeout(() => setShowShades(true), 500);
             }}
             onMouseUp={(e) => {
                 clearTimeout(timerId.current!);
+                if (!showShades) {
+                    colorPickerState.hsvaColor = hexToHsva(color);
+                }
             }}
             {...rest}
         >
