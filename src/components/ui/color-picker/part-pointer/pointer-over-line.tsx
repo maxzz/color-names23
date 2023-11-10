@@ -1,5 +1,5 @@
 import { HTMLAttributes } from "react";
-import { DefaultPointer, PointerProps, pointerShadow } from "./default-pointer";
+import { DefaultPointer, PointerProps, pointerCircleShadow } from "./default-pointer";
 
 const circleFillProps = (isVerical: boolean | undefined): HTMLAttributes<HTMLDivElement> => ({
     style: {
@@ -7,7 +7,7 @@ const circleFillProps = (isVerical: boolean | undefined): HTMLAttributes<HTMLDiv
         height: '18px',
         transform: isVerical ? 'translate(-0px, -9px)' : 'translate(-9px, 0px)',
         borderRadius: '50%',
-        '--alpha-pointer-box-shadow': pointerShadow,
+        '--alpha-pointer-box-shadow': pointerCircleShadow,
     },
 });
 
@@ -17,7 +17,7 @@ const boxFillProps = (isVerical: boolean | undefined): HTMLAttributes<HTMLDivEle
         height: '100%',
         transform: isVerical ? 'translate(-0px, -3px)' : 'translate(-3px, 0px)',
         borderRadius: '1px',
-        '--alpha-pointer-box-shadow': pointerShadow,
+        '--alpha-pointer-box-shadow': pointerCircleShadow,
     },
 });
 
