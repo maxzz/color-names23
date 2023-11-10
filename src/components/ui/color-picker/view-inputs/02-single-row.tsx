@@ -30,12 +30,12 @@ function InputColorPart() {
     );
 }
 
-export function CurrentColor() {
+export function CurrentColor({className, ...rest}: HTMLAttributes<HTMLDivElement>) {
     const snap = useSnapshot(colorPickerState);
     const hex = hsvaToHex(snap.hsvaColor);
     const rgba = hsvaToRgba(snap.hsvaColor);
     return (
-        <div className={`min-w-[72px] flex items-center`}>
+        <div className={classNames("min-w-[72px] flex items-center space-x-2", className)} {...rest}>
             <Label className={labelClasses}>Hex</Label>
             <Input className={inputClasses} value={hex} onChange={(e) => colorPickerState.hsvaColor.h = +e.target.value} />
         </div>
