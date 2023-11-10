@@ -30,7 +30,7 @@ function InputColorPart() {
     );
 }
 
-function CurrentColor() {
+export function CurrentColor() {
     const snap = useSnapshot(colorPickerState);
     const hex = hsvaToHex(snap.hsvaColor);
     const rgba = hsvaToRgba(snap.hsvaColor);
@@ -38,17 +38,6 @@ function CurrentColor() {
         <div className={`min-w-[72px] flex items-center`}>
             <Label className={labelClasses}>Hex</Label>
             <Input className={inputClasses} value={hex} onChange={(e) => colorPickerState.hsvaColor.h = +e.target.value} />
-        </div>
-    );
-}
-
-export function ColorInputs({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-    // const snap = useSnapshot(colorPickerState);
-    // const hex = hsvaToHex(snap.hsvaColor);
-    // const rgba = hsvaToRgba(snap.hsvaColor);
-    return (
-        <div className={classNames("flex justify-center space-x-2", className)} {...rest}>
-            <CurrentColor />
         </div>
     );
 }

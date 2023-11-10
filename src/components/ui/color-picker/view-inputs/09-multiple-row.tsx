@@ -30,7 +30,7 @@ function InputColorPart() {
     );
 }
 
-export function ColorInputs({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
+function ColorInputs({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     const snap = useSnapshot(colorPickerState);
     const hex = hsvaToHex(snap.hsvaColor);
     const rgba = hsvaToRgba(snap.hsvaColor);

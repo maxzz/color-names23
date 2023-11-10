@@ -1,1 +1,1 @@
-export * from './02-single-row';
+export * from './03-inputs-view';
