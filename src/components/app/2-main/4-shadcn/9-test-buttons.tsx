@@ -43,15 +43,21 @@ const test4 = `
 export function TestButtons() {
     const anchorRef = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(false);
+    console.log("all", open);
     return (
         <>
-            <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => {
+            <Button ref={anchorRef} className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => {
+                console.log("test1", open);
+
                 parseText.text = test1;
-                setOpen(true);
+                !open && setOpen(true);
             }}>0/0</Button>
-            <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => (parseText.text = test2, setOpen(true))}>1/0</Button>
-            <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => (parseText.text = test3, setOpen(true))}>3/0</Button>
-            <Button ref={anchorRef} className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => (parseText.text = test4, setOpen(true))}>3/1</Button>
+            <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => (parseText.text = test2, setOpen(p => !p))}>1/0</Button>
+            <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => (parseText.text = test3, setOpen(p => !p))}>3/0</Button>
+            <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() =>{
+                parseText.text = test4;
+                !open && setOpen(true);
+            }}>3/1</Button>
 
             {open && anchorRef.current && <ShowPicker open={open} setOpen={setOpen} anchorRef={anchorRef} />}
         </>
@@ -62,8 +68,8 @@ function ShowPicker({ open, setOpen, anchorRef, className, ...rest }: { open: bo
     return (
         <div className="absolute">
             <Popover open={open} onOpenChange={setOpen}>
-                <PopoverAnchor className="w-4 h-4" virtualRef={anchorRef} />
-                <PopoverContent className={classNames("", className)} align="end" alignOffset={-4} {...rest}>
+                <PopoverAnchor className="relative w-0 h-0" virtualRef={anchorRef} />
+                <PopoverContent className={classNames("p-0 w-auto", className)} {...rest}>
                     <SaturationSelector />
                 </PopoverContent>
             </Popover>
