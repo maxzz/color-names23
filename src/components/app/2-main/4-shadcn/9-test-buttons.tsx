@@ -1,6 +1,8 @@
-import { Button } from "@/components/ui/shadcn";
+import { Button, Popover, PopoverAnchor, PopoverContent, Textarea } from "@/components/ui/shadcn";
 import { parseText } from "@/store";
-
+import { SaturationSelector } from "@/components/ui/color-picker";
+import { classNames } from "@/utils";
+import { Dispatch, HTMLAttributes, RefObject, SetStateAction, useRef, useState } from "react";
 
 const test1 = ` `;
 
@@ -26,13 +28,45 @@ const test4 = `
 }
 `;
 
+// export function TestButtons() {
+//     return (
+//         <>
+//             <Button className="flex-none" variant={"outline"} size={"icon"} onClick={() => parseText.text = test1}>0/0</Button>
+//             <Button className="flex-none" variant={"outline"} size={"icon"} onClick={() => parseText.text = test2}>1/0</Button>
+//             <Button className="flex-none" variant={"outline"} size={"icon"} onClick={() => parseText.text = test3}>3/0</Button>
+//             <Button className="flex-none" variant={"outline"} size={"icon"} onClick={() => parseText.text = test4}>3/1</Button>
+//             <ShowPicker />
+//         </>
+//     );
+// }
+
 export function TestButtons() {
+    const anchorRef = useRef<HTMLButtonElement>(null);
+    const [open, setOpen] = useState(false);
     return (
         <>
-            <Button className="flex-none" variant={"outline"} size={"icon"} onClick={() => parseText.text = test1}>0/0</Button>
-            <Button className="flex-none" variant={"outline"} size={"icon"} onClick={() => parseText.text = test2}>1/0</Button>
-            <Button className="flex-none" variant={"outline"} size={"icon"} onClick={() => parseText.text = test3}>3/0</Button>
-            <Button className="flex-none" variant={"outline"} size={"icon"} onClick={() => parseText.text = test4}>3/1</Button>
+            <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => {
+                parseText.text = test1;
+                setOpen(true);
+            }}>0/0</Button>
+            <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => (parseText.text = test2, setOpen(true))}>1/0</Button>
+            <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => (parseText.text = test3, setOpen(true))}>3/0</Button>
+            <Button ref={anchorRef} className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => (parseText.text = test4, setOpen(true))}>3/1</Button>
+
+            {open && anchorRef.current && <ShowPicker open={open} setOpen={setOpen} anchorRef={anchorRef} />}
         </>
+    );
+}
+
+function ShowPicker({ open, setOpen, anchorRef, className, ...rest }: { open: boolean, setOpen: Dispatch<SetStateAction<boolean>>, anchorRef: RefObject<HTMLButtonElement>; } & HTMLAttributes<HTMLDivElement>) {
+    return (
+        <div className="absolute">
+            <Popover open={open} onOpenChange={setOpen}>
+                <PopoverAnchor className="w-4 h-4" virtualRef={anchorRef} />
+                <PopoverContent className={classNames("", className)} align="end" alignOffset={-4} {...rest}>
+                    <SaturationSelector />
+                </PopoverContent>
+            </Popover>
+        </div>
     );
 }
