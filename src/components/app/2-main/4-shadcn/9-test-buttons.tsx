@@ -72,7 +72,13 @@ export function TestButtons() {
     );
 }
 
-function ShowPicker({ open, setOpen, anchorRef, className, ...rest }: { open: boolean, setOpen: Dispatch<SetStateAction<boolean>>, anchorRef: RefObject<HTMLElement>; } & HTMLAttributes<HTMLDivElement>) {
+type ShowPickerProps = {
+    open: boolean;
+    setOpen: Dispatch<SetStateAction<boolean>>;
+    anchorRef: RefObject<HTMLElement>;
+} & HTMLAttributes<HTMLDivElement>;
+
+function ShowPicker({ open, setOpen, anchorRef, className, ...rest }: ShowPickerProps) {
     return (
         <div className="absolute">
             <Popover open={open} onOpenChange={() => setTimeout(() => setOpen(false), 100)}>
