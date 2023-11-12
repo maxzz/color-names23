@@ -67,7 +67,8 @@ export function TestButtons() {
             <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => (parseText.text = test3, setOpen(p => !p))}>3/0</Button>
             <Button className="flex-none relative" variant={"outline"} size={"icon"} onMouseDown={(event) => {
                 parseText.text = test4;
-                if (!open) event.preventDefault();
+                event.preventDefault();
+                //if (!open) event.preventDefault();
                 // !open && setOpen(true);
                 console.log("TestButtons onMouseDown", open);
 
