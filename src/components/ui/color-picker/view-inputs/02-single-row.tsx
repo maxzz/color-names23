@@ -32,7 +32,7 @@ const labelClasses = "text-xs ";
 // }
 
 export function CurrentColor({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-    const { hsvaColor } = useSnapshot(colorPickerState);
+    const { hsvaColor } = useSnapshot(colorPickerState, { sync: true });
     const { formatIdx } = useSnapshot(formatPickerState);
     const currentFormat = formatList[formatIdx];
 
@@ -46,11 +46,18 @@ export function CurrentColor({ className, ...rest }: HTMLAttributes<HTMLDivEleme
                 : currentFormat.format === 'hsl'
                     ? hsvaToHslaString(hsvaColor)
                     : '';
+                    
     const rgba = hsvaToRgba(hsvaColor);
     return (
         <div className={classNames("min-w-[72px] flex items-center space-x-2", className)} {...rest}>
             <Label className={labelClasses}>{currentFormat.name}</Label>
-            <Input className={inputClasses} value={txt} onChange={(e) => colorPickerState.hsvaColor.h = +e.target.value} />
+            <Input
+                className={inputClasses}
+                value={txt}
+                onChange={(e) => colorPickerState.hsvaColor.h = +e.target.value}
+                role="presentation"
+                autoComplete="off"
+            />
         </div>
     );
 }
