@@ -44,6 +44,16 @@ export function TestButtons() {
     const anchorRef = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(false);
     console.log("TestButtons render", open);
+
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+    
+    function clickOutside() {
+        console.log("TestButtons clickOutside", open);
+
+        clearTimeout(timeoutRef.current!);
+        timeoutRef.current = setTimeout(() => setOpen(false), 100);
+    }
+
     return (
         <>
             <Button ref={anchorRef} className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => {
@@ -64,7 +74,7 @@ export function TestButtons() {
                 // setOpen(true);
             }}>3/1</Button>
 
-            {open && anchorRef.current && <ShowPicker open={open} setOpen={setOpen} anchorRef={anchorRef} />}
+            {open && anchorRef.current && <ShowPicker open={open} setOpen={clickOutside} anchorRef={anchorRef} />}
         </>
     );
 }
