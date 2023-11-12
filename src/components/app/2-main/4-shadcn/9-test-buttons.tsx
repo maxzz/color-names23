@@ -43,38 +43,24 @@ const test4 = `
 export function TestButtons() {
     const anchorRef = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(false);
-    console.log("TestButtons render", open);
 
-    //const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-    
     function clickOutside() {
-        console.log("TestButtons clickOutside", open);
-
-        // clearTimeout(timeoutRef.current!);
-        // timeoutRef.current = setTimeout(() => setOpen(false), 100);
         setTimeout(() => setOpen(false), 100);
     }
 
     return (
         <>
-            <Button ref={anchorRef} className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => {
-                console.log("test1", open);
+            <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => parseText.text = test1} ref={anchorRef}>0/0</Button>
+            <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => parseText.text = test2}>1/0</Button>
+            <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => parseText.text = test3}>3/0</Button>
+            <Button className="flex-none relative" variant={"outline"} size={"icon"}
+                onMouseDown={(event) => {
+                    event.preventDefault();
 
-                parseText.text = test1;
-                !open && setOpen(true);
-            }}>0/0</Button>
-            <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => (parseText.text = test2, setOpen(p => !p))}>1/0</Button>
-            <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => (parseText.text = test3, setOpen(p => !p))}>3/0</Button>
-            <Button className="flex-none relative" variant={"outline"} size={"icon"} onMouseDown={(event) => {
-                parseText.text = test4;
-                event.preventDefault();
-                //if (!open) event.preventDefault();
-                // !open && setOpen(true);
-                console.log("TestButtons onMouseDown", open);
-
-                setOpen(p => !p);
-                // setOpen(true);
-            }}>3/1</Button>
+                    parseText.text = test4;
+                    setOpen(p => !p);
+                }}
+            >3/1</Button>
 
             {open && anchorRef.current && <ShowPicker open={open} setOpen={clickOutside} anchorRef={anchorRef} />}
         </>
@@ -84,17 +70,7 @@ export function TestButtons() {
 function ShowPicker({ open, setOpen, anchorRef, className, ...rest }: { open: boolean, setOpen: Dispatch<SetStateAction<boolean>>, anchorRef: RefObject<HTMLButtonElement>; } & HTMLAttributes<HTMLDivElement>) {
     return (
         <div className="absolute">
-            <Popover
-                open={open}
-                onOpenChange={(s) => {
-                    console.log('Picker onOpenChange setOpen =', s);
-                    setOpen(s);
-                    //setOpen(p => !p);
-                }}
-                //onInteractOutside={() => { }}
-            >
-                {/* <Popover open={open} > */}
-                {/* <Popover open={open} onOpenChange={setOpen}> */}
+            <Popover open={open} onOpenChange={() => setOpen(false)}>
                 <PopoverAnchor className="relative w-0 h-0" virtualRef={anchorRef} />
                 <PopoverContent className={classNames("p-0 w-auto", className)} {...rest}>
                     <SaturationSelector />
