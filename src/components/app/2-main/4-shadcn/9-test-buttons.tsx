@@ -44,10 +44,6 @@ export function TestButtons() {
     const anchorRef = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(false);
 
-    function clickOutside() {
-        setTimeout(() => setOpen(false), 100);
-    }
-
     return (
         <>
             <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => parseText.text = test1} ref={anchorRef}>0/0</Button>
@@ -62,7 +58,7 @@ export function TestButtons() {
                 }}
             >3/1</Button>
 
-            {open && anchorRef.current && <ShowPicker open={open} setOpen={clickOutside} anchorRef={anchorRef} />}
+            {open && anchorRef.current && <ShowPicker open={open} setOpen={setOpen} anchorRef={anchorRef} />}
         </>
     );
 }
@@ -70,7 +66,7 @@ export function TestButtons() {
 function ShowPicker({ open, setOpen, anchorRef, className, ...rest }: { open: boolean, setOpen: Dispatch<SetStateAction<boolean>>, anchorRef: RefObject<HTMLButtonElement>; } & HTMLAttributes<HTMLDivElement>) {
     return (
         <div className="absolute">
-            <Popover open={open} onOpenChange={() => setOpen(false)}>
+            <Popover open={open} onOpenChange={() => setTimeout(() => setOpen(false), 100)}>
                 <PopoverAnchor className="relative w-0 h-0" virtualRef={anchorRef} />
                 <PopoverContent className={classNames("p-0 w-auto", className)} {...rest}>
                     <SaturationSelector />
