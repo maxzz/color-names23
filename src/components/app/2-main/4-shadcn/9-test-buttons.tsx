@@ -41,17 +41,19 @@ const test4 = `
 // }
 
 export function TestButtons() {
-    const anchorRef = useRef<HTMLButtonElement>(null);
+    const anchorRef = useRef<HTMLElement | null>(null);
     const [open, setOpen] = useState(false);
 
     return (
         <>
-            <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => parseText.text = test1} ref={anchorRef}>0/0</Button>
+            <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => parseText.text = test1}>0/0</Button>
+            {/* <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => parseText.text = test1} ref={anchorRef}>0/0</Button> */}
             <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => parseText.text = test2}>1/0</Button>
             <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => parseText.text = test3}>3/0</Button>
             <Button className="flex-none relative" variant={"outline"} size={"icon"}
                 onMouseDown={(event) => {
                     event.preventDefault();
+                    anchorRef.current = event.currentTarget;
 
                     parseText.text = test4;
                     setOpen(p => !p);
@@ -63,7 +65,7 @@ export function TestButtons() {
     );
 }
 
-function ShowPicker({ open, setOpen, anchorRef, className, ...rest }: { open: boolean, setOpen: Dispatch<SetStateAction<boolean>>, anchorRef: RefObject<HTMLButtonElement>; } & HTMLAttributes<HTMLDivElement>) {
+function ShowPicker({ open, setOpen, anchorRef, className, ...rest }: { open: boolean, setOpen: Dispatch<SetStateAction<boolean>>, anchorRef: RefObject<HTMLElement>; } & HTMLAttributes<HTMLDivElement>) {
     return (
         <div className="absolute">
             <Popover open={open} onOpenChange={() => setTimeout(() => setOpen(false), 100)}>
