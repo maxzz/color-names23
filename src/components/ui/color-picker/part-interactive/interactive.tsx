@@ -86,7 +86,7 @@ export const Interactive = forwardRef<HTMLDivElement, InteractiveProps>((props, 
         <div
             ref={mergeRefs([container, ref])}
             style={{ ...style, touchAction: 'none' }}
-            tabIndex={0}
+            tabIndex={-1}
             onMouseDown={handleMoveStart}
             onTouchStart={handleMoveStart}
             {...rest}
