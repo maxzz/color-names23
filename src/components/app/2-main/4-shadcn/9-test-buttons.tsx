@@ -43,7 +43,7 @@ const test4 = `
 export function TestButtons() {
     const anchorRef = useRef<HTMLButtonElement>(null);
     const [open, setOpen] = useState(false);
-    console.log("all", open);
+    console.log("TestButtons render", open);
     return (
         <>
             <Button ref={anchorRef} className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => {
@@ -58,7 +58,7 @@ export function TestButtons() {
                 parseText.text = test4;
                 if (!open) event.preventDefault();
                 // !open && setOpen(true);
-                console.log("test4", open);
+                console.log("TestButtons onMouseDown", open);
 
                 setOpen(p => !p);
                 // setOpen(true);
@@ -75,7 +75,7 @@ function ShowPicker({ open, setOpen, anchorRef, className, ...rest }: { open: bo
             <Popover
                 open={open}
                 onOpenChange={(s) => {
-                    console.log('picker', s);
+                    console.log('Picker onOpenChange setOpen =', s);
                     setOpen(s);
                     //setOpen(p => !p);
                 }}
