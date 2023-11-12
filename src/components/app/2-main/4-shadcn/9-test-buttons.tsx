@@ -54,9 +54,14 @@ export function TestButtons() {
             }}>0/0</Button>
             <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => (parseText.text = test2, setOpen(p => !p))}>1/0</Button>
             <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => (parseText.text = test3, setOpen(p => !p))}>3/0</Button>
-            <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() =>{
+            <Button className="flex-none relative" variant={"outline"} size={"icon"} onMouseDown={(event) =>{
                 parseText.text = test4;
-                !open && setOpen(true);
+                if (!open) event.preventDefault();
+                // !open && setOpen(true);
+                console.log("test4", open);
+                
+                setOpen(p => !p);
+                // setOpen(true);
             }}>3/1</Button>
 
             {open && anchorRef.current && <ShowPicker open={open} setOpen={setOpen} anchorRef={anchorRef} />}
@@ -67,7 +72,13 @@ export function TestButtons() {
 function ShowPicker({ open, setOpen, anchorRef, className, ...rest }: { open: boolean, setOpen: Dispatch<SetStateAction<boolean>>, anchorRef: RefObject<HTMLButtonElement>; } & HTMLAttributes<HTMLDivElement>) {
     return (
         <div className="absolute">
-            <Popover open={open} onOpenChange={setOpen}>
+            <Popover open={open} onOpenChange={(s)=>{
+                console.log('picker', s);
+                setOpen(s);
+                //setOpen(p => !p);
+            }} >
+            {/* <Popover open={open} > */}
+            {/* <Popover open={open} onOpenChange={setOpen}> */}
                 <PopoverAnchor className="relative w-0 h-0" virtualRef={anchorRef} />
                 <PopoverContent className={classNames("p-0 w-auto", className)} {...rest}>
                     <SaturationSelector />
