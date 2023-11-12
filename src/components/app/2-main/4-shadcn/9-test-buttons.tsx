@@ -45,13 +45,14 @@ export function TestButtons() {
     const [open, setOpen] = useState(false);
     console.log("TestButtons render", open);
 
-    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+    //const timeoutRef = useRef<NodeJS.Timeout | null>(null);
     
     function clickOutside() {
         console.log("TestButtons clickOutside", open);
 
-        clearTimeout(timeoutRef.current!);
-        timeoutRef.current = setTimeout(() => setOpen(false), 100);
+        // clearTimeout(timeoutRef.current!);
+        // timeoutRef.current = setTimeout(() => setOpen(false), 100);
+        setTimeout(() => setOpen(false), 100);
     }
 
     return (
