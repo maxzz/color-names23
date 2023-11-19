@@ -40,7 +40,7 @@ function GenerateSlices() {
                 type='gray'
                 key={idx}
                 style={{ cursor: 'pointer', transformOrigin: `${pos.x + pos.width / 2}px ${pos.y + pos.height / 2}px` }}
-                className="active:scale-x-[5] active:scale-y-150 transition-transform"
+                className="active:scale-x-[5] active:scale-y-150 transition-transform stroke-foreground/40 stroke-0.5 active:stroke-[.1]"
 
                 onClick={async (event) => {
                     const colorName = color[3];
