@@ -25,7 +25,7 @@ function updateContrast(): void {
 }
 
 subscribe(hueColorWheelState, () => {
-    colorOverBackground.color = hueColorWheelState.selectedColor?.dataKey;
+    colorOverBackground.color = hueColorWheelState.selectedColor?.dataKey || hueColorWheelState.selectedGray?.dataKey;
     updateContrast();
 });
 
