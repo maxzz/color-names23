@@ -26,32 +26,46 @@ const title = "Text color compared to background contrast. Contrast ratios can r
 
 export function ViewColorOverBackground({ colorOverBackground, className, ...rest }: { colorOverBackground: ColorOverBackground; } & HTMLAttributes<HTMLDivElement>) {
     const snap = useSnapshot(colorOverBackground);
-    const keysTxt = snap.color?.split(',') as HslName;
-    const keysBg = snap.background?.split(',') as HslName;
-    const bgColorName = keysBg?.[3] || '';
-    const textColor = {color: keysBg && isHslDark(keysBg) ? '#ccc' : '#777'};
+
+    const fgKeys = snap.color?.split(',') as HslName;
+    const bgKeys = snap.background?.split(',') as HslName;
+    const clickedKeys = snap.colorClicked?.split(',') as HslName;
+
+    const bgColorName = bgKeys?.[3] || '';
+    const fgColorName = fgKeys?.[3] || '';
+    const clickedColorName = clickedKeys?.[3] || '';
+
+    const textColor = { color: bgKeys && isHslDark(bgKeys) ? '#ccc' : '#777' };
     return (
-        <div className={classNames(containerClasses, className)} style={{ backgroundColor: bgColorName }} title={title} {...rest}>
+        <div className={className}>
+            <div className={classNames(className, containerClasses)} style={{ backgroundColor: bgColorName }} title={title} {...rest}>
+                {snap.background && snap.color && (
+                    <div className="text-base scale-y-[1.1]" style={{ color: fgColorName }}>
+                        {fgColorName}
+                    </div>
+                )}
 
-            {snap.background && snap.color && (
-                <div className="text-base scale-y-[1.1]" style={{ color: keysTxt?.[3] }}>
-                    {keysTxt?.[3]}
+                <div className="absolute left-1 bottom-0.5">
+                    {snap.background
+                        ? <CopyBackground colorName={bgColorName} style={textColor} />
+                        : <div className="text-[.7rem] text-muted-foreground">Ctrl+click spike to select background color</div>
+                    }
                 </div>
-            )}
 
-            <div className="absolute left-1 bottom-0.5">
-                {snap.background
-                    ? <CopyBackground colorName={bgColorName} style={textColor} />
-                    : <div className="text-[.7rem] text-muted-foreground">Ctrl+click spike to select background color</div>
-                }
+                <div className="absolute right-1 bottom-0.5">
+                    {colorOverBackground.contrast &&
+                        <div className="text-[.7rem]" style={textColor}>
+                            {colorOverBackground.contrast}
+                        </div>
+                    }
+                </div>
             </div>
 
-            <div className="absolute right-1 bottom-0.5">
-                {colorOverBackground.contrast &&
-                    <div className="text-[.7rem]" style={textColor}>
-                        {colorOverBackground.contrast}
-                    </div>
-                }
+            {/* TODO: add clicked background that is not cleared by click outside SVG and use it here */}
+            <div className="text-xs">
+                {bgColorName && <>background-color:{bgColorName}</>}
+                {bgColorName && <>;</>}
+                {clickedColorName && <>color:{clickedColorName}</>}
             </div>
         </div>
     );
