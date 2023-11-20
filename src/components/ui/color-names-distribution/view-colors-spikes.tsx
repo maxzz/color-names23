@@ -39,10 +39,11 @@ function GenerateSpikeSlices() {
 
                         if (event.ctrlKey) {
                             clickState.colorName = combined;
+                            colorOverBackground.bkgClk = combined;
                         } else {
                             await navigator.clipboard.writeText(colorName);
                             colorToCopyState.text = colorName;
-                            colorOverBackground.colorClicked = combined;
+                            colorOverBackground.colorClk = combined;
                         }
                     }
                 }}

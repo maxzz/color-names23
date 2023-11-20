@@ -4,14 +4,16 @@ import { HslName, contrastRatio } from "@/utils";
 
 export type ColorOverBackground = {
     color: string | undefined;      // string as HslName; changed by hover over spike
-    colorClicked: string | undefined; // string as HslName; changed by click on color
+    colorClk: string | undefined;   // string as HslName; changed by click on color and valid until next click on spike
+    bkgClk: string | undefined;     // string as HslName; changed by ctrl+click on spike and valid until next ctrl+click on spike
     background: string | undefined; // string as HslName; changed by ctrl+click on spike
     contrast: number | undefined;   // text over background contrast ratio
 };
 
 export const colorOverBackground = proxy<ColorOverBackground>({
     color: undefined,
-    colorClicked: undefined,
+    colorClk: undefined,
+    bkgClk: undefined,
     background: undefined,
     contrast: undefined,
 });

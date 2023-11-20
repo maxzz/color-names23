@@ -36,7 +36,7 @@ export function ViewColorOverBackground({ colorOverBackground, className, ...res
     const textColor = { color: bgKeys && isHslDark(bgKeys) ? '#ccc' : '#777' };
     return (
         <div className={className}>
-            <div className={classNames(className, containerClasses)} style={{ backgroundColor: bgColorName }} title={title} {...rest}>
+            <div className={classNames(containerClasses)} style={{ backgroundColor: bgColorName }} title={title} {...rest}>
                 {snap.background && snap.color && (
                     <div className="text-base scale-y-[1.1]" style={{ color: fgColorName }}>
                         {fgColorName}
@@ -60,7 +60,6 @@ export function ViewColorOverBackground({ colorOverBackground, className, ...res
             </div>
 
             <ViewForDevTools colorOverBackground={colorOverBackground} />
-
         </div>
     );
 }
@@ -69,13 +68,15 @@ export function ViewColorOverBackground({ colorOverBackground, className, ...res
 export function ViewForDevTools({ colorOverBackground, className, ...rest }: { colorOverBackground: ColorOverBackground; } & HTMLAttributes<HTMLDivElement>) {
     const snap = useSnapshot(colorOverBackground);
 
-    const bgKeys = snap.background?.split(',') as HslName;
-    const bgColorName = bgKeys?.[3] || '';
+    const bgKeys = snap.bkgClk?.split(',') as HslName;
+    const bgColorName = bgKeys?.[3];
 
-    const clickedKeys = snap.colorClicked?.split(',') as HslName;
-    const clickedColorName = clickedKeys?.[3] || '';
+    const clickedKeys = snap.colorClk?.split(',') as HslName;
+    const clickedColorName = clickedKeys?.[3];
+
+    const color = clickedColorName && bgColorName ? { color: clickedColorName, backgroundColor: bgColorName } : undefined;
     return (
-        <div className="text-xs" >
+        <div className="mt-2 px-2 text-xs rounded" style={color}>
             {bgColorName && <>background-color:{bgColorName}</>}
             {bgColorName && <>;</>}
             {clickedColorName && <>color:{clickedColorName}</>}
