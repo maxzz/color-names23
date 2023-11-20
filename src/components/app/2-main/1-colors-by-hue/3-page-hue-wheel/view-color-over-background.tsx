@@ -65,7 +65,6 @@ export function ViewColorOverBackground({ colorOverBackground, className, ...res
     );
 }
 
-//TODO: add clicked background that is not cleared by click outside SVG and use it here
 export function ViewForDevTools({ colorOverBackground, className, ...rest }: { colorOverBackground: ColorOverBackground; } & HTMLAttributes<HTMLDivElement>) {
     const snap = useSnapshot(colorOverBackground);
 
@@ -77,7 +76,7 @@ export function ViewForDevTools({ colorOverBackground, className, ...rest }: { c
 
     const color = clickedColorName && bgColorName ? { color: clickedColorName, backgroundColor: bgColorName } : undefined;
     return (
-        <div className={`mt-2 px-2 py-1 text-xs ${ringClasses} rounded`} style={color}>
+        <div className={`mt-2 px-2 py-1 min-h-[1.5rem] text-xs ${ringClasses} rounded`} style={color}>
             {bgColorName && <>background-color:{bgColorName}</>}
             {bgColorName && <>;</>}
             {clickedColorName && <>color:{clickedColorName}</>}
