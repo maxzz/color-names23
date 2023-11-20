@@ -33,3 +33,6 @@ export function Section1_ColorsByHue({ className, ...rest }: HTMLAttributes<HTML
 //TODO: alt+click over color to copy 'background: darkgreen; color:lavender'
 //TODO: fix gray scale as color over background
 //TODO: allow to select any non-named color from wheel
+
+//TODO: add bold text on color over background preview
+//TODO: in the left-lower corner show the color name and backround copy text and button to copy

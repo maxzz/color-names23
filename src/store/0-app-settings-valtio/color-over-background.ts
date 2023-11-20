@@ -13,7 +13,7 @@ export type ColorOverBackground = {
 export const colorOverBackground = proxy<ColorOverBackground>({
     color: undefined,
     colorClk: undefined,
-    bkgClk: undefined,
+    bkgClk: undefined, // background that is not cleared by click outside SVG and use it here
     background: undefined,
     contrast: undefined,
 });

@@ -55,8 +55,24 @@ export function TestButtons() {
                     setOpen(p => !p);
                 }}
             >0/0</Button>
-            <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => parseText.text = test2}>1/0</Button>
-            <Button className="flex-none relative" variant={"outline"} size={"icon"} onClick={() => parseText.text = test3}>3/0</Button>
+            <Button className="flex-none relative" variant={"outline"} size={"icon"}
+                onMouseDown={(event) => {
+                    event.preventDefault();
+                    anchorRef.current = event.currentTarget;
+
+                    parseText.text = test2;
+                    setOpen(p => !p);
+                }}
+            >1/0</Button>
+            <Button className="flex-none relative" variant={"outline"} size={"icon"}
+                onMouseDown={(event) => {
+                    event.preventDefault();
+                    anchorRef.current = event.currentTarget;
+
+                    parseText.text = test3;
+                    setOpen(p => !p);
+                }}
+            >3/0</Button>
             <Button className="flex-none relative" variant={"outline"} size={"icon"}
                 onMouseDown={(event) => {
                     event.preventDefault();
