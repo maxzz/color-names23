@@ -21,7 +21,8 @@ function CopyBackground({ colorName, ...rest }: { colorName: string; } & HTMLAtt
     );
 }
 
-const containerClasses = "relative w-56 h-16 ring-muted-foreground/50 ring-offset-background ring-1 ring-offset-1 rounded grid place-items-center";
+const ringClasses = "ring-muted-foreground/40 ring-offset-background ring-1 ring-offset-1";
+const containerClasses = `relative w-56 h-16 ${ringClasses} rounded grid place-items-center`;
 const title = "Text color compared to background contrast. Contrast ratios can range from 1 to 21";
 
 export function ViewColorOverBackground({ colorOverBackground, className, ...rest }: { colorOverBackground: ColorOverBackground; } & HTMLAttributes<HTMLDivElement>) {
@@ -76,7 +77,7 @@ export function ViewForDevTools({ colorOverBackground, className, ...rest }: { c
 
     const color = clickedColorName && bgColorName ? { color: clickedColorName, backgroundColor: bgColorName } : undefined;
     return (
-        <div className="mt-2 px-2 text-xs rounded" style={color}>
+        <div className={`mt-2 px-2 py-1 text-xs ${ringClasses} rounded`} style={color}>
             {bgColorName && <>background-color:{bgColorName}</>}
             {bgColorName && <>;</>}
             {clickedColorName && <>color:{clickedColorName}</>}
