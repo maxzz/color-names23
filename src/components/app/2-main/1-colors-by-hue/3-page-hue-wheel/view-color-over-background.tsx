@@ -29,11 +29,9 @@ export function ViewColorOverBackground({ colorOverBackground, className, ...res
 
     const fgKeys = snap.color?.split(',') as HslName;
     const bgKeys = snap.background?.split(',') as HslName;
-    const clickedKeys = snap.colorClicked?.split(',') as HslName;
 
     const bgColorName = bgKeys?.[3] || '';
     const fgColorName = fgKeys?.[3] || '';
-    const clickedColorName = clickedKeys?.[3] || '';
 
     const textColor = { color: bgKeys && isHslDark(bgKeys) ? '#ccc' : '#777' };
     return (
@@ -61,12 +59,26 @@ export function ViewColorOverBackground({ colorOverBackground, className, ...res
                 </div>
             </div>
 
-            {/* TODO: add clicked background that is not cleared by click outside SVG and use it here */}
-            <div className="text-xs">
-                {bgColorName && <>background-color:{bgColorName}</>}
-                {bgColorName && <>;</>}
-                {clickedColorName && <>color:{clickedColorName}</>}
-            </div>
+            <ViewForDevTools colorOverBackground={colorOverBackground} />
+
+        </div>
+    );
+}
+
+//TODO: add clicked background that is not cleared by click outside SVG and use it here
+export function ViewForDevTools({ colorOverBackground, className, ...rest }: { colorOverBackground: ColorOverBackground; } & HTMLAttributes<HTMLDivElement>) {
+    const snap = useSnapshot(colorOverBackground);
+
+    const bgKeys = snap.background?.split(',') as HslName;
+    const bgColorName = bgKeys?.[3] || '';
+
+    const clickedKeys = snap.colorClicked?.split(',') as HslName;
+    const clickedColorName = clickedKeys?.[3] || '';
+    return (
+        <div className="text-xs" >
+            {bgColorName && <>background-color:{bgColorName}</>}
+            {bgColorName && <>;</>}
+            {clickedColorName && <>color:{clickedColorName}</>}
         </div>
     );
 }
