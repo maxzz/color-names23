@@ -1,5 +1,6 @@
 import { colorkeys } from "./utils/initial-color-keys";
 import { clickState, colorToCopyState, hueColorWheelState, hueCopyTimersState } from "./ui-state";
+import { colorOverBackground } from "@/store";
 
 const localConsts = {
     barWidth: 600,
@@ -46,11 +47,14 @@ function GenerateSlices() {
                     const colorName = color[3];
                     if (colorName) {
                         event.stopPropagation();
+                        const combined = color.join(',');
+                        
                         if (event.ctrlKey) {
-                            clickState.colorName = color.join(',');
+                            clickState.colorName = combined;
                         } else {
                             await navigator.clipboard.writeText(colorName);
                             colorToCopyState.text = colorName;
+                            colorOverBackground.colorClicked = combined;
                         }
                     }
                 }}

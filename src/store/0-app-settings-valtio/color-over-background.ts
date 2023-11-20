@@ -3,13 +3,15 @@ import { clickState, hueColorWheelState } from "@/components/ui/color-names-dist
 import { HslName, contrastRatio } from "@/utils";
 
 export type ColorOverBackground = {
-    color: string | undefined;      // string as HslName
-    background: string | undefined; // string as HslName
+    color: string | undefined;      // string as HslName; changed by hover over spike
+    colorClicked: string | undefined; // string as HslName; changed by click on color
+    background: string | undefined; // string as HslName; changed by ctrl+click on spike
     contrast: number | undefined;   // text over background contrast ratio
 };
 
 export const colorOverBackground = proxy<ColorOverBackground>({
     color: undefined,
+    colorClicked: undefined,
     background: undefined,
     contrast: undefined,
 });
