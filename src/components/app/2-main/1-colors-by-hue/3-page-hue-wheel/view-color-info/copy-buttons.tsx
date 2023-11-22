@@ -23,7 +23,7 @@ export function CopyBackground({ colorName, ...rest }: { colorName: string; } & 
     );
 }
 
-export function CopyBackgroundAndColor({ colorOverBackground, className, ...rest }: { colorOverBackground: ColorOverBackground; } & HTMLAttributes<HTMLDivElement>) {
+export function CopyBackgroundAndColor({ colorOverBackground, className, ...rest }: { colorOverBackground: ColorOverBackground; } & HTMLAttributes<HTMLButtonElement>) {
     const snap = useSnapshot(colorOverBackground);
 
     const f = (snap.colorClk?.split(',') as HslName)?.[3];
@@ -33,20 +33,21 @@ export function CopyBackgroundAndColor({ colorOverBackground, className, ...rest
     const combined = `${b ? `background-color: ${b}` : ''}${b ? '; ' : ''}${f ? `color: ${f}` : ''}`;
     return (
         <button
-            className={`group mt-2 px-2 py-1 w-full min-h-[1.5rem] text-xs ${ringClasses} rounded flex items-center space-x-2`}
+            className={`group mt-2 px-2 py-1 min-h-[1.5rem] text-xs ${ringClasses} rounded flex items-center space-x-2`}
             style={styles}
             disabled={!b && !f}
             onClick={async () => {
                 await navigator.clipboard.writeText(combined);
                 //TODO: show copied message
             }}
+            {...rest}
         >
             <span>
                 {b && <>background-color: {b}</>}
                 {b && <>; </>}
                 {f && <>color: {f}</>}
             </span>
-            
+
             <IconCopy className="w-4 h-4 hidden group-hover:block" />
         </button>
     );

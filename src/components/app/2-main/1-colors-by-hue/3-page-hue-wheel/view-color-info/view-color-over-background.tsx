@@ -42,7 +42,7 @@ export function ViewColorOverBackground({ colorOverBackground, className, ...res
                 </div>
             </div>
 
-            <CopyBackgroundAndColor colorOverBackground={colorOverBackground} />
+            {/* <CopyBackgroundAndColor colorOverBackground={colorOverBackground} /> */}
         </div>
     );
 }
