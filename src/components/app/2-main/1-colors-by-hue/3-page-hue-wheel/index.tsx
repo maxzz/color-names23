@@ -11,7 +11,7 @@ export function PageHueWheel({ className }: HTMLAttributes<HTMLUListElement>) {
             {/* overflow-hidden */}
             {/* <div className="container max-w-md mx-auto flex flex-col space-y-4"> */}
             <div className="relative overflow-auto smallscroll">
-                <ViewColorOverBackground className="absolute -left-1.5 -top-1" colorOverBackground={colorOverBackground} />
+                <ViewColorOverBackground className="absolute left-0.5 top-2" colorOverBackground={colorOverBackground} />
                 <MessageHueColorCopied className="absolute right-2 top-2" />
                 <HuePicker className="aspect-square" />
             </div>
