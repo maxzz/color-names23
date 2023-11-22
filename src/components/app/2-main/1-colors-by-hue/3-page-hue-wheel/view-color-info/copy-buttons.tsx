@@ -3,7 +3,7 @@ import { useSnapshot } from "valtio";
 import { ColorOverBackground } from "@/store";
 import { colorToCopyState } from "@/components/ui/color-names-distribution";
 import { HslName } from "@/utils";
-import { IconClipboard } from "@/components/ui/icons";
+import { IconClipboard, IconCopy } from "@/components/ui/icons";
 
 export const ringClasses = "ring-muted-foreground/40 ring-offset-background ring-1 ring-offset-1";
 
@@ -33,7 +33,7 @@ export function CopyBackgroundAndColor({ colorOverBackground, className, ...rest
     const combined = `${b ? `background-color: ${b}` : ''}${b ? '; ' : ''}${f ? `color: ${f}` : ''}`;
     return (
         <button
-            className={`mt-2 px-2 py-1 w-full min-h-[1.5rem] text-xs ${ringClasses} rounded`}
+            className={`group mt-2 px-2 py-1 w-full min-h-[1.5rem] text-xs ${ringClasses} rounded flex items-center space-x-2`}
             style={styles}
             disabled={!b && !f}
             onClick={async () => {
@@ -41,9 +41,13 @@ export function CopyBackgroundAndColor({ colorOverBackground, className, ...rest
                 //TODO: show copied message
             }}
         >
-            {b && <>background-color: {b}</>}
-            {b && <>; </>}
-            {f && <>color: {f}</>}
+            <span>
+                {b && <>background-color: {b}</>}
+                {b && <>; </>}
+                {f && <>color: {f}</>}
+            </span>
+            
+            <IconCopy className="w-4 h-4 hidden group-hover:block" />
         </button>
     );
 }
