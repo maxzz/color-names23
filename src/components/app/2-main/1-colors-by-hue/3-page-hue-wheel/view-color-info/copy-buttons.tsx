@@ -33,7 +33,7 @@ export function CopyBackgroundAndColor({ colorOverBackground, className, ...rest
     const combined = `${b ? `background-color: ${b}` : ''}${b ? '; ' : ''}${f ? `color: ${f}` : ''}`;
     return (
         <button
-            className={`group mt-2 px-2 py-1 min-h-[1.5rem] text-xs ${ringClasses} rounded flex items-center space-x-2`}
+            className={`group mt-2 px-2 py-1 min-h-[1.5rem] text-xs ${ringClasses} rounded active:scale-[.99] flex items-center space-x-2`}
             style={styles}
             disabled={!b && !f}
             onClick={async () => {
