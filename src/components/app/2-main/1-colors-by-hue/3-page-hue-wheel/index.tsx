@@ -7,17 +7,17 @@ import { CopyBackgroundAndColor } from "./view-color-info/copy-buttons";
 
 export function PageHueWheel({ className }: HTMLAttributes<HTMLUListElement>) {
     return (
-        <div className={classNames("p-4 max-w-4xl text-foreground bg-background border-muted border-b overflow-auto smallscroll flex flex-col justify-between", className)}>
+        <div className={classNames("p-4 max-w-4xl min-h-0 text-foreground bg-background border-muted border-b flex flex-col justify-between", className)}>
             {/* overflow-hidden */}
             {/* <div className="container max-w-md mx-auto flex flex-col space-y-4"> */}
-            <div className="flex-0 relative">
+            <div className="relative overflow-auto smallscroll">
                 <ViewColorOverBackground className="absolute -left-1.5 -top-1" colorOverBackground={colorOverBackground} />
                 <MessageHueColorCopied className="absolute right-2 top-2" />
                 <HuePicker className="aspect-square" />
             </div>
             {/* </div> */}
 
-            <div className="self-start">
+            <div className="flex-0 self-start">
                 <CopyBackgroundAndColor colorOverBackground={colorOverBackground} />
             </div>
 
