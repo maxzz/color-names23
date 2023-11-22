@@ -36,3 +36,6 @@ export function Section1_ColorsByHue({ className, ...rest }: HTMLAttributes<HTML
 
 //TODO: add bold text on color over background preview
 //TODO: in the left-lower corner show the color name and backround copy text and button to copy
+
+//TODO: search by color name or show all color names at once
+//TODO: when color name is too long, we overlap the wheel and can't select the color; move color display (or just devtools info) to the bottom of the screen
