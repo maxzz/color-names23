@@ -3,14 +3,14 @@ import { useSnapshot } from "valtio";
 import { ColorOverBackground } from "@/store";
 import { colorToCopyState } from "@/components/ui/color-names-distribution";
 import { HslName } from "@/utils";
-import { IconClipboard, IconCopy } from "@/components/ui/icons";
+import { IconCopy } from "@/components/ui/icons";
 
 export const ringClasses = "ring-muted-foreground/40 ring-offset-background ring-1 ring-offset-1";
 
 export function CopyBackground({ colorName, ...rest }: { colorName: string; } & HTMLAttributes<HTMLButtonElement>) {
     return (
         <button
-            className={"group text-sm flex hover:!text-white transition-colors items-center justify-between space-x-0.5"}
+            className={"group text-sm flex hover:!text-white transition-colors items-center justify-between space-x-1.5"}
             {...rest}
             onClick={async () => {
                 await navigator.clipboard.writeText(colorName);
@@ -18,7 +18,7 @@ export function CopyBackground({ colorName, ...rest }: { colorName: string; } & 
             }}
         >
             <div className="">{colorName}</div>
-            <IconClipboard className="hidden group-hover:block w-4 h-4 stroke-[1.5]" />
+            <IconCopy className="hidden group-hover:block w-[14px] h-[14px]" />
         </button>
     );
 }
