@@ -3,7 +3,7 @@ import { HuePicker, MessageHueColorCopied } from "@/components/ui/color-names-di
 import { classNames } from "@/utils";
 import { ViewColorOverBackground } from "./view-color-info/view-color-over-background";
 import { colorOverBackground } from "@/store";
-import { CopyBackgroundAndColor } from "./view-color-info/copy-buttons";
+import { ButtonCopyBackgroundAndColor } from "./view-color-info/copy-buttons";
 
 export function PageHueWheel({ className }: HTMLAttributes<HTMLUListElement>) {
     return (
@@ -18,7 +18,7 @@ export function PageHueWheel({ className }: HTMLAttributes<HTMLUListElement>) {
             {/* </div> */}
 
             <div className="flex-0 self-start">
-                <CopyBackgroundAndColor colorOverBackground={colorOverBackground} />
+                <ButtonCopyBackgroundAndColor colorOverBackground={colorOverBackground} />
             </div>
 
             {/* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae labore facilis sint eum a facere dignissimos tempora repellat dolore! Eligendi magnam praesentium sunt dolorum laudantium sequi mollitia possimus deserunt at.

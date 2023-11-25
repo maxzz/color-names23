@@ -7,23 +7,25 @@ import { IconCopy } from "@/components/ui/icons";
 
 export const ringClasses = "ring-muted-foreground/40 ring-offset-background ring-1 ring-offset-1";
 
-export function CopyBackground({ colorName, ...rest }: { colorName: string; } & HTMLAttributes<HTMLButtonElement>) {
+export function ButtonCopyBackground({ colorName, ...rest }: { colorName: string; } & HTMLAttributes<HTMLButtonElement>) {
     return (
         <button
             className={"group text-sm flex hover:!text-white transition-colors items-center justify-between space-x-1.5"}
             {...rest}
             onClick={async () => {
                 await navigator.clipboard.writeText(colorName);
-                colorToCopyState.text = colorName;
+                colorToCopyState.colorName = colorName;
             }}
         >
-            <div className="">{colorName}</div>
+            <div>
+                {colorName}
+            </div>
             <IconCopy className="hidden group-hover:block w-[14px] h-[14px]" />
         </button>
     );
 }
 
-export function CopyBackgroundAndColor({ colorOverBackground, className, ...rest }: { colorOverBackground: ColorOverBackground; } & HTMLAttributes<HTMLButtonElement>) {
+export function ButtonCopyBackgroundAndColor({ colorOverBackground, className, ...rest }: { colorOverBackground: ColorOverBackground; } & HTMLAttributes<HTMLButtonElement>) {
     const snap = useSnapshot(colorOverBackground);
 
     const f = (snap.colorClk?.split(',') as HslName)?.[3];
@@ -38,6 +40,7 @@ export function CopyBackgroundAndColor({ colorOverBackground, className, ...rest
             disabled={!b && !f}
             onClick={async () => {
                 await navigator.clipboard.writeText(combined);
+                colorToCopyState.colorName = { simpleText: combined };
                 //TODO: show copied message
             }}
             {...rest}

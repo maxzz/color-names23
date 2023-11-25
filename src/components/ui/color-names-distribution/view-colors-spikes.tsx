@@ -42,7 +42,7 @@ function GenerateSpikeSlices() {
                             colorOverBackground.bkgClk = combined;
                         } else {
                             await navigator.clipboard.writeText(colorName);
-                            colorToCopyState.text = colorName;
+                            colorToCopyState.colorName = colorName;
                             colorOverBackground.colorClk = combined;
                         }
                     }

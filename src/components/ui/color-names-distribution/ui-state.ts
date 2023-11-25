@@ -21,8 +21,10 @@ export const hueCopyTimersState = {
     grayTimeoutId: 0,
 };
 
-export const colorToCopyState = proxy({
-    text: '',
+export const colorToCopyState = proxy<{
+    colorName: string | { simpleText: string; };
+}>({
+    colorName: '',
 });
 
 export const clickState = proxy({

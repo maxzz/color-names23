@@ -1,21 +1,37 @@
 import { HTMLAttributes } from "react";
 import { useSnapshot } from "valtio";
+import { a, easings, useSpring } from "@react-spring/web";
 import { colorToCopyState } from "./ui-state";
 import { classNames } from "@/utils";
-import { a, easings, useSpring } from "@react-spring/web";
 
 export function MessageHueColorCopied({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-    const { text } = useSnapshot(colorToCopyState);
+
+    const { colorName: snapText } = useSnapshot(colorToCopyState);
+    const isString = typeof snapText === 'string';
+
+    const text = isString ? snapText : snapText.simpleText;
+
     const styles = useSpring({
-        opacity: text ? 1 : 0,
-        transform: text ? 'translateY(0)' : 'translateY(100%)',
-        config: { easing: text ? easings.easeOutElastic : easings.linear, duration: text ? 1000 : 400 },
-        onRest: () => text && (colorToCopyState.text = ''),
+        opacity: snapText ? 1 : 0,
+        transform: snapText ? 'translateY(0)' : 'translateY(100%)',
+        config: { easing: snapText ? easings.easeOutElastic : easings.linear, duration: snapText ? 1000 : 400 },
+        onRest: () => snapText && (colorToCopyState.colorName = ''),
     });
+
+    const bkg = isString ? { backgroundColor: snapText } : undefined;
+    const msgClasses = isString ? 'w-4 h-4' : "text-foreground";
+
     return (
         <a.div style={styles} className={classNames("px-2 py-1 text-xs text-white bg-green-600 rounded flex items-center space-x-2", className)} {...rest}>
-            <div className={`w-4 h-4 border-green-800 ${text ? 'border' : ''} rounded`} style={{backgroundColor: text}}></div>
-            <div>Copied</div>
+            <div
+                className={`border-green-800 ${isString && snapText ? 'border' : ''} ${msgClasses} rounded`}
+                style={bkg}
+                children={isString ? undefined : text}
+            />
+
+            <div>
+                Copied
+            </div>
         </a.div>
     );
 }
