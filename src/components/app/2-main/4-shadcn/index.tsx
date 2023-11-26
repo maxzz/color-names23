@@ -1,7 +1,7 @@
 import { HTMLAttributes } from "react";
 import { classNames } from "@/utils";
-import { TopPanel } from "./0-top-panel";
-import { ThemeGrids } from "./6-grids";
+import { TopPanel } from "./01-top/0-top-panel";
+import { ThemeGrids } from "./02-grid/6-grids";
 import { PickerExample } from "@/components/ui/shadcn/gradient-color-picker";
 import { SaturationSelector } from "@/components/ui/color-picker";
 
