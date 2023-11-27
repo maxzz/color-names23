@@ -9,16 +9,16 @@ const test1 = ` `;
 const test2 = `--primary: 0 100% 50%;
 `;
 
-const test3 = `
---primary: 161 56% 35%;
+const test3 = 
+`--primary: 161 56% 35%;
 --background: 159 65% 4%;
 --foreground: 159 10% 97.5%;
 
  --primary: 0 100% 50%;
 `;
 
-const test4 = `
-:root {
+const test4 = 
+`:root {
     --primary: 161 56% 35%;
     --background: 159 65% 4%;
     --foreground: 159 10% 97.5%;
