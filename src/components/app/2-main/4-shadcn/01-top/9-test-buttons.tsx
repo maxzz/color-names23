@@ -1,6 +1,6 @@
 import { Button, Popover, PopoverAnchor, PopoverContent, Textarea } from "@/components/ui/shadcn";
 import { parseText } from "@/store";
-import { SaturationSelector } from "@/components/ui/color-picker";
+import { CombinedPicker } from "@/components/ui/color-picker";
 import { classNames } from "@/utils";
 import { Dispatch, HTMLAttributes, RefObject, SetStateAction, useRef, useState } from "react";
 
@@ -100,7 +100,7 @@ function ShowPicker({ open, setOpen, anchorRef, className, ...rest }: ShowPicker
             <Popover open={open} onOpenChange={() => setTimeout(() => setOpen(false), 100)}>
                 <PopoverAnchor className="relative w-0 h-0" virtualRef={anchorRef} />
                 <PopoverContent className={classNames("p-0 w-auto", className)} {...rest}>
-                    <SaturationSelector />
+                    <CombinedPicker />
                 </PopoverContent>
             </Popover>
         </div>

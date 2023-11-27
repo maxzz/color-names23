@@ -111,7 +111,7 @@ function ColorDisplay({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     );
 }
 
-export function SaturationSelector() {
+export function CombinedPicker() {
     return (<>
         <div className="w-[232px] inline-block bg-muted border-muted-foreground border rounded overflow-hidden">
             <div className="grid grid-cols-[auto,1fr] gap-y-1">
