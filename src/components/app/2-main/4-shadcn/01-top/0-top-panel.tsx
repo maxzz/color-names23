@@ -26,7 +26,10 @@ export function TopPanel() {
             </Button>
 
             <PasteInput />
+
+            <div className="flex space-x-2">
             <TestButtons />
+            </div>
         </div>
     );
 }

@@ -43,47 +43,51 @@ const test4 = `
 export function TestButtons() {
     const anchorRef = useRef<HTMLElement | null>(null);
     const [open, setOpen] = useState(false);
-
     return (
         <>
             <Button className="flex-none relative" variant={"outline"} size={"icon"}
                 onMouseDown={(event) => {
                     event.preventDefault();
                     anchorRef.current = event.currentTarget;
+                    setOpen(p => !p);
 
                     parseText.text = test1;
-                    setOpen(p => !p);
                 }}
             >0/0</Button>
+
             <Button className="flex-none relative" variant={"outline"} size={"icon"}
                 onMouseDown={(event) => {
                     event.preventDefault();
                     anchorRef.current = event.currentTarget;
+                    setOpen(p => !p);
 
                     parseText.text = test2;
-                    setOpen(p => !p);
                 }}
             >1/0</Button>
+
             <Button className="flex-none relative" variant={"outline"} size={"icon"}
                 onMouseDown={(event) => {
                     event.preventDefault();
                     anchorRef.current = event.currentTarget;
+                    setOpen(p => !p);
 
                     parseText.text = test3;
-                    setOpen(p => !p);
                 }}
             >3/0</Button>
+
             <Button className="flex-none relative" variant={"outline"} size={"icon"}
                 onMouseDown={(event) => {
                     event.preventDefault();
                     anchorRef.current = event.currentTarget;
+                    setOpen(p => !p);
 
                     parseText.text = test4;
-                    setOpen(p => !p);
                 }}
             >3/1</Button>
 
-            {open && anchorRef.current && <ShowPicker open={open} setOpen={setOpen} anchorRef={anchorRef} />}
+            {open && anchorRef.current && (
+                <ShowPicker open={open} setOpen={setOpen} anchorRef={anchorRef} />
+            )}
         </>
     );
 }
