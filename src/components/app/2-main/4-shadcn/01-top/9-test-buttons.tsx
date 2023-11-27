@@ -9,16 +9,16 @@ const test1 = ` `;
 const test2 = `--primary: 0 100% 50%;
 `;
 
-const test3 = 
-`--primary: 161 56% 35%;
+const test3 =
+    `--primary: 161 56% 35%;
 --background: 159 65% 4%;
 --foreground: 159 10% 97.5%;
 
  --primary: 0 100% 50%;
 `;
 
-const test4 = 
-`:root {
+const test4 =
+    `:root {
     --primary: 161 56% 35%;
     --background: 159 65% 4%;
     --foreground: 159 10% 97.5%;
@@ -45,41 +45,65 @@ export function TestButtons() {
     const [open, setOpen] = useState(false);
     return (
         <>
-            <Button className="flex-none relative" variant={"outline"} size={"icon"}
+            <Button className="c-picker flex-none relative" variant={"outline"} size={"icon"}
                 onMouseDown={(event) => {
                     event.preventDefault();
+
+                    const isPicker = event.currentTarget.classList.contains('c-picker');
+                    const isSameAnchor = anchorRef.current === event.currentTarget;
                     anchorRef.current = event.currentTarget;
-                    setOpen(p => !p);
+
+                    if (!isPicker || isSameAnchor) {
+                        setOpen(p => !p);
+                    }
 
                     parseText.text = test1;
                 }}
             >0/0</Button>
 
-            <Button className="flex-none relative" variant={"outline"} size={"icon"}
+            <Button className="c-picker flex-none relative" variant={"outline"} size={"icon"}
                 onMouseDown={(event) => {
                     event.preventDefault();
+                    
+                    const isPicker = event.currentTarget.classList.contains('c-picker');
+                    const isSameAnchor = anchorRef.current === event.currentTarget;
                     anchorRef.current = event.currentTarget;
-                    setOpen(p => !p);
+
+                    if (!isPicker || isSameAnchor) {
+                        setOpen(p => !p);
+                    }
 
                     parseText.text = test2;
                 }}
             >1/0</Button>
 
-            <Button className="flex-none relative" variant={"outline"} size={"icon"}
+            <Button className="c-picker flex-none relative" variant={"outline"} size={"icon"}
                 onMouseDown={(event) => {
                     event.preventDefault();
+                    
+                    const isPicker = event.currentTarget.classList.contains('c-picker');
+                    const isSameAnchor = anchorRef.current === event.currentTarget;
                     anchorRef.current = event.currentTarget;
-                    setOpen(p => !p);
+
+                    if (!isPicker || isSameAnchor) {
+                        setOpen(p => !p);
+                    }
 
                     parseText.text = test3;
                 }}
             >3/0</Button>
 
-            <Button className="flex-none relative" variant={"outline"} size={"icon"}
+            <Button className="c-picker flex-none relative" variant={"outline"} size={"icon"}
                 onMouseDown={(event) => {
                     event.preventDefault();
+                    
+                    const isPicker = event.currentTarget.classList.contains('c-picker');
+                    const isSameAnchor = anchorRef.current === event.currentTarget;
                     anchorRef.current = event.currentTarget;
-                    setOpen(p => !p);
+
+                    if (!isPicker || isSameAnchor) {
+                        setOpen(p => !p);
+                    }
 
                     parseText.text = test4;
                 }}
