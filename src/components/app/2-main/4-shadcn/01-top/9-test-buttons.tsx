@@ -2,7 +2,7 @@ import { Button, Popover, PopoverAnchor, PopoverContent, Textarea } from "@/comp
 import { parseText } from "@/store";
 import { CombinedPicker } from "@/components/ui/color-picker";
 import { classNames } from "@/utils";
-import { Dispatch, HTMLAttributes, RefObject, SetStateAction, useRef, useState } from "react";
+import { Dispatch, ElementRef, HTMLAttributes, MutableRefObject, RefObject, SetStateAction, useRef, useState } from "react";
 
 const test1 = ` `;
 
@@ -40,8 +40,7 @@ const test4 =
 //     );
 // }
 
-function TestButton({ label, testCaseString }: { label: string; testCaseString: string; }) {
-    const anchorRef = useRef<HTMLElement | null>(null);
+function TestButton({ label, testCaseString, triggerRef }: { label: string; testCaseString: string; triggerRef: MutableRefObject<HTMLElement | null>; }) {
     const [open, setOpen] = useState(false);
     return (
         <>
@@ -50,8 +49,8 @@ function TestButton({ label, testCaseString }: { label: string; testCaseString: 
                     event.preventDefault();
 
                     const isPicker = event.currentTarget.classList.contains('c-picker');
-                    const isSameAnchor = anchorRef.current === event.currentTarget;
-                    anchorRef.current = event.currentTarget;
+                    const isSameAnchor = triggerRef.current === event.currentTarget;
+                    triggerRef.current = event.currentTarget;
 
                     if (!isPicker || isSameAnchor) {
                         setOpen(p => !p);
@@ -71,7 +70,12 @@ export function TestButtons() {
     const [open, setOpen] = useState(false);
     return (
         <>
-            <Button className="c-picker flex-none relative" variant={"outline"} size={"icon"}
+            <TestButton label="0/0" testCaseString={test1} triggerRef={anchorRef}/>
+            <TestButton label="1/0" testCaseString={test2} triggerRef={anchorRef}/>
+            <TestButton label="3/0" testCaseString={test3} triggerRef={anchorRef}/>
+            <TestButton label="3/1" testCaseString={test4} triggerRef={anchorRef}/>
+
+            {/* <Button className="c-picker flex-none relative" variant={"outline"} size={"icon"}
                 onMouseDown={(event) => {
                     event.preventDefault();
 
@@ -133,7 +137,7 @@ export function TestButtons() {
 
                     parseText.text = test4;
                 }}
-            >3/1</Button>
+            >3/1</Button> */}
 
             {open && anchorRef.current && (
                 <ShowPicker open={open} setOpen={setOpen} anchorRef={anchorRef} />
