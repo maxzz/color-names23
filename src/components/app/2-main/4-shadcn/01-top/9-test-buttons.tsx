@@ -40,6 +40,32 @@ const test4 =
 //     );
 // }
 
+function TestButton({ label, testCaseString }: { label: string; testCaseString: string; }) {
+    const anchorRef = useRef<HTMLElement | null>(null);
+    const [open, setOpen] = useState(false);
+    return (
+        <>
+            <Button className="c-picker flex-none relative" variant={"outline"} size={"icon"}
+                onMouseDown={(event) => {
+                    event.preventDefault();
+
+                    const isPicker = event.currentTarget.classList.contains('c-picker');
+                    const isSameAnchor = anchorRef.current === event.currentTarget;
+                    anchorRef.current = event.currentTarget;
+
+                    if (!isPicker || isSameAnchor) {
+                        setOpen(p => !p);
+                    }
+
+                    parseText.text = testCaseString;
+                }}
+            >
+                {label}
+            </Button>
+        </>
+    );
+}
+
 export function TestButtons() {
     const anchorRef = useRef<HTMLElement | null>(null);
     const [open, setOpen] = useState(false);
@@ -64,7 +90,7 @@ export function TestButtons() {
             <Button className="c-picker flex-none relative" variant={"outline"} size={"icon"}
                 onMouseDown={(event) => {
                     event.preventDefault();
-                    
+
                     const isPicker = event.currentTarget.classList.contains('c-picker');
                     const isSameAnchor = anchorRef.current === event.currentTarget;
                     anchorRef.current = event.currentTarget;
@@ -80,7 +106,7 @@ export function TestButtons() {
             <Button className="c-picker flex-none relative" variant={"outline"} size={"icon"}
                 onMouseDown={(event) => {
                     event.preventDefault();
-                    
+
                     const isPicker = event.currentTarget.classList.contains('c-picker');
                     const isSameAnchor = anchorRef.current === event.currentTarget;
                     anchorRef.current = event.currentTarget;
@@ -96,7 +122,7 @@ export function TestButtons() {
             <Button className="c-picker flex-none relative" variant={"outline"} size={"icon"}
                 onMouseDown={(event) => {
                     event.preventDefault();
-                    
+
                     const isPicker = event.currentTarget.classList.contains('c-picker');
                     const isSameAnchor = anchorRef.current === event.currentTarget;
                     anchorRef.current = event.currentTarget;
