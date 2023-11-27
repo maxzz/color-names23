@@ -40,8 +40,15 @@ const test4 =
 //     );
 // }
 
-function TestButton({ label, testCaseString, triggerRef }: { label: string; testCaseString: string; triggerRef: MutableRefObject<HTMLElement | null>; }) {
-    const [open, setOpen] = useState(false);
+type TestButtonProps = {
+    label: string;
+    testCaseString: string;
+    triggerRef: MutableRefObject<HTMLElement | null>;
+    open: boolean;
+    setOpen: Dispatch<SetStateAction<boolean>>;
+};
+
+function TestButton({ label, testCaseString, triggerRef, open, setOpen }: TestButtonProps) {
     return (
         <>
             <Button className="c-picker flex-none relative" variant={"outline"} size={"icon"}
@@ -54,6 +61,8 @@ function TestButton({ label, testCaseString, triggerRef }: { label: string; test
 
                     if (!isPicker || isSameAnchor) {
                         setOpen(p => !p);
+                    } else if (isPicker && !open) {
+                        setOpen(true);
                     }
 
                     parseText.text = testCaseString;
@@ -70,10 +79,10 @@ export function TestButtons() {
     const [open, setOpen] = useState(false);
     return (
         <>
-            <TestButton label="0/0" testCaseString={test1} triggerRef={anchorRef}/>
-            <TestButton label="1/0" testCaseString={test2} triggerRef={anchorRef}/>
-            <TestButton label="3/0" testCaseString={test3} triggerRef={anchorRef}/>
-            <TestButton label="3/1" testCaseString={test4} triggerRef={anchorRef}/>
+            <TestButton label="0/0" testCaseString={test1} triggerRef={anchorRef} open={open} setOpen={setOpen} />
+            <TestButton label="1/0" testCaseString={test2} triggerRef={anchorRef} open={open} setOpen={setOpen} />
+            <TestButton label="3/0" testCaseString={test3} triggerRef={anchorRef} open={open} setOpen={setOpen} />
+            <TestButton label="3/1" testCaseString={test4} triggerRef={anchorRef} open={open} setOpen={setOpen} />
 
             {/* <Button className="c-picker flex-none relative" variant={"outline"} size={"icon"}
                 onMouseDown={(event) => {
