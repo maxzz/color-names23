@@ -20,7 +20,7 @@ export function TailwindAllColorsBridge() {
     }, [colorsRef]);
 
     function getColors(el: HTMLDivElement | null) {
-        const twAttr = el && getComputedStyle(el).getPropertyValue('--tm-tw-colors');
+        const twAttr = el && getComputedStyle(el).getPropertyValue('--tm-tw-colors').replace(/^'(.*)'$/g, '$1');
         const colors = JSON.parse(twAttr || '[]');
         colorsRef.current = colors || {};
     }

@@ -19,7 +19,7 @@ module.exports = plugin(function ({ addComponents, theme }) {
 
     addComponents({
         '.all-tw-colors': {
-            '--tm-tw-colors': JSON.stringify(colorGroups),
+            '--tm-tw-colors': `'${JSON.stringify(colorGroups)}'`,
         },
     });
 });
