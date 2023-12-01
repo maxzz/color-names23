@@ -49,28 +49,29 @@ type TestButtonProps = {
 };
 
 function TestButton({ label, testCaseString, triggerRef, open, setOpen }: TestButtonProps) {
+
+    function onMouseDown(event: React.MouseEvent<HTMLElement, MouseEvent>) {
+        event.preventDefault();
+
+        const isPicker = event.currentTarget.classList.contains('c-picker');
+        const isSameAnchor = triggerRef.current === event.currentTarget;
+        triggerRef.current = event.currentTarget;
+
+        console.log('isPicker', isPicker, 'isSameAnchor', isSameAnchor, 'open', open, 'event.currentTarget', event.currentTarget);
+
+        if (!isPicker || isSameAnchor) {
+            setOpen(p => !p);
+        } else if (isPicker && !open) {
+            setOpen(true);
+        }
+
+        parseText.text = testCaseString;
+    }
+
     return (
-        <>
-            <Button className="c-picker flex-none relative" variant={"outline"} size={"icon"}
-                onMouseDown={(event) => {
-                    event.preventDefault();
-
-                    const isPicker = event.currentTarget.classList.contains('c-picker');
-                    const isSameAnchor = triggerRef.current === event.currentTarget;
-                    triggerRef.current = event.currentTarget;
-
-                    if (!isPicker || isSameAnchor) {
-                        setOpen(p => !p);
-                    } else if (isPicker && !open) {
-                        setOpen(true);
-                    }
-
-                    parseText.text = testCaseString;
-                }}
-            >
-                {label}
-            </Button>
-        </>
+        <Button className="c-picker flex-none relative" variant={"outline"} size={"icon"} onMouseDown={onMouseDown}            >
+            {label}
+        </Button>
     );
 }
 
