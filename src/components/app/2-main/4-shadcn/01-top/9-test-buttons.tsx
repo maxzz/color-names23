@@ -57,12 +57,22 @@ function TestButton({ label, testCaseString, triggerRef, open, setOpen }: TestBu
         const isSameAnchor = triggerRef.current === event.currentTarget;
         triggerRef.current = event.currentTarget;
 
-        console.log('isPicker', isPicker, 'isSameAnchor', isSameAnchor, 'open', open, 'event.currentTarget', event.currentTarget);
+        console.log(`isPicker=${isPicker} isSameAnchor=${isSameAnchor} open=${open} event.currentTarget='${event.currentTarget.innerText}'`);
 
         if (!isPicker || isSameAnchor) {
+            console.log('1: (!isPicker || isSameAnchor)');
+
             setOpen(p => !p);
         } else if (isPicker && !open) {
+            console.log('2: (isPicker && !open)');
+
             setOpen(true);
+        } else if (isPicker && open) {
+            console.log('3: (isPicker && open)');
+
+            setTimeout(() => {
+                setOpen(true);
+            }, 200);
         }
 
         parseText.text = testCaseString;
@@ -165,7 +175,11 @@ type ShowPickerProps = {
 function ShowPicker({ open, setOpen, anchorRef, className, ...rest }: ShowPickerProps) {
     return (
         <div className="absolute">
-            <Popover open={open} onOpenChange={() => setTimeout(() => setOpen(false), 100)}>
+            {/* <Popover open={open} onOpenChange={() => setTimeout(() => setOpen(false), 100)}> */}
+            <Popover open={open} onOpenChange={() => setTimeout(() => {
+                console.log('onOpenChange. set false');
+                setOpen(false);
+            }, 100)}>
                 <PopoverAnchor className="relative w-0 h-0" virtualRef={anchorRef} />
                 <PopoverContent className={classNames("p-0 w-auto", className)} {...rest}>
                     <CombinedPicker />
