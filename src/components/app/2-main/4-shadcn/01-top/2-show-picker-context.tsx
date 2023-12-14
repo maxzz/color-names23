@@ -1,6 +1,6 @@
 import { ColorPickerState, hsvaToHexa } from "@/components/ui/color-picker";
 import { FormatPickerState } from "@/components/ui/color-picker/ui-state-format";
-import { Dispatch, MutableRefObject, ReactNode, SetStateAction, createContext, useContext, useEffect, useRef, useState } from "react";
+import { Dispatch, MouseEvent, MutableRefObject, ReactNode, SetStateAction, createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { proxy, subscribe } from "valtio";
 
 export type ColorPickerContextType = {
@@ -21,6 +21,24 @@ export type ColorPickerProviderProps = {
 export function ColorPickerProvider({ children, onColorChange, onFormatChange }: { children: ReactNode; } & ColorPickerProviderProps) {
     const anchorRef = useRef<HTMLElement | null>(null);
     const [open, setOpen] = useState(false);
+
+    const onMouseDown = useCallback(
+        (event: MouseEvent<HTMLElement, MouseEvent>) => {
+            event.preventDefault();
+
+            const isPicker = event.currentTarget.classList.contains('c-picker');
+            const isSameAnchor = anchorRef.current === event.currentTarget;
+            anchorRef.current = event.currentTarget;
+
+            if (!isPicker || isSameAnchor) {
+                setOpen(p => !p);
+            } else if (isPicker && !open) {
+                setOpen(true);
+            } else if (isPicker && open) {
+                setTimeout(() => setOpen(true), 200);
+            }
+        }, [open]
+    );
 
     const state = useState<ColorPickerContextType | undefined>(() => {
         return {
@@ -57,6 +75,22 @@ export function ColorPickerProvider({ children, onColorChange, onFormatChange }:
             }
         }
     }, [state, onFormatChange]);
+
+    function _onMouseDown(event: MouseEvent<HTMLElement, MouseEvent>) {
+        event.preventDefault();
+
+        const isPicker = event.currentTarget.classList.contains('c-picker');
+        const isSameAnchor = anchorRef.current === event.currentTarget;
+        anchorRef.current = event.currentTarget;
+
+        if (!isPicker || isSameAnchor) {
+            setOpen(p => !p);
+        } else if (isPicker && !open) {
+            setOpen(true);
+        } else if (isPicker && open) {
+            setTimeout(() => setOpen(true), 200);
+        }
+    }
 
     return (
         <ColorPickerContext.Provider value={state}>
