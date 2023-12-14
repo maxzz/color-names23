@@ -30,14 +30,25 @@ export function ColorPickerProvider({ children, onColorChange, onFormatChange }:
             const isSameAnchor = anchorRef.current === event.currentTarget;
             anchorRef.current = event.currentTarget;
 
-            if (!isPicker || isSameAnchor) {
-                setOpen(p => !p);
-            } else if (isPicker && !open) {
-                setOpen(true);
-            } else if (isPicker && open) {
-                setTimeout(() => setOpen(true), 200);
-            }
-        }, [open]
+            setOpen((open) => {
+                if (!isPicker || isSameAnchor) {
+                    return !open;
+                } else if (isPicker && !open) {
+                    return true;
+                } else if (isPicker && open) {
+                    setTimeout(() => setOpen(true), 200);
+                    return true;
+                }
+                return true;
+            })
+            // if (!isPicker || isSameAnchor) {
+            //     setOpen(p => !p);
+            // } else if (isPicker && !open) {
+            //     setOpen(true);
+            // } else if (isPicker && open) {
+            //     setTimeout(() => setOpen(true), 200);
+            // }
+        }, []
     );
 
     const state = useState<ColorPickerContextType | undefined>(() => {
