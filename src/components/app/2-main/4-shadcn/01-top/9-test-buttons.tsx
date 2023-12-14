@@ -112,12 +112,15 @@ function ShowPicker({ open, setOpen, anchorRef, className, ...rest }: ShowPicker
     return (
         <div className="absolute">
             {/* <Popover open={open} onOpenChange={() => setTimeout(() => setOpen(false), 100)}> */}
-            <Popover open={open} onOpenChange={() => setTimeout(() => {
-                console.log('onOpenChange. set false');
-                setOpen(false);
-            }, 100)}>
+            <Popover
+                open={open}
+                onOpenChange={() => setTimeout(() => {
+                    console.log('onOpenChange. set false');
+                    setOpen(false);
+                }, 100)}
+            >
                 <PopoverAnchor className="relative w-0 h-0" virtualRef={anchorRef} />
-                <PopoverContent className={classNames("p-0 w-auto", className)} {...rest}>
+                <PopoverContent className={classNames("mx-1 p-0 w-auto border-none", className)} {...rest}>
                     <CombinedPicker />
                 </PopoverContent>
             </Popover>
