@@ -37,10 +37,9 @@ export function ColorPickerProvider({ children, onColorChange, onFormatChange }:
                     return true;
                 } else if (isPicker && open) {
                     setTimeout(() => setOpen(true), 200);
-                    return true;
                 }
-                return true;
-            })
+                return open;
+            });
             // if (!isPicker || isSameAnchor) {
             //     setOpen(p => !p);
             // } else if (isPicker && !open) {
