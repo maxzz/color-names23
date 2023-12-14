@@ -1,8 +1,7 @@
-import { Button, Popover, PopoverAnchor, PopoverContent, Textarea } from "@/components/ui/shadcn";
+import { Button } from "@/components/ui/shadcn";
 import { parseText } from "@/store";
-import { CombinedPicker } from "@/components/ui/color-picker";
-import { classNames } from "@/utils";
-import { Dispatch, ElementRef, HTMLAttributes, MutableRefObject, RefObject, SetStateAction, useRef, useState } from "react";
+import { Dispatch, MutableRefObject, SetStateAction, useRef, useState } from "react";
+import { ShowPicker } from "./1-show-picker";
 
 const test1 = ` `;
 
@@ -99,31 +98,5 @@ export function TestButtons() {
                 <ShowPicker open={open} setOpen={setOpen} anchorRef={anchorRef} />
             )}
         </>
-    );
-}
-
-type ShowPickerProps = {
-    open: boolean;
-    setOpen: Dispatch<SetStateAction<boolean>>;
-    anchorRef: RefObject<HTMLElement>;
-} & HTMLAttributes<HTMLDivElement>;
-
-function ShowPicker({ open, setOpen, anchorRef, className, ...rest }: ShowPickerProps) {
-    return (
-        <div className="absolute">
-            {/* <Popover open={open} onOpenChange={() => setTimeout(() => setOpen(false), 100)}> */}
-            <Popover
-                open={open}
-                onOpenChange={() => setTimeout(() => {
-                    console.log('onOpenChange. set false');
-                    setOpen(false);
-                }, 100)}
-            >
-                <PopoverAnchor className="relative w-0 h-0" virtualRef={anchorRef} />
-                <PopoverContent className={classNames("mx-1 p-0 w-auto border-none", className)} {...rest}>
-                    <CombinedPicker />
-                </PopoverContent>
-            </Popover>
-        </div>
     );
 }
