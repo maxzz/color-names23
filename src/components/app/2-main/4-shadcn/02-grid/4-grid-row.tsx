@@ -1,7 +1,7 @@
 import { useSnapshot } from "valtio";
 import { ThemeVarFB } from "@/store";
 import { ColorInput } from "./2-color-input";
-import { ValuePreviewBox } from "./3-value-preview-box";
+import { ColorBox } from "./3-color-box";
 
 type ValueInputAndBoxProps = {
     both: ThemeVarFB;
@@ -28,11 +28,11 @@ function ValueInputAndBox({ both, field, isBackOrFore }: ValueInputAndBoxProps) 
             ? (
                 <div className="flex items-center space-x-2">
                     <ColorInput color={color} colorSnap={colorSnap} />
-                    <ValuePreviewBox {...previewBoxProps} />
+                    <ColorBox {...previewBoxProps} />
                 </div>
             ) : (
                 <div className="pl-2 flex items-center space-x-2">
-                    <ValuePreviewBox {...previewBoxProps} />
+                    <ColorBox {...previewBoxProps} />
                     <ColorInput color={color} colorSnap={colorSnap} />
                 </div>
             )

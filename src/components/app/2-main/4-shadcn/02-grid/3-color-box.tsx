@@ -40,7 +40,7 @@ type ValuePreviewBoxProps = {
     isBackOrFore?: boolean;
 };
 
-export function ValuePreviewBox({ valueName, value, isUndefined, isColor, isLength, isBackOrFore }: ValuePreviewBoxProps) {
+export function ColorBox({ valueName, value, isUndefined, isColor, isLength, isBackOrFore }: ValuePreviewBoxProps) {
     return (
         <div>
             {isColor && <ValuePreviewColor color={value} />}
