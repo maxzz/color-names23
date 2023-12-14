@@ -1,7 +1,7 @@
-import { ColorPickerState } from "@/components/ui/color-picker";
+import { ColorPickerState, hsvaToHexa } from "@/components/ui/color-picker";
 import { FormatPickerState } from "@/components/ui/color-picker/ui-state-format";
-import { ReactNode, createContext, useContext, useState } from "react";
-import { proxy } from "valtio";
+import { ReactNode, createContext, useContext, useEffect, useState } from "react";
+import { proxy, subscribe } from "valtio";
 
 export type ColorPickerContextType = {
     color: ColorPickerState;
@@ -10,7 +10,7 @@ export type ColorPickerContextType = {
 
 export const ColorPickerContext = createContext<ColorPickerContextType | undefined>(undefined);
 
-export function ColorPickerProvider({ children }: { children: ReactNode; }) {
+export function ColorPickerProvider({ children, onColorChange, onFormatChange }: { children: ReactNode; onColorChange?: (color: string) => void; onFormatChange?: (format: number) => void; }) {
     const state = useState<ColorPickerContextType | undefined>(() => {
         return {
             color: proxy<ColorPickerState>({
@@ -21,6 +21,29 @@ export function ColorPickerProvider({ children }: { children: ReactNode; }) {
             }),
         };
     })[0];
+
+    useEffect(() => {
+        if (state) {
+            if (onColorChange) {
+                const unsubscribe = subscribe(state.color, () => {
+                    onColorChange(hsvaToHexa(state.color.hsvaColor));
+                });
+                return () => unsubscribe();
+            }
+        }
+    }, [state, onColorChange]);
+
+    useEffect(() => {
+        if (state) {
+            if (onFormatChange) {
+                const unsubscribe = subscribe(state.format, () => {
+                    onFormatChange(state.format.formatIdx);
+                });
+                return () => unsubscribe();
+            }
+        }
+    }, [state, onFormatChange]);
+    
     return (
         <ColorPickerContext.Provider value={state}>
             {children}
