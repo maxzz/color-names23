@@ -1,25 +1,37 @@
-import { Dispatch, SetStateAction, createContext, useContext, useState } from "react";
+import { ColorPickerState } from "@/components/ui/color-picker";
+import { FormatPickerState } from "@/components/ui/color-picker/ui-state-format";
+import { ReactNode, createContext, useContext, useState } from "react";
+import { proxy } from "valtio";
 
-export type ColorContextType = {
-    color: string;
-    setColor: Dispatch<SetStateAction<string>>;
+export type ColorPickerContextType = {
+    color: ColorPickerState;
+    format: FormatPickerState;
 };
 
-export const ColorContext = createContext<ColorContextType | undefined>(undefined);
+export const ColorPickerContext = createContext<ColorPickerContextType | undefined>(undefined);
 
-export function ColorProvider({ children }: { children: React.ReactNode; }) {
-    const [color, setColor] = useState<string>('0 0% 0%');
+export function ColorPickerProvider({ children }: { children: ReactNode; }) {
+    const state = useState<ColorPickerContextType | undefined>(() => {
+        return {
+            color: proxy<ColorPickerState>({
+                hsvaColor: { h: 0, s: 0, v: 0, a: 1 },
+            }),
+            format: proxy<FormatPickerState>({
+                formatIdx: 0,
+            }),
+        };
+    })[0];
     return (
-        <ColorContext.Provider value={{ color, setColor }}>
+        <ColorPickerContext.Provider value={state}>
             {children}
-        </ColorContext.Provider>
+        </ColorPickerContext.Provider>
     );
 }
 
-export function useColorContext() {
-    const context = useContext(ColorContext);
+export function useColorPickerContext() {
+    const context = useContext(ColorPickerContext);
     if (context === undefined) {
-        throw new Error('useColorContext must be used within a ColorProvider');
+        throw new Error('useColorPickerContext must be used within a ColorProvider');
     }
     return context;
 }
