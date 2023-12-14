@@ -10,7 +10,13 @@ export type ColorPickerContextType = {
 
 export const ColorPickerContext = createContext<ColorPickerContextType | undefined>(undefined);
 
-export function ColorPickerProvider({ children, onColorChange, onFormatChange }: { children: ReactNode; onColorChange?: (color: string) => void; onFormatChange?: (format: number) => void; }) {
+type ColorPickerProviderProps = {
+    children: ReactNode;
+    onColorChange?: (color: string) => void;
+    onFormatChange?: (format: number) => void;
+};
+
+export function ColorPickerProvider({ children, onColorChange, onFormatChange }: ColorPickerProviderProps) {
     const state = useState<ColorPickerContextType | undefined>(() => {
         return {
             color: proxy<ColorPickerState>({
@@ -43,7 +49,7 @@ export function ColorPickerProvider({ children, onColorChange, onFormatChange }:
             }
         }
     }, [state, onFormatChange]);
-    
+
     return (
         <ColorPickerContext.Provider value={state}>
             {children}
