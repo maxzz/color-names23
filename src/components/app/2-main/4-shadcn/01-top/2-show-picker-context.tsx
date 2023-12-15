@@ -18,6 +18,8 @@ export type ColorPickerProviderProps = {
     onFormatChange?: (format: number) => void;
 };
 
+export const pickerClassname = "c-picker";
+
 export function ColorPickerProvider({ children, onColorChange, onFormatChange }: { children: ReactNode; } & ColorPickerProviderProps) {
     const anchorRef = useRef<HTMLElement | null>(null);
     const [open, setOpen] = useState(false);
@@ -26,7 +28,7 @@ export function ColorPickerProvider({ children, onColorChange, onFormatChange }:
         (event: MouseEvent<HTMLElement, MouseEvent>) => {
             event.preventDefault();
 
-            const isPicker = event.currentTarget.classList.contains('c-picker');
+            const isPicker = event.currentTarget.classList.contains(pickerClassname);
             const isSameAnchor = anchorRef.current === event.currentTarget;
             anchorRef.current = event.currentTarget;
 
@@ -89,7 +91,7 @@ export function ColorPickerProvider({ children, onColorChange, onFormatChange }:
     function _onMouseDown(event: MouseEvent<HTMLElement, MouseEvent>) {
         event.preventDefault();
 
-        const isPicker = event.currentTarget.classList.contains('c-picker');
+        const isPicker = event.currentTarget.classList.contains(pickerClassname);
         const isSameAnchor = anchorRef.current === event.currentTarget;
         anchorRef.current = event.currentTarget;
 
