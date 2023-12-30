@@ -6,7 +6,7 @@ import { proxy, subscribe } from "valtio";
 export type ColorPickerContextType = {
     open: boolean;
     setOpen: Dispatch<SetStateAction<boolean>>;
-    anchorRef: MutableRefObject<HTMLElement | null>;    // share ref with PopoverAnchor set by caller before opening
+    anchorRef: MutableRefObject<HTMLElement | null>;    // shared ref with PopoverAnchor set by caller before opening
     color: ColorPickerState;                            // coplor proxy state
     format: FormatPickerState;                          // format proxy state
 };
