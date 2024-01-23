@@ -3,7 +3,7 @@ import { ColorPickerState, hsvaToHexa } from "@/components/ui/color-picker";
 import { FormatPickerState } from "@/components/ui/color-picker/ui-state-format";
 import { proxy, subscribe } from "valtio";
 
-export type ColorPickerContextType = {
+export type ColorPickerContext = {
     open: boolean;
     setOpen: Dispatch<SetStateAction<boolean>>;
     onMouseDown: (event: MouseEvent<HTMLElement, MouseEvent>) => void;
@@ -12,10 +12,10 @@ export type ColorPickerContextType = {
     format: FormatPickerState;                          // format proxy state
 };
 
-export const ColorPickerContext = createContext<ColorPickerContextType | undefined>(undefined);
+const colorPickerContext = createContext<ColorPickerContext | undefined>(undefined);
 
-export function useColorPickerContext(): ColorPickerContextType {
-    const context = useContext(ColorPickerContext);
+export function useColorPickerContext(): ColorPickerContext {
+    const context = useContext(colorPickerContext);
     if (context === undefined) {
         throw new Error('useColorPickerContext must be used within a ColorProvider');
     }
@@ -63,21 +63,6 @@ export function ColorPickerProvider({ children, onColorChange, onFormatChange }:
         }),
     }))[0];
 
-    // const state = useState<ColorPickerContextType | undefined>(() => {
-    //     return {
-    //         open,
-    //         setOpen,
-    //         onMouseDown,
-    //         anchorRef,
-    //         color: proxy<ColorPickerState>({
-    //             hsvaColor: { h: 0, s: 0, v: 0, a: 1 },
-    //         }),
-    //         format: proxy<FormatPickerState>({
-    //             formatIdx: 0,
-    //         }),
-    //     };
-    // })[0];
-
     useEffect(() => {
         if (proxies && onColorChange) {
             const unsubscribe = subscribe(proxies.color, () => {
@@ -97,7 +82,7 @@ export function ColorPickerProvider({ children, onColorChange, onFormatChange }:
     }, [proxies, onFormatChange]);
 
     return (
-        <ColorPickerContext.Provider
+        <colorPickerContext.Provider
             value={{
                 open,
                 setOpen,
@@ -107,6 +92,6 @@ export function ColorPickerProvider({ children, onColorChange, onFormatChange }:
             }}
         >
             {children}
-        </ColorPickerContext.Provider>
+        </colorPickerContext.Provider>
     );
 }
