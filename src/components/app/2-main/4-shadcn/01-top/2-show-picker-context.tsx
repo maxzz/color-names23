@@ -1,11 +1,12 @@
+import { Dispatch, MouseEvent, MutableRefObject, ReactNode, SetStateAction, createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { ColorPickerState, hsvaToHexa } from "@/components/ui/color-picker";
 import { FormatPickerState } from "@/components/ui/color-picker/ui-state-format";
-import { Dispatch, MouseEvent, MutableRefObject, ReactNode, SetStateAction, createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { proxy, subscribe } from "valtio";
 
 export type ColorPickerContextType = {
     open: boolean;
     setOpen: Dispatch<SetStateAction<boolean>>;
+    onMouseDown: (event: MouseEvent<HTMLElement, MouseEvent>) => void;
     anchorRef: MutableRefObject<HTMLElement | null>;    // shared ref with PopoverAnchor set by caller before opening
     color: ColorPickerState;                            // coplor proxy state
     format: FormatPickerState;                          // format proxy state
@@ -56,6 +57,7 @@ export function ColorPickerProvider({ children, onColorChange, onFormatChange }:
         return {
             open,
             setOpen,
+            onMouseDown,
             anchorRef,
             color: proxy<ColorPickerState>({
                 hsvaColor: { h: 0, s: 0, v: 0, a: 1 },
