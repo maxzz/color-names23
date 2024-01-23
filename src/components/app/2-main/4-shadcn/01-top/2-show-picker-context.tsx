@@ -54,45 +54,58 @@ export function ColorPickerProvider({ children, onColorChange, onFormatChange }:
         }, []
     );
 
-    const state = useState<ColorPickerContextType | undefined>(() => {
-        return {
-            open,
-            setOpen,
-            onMouseDown,
-            anchorRef,
-            color: proxy<ColorPickerState>({
-                hsvaColor: { h: 0, s: 0, v: 0, a: 1 },
-            }),
-            format: proxy<FormatPickerState>({
-                formatIdx: 0,
-            }),
-        };
-    })[0];
+    const proxies = useState<{ color: ColorPickerState; format: FormatPickerState; }>(() => ({
+        color: proxy<ColorPickerState>({
+            hsvaColor: { h: 0, s: 0, v: 0, a: 1 },
+        }),
+        format: proxy<FormatPickerState>({
+            formatIdx: 0,
+        }),
+    }))[0];
+
+    // const state = useState<ColorPickerContextType | undefined>(() => {
+    //     return {
+    //         open,
+    //         setOpen,
+    //         onMouseDown,
+    //         anchorRef,
+    //         color: proxy<ColorPickerState>({
+    //             hsvaColor: { h: 0, s: 0, v: 0, a: 1 },
+    //         }),
+    //         format: proxy<FormatPickerState>({
+    //             formatIdx: 0,
+    //         }),
+    //     };
+    // })[0];
 
     useEffect(() => {
-        if (state) {
-            if (onColorChange) {
-                const unsubscribe = subscribe(state.color, () => {
-                    onColorChange(hsvaToHexa(state.color.hsvaColor));
-                });
-                return () => unsubscribe();
-            }
+        if (proxies && onColorChange) {
+            const unsubscribe = subscribe(proxies.color, () => {
+                onColorChange(hsvaToHexa(proxies.color.hsvaColor));
+            });
+            return () => unsubscribe();
         }
-    }, [state, onColorChange]);
+    }, [proxies, onColorChange]);
 
     useEffect(() => {
-        if (state) {
-            if (onFormatChange) {
-                const unsubscribe = subscribe(state.format, () => {
-                    onFormatChange(state.format.formatIdx);
-                });
-                return () => unsubscribe();
-            }
+        if (proxies && onFormatChange) {
+            const unsubscribe = subscribe(proxies.format, () => {
+                onFormatChange(proxies.format.formatIdx);
+            });
+            return () => unsubscribe();
         }
-    }, [state, onFormatChange]);
+    }, [proxies, onFormatChange]);
 
     return (
-        <ColorPickerContext.Provider value={state}>
+        <ColorPickerContext.Provider
+            value={{
+                open,
+                setOpen,
+                onMouseDown,
+                anchorRef,
+                ...proxies,
+            }}
+        >
             {children}
         </ColorPickerContext.Provider>
     );
