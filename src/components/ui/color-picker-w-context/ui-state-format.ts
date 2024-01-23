@@ -1,5 +1,5 @@
-import { proxy } from "valtio";
-import { HsvaColor } from "./color-convert";
+// import { proxy } from "valtio";
+// import { HsvaColor } from "./color-convert";
 
 export type FormatItem = {
     name: string;
@@ -12,10 +12,11 @@ export const formatList: FormatItem[] = [
     { name: "HSL", format: "hsl" },
 ];
 
-export type FormatPickerState = {
-    formatIdx: number; // index of the selected format
-}
+// export type FormatPickerState = {
+//     formatIdx: number; // index of the selected format
+// }
 
-export const formatPickerState = proxy<FormatPickerState>({
-    formatIdx: 0,
-});
+// export const formatPickerState = proxy<FormatPickerState>({
+//     formatIdx: 0,
+// });
+

@@ -2,14 +2,16 @@ import { ButtonHTMLAttributes } from "react";
 import { useSnapshot } from "valtio";
 import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../../shadcn";
 import { IconCheckbox, IconMenuBurger } from "@/components/ui/icons";
-import { formatList, formatPickerState } from "../ui-state-format";
+import { formatList } from "../ui-state-format";
+import { useColorPickerContext } from "..";
 
 function Item({ label, formatIdx, currentFormatIdx }: { label: string; formatIdx: number; currentFormatIdx: number; }) {
+    const ctx = useColorPickerContext();
     return (
         <DropdownMenuItem
             className="text-xs grid grid-cols-[16px,1fr] items-center gap-x-2"
             onClick={() => {
-                formatPickerState.formatIdx = formatIdx;
+                ctx.format.formatIdx = formatIdx;
             }}
         >
             {formatIdx === currentFormatIdx && <IconCheckbox className="w-4 h-4" />}
@@ -22,7 +24,8 @@ function Item({ label, formatIdx, currentFormatIdx }: { label: string; formatIdx
 }
 
 export function FormatMenu({ className, ...rest }: ButtonHTMLAttributes<HTMLButtonElement>) {
-    const { formatIdx } = useSnapshot(formatPickerState);
+    const ctx = useColorPickerContext();
+    const { formatIdx } = useSnapshot(ctx.format);
     return (
         <DropdownMenu>
 

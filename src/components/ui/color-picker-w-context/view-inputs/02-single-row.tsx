@@ -4,7 +4,7 @@ import { Input, Label } from "../../shadcn";
 import { HsvaColor, hsvaToHex, hsvaToHexa, hsvaToHslaString, hsvaToRgbaString } from "../color-convert";
 //import { colorPickerState } from "../ui-state-color";
 import { classNames } from "@/utils";
-import { FormatItem, formatList, formatPickerState } from "../ui-state-format";
+import { FormatItem, formatList } from "../ui-state-format";
 import { useColorPickerContext } from "..";
 
 const boxClasses = "flex flex-col items-center";
@@ -51,7 +51,7 @@ function colorTextByFormat(format: FormatItem['format'], hsvaColor: HsvaColor): 
 export function CurrentColor({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     const ctx = useColorPickerContext();
     const { hsvaColor } = useSnapshot(ctx.color, { sync: true });
-    const { formatIdx } = useSnapshot(formatPickerState);
+    const { formatIdx } = useSnapshot(ctx.format);
     const currentFormat = formatList[formatIdx];
 
     const txt = colorTextByFormat(currentFormat.format, hsvaColor);
