@@ -27,18 +27,6 @@ const test4 =
 }
 `;
 
-// export function TestButtons() {
-//     return (
-//         <>
-//             <Button className="flex-none" variant={"outline"} size={"icon"} onClick={() => parseText.text = test1}>0/0</Button>
-//             <Button className="flex-none" variant={"outline"} size={"icon"} onClick={() => parseText.text = test2}>1/0</Button>
-//             <Button className="flex-none" variant={"outline"} size={"icon"} onClick={() => parseText.text = test3}>3/0</Button>
-//             <Button className="flex-none" variant={"outline"} size={"icon"} onClick={() => parseText.text = test4}>3/1</Button>
-//             <ShowPicker />
-//         </>
-//     );
-// }
-
 type TestButtonProps = {
     label: string;
     testCaseString: string;
