@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/shadcn";
 import { parseText } from "@/store";
-import { Dispatch, MutableRefObject, SetStateAction, useRef, useState } from "react";
+import { Dispatch, MutableRefObject, SetStateAction, useCallback, useRef, useState } from "react";
 import { ShowPicker } from "./1-show-picker";
+import { ColorPickerProvider } from "./2-show-picker-context";
 
 const test1 = ` `;
 
@@ -75,8 +76,18 @@ function TestButton({ label, testCaseString, triggerRef, open, setOpen }: TestBu
 export function TestButtonsContext() {
     const anchorRef = useRef<HTMLElement | null>(null);
     const [open, setOpen] = useState(false);
+
+    const onColorChange = useCallback((color: string) => {
+        console.log('onColorChange', color);
+    }, []);
+    
+    const onFormatChange = useCallback((format: number) => {
+        console.log('onFormatChange', format);
+    }, []);
+
     return (
-        <>
+        <ColorPickerProvider onColorChange={onColorChange} onFormatChange={onFormatChange}>
+
             <TestButton label="0/0" testCaseString={test1} triggerRef={anchorRef} open={open} setOpen={setOpen} />
             <TestButton label="1/0" testCaseString={test2} triggerRef={anchorRef} open={open} setOpen={setOpen} />
             <TestButton label="3/0" testCaseString={test3} triggerRef={anchorRef} open={open} setOpen={setOpen} />
@@ -85,6 +96,7 @@ export function TestButtonsContext() {
             {open && anchorRef.current && (
                 <ShowPicker open={open} setOpen={setOpen} anchorRef={anchorRef} />
             )}
-        </>
+
+        </ColorPickerProvider>
     );
 }

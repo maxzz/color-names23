@@ -52,3 +52,5 @@ export function TopPanel() {
         </div>
     );
 }
+
+//TODO: fix popup size for light theme
