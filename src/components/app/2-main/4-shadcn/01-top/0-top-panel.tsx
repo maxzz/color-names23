@@ -3,6 +3,7 @@ import { parseText } from "@/store";
 import { Button, Textarea } from "@/components/ui/shadcn";
 import { IconMenuBurger } from "@/components/ui/icons";
 import { TestButtons } from "./9-test-buttons";
+import { TestButtonsContext } from "./9-test-buttons-context";
 
 function PasteInput() {
     const snap = useSnapshot(parseText, { sync: true });
@@ -27,8 +28,18 @@ export function TopPanel() {
 
             <PasteInput />
 
-            <div className="w-min flex space-x-2">
+            <div className="w-24"></div>
+
+            <div className="text-[.55rem] text-right">without context</div>
+            <div className="w-min flex flex-col space-y-2">
                 <TestButtons />
+            </div>
+
+            <div className="w-24"></div>
+
+            <div className="text-[.55rem] text-right">with context</div>
+            <div className="w-min flex flex-col space-y-2">
+                <TestButtonsContext />
             </div>
         </div>
     );
