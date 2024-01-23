@@ -1,6 +1,6 @@
+import { Dispatch, MutableRefObject, SetStateAction, useCallback, useRef, useState } from "react";
 import { Button } from "@/components/ui/shadcn";
 import { parseText } from "@/store";
-import { Dispatch, MutableRefObject, SetStateAction, useCallback, useRef, useState } from "react";
 import { ShowPicker } from "./1-show-picker";
 import { ColorPickerProvider } from "./2-show-picker-context";
 
@@ -80,7 +80,7 @@ export function TestButtonsContext() {
     const onColorChange = useCallback((color: string) => {
         console.log('onColorChange', color);
     }, []);
-    
+
     const onFormatChange = useCallback((format: number) => {
         console.log('onFormatChange', format);
     }, []);

@@ -1,7 +1,6 @@
 import { Dispatch, MouseEvent, MutableRefObject, ReactNode, SetStateAction, createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
-import { ColorPickerState, hsvaToHexa } from "@/components/ui/color-picker";
-import { FormatPickerState } from "@/components/ui/color-picker/ui-state-format";
 import { proxy, subscribe } from "valtio";
+import { ColorPickerState, FormatPickerState, hsvaToHexa } from "@/components/ui/color-picker-w-context";
 
 export type ColorPickerContext = {
     open: boolean;

@@ -4,7 +4,8 @@ import { Input, Label } from "../../shadcn";
 import { HsvaColor, hsvaToHex, hsvaToHexa, hsvaToHsla, hsvaToHslaString, hsvaToRgba, hsvaToRgbaString } from "../color-convert";
 import { colorPickerState } from "../ui-state-color";
 import { classNames } from "@/utils";
-import { FormatItem, formatList, formatPickerState } from "../ui-state-format";
+import { formatPickerState } from "../ui-state-format";
+import { FormatItem, formatList } from "../types";
 
 const boxClasses = "flex flex-col items-center";
 const inputClasses = "px-0 text-xs text-center h-6";

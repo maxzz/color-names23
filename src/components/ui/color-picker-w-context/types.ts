@@ -1,8 +1,9 @@
-import { HsvaColor as HsvaColorOrg } from "./color-convert";
+import { HsvaColor } from "./color-convert";
 
 // color
 
-export type HsvaColor = HsvaColorOrg;
+// import { HsvaColor as HsvaColorOrg } from "./color-convert";
+// export type HsvaColor = HsvaColorOrg;
 
 export type ColorPickerState = {
     hsvaColor: HsvaColor;
