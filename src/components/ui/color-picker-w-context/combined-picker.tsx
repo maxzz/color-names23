@@ -4,20 +4,22 @@ import { Saturation } from "./view-saturation";
 import { Alpha } from "./view-alpha";
 import { Hue } from "./view-hue";
 import { PointerOverBox, PointerOverLine, checkerBoardBkg } from "./part-pointer";
-import { colorPickerState } from "./ui-state-color";
+// import { colorPickerState } from "./ui-state-color";
 import { hsvaToHex, hsvaToHexa } from "./color-convert";
 import { classNames } from "@/utils";
 import { ColorInputs } from "./view-inputs";
 import { PaletteSelector } from "./view-palettes";
+import { useColorPickerContext } from ".";
 
 function AlphaView({ className, ...rest }: Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>) {
-    const snap = useSnapshot(colorPickerState);
+    const ctx = useColorPickerContext();
+    const snap = useSnapshot(ctx.color);
     const { h, s, v, a } = snap.hsvaColor;
 
     const onAlphaChange = useCallback(
         (a: number) => {
-            if (colorPickerState.hsvaColor.a !== a) {
-                colorPickerState.hsvaColor.a = a;
+            if (ctx.color.hsvaColor.a !== a) {
+                ctx.color.hsvaColor.a = a;
             }
         }, [snap.hsvaColor]
     );
@@ -35,13 +37,14 @@ function AlphaView({ className, ...rest }: Omit<HTMLAttributes<HTMLDivElement>, 
 }
 
 function HueView({ className, ...rest }: Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>) {
-    const snap = useSnapshot(colorPickerState);
+    const ctx = useColorPickerContext();
+    const snap = useSnapshot(ctx.color);
     const { h } = snap.hsvaColor;
 
     const onHueChange = useCallback(
         (h: number) => {
-            if (colorPickerState.hsvaColor.h !== h) {
-                colorPickerState.hsvaColor.h = h;
+            if (ctx.color.hsvaColor.h !== h) {
+                ctx.color.hsvaColor.h = h;
             }
         }, [snap.hsvaColor]
     );
@@ -59,13 +62,14 @@ function HueView({ className, ...rest }: Omit<HTMLAttributes<HTMLDivElement>, 'o
 }
 
 function SaturationView({ className, ...rest }: Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>) {
-    const snap = useSnapshot(colorPickerState);
+    const ctx = useColorPickerContext();
+    const snap = useSnapshot(ctx.color);
 
     const onSaturationValueChange = useCallback(
         ({ s, v }: { s: number; v: number; }) => {
-            if (colorPickerState.hsvaColor.s !== s || colorPickerState.hsvaColor.v !== v) {
-                colorPickerState.hsvaColor.v = v;
-                colorPickerState.hsvaColor.s = s;
+            if (ctx.color.hsvaColor.s !== s || ctx.color.hsvaColor.v !== v) {
+                ctx.color.hsvaColor.v = v;
+                ctx.color.hsvaColor.s = s;
             }
         }, [snap.hsvaColor]
     );
@@ -83,7 +87,8 @@ function SaturationView({ className, ...rest }: Omit<HTMLAttributes<HTMLDivEleme
 }
 
 function ColorNumbersDisplay() {
-    const snap = useSnapshot(colorPickerState);
+    const ctx = useColorPickerContext();
+    const snap = useSnapshot(ctx.color);
     const hexa = hsvaToHexa(snap.hsvaColor);
     const hexaTxt = snap.hsvaColor.a === 1 ? hsvaToHex(snap.hsvaColor) : hexa;
     return (
@@ -97,7 +102,8 @@ function ColorNumbersDisplay() {
 }
 
 function ColorDisplay({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-    const snap = useSnapshot(colorPickerState);
+    const ctx = useColorPickerContext();
+    const snap = useSnapshot(ctx.color);
     const hexa = hsvaToHexa(snap.hsvaColor);
     return (
         <div

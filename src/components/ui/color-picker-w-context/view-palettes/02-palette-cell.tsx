@@ -1,12 +1,14 @@
 import { ButtonHTMLAttributes, useRef, useState } from "react";
 import { useSnapshot } from "valtio";
-import { colorPickerState } from "../ui-state-color";
+//import { colorPickerState } from "../ui-state-color";
 import { paletteList, palettePickerState } from "./ui-state-palette";
 import { ShadesPopup, cellClasses } from "./01-shades-popup";
 import { hexToHsva } from "../color-convert";
 import { classNames } from "@/utils";
+import { useColorPickerContext } from "..";
 
 export function PaletteCell({ colorGroup, className, ...rest }: { colorGroup: string; } & ButtonHTMLAttributes<HTMLButtonElement>) {
+    const ctx = useColorPickerContext();
     const timerId = useRef<NodeJS.Timeout | null>(null);
     const [showShades, setShowShades] = useState(false);
 
@@ -32,7 +34,7 @@ export function PaletteCell({ colorGroup, className, ...rest }: { colorGroup: st
             onMouseUp={(e) => {
                 clearTimeout(timerId.current!);
                 if (!showShades) {
-                    colorPickerState.hsvaColor = hexToHsva(color);
+                    ctx.color.hsvaColor = hexToHsva(color);
                 }
             }}
             {...rest}

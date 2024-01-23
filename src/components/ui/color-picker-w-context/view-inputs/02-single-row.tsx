@@ -1,10 +1,11 @@
-import { HTMLAttributes, InputHTMLAttributes } from "react";
+import { HTMLAttributes } from "react";
 import { useSnapshot } from "valtio";
 import { Input, Label } from "../../shadcn";
-import { HsvaColor, hsvaToHex, hsvaToHexa, hsvaToHsla, hsvaToHslaString, hsvaToRgba, hsvaToRgbaString } from "../color-convert";
-import { colorPickerState } from "../ui-state-color";
+import { HsvaColor, hsvaToHex, hsvaToHexa, hsvaToHslaString, hsvaToRgbaString } from "../color-convert";
+//import { colorPickerState } from "../ui-state-color";
 import { classNames } from "@/utils";
 import { FormatItem, formatList, formatPickerState } from "../ui-state-format";
+import { useColorPickerContext } from "..";
 
 const boxClasses = "flex flex-col items-center";
 const inputClasses = "px-0 text-xs text-center h-6";
@@ -48,7 +49,8 @@ function colorTextByFormat(format: FormatItem['format'], hsvaColor: HsvaColor): 
 }
 
 export function CurrentColor({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-    const { hsvaColor } = useSnapshot(colorPickerState, { sync: true });
+    const ctx = useColorPickerContext();
+    const { hsvaColor } = useSnapshot(ctx.color, { sync: true });
     const { formatIdx } = useSnapshot(formatPickerState);
     const currentFormat = formatList[formatIdx];
 
@@ -60,7 +62,7 @@ export function CurrentColor({ className, ...rest }: HTMLAttributes<HTMLDivEleme
             <Input
                 className={inputClasses}
                 value={txt}
-                onChange={(e) => colorPickerState.hsvaColor.h = +e.target.value}
+                onChange={(e) => ctx.color.hsvaColor.h = +e.target.value}
                 role="presentation"
                 autoComplete="off"
                 spellCheck="false"

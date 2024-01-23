@@ -1,10 +1,11 @@
 import { Fragment } from "react";
 import { useSnapshot } from "valtio";
-import { colorPickerState } from "../ui-state-color";
+//import { colorPickerState } from "../ui-state-color";
 import { paletteList, palettePickerState } from "./ui-state-palette";
 import { Popover, PopoverAnchor, PopoverContent } from "../../shadcn";
 import { hexToHsva } from "../color-convert";
 import { classNames } from "@/utils";
+import { useColorPickerContext } from "..";
 
 type ShadesPopupProps = {
     colorGroup: string;
@@ -40,13 +41,14 @@ select-none \
 grid grid-cols-[auto,auto] gap-x-1";
 
 export function ShadesPopup({ colorGroup, open, setOpen, className, ...rest }: ShadesPopupProps) {
+    const ctx = useColorPickerContext();
     const { activePaletteIdx } = useSnapshot(palettePickerState);
     const palette = paletteList[activePaletteIdx];
 
     const group = palette.shades.get(colorGroup)!;
 
     function onColorClick(color: string) {
-        colorPickerState.hsvaColor = hexToHsva(color);
+        ctx.color.hsvaColor = hexToHsva(color);
         setOpen(false);
     }
 
