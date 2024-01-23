@@ -2,7 +2,7 @@ import { Dispatch, MutableRefObject, SetStateAction, useCallback, useRef, useSta
 import { Button } from "@/components/ui/shadcn";
 import { parseText } from "@/store";
 import { ShowPicker } from "./1-show-picker";
-import { ColorPickerProvider } from "./2-show-picker-context";
+import { ColorPickerProvider } from "@/components/ui/color-picker-w-context";
 
 const test1 = ` `;
 

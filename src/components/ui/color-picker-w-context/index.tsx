@@ -4,5 +4,5 @@ export * from './combined-picker';
 
 export * from './types';
 //export * from './ui-state-color';
-export * from '../../app/2-main/4-shadcn/01-top/2-show-picker-context';
+export * from './picker-context';
 
