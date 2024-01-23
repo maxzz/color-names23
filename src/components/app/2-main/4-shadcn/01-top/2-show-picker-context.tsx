@@ -51,31 +51,8 @@ export function ColorPickerProvider({ children, onColorChange, onFormatChange }:
                 }
                 return open;
             });
-            // if (!isPicker || isSameAnchor) {
-            //     setOpen(p => !p);
-            // } else if (isPicker && !open) {
-            //     setOpen(true);
-            // } else if (isPicker && open) {
-            //     setTimeout(() => setOpen(true), 200);
-            // }
         }, []
     );
-
-    function _onMouseDown(event: MouseEvent<HTMLElement, MouseEvent>) {
-        event.preventDefault();
-
-        const isPicker = event.currentTarget.classList.contains(pickerClassname);
-        const isSameAnchor = anchorRef.current === event.currentTarget;
-        anchorRef.current = event.currentTarget;
-
-        if (!isPicker || isSameAnchor) {
-            setOpen(p => !p);
-        } else if (isPicker && !open) {
-            setOpen(true);
-        } else if (isPicker && open) {
-            setTimeout(() => setOpen(true), 200);
-        }
-    }
 
     const state = useState<ColorPickerContextType | undefined>(() => {
         return {
