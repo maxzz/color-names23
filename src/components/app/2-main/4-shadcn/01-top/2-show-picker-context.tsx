@@ -14,6 +14,14 @@ export type ColorPickerContextType = {
 
 export const ColorPickerContext = createContext<ColorPickerContextType | undefined>(undefined);
 
+export function useColorPickerContext(): ColorPickerContextType {
+    const context = useContext(ColorPickerContext);
+    if (context === undefined) {
+        throw new Error('useColorPickerContext must be used within a ColorProvider');
+    }
+    return context;
+}
+
 export type ColorPickerProviderProps = {
     onColorChange?: (color: string) => void;
     onFormatChange?: (format: number) => void;
@@ -53,6 +61,22 @@ export function ColorPickerProvider({ children, onColorChange, onFormatChange }:
         }, []
     );
 
+    function _onMouseDown(event: MouseEvent<HTMLElement, MouseEvent>) {
+        event.preventDefault();
+
+        const isPicker = event.currentTarget.classList.contains(pickerClassname);
+        const isSameAnchor = anchorRef.current === event.currentTarget;
+        anchorRef.current = event.currentTarget;
+
+        if (!isPicker || isSameAnchor) {
+            setOpen(p => !p);
+        } else if (isPicker && !open) {
+            setOpen(true);
+        } else if (isPicker && open) {
+            setTimeout(() => setOpen(true), 200);
+        }
+    }
+
     const state = useState<ColorPickerContextType | undefined>(() => {
         return {
             open,
@@ -90,33 +114,9 @@ export function ColorPickerProvider({ children, onColorChange, onFormatChange }:
         }
     }, [state, onFormatChange]);
 
-    function _onMouseDown(event: MouseEvent<HTMLElement, MouseEvent>) {
-        event.preventDefault();
-
-        const isPicker = event.currentTarget.classList.contains(pickerClassname);
-        const isSameAnchor = anchorRef.current === event.currentTarget;
-        anchorRef.current = event.currentTarget;
-
-        if (!isPicker || isSameAnchor) {
-            setOpen(p => !p);
-        } else if (isPicker && !open) {
-            setOpen(true);
-        } else if (isPicker && open) {
-            setTimeout(() => setOpen(true), 200);
-        }
-    }
-
     return (
         <ColorPickerContext.Provider value={state}>
             {children}
         </ColorPickerContext.Provider>
     );
-}
-
-export function useColorPickerContext() {
-    const context = useContext(ColorPickerContext);
-    if (context === undefined) {
-        throw new Error('useColorPickerContext must be used within a ColorProvider');
-    }
-    return context;
 }
