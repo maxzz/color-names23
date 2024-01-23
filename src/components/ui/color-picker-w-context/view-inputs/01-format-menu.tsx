@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes } from "react";
 import { useSnapshot } from "valtio";
 import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../../shadcn";
 import { IconCheckbox, IconMenuBurger } from "@/components/ui/icons";
-import { formatList } from "../ui-state-format";
+import { formatList } from "../types";
 import { useColorPickerContext } from "..";
 
 function Item({ label, formatIdx, currentFormatIdx }: { label: string; formatIdx: number; currentFormatIdx: number; }) {
