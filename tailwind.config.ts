@@ -1,6 +1,5 @@
 import twColors from 'tailwindcss/colors';
 import twTheme from 'tailwindcss/defaultTheme';
-import { shadcnPlugin } from './tailwind/tailwind-plugin-shadcn';
 //const debugScreens = require('./tailwind/tailwind-plugin-debug-screens');
 //const debugScreens = require('tailwindcss-plugin-debug-screens');
 import debugScreens from 'tailwindcss-plugin-debug-screens';
@@ -93,6 +92,7 @@ module.exports = {
         // require('tailwindcss-animate'),
         debugScreens,
         require('@tailwindcss/forms')({ strategy: 'class' }),
-        shadcnPlugin,
+        require('./tailwind/tailwind-plugin-shadcn.mts'),
+        require('./tailwind/tailwind-plugin-shadcn-feedback.mts'),
     ],
 };
