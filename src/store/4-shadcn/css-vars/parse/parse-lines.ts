@@ -1,4 +1,4 @@
-import { FileThemes, ThemeVarsParsed } from "../../types";
+import { FileThemes } from "../../types";
 
 // ":root": {
 // :root: {
@@ -35,10 +35,10 @@ const isCSSVarRegex = /^\s*(['"])?--([a-zA-Z0-9\-]+)(?:['"])?\s*:\s*(?:['"])?([^
 }
 ```
  */
-export function parseTextToThemeVarsArray(text: string): ThemeVarsParsed[] {
-    let rv: ThemeVarsParsed[] = [];
+function parseTextToThemeVarsArray(text: string): ParsedSelectors[] {
+    let rv: ParsedSelectors[] = [];
 
-    let current: ThemeVarsParsed = { name: ':root', values: {} };
+    let current: ParsedSelectors = { name: ':root', values: {} };
     rv.push(current);
 
     text.split(/\r?\n/)
@@ -63,28 +63,31 @@ export function parseTextToThemeVarsArray(text: string): ThemeVarsParsed[] {
     return rv;
 }
 
+type ParsedSelectors = {
+    name: string;
+    values: Record<string, string>;     // cssVarName(w/ '--') --> cssVarValue
+};
+
 /**
  * @returns 
- * ```
+ * ```json
  * {
  *     ":root": {
  *         "--background": "0 0% 100%",
- *         "--foreground": "222.2 47.4% 11.2%",
- *         ...
+ *         "--foreground": "222.2 47.4% 11.2%", // ...
  *     },
  *     ".dark": {
  *         "--background": "224 71% 4%",
- *         "--foreground": "213 31% 91%",
- *         ...
+ *         "--foreground": "213 31% 91%", // ...
  *     }
  * }
  * ```
  */
 export function parseTextAsCSSvars(text: string): FileThemes {
-    const themes = parseTextToThemeVarsArray(text);
+    const parsedSelectors = parseTextToThemeVarsArray(text);
 
-    const rv = themes.reduce((acc, theme) => {
-        acc[theme.name] = theme.values;
+    const rv = parsedSelectors.reduce((acc, themeSelector) => {
+        acc[themeSelector.name] = themeSelector.values;
         return acc;
     }, {} as FileThemes);
     
