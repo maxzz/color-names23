@@ -1,5 +1,4 @@
-export type CSSVarNameValue = Record<string, string>; // cssVarName (with --) --> cssVarValue (hsl, hex, rgb, length, etc)
-export type FileThemes = Record<string, CSSVarNameValue>; // theme selector name (like :root or .dark) --> {cssVarName: cssVarValue}
+// Theme types
 
 export type ThemeVarName = {
     varName: string,                    // name wo/ '--' and wo/ '-foreground' suffix
@@ -18,20 +17,21 @@ export type ThemeVar = Prettify<
     }
     & ThemeVarName>;
 
-export type ThemeVarFBR = {             // CSS var NameValue pair with foreground and background
+export type ThemeVarFBR = {             // CSS var NameValue with foreground, background, border, or unknown suffixes
     f?: ThemeVar;                       // foreground
     b?: ThemeVar;                       // background
     r?: ThemeVar;                       // border
-    s?: Record<string, ThemeVar>;       // unknown suffixs
+    s?: Record<string, ThemeVar>;       // unknown suffixes
 };
 
 export type ThemeVars = {
     themeId: number;                    // unique id in memory only for counters
     name: string;                       // theme name inside theme (like :root or .dark)
-    vars: ThemeVarFBR[];                // cssVarName, cssVarValue
+    vars: ThemeVarFBR[];                // [cssVarName --> cssVarValue, ...]
+    errors?: string[];                  // errors in parsing
 };
 
-// Color counters
+// Color counters types
 
 export type GroupColorCounters = Record<string, number>; // CSS var color value -> count
 

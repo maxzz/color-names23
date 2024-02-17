@@ -1,4 +1,5 @@
-import { ThemeVar, FileThemes, ThemeVarFBR, ThemeVars, ThemeVarName } from "../types";
+import type { FileThemes } from "./parse/parse-lines";
+import { ThemeVar, ThemeVarFBR, ThemeVars, ThemeVarName } from "../types";
 import { uuid } from "@/utils";
 
 function groupByForeAndBack(themeVars: ThemeVar[], combineForeBack: boolean): ThemeVarFBR[] {
@@ -159,46 +160,55 @@ const matchHSL = /^\s*(hsl\()?(\d+\.?\d*)\s+(\d+\.?\d*)%\s+(\d+\.?\d*)%(\))?\s*$
  * ```
  */
 export function convertFileThemeVarsToPairs(fileThemeVars: FileThemes): ThemeVars[] {
-    const rv: ThemeVars[] =
-        Object.entries(fileThemeVars)
-            .map<ThemeVars>((entry) => {
+    const rv: ThemeVars[] = Object
+        .entries(fileThemeVars)
+        .map<ThemeVars>(
+            (entry) => {
                 const [varsName, varsValues] = entry;
                 const varsValuesPairs = Object.entries(varsValues);
                 const themeId = uuid.asRelativeNumber();
+                const errors: string[] = [];
 
                 const vars = varsValuesPairs
-                    .map<ThemeVar>(([name, color], idx) => {
-                        const matchedName = name.match(matchName);
-                        if (!matchedName) {
-                            throw new Error(`Invalid css var name: ${name}. Name should start with '--'`);
+                    .map<ThemeVar | null>(
+                        ([name, color], idx) => {
+                            const matchedName = name.match(matchName);
+                            if (!matchedName) {
+                                errors.push(`Invalid css var name: ${name}. Name should start with '--'`);
+                                return null;
+                            }
+                            const [, nameWoDash, nameSuffix] = matchedName;
+
+                            let names = getSuffix(nameWoDash, nameSuffix);
+
+                            //TODO: add check if new name exists in the current theme, then create a new theme
+
+                            const matchedVakue = color.match(matchHSL);
+                            const isHsl = !!matchedVakue;
+
+                            const rv: ThemeVar = {
+                                ...names,
+                                varValue: color,
+                                isHsl,
+                                order: idx,
+                                id: uuid.asRelativeNumber(),
+                                themeId,
+                            };
+
+                            return rv;
                         }
-                        const [, nameWoDash, nameSuffix] = matchedName;
-
-                        let names = getSuffix(nameWoDash, nameSuffix);
-
-                        //TODO: add check if new name exists in the current theme, then create a new theme
-
-                        const matchedVakue = color.match(matchHSL);
-                        const isHsl = !!matchedVakue;
-
-                        const rv: ThemeVar = {
-                            ...names,
-                            varValue: color,
-                            isHsl,
-                            order: idx,
-                            id: uuid.asRelativeNumber(),
-                            themeId,
-                        };
-
-                        return rv;
-                    });
+                    )
+                    .filter((v): v is ThemeVar => !!v);
 
                 return {
                     themeId,
                     name: varsName,
                     vars: groupByForeAndBack(vars, true),
+                    errors,
                 };
-            });
+            }
+        );
+
     return rv;
 }
 

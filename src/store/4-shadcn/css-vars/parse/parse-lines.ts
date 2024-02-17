@@ -1,4 +1,5 @@
-import { FileThemes } from "../../types";
+export type CSSVarNameValue = Record<string, string>; // cssVarName (with --) --> cssVarValue (hsl, hex, rgb, length, etc)
+export type FileThemes = Record<string, CSSVarNameValue>; // theme selector name (like :root or .dark) --> {cssVarName: cssVarValue}
 
 // ":root": {
 // :root: {
