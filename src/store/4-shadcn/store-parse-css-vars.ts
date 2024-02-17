@@ -9,6 +9,6 @@ export const parseText = proxy({
 subscribe(parseText, () => {
     const vars = parseTextToCSSVars(parseText.text);
     const themes = parseCSSVarsToShadcnGroups(vars);
-    console.log('themes', themes);
+    
     shadcnAll.themes.splice(0, Infinity, ...themes); // copy themes to store
 });
