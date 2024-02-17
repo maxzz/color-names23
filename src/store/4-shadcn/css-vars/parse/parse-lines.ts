@@ -1,4 +1,4 @@
-import { FileThemeVars, ThemeVarsParsed } from "../../types";
+import { FileThemes, ThemeVarsParsed } from "../../types";
 
 // ":root": {
 // :root: {
@@ -9,11 +9,36 @@ const isThemeNameRegex = /^\s*(['"])?([\.\:]?[a-zA-Z0-9\-]+)(?:['"])?\s*:?\s* \{
 // "--background": "224 71% 4%",
 // --background: 159 65% 4%;
 const isCSSVarRegex = /^\s*(['"])?--([a-zA-Z0-9\-]+)(?:['"])?\s*:\s*(?:['"])?([^;"']+)(?:['"])?\s*[;,]?\s*$/;
-
+/**
+ * 
+ * @param text 
+ * ```
+ `":root": {
+        "--destructive": "0 100% 97%",
+        "--destructive-foreground": "360 100% 45%",
+        "--destructive-border": "359 100% 94%",
+        "--destructive-border2": "359 100% 94%",
+        "--destructive-border3": "359 100% 94%",
+    },`
+```
+ * @returns 
+ * ```json
+ {
+    "name": ":root",
+    "values": {
+        "--destructive": "0 100% 97%",
+        "--destructive-foreground": "360 100% 45%",
+        "--destructive-border": "359 100% 94%",
+        "--destructive-border2": "359 100% 94%",
+        "--destructive-border3": "359 100% 94%",
+    }
+}
+```
+ */
 export function parseTextToThemeVarsArray(text: string): ThemeVarsParsed[] {
     let rv: ThemeVarsParsed[] = [];
 
-    let current: ThemeVarsParsed = { name: 'root', values: {} };
+    let current: ThemeVarsParsed = { name: ':root', values: {} };
     rv.push(current);
 
     text.split(/\r?\n/)
@@ -55,13 +80,13 @@ export function parseTextToThemeVarsArray(text: string): ThemeVarsParsed[] {
  * }
  * ```
  */
-export function parseTextAsCSSvars(text: string): FileThemeVars {
+export function parseTextAsCSSvars(text: string): FileThemes {
     const themes = parseTextToThemeVarsArray(text);
 
     const rv = themes.reduce((acc, theme) => {
         acc[theme.name] = theme.values;
         return acc;
-    }, {} as FileThemeVars);
+    }, {} as FileThemes);
     
     return rv;
 }

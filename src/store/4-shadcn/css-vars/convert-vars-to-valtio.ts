@@ -1,4 +1,4 @@
-import { ThemeVar, FileThemeVars, ThemeVarFBR, ThemeVars, ThemeVarName } from "../types";
+import { ThemeVar, FileThemes, ThemeVarFBR, ThemeVars, ThemeVarName } from "../types";
 import { uuid } from "@/utils";
 
 function groupByForeAndBack(themeVars: ThemeVar[], combineForeBack: boolean): ThemeVarFBR[] {
@@ -158,7 +158,7 @@ const matchHSL = /^\s*(hsl\()?(\d+\.?\d*)\s+(\d+\.?\d*)%\s+(\d+\.?\d*)%(\))?\s*$
 ]
  * ```
  */
-export function convertFileThemeVarsToPairs(fileThemeVars: FileThemeVars): ThemeVars[] {
+export function convertFileThemeVarsToPairs(fileThemeVars: FileThemes): ThemeVars[] {
     const rv: ThemeVars[] =
         Object.entries(fileThemeVars)
             .map<ThemeVars>((entry) => {
