@@ -1,4 +1,4 @@
-import type { FileThemes } from "./parse/parse-lines";
+import type { FileThemes } from "../parse-lines";
 
 export const testTheme: FileThemes = {
     ":root": {

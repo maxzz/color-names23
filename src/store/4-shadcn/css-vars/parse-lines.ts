@@ -84,7 +84,7 @@ type ParsedSelectors = {
  * }
  * ```
  */
-export function parseTextAsCSSvars(text: string): FileThemes {
+export function parseTextToCSSVars(text: string): FileThemes {
     const parsedSelectors = parseTextToThemeVarsArray(text);
 
     const rv = parsedSelectors.reduce((acc, themeSelector) => {

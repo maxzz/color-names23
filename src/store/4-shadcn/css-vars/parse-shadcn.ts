@@ -1,5 +1,5 @@
-import type { FileThemes } from "./parse/parse-lines";
-import { ThemeVar, ThemeVarFBR, ThemeVars, ThemeVarName } from "../types";
+import type { FileThemes } from "./parse-lines";
+import type { ThemeVar, ThemeVarFBR, ThemeVars, ThemeVarName } from "../types";
 import { uuid } from "@/utils";
 
 function groupByForeAndBack(themeVars: ThemeVar[], combineForeBack: boolean): ThemeVarFBR[] {
@@ -159,7 +159,7 @@ const matchHSL = /^\s*(hsl\()?(\d+\.?\d*)\s+(\d+\.?\d*)%\s+(\d+\.?\d*)%(\))?\s*$
 ]
  * ```
  */
-export function convertFileThemeVarsToPairs(fileThemeVars: FileThemes): ThemeVars[] {
+export function parseCSSVarsToShadcnGroups(fileThemeVars: FileThemes): ThemeVars[] {
     const rv: ThemeVars[] = Object
         .entries(fileThemeVars)
         .map<ThemeVars>(
@@ -204,7 +204,7 @@ export function convertFileThemeVarsToPairs(fileThemeVars: FileThemes): ThemeVar
                     themeId,
                     name: varsName,
                     vars: groupByForeAndBack(vars, true),
-                    errors,
+                    errors: errors.length > 0 ? errors : undefined,
                 };
             }
         );
