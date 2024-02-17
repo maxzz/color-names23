@@ -1,8 +1,8 @@
-import { ThemeVar, FileThemeVars, ThemeVarFB, ThemeVars } from "../types";
+import { ThemeVar, FileThemeVars, ThemeVarFBR, ThemeVars } from "../types";
 import { uuid } from "@/utils";
 
-function groupByForeAndBack(themeVars: ThemeVar[], combineForeBack: boolean): ThemeVarFB[] {
-    const map = new Map<string, ThemeVarFB>();
+function groupByForeAndBack(themeVars: ThemeVar[], combineForeBack: boolean): ThemeVarFBR[] {
+    const map = new Map<string, ThemeVarFBR>();
 
     themeVars.forEach((v) => {
         let newForeAndBack = map.get(v.varName);
@@ -24,13 +24,13 @@ function groupByForeAndBack(themeVars: ThemeVar[], combineForeBack: boolean): Th
         }
     }
 
-    let rv: ThemeVarFB[] = [...map.values()];
+    let rv: ThemeVarFBR[] = [...map.values()];
     rv = rv.filter((fb) => fb.b || fb.f);
 
     return rv;
 }
 
-const matchFore = /^\s*--([^-]+)(-foreground|-border)?\s*/;
+const matchName = /^\s*--([^-]+)(-foreground|-border)?\s*/;
 const matchHSL = /^\s*(hsl\()?(\d+\.?\d*)\s+(\d+\.?\d*)%\s+(\d+\.?\d*)%(\))?\s*$/;
 
 /**
@@ -158,11 +158,23 @@ export function convertFileThemeVarsToPairs(fileThemeVars: FileThemeVars): Theme
 
                 const vars = varsValuesPairs
                     .map<ThemeVar>(([name, color], idx) => {
-                        const m = name.match(matchFore);
+                        const m = name.match(matchName);
                         if (!m) {
                             throw new Error(`Invalid css var name: ${name}. Name should start with '--'`);
                         }
                         const [, nameWoDash, fore] = m;
+
+                        let isFore = fore === '-foreground';
+                        let isBorder = fore === '-border';
+                        let unkSuffix = '';
+
+                        if (fore === '-foreground') {
+                            isFore = true;
+                        } else if (fore === '-border') {
+                            isBorder = true;
+                        } else if (fore) {
+                            unkSuffix = fore;
+                        }
 
                         //TODO: add check if new name exists in the current theme, then create a new theme
 
@@ -171,7 +183,8 @@ export function convertFileThemeVarsToPairs(fileThemeVars: FileThemeVars): Theme
 
                         const rv: ThemeVar = {
                             varName: nameWoDash,
-                            isFore: !!fore,
+                            isFore: isFore,
+                            isBorder: isBorder,
                             varValue: color,
                             isHsl,
                             order: idx,

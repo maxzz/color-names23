@@ -1,5 +1,5 @@
 import { INTERNAL_Snapshot } from "valtio";
-import { ThemeVar, ThemeVarFB, ThemeVars } from "@/store";
+import { ThemeVar, ThemeVarFBR, ThemeVars } from "@/store";
 
 function strStringify(obj: object) {
     return Object.entries(obj)
@@ -18,14 +18,14 @@ function limitThemeVar(tv: ThemeVar) {
     return { themeId, varName, id };
 }
 
-export function strThemeVarFB(tv: ThemeVarFB) {
+export function strThemeVarFB(tv: ThemeVarFBR) {
     const f = tv.f ? `f: {${strStringify(limitThemeVar(tv.f))}}` : '';
     const b = tv.b ? `b: {${strStringify(limitThemeVar(tv.b))}}` : '';
     const rv = [f, b].filter((v) => v).join(',\n    ');
     return `{\n    ${rv}\n}`;
 }
 
-export function strThemeVarFBArr(tv: INTERNAL_Snapshot<ThemeVarFB[]>) {
+export function strThemeVarFBArr(tv: INTERNAL_Snapshot<ThemeVarFBR[]>) {
     return tv.map((v) => strThemeVarFB(v))
         .join(',\n')
         .replaceAll(/},\r?\n\s*{/g, '    }, {');

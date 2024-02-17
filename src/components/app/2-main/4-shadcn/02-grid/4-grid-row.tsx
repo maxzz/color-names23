@@ -1,11 +1,11 @@
 import { useSnapshot } from "valtio";
-import { ThemeVarFB } from "@/store";
+import { ThemeVarFBR } from "@/store";
 import { ColorInput } from "./2-color-input";
 import { ColorBox } from "./3-color-box";
 
 type ValueInputAndBoxProps = {
-    both: ThemeVarFB;
-    field: keyof ThemeVarFB;
+    both: ThemeVarFBR;
+    field: keyof ThemeVarFBR;
     isBackOrFore?: boolean;
 };
 
@@ -40,7 +40,7 @@ function ValueInputAndBox({ both, field, isBackOrFore }: ValueInputAndBoxProps) 
     </>);
 }
 
-export function GridRow({ foreAndBack }: { foreAndBack: ThemeVarFB; }) {
+export function GridRow({ foreAndBack }: { foreAndBack: ThemeVarFBR; }) {
     //TODO: add preview foregraound over background
     return (<>
         <div className="mr-4 text-sm text-foreground/70 dark:text-foreground/50 flex items-center">
