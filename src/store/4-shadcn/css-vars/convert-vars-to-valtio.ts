@@ -39,23 +39,23 @@ function groupByForeAndBack(themeVars: ThemeVar[], combineForeBack: boolean): Th
     return rv;
 }
 
-function getSuffix(varName: string, fore: string): ThemeVarName {
+function getSuffix(varName: string, suffix?: string): ThemeVarName {
     let isFore = false;
     let isBorder = false;
-    let unkSuffix = '';
+    let unkSuffix = undefined;
 
-    if (fore === '-foreground') {
+    if (suffix === 'foreground') {
         isFore = true;
-    } else if (fore === '-border') {
+    } else if (suffix === 'border') {
         isBorder = true;
-    } else if (fore) {
-        unkSuffix = fore;
+    } else if (suffix) {
+        unkSuffix = suffix;
     }
 
     return { varName, isFore, isBorder, unkSuffix };
 }
 
-const matchName = /^\s*--([^-]+)(-foreground|-border)?\s*/;
+const matchName = /\s*--([^-]+)(?:-([^\s:"',;]*))?\s*/;
 const matchHSL = /^\s*(hsl\()?(\d+\.?\d*)\s+(\d+\.?\d*)%\s+(\d+\.?\d*)%(\))?\s*$/;
 
 /**
@@ -63,114 +63,99 @@ const matchHSL = /^\s*(hsl\()?(\d+\.?\d*)\s+(\d+\.?\d*)%\s+(\d+\.?\d*)%(\))?\s*$
  * ```
  * {
  *     ":root": {
- *         "--background": "0 0% 100%",
- *         "--foreground": "222.2 47.4% 11.2%",
- *         "--muted": "210 40% 96.1%",
- *         "--muted-foreground": "215.4 16.3% 46.9%",
- *         ...
- *         "--ring": "215 20.2% 65.1%",
- *         "--radius": "0.5rem"
+ *         "--destructive": "0 100% 97%",
+ *         "--destructive-foreground": "360 100% 45%",
+ *         "--destructive-border": "359 100% 94%",
+ *         "--destructive-border2": "359 100% 94%",
+ *         "--destructive-border3": "359 100% 94%",
  *     }
  * }
  * ```
  * @returns
  * ```
- * [
- *     {
- *         "themeId": 521725,
- *         "name": ":root",
- *         "vars": [
- *             {
- *                 "b": {
- *                     "varName": "background",
- *                     "isFore": false,
- *                     "varValue": "0 0% 100%",
- *                     "isHsl": true,
- *                     "order": 0,
- *                     "id": 521726,
- *                     "themeId": 521725
- *                 },
- *                 "f": {
- *                     "varName": "background",
- *                     "isFore": true,
- *                     "varValue": "222.2 47.4% 11.2%",
- *                     "isHsl": true,
- *                     "order": 1,
- *                     "id": 521727,
- *                     "themeId": 521725
- *                 }
- *             },
- *             {
- *                 "b": {
- *                     "varName": "muted",
- *                     "isFore": false,
- *                     "varValue": "210 40% 96.1%",
- *                     "isHsl": true,
- *                     "order": 2,
- *                     "id": 521728,
- *                     "themeId": 521725
- *                 },
- *                 "f": {
- *                     "varName": "muted",
- *                     "isFore": true,
- *                     "varValue": "215.4 16.3% 46.9%",
- *                     "isHsl": true,
- *                     "order": 3,
- *                     "id": 521729,
- *                     "themeId": 521725
- *                 }
- *             },
- *             ...
- *         ]
- *     },
- *     {
- *         "themeId": 521746,
- *         "name": ".dark",
- *         "vars": [
- *             {
- *                 "b": {
- *                     "varName": "background",
- *                     "isFore": false,
- *                     "varValue": "224 71% 4%",
- *                     "isHsl": true,
- *                     "order": 0,
- *                     "id": 521747,
- *                     "themeId": 521746
- *                 },
- *                 "f": {
- *                     "varName": "background",
- *                     "isFore": true,
- *                     "varValue": "213 31% 91%",
- *                     "isHsl": true,
- *                     "order": 1,
- *                     "id": 521748,
- *                     "themeId": 521746
- *                 }
- *             },
- *             {
- *                 "b": {
- *                     "varName": "muted",
- *                     "isFore": false,
- *                     "varValue": "223 47% 11%",
- *                     "isHsl": true,
- *                     "order": 2,
- *                     "id": 521749,
- *                     "themeId": 521746
- *                 },
- *                 "f": {
- *                     "varName": "muted",
- *                     "isFore": true,
- *                     "varValue": "215.4 16.3% 56.9%",
- *                     "isHsl": true,
- *                     "order": 3,
- *                     "id": 521750,
- *                     "themeId": 521746
- *                 }
- *             },
- *             ...
- *        ]
- *     }
- * ]
+ [
+    {
+        "themeId": 521725,
+        "name": ":root",
+        "vars": [
+            {
+                "b": {
+                    "varName": "destructive",
+                    "isFore": false,
+                    "isBorder": false,
+                    "varValue": "0 100% 97%",
+                    "isHsl": true,
+                    "order": 0,
+                    "id": 846998,
+                    "themeId": 846997
+                },
+                "f": {
+                    "varName": "background",
+                    "isFore": true,
+                    "varValue": "222.2 47.4% 11.2%",
+                    "isHsl": true,
+                    "order": 1,
+                    "id": 521727,
+                    "themeId": 521725
+                }
+            },
+            {
+                "b": {
+                    "varName": "destructive",
+                    "isFore": true,
+                    "isBorder": false,
+                    "varValue": "360 100% 45%",
+                    "isHsl": true,
+                    "order": 1,
+                    "id": 846999,
+                    "themeId": 846997
+                },
+                "r": {
+                    "varName": "destructive",
+                    "isFore": false,
+                    "isBorder": true,
+                    "varValue": "359 100% 94%",
+                    "isHsl": true,
+                    "order": 2,
+                    "id": 847000,
+                    "themeId": 846997
+                },
+                "s": {
+                    "border2": {
+                        "varName": "destructive",
+                        "isFore": false,
+                        "isBorder": false,
+                        "unkSuffix": "border2",
+                        "varValue": "359 100% 94%",
+                        "isHsl": true,
+                        "order": 3,
+                        "id": 847001,
+                        "themeId": 846997
+                    },
+                    "border3": {
+                        "varName": "destructive",
+                        "isFore": false,
+                        "isBorder": false,
+                        "unkSuffix": "border3",
+                        "varValue": "359 100% 94%",
+                        "isHsl": true,
+                        "order": 4,
+                        "id": 847002,
+                        "themeId": 846997
+                    }
+                },
+                // ...
+            },
+            {
+                "themeId": 521746,
+                "name": ".dark",
+                "vars": [
+                    // ...
+                ]
+            }
+        ]
+    }
+]
  * ```
  */
 export function convertFileThemeVarsToPairs(fileThemeVars: FileThemeVars): ThemeVars[] {
@@ -183,18 +168,18 @@ export function convertFileThemeVarsToPairs(fileThemeVars: FileThemeVars): Theme
 
                 const vars = varsValuesPairs
                     .map<ThemeVar>(([name, color], idx) => {
-                        const m = name.match(matchName);
-                        if (!m) {
+                        const matchedName = name.match(matchName);
+                        if (!matchedName) {
                             throw new Error(`Invalid css var name: ${name}. Name should start with '--'`);
                         }
-                        const [, nameWoDash, fore] = m;
+                        const [, nameWoDash, nameSuffix] = matchedName;
 
-                        let names = getSuffix(nameWoDash, fore);
+                        let names = getSuffix(nameWoDash, nameSuffix);
 
                         //TODO: add check if new name exists in the current theme, then create a new theme
 
-                        const m2 = color.match(matchHSL);
-                        const isHsl = !!m2;
+                        const matchedVakue = color.match(matchHSL);
+                        const isHsl = !!matchedVakue;
 
                         const rv: ThemeVar = {
                             ...names,

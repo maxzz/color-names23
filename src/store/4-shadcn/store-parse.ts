@@ -10,6 +10,7 @@ export const parseText = proxy({
 subscribe(parseText, () => {
     const vars = parseTextAsCSSvars(parseText.text);
     const themes = convertFileThemeVarsToPairs(vars);
+    console.log('themes', themes);
     shadcnAll.themes.splice(0, Infinity, ...themes);
 });
 
