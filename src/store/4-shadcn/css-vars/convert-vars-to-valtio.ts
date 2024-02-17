@@ -30,7 +30,7 @@ function groupByForeAndBack(themeVars: ThemeVar[], combineForeBack: boolean): Th
     return rv;
 }
 
-const matchFore = /^\s*--([^-]+)(-foreground)?\s*$/;
+const matchFore = /^\s*--([^-]+)(-foreground|-border)?\s*/;
 const matchHSL = /^\s*(hsl\()?(\d+\.?\d*)\s+(\d+\.?\d*)%\s+(\d+\.?\d*)%(\))?\s*$/;
 
 /**
