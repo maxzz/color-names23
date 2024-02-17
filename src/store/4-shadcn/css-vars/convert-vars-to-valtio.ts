@@ -1,19 +1,28 @@
-import { ThemeVar, FileThemeVars, ThemeVarFBR, ThemeVars } from "../types";
+import { ThemeVar, FileThemeVars, ThemeVarFBR, ThemeVars, ThemeVarName } from "../types";
 import { uuid } from "@/utils";
 
 function groupByForeAndBack(themeVars: ThemeVar[], combineForeBack: boolean): ThemeVarFBR[] {
     const map = new Map<string, ThemeVarFBR>();
 
     themeVars.forEach((v) => {
-        let newForeAndBack = map.get(v.varName);
-        if (!newForeAndBack) {
-            newForeAndBack = {};
-            map.set(v.varName, newForeAndBack);
+        let mapSlot = map.get(v.varName);
+
+        if (!mapSlot) {
+            mapSlot = {};
+            map.set(v.varName, mapSlot);
         }
-        newForeAndBack[v.isFore ? 'f' : 'b'] = v;
+
+        if (v.unkSuffix) {
+            if (!mapSlot.s) {
+                mapSlot.s = {};
+            }
+            mapSlot.s[v.unkSuffix] = v;
+        } else {
+            mapSlot[v.isFore ? 'f' : v.isBorder ? 'r' : 'b'] = v;
+        }
     });
 
-    if (combineForeBack) {
+    if (combineForeBack) { // separate case for global background and foreground var name
         const bg = map.get('background');
         const fg = map.get('foreground');
         if (bg && fg && fg.b) {
@@ -28,6 +37,22 @@ function groupByForeAndBack(themeVars: ThemeVar[], combineForeBack: boolean): Th
     rv = rv.filter((fb) => fb.b || fb.f);
 
     return rv;
+}
+
+function getSuffix(varName: string, fore: string): ThemeVarName {
+    let isFore = false;
+    let isBorder = false;
+    let unkSuffix = '';
+
+    if (fore === '-foreground') {
+        isFore = true;
+    } else if (fore === '-border') {
+        isBorder = true;
+    } else if (fore) {
+        unkSuffix = fore;
+    }
+
+    return { varName, isFore, isBorder, unkSuffix };
 }
 
 const matchName = /^\s*--([^-]+)(-foreground|-border)?\s*/;
@@ -164,17 +189,7 @@ export function convertFileThemeVarsToPairs(fileThemeVars: FileThemeVars): Theme
                         }
                         const [, nameWoDash, fore] = m;
 
-                        let isFore = fore === '-foreground';
-                        let isBorder = fore === '-border';
-                        let unkSuffix = '';
-
-                        if (fore === '-foreground') {
-                            isFore = true;
-                        } else if (fore === '-border') {
-                            isBorder = true;
-                        } else if (fore) {
-                            unkSuffix = fore;
-                        }
+                        let names = getSuffix(nameWoDash, fore);
 
                         //TODO: add check if new name exists in the current theme, then create a new theme
 
@@ -182,9 +197,7 @@ export function convertFileThemeVarsToPairs(fileThemeVars: FileThemeVars): Theme
                         const isHsl = !!m2;
 
                         const rv: ThemeVar = {
-                            varName: nameWoDash,
-                            isFore: isFore,
-                            isBorder: isBorder,
+                            ...names,
                             varValue: color,
                             isHsl,
                             order: idx,
