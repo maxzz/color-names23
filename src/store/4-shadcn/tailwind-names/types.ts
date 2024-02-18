@@ -1,8 +1,18 @@
-export type ShadcnTailwindClassNamesTemplate<T> = {
+export type FileTwColorWDefault =
+    | {
+        DEFAULT: string;
+        foreground?: string;
+    }
+    | string;
+
+export type TwColorWDefault = {
+    name: string;               // js key name
+    DEFAULT: string;
+    foreground?: string;
+};
+
+export type ShadcnBaseVarNames<T> = {
     colors: {
-        border: T;              // SingleColor
-        input: T;               // SingleColor
-        ring: T;                // SingleColor
         background: T;          // SingleColor
         foreground: T;          // SingleColor
         primary: T;
@@ -12,23 +22,13 @@ export type ShadcnTailwindClassNamesTemplate<T> = {
         accent: T;
         popover: T;
         card: T;
+        input: T;               // SingleColor
+        border: T;              // SingleColor
+        ring: T;                // SingleColor
     },
     borderRadius: {
         lg: string;
         md: string;
         sm: string;
     },
-};
-
-export type TailwindColorWDefaultInFile =
-    | {
-        DEFAULT: string;
-        foreground?: string;
-    }
-    | string;
-
-export type TailwindColorWDefault = {
-    name: string;               // js key name
-    DEFAULT: string;
-    foreground?: string;
 };

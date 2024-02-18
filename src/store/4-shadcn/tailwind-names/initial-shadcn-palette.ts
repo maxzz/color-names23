@@ -1,10 +1,7 @@
-import { ShadcnTailwindClassNamesTemplate, TailwindColorWDefaultInFile } from "../types";
+import { ShadcnBaseVarNames, FileTwColorWDefault } from "../types";
 
-export const shadcnDefaultColor: ShadcnTailwindClassNamesTemplate<TailwindColorWDefaultInFile> = {
+export const initialShadcnTwVars: ShadcnBaseVarNames<FileTwColorWDefault> = {
     colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
@@ -35,6 +32,9 @@ export const shadcnDefaultColor: ShadcnTailwindClassNamesTemplate<TailwindColorW
             DEFAULT: "hsl(var(--card))",
             foreground: "hsl(var(--card-foreground))",
         },
+        input: "hsl(var(--input))",
+        border: "hsl(var(--border))",
+        ring: "hsl(var(--ring))",
     },
     borderRadius: {
         lg: `var(--radius)`,
