@@ -3,30 +3,7 @@ import { Button } from "@/components/ui/shadcn";
 import { parseText } from "@/store";
 import { ShowPicker } from "./1-show-picker";
 import { ColorPickerProvider } from "@/components/ui/color-picker-w-context";
-
-const test1 = ` `;
-
-const test2 = `--primary: 0 100% 50%;
-`;
-
-const test3 =
-    `--primary: 161 56% 35%;
---background: 159 65% 4%;
---foreground: 159 10% 97.5%;
-
- --primary: 0 100% 50%;
-`;
-
-const test4 =
-    `:root {
-    --primary: 161 56% 35%;
-    --background: 159 65% 4%;
-    --foreground: 159 10% 97.5%;
-}
-.dark {
-    --primary: 0 100% 50%;
-}
-`;
+import { test1, test2, test3, test4 } from "./9-test-css-vars";
 
 type TestButtonProps = {
     label: string;
