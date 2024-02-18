@@ -1,6 +1,6 @@
 import { useSnapshot } from "valtio";
 import { parseText } from "@/store";
-import { Button, Textarea } from "@/components/ui/shadcn";
+import { Button, Textarea, fixTextareaResizeClasses } from "@/components/ui/shadcn";
 import { IconMenuBurger } from "@/components/ui/icons";
 import { TestButtons } from "./8-test-buttons";
 import { TestButtonsContext } from "./9-test-buttons-context";
@@ -9,7 +9,7 @@ function PasteInput() {
     const snap = useSnapshot(parseText, { sync: true });
     return (
         <Textarea
-            className="self-stretch min-h-[36px] text-xs smallscroll resizer [&::-webkit-resizer]:rounded [&::-webkit-resizer]:[backgroundSize:80%_80%]"
+            className={`pl-[calc(100vw-100%)] self-stretch min-h-[36px] text-xs ${fixTextareaResizeClasses}`}
             rows={1}
             placeholder="Paste theme vars here"
             spellCheck={false}
