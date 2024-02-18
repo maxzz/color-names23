@@ -21,32 +21,34 @@ function PasteInput() {
 
 export function TopPanel() {
     return (
-        <div className="-mx-4 px-4 py-4 bg-muted/50 flex items-center space-x-2">
+        <div className="-mx-4 px-4 py-4 bg-muted/50 select-none grid grid-cols-[auto,1fr,auto,auto] gap-2">
 
-            <Button className="flex-none" variant={"outline"} size={"icon"}>
+            <Button className="mt-[13px]" variant={"outline"} size={"icon"}>
                 <IconMenuBurger className="w-4 h-4" />
             </Button>
 
             {/* test styles */}
 
-            <div className="w-6"></div>
-            <div className="text-[.55rem] text-center">theme styles</div>
-            <PasteInput />
-
+            <div className="">
+                <div className="text-[.55rem]">theme styles</div>
+                <PasteInput />
+            </div>
             {/* test 1 */}
 
-            <div className="w-24"></div>
-            <div className="text-[.55rem] text-center">without context</div>
-            <div className="w-min flex flex-col space-y-2">
-                <TestButtons />
+            <div className="flex flex-col items-center">
+                <div className="text-[.55rem] text-center">without context</div>
+                <div className="w-min flex flex-col space-y-1">
+                    <TestButtons />
+                </div>
             </div>
 
             {/* test 2 */}
 
-            <div className="w-24"></div>
-            <div className="text-[.55rem] text-center">with context</div>
-            <div className="w-min flex flex-col space-y-2">
-                <TestButtonsContext />
+            <div className="flex flex-col items-center">
+                <div className="text-[.55rem] text-center">with context</div>
+                <div className="w-min flex flex-col space-y-1">
+                    <TestButtonsContext />
+                </div>
             </div>
 
         </div>
