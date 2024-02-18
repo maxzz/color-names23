@@ -93,9 +93,9 @@ export function TestButtonsContext() {
             <TestButton label="3/0" testCaseString={test3} triggerRef={anchorRef} open={open} setOpen={setOpen} />
             <TestButton label="3/1" testCaseString={test4} triggerRef={anchorRef} open={open} setOpen={setOpen} />
 
-            {open && anchorRef.current && (
+            {/* {open && anchorRef.current && (
                 <ShowPicker open={open} setOpen={setOpen} anchorRef={anchorRef} />
-            )}
+            )} */}
 
         </ColorPickerProvider>
     );
