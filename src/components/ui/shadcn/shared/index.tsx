@@ -14,3 +14,4 @@ data-[side=top]:slide-in-from-bottom-2 \
 ";
 
 export const fixTextareaResizeClasses = "smallscroll resizer [&::-webkit-resizer]:rounded [&::-webkit-resizer]:[backgroundSize:80%_80%]";
+export const scrollbarGutterClasses = "[scrollbar-gutter:stable]";

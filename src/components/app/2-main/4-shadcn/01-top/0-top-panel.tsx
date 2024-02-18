@@ -9,7 +9,7 @@ function PasteInput() {
     const snap = useSnapshot(parseText, { sync: true });
     return (
         <Textarea
-            className={`pl-[calc(100vw-100%)] self-stretch min-h-[36px] text-xs ${fixTextareaResizeClasses}`}
+            className={`min-h-[36px] text-xs ${fixTextareaResizeClasses} [scrollbar-gutter:stable]`}
             rows={1}
             placeholder="Paste theme vars here"
             spellCheck={false}
