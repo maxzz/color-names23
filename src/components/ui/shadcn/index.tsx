@@ -8,3 +8,5 @@ export * from './textarea';
 export * from './textarea-auto-grow';
 export * from './popover';
 export * from './theme-toggle-switch';
+
+export * from './tabs';

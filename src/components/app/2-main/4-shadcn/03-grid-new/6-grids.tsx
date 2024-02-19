@@ -1,7 +1,7 @@
 import { useSnapshot } from "valtio";
 import { shadcnAll } from "@/store";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/shadcn";
 import { GroupGrid } from "./5-group-grid";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@radix-ui/react-tabs";
 
 export function TableInTabs() {
     return (
@@ -23,7 +23,6 @@ export function TableInTabs() {
         </Tabs>
     );
 }
-
 
 export function ThemeGrids2() {
     const { length } = useSnapshot(shadcnAll.themes);
