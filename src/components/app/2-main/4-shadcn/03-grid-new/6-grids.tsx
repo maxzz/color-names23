@@ -8,7 +8,7 @@ export function TableTabs() {
     return (<>
         <TabsList>
             {themes.map((theme, idx) => (
-                <TabsTrigger key={theme.themeId} value={`${theme.themeId}`}>{theme.name}</TabsTrigger>
+                <TabsTrigger key={theme.themeId} value={`tab${idx}`}>{theme.name}</TabsTrigger>
             ))}
         </TabsList>
     </>);
@@ -16,15 +16,20 @@ export function TableTabs() {
 
 export function TableInTabs() {
     const { length } = useSnapshot(shadcnAll.themes);
+    if (!length) {
+        return null;
+    }
     return (
-        <Tabs defaultValue="table1">
+        <Tabs className="container max-w-xl" defaultValue={`tab${0}`}>
             <TableTabs />
 
             {Array(length).fill(0).map((_, idx) => (
 
-                <TabsContent value={`${shadcnAll.themes[idx].themeId}`} key={shadcnAll.themes[idx].themeId}>
-                    <div className="container mx-auto max-w-xl grid grid-cols-[min-content,minmax(0,12rem),minmax(0,12rem)] place-content-center gap-y-2">
-                        <GroupGrid idx={idx} />
+                <TabsContent value={`tab${idx}`} key={shadcnAll.themes[idx].themeId}>
+                    <div className="p-4 bg-muted rounded shadow">
+                        <div className="grid grid-cols-[min-content,minmax(0,12rem),minmax(0,12rem)] place-content-center gap-y-2">
+                            <GroupGrid idx={idx} />
+                        </div>
                     </div>
                 </TabsContent>
             ))}
@@ -34,7 +39,6 @@ export function TableInTabs() {
 }
 
 export function ThemeGrids2() {
-    const { length } = useSnapshot(shadcnAll.themes);
     return (<>
         <TableInTabs />
     </>);
