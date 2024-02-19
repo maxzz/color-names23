@@ -37,7 +37,7 @@ function GitHubLink() {
 export function App3_Footer({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     const current = useAtomValue(AppAtoms.currentSectionAtom);
     return (
-        <div className={classNames("px-2 py-2 text-sm text-muted-foreground bg-background flex items-center justify-between space-x-4", className)} {...rest}>
+        <div className={classNames("px-2 py-2 text-sm text-muted-foreground bg-popover flex items-center justify-between space-x-4", className)} {...rest}>
 
             <div className="flex items-center space-x-4">
                 <GitHubLink />
