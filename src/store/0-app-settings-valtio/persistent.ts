@@ -1,9 +1,9 @@
 import { proxy, subscribe } from "valtio";
 import { STORE_KEY } from "./consts";
-import { Theme, themeApply } from "@/utils/theme-apply";
+import { ThemeMode, themeApplyMode } from "@/utils/theme-apply";
 
 export type AppSettings = {
-    theme: Theme;
+    theme: ThemeMode;
 };
 
 const defaultSettings: AppSettings = {
@@ -23,9 +23,9 @@ function initSettings(): AppSettings {
     return defaultSettings;
 }
 
-themeApply(appSettings.theme);
+themeApplyMode(appSettings.theme);
 
 subscribe(appSettings, () => {
-    themeApply(appSettings.theme);
+    themeApplyMode(appSettings.theme);
     localStorage.setItem(STORE_KEY, JSON.stringify(appSettings));
 });
