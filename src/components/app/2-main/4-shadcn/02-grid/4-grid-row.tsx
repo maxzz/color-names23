@@ -1,22 +1,24 @@
 import { useSnapshot } from "valtio";
 import { ThemeVarFBR } from "@/store";
 import { ColorInput } from "./2-color-input";
-import { ColorBox } from "./3-color-box";
+import { ColorBox, ColorBoxProps } from "./3-color-box";
 
 type ValueInputAndBoxProps = {
-    both: ThemeVarFBR;
-    field: keyof ThemeVarFBR;
+    both: ThemeVarFBR2;
+    field: keyof ThemeVarFBR2;
     isBackOrFore?: boolean;
 };
+
+type ThemeVarFBR2 = Pick<ThemeVarFBR, 'f' | 'b'>
 
 function ValueInputAndBox({ both, field, isBackOrFore }: ValueInputAndBoxProps) {
     const bothSnap = useSnapshot(both, { sync: true });
     const colorSnap = bothSnap[field];
     const color = both[field];
 
-    const previewBoxProps = {
-        valueName: colorSnap?.varName || '',
-        value: colorSnap?.varValue || '',
+    const colorBoxProps: ColorBoxProps = {
+        varName: colorSnap?.varName || '',
+        varValue: colorSnap?.varValue || '',
         isUndefined: !colorSnap?.varValue && !isBackOrFore && (both.b?.isHsl || both.f?.isHsl),
         isColor: !!colorSnap?.varValue && colorSnap?.isHsl,
         isLength: !!colorSnap?.varValue && !colorSnap?.isHsl && isBackOrFore,
@@ -28,11 +30,11 @@ function ValueInputAndBox({ both, field, isBackOrFore }: ValueInputAndBoxProps) 
             ? (
                 <div className="flex items-center space-x-2">
                     <ColorInput color={color} colorSnap={colorSnap} />
-                    <ColorBox {...previewBoxProps} />
+                    <ColorBox {...colorBoxProps} />
                 </div>
             ) : (
                 <div className="pl-2 flex items-center space-x-2">
-                    <ColorBox {...previewBoxProps} />
+                    <ColorBox {...colorBoxProps} />
                     <ColorInput color={color} colorSnap={colorSnap} />
                 </div>
             )

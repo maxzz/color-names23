@@ -18,8 +18,8 @@ export function Section4_Chadcn({ className, ...rest }: HTMLAttributes<HTMLDivEl
                 {/* <CombinedPicker /> */}
             </div>
 
-            {/* <ThemeGrids /> */}
-            <ThemeGrids2 />
+            <ThemeGrids />
+            {/* <ThemeGrids2 /> */}
         </div>
     );
 }

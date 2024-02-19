@@ -31,16 +31,16 @@ function ValuePreviewLength({ value, valueName, className, isBackOrFore, ...rest
     );
 }
 
-type ValuePreviewBoxProps = {
-    value: string;
-    valueName: string;
+export type ColorBoxProps = {
+    varName: string;
+    varValue: string;
     isUndefined?: boolean;
     isColor?: boolean;
     isLength?: boolean;
     isBackOrFore?: boolean;
 };
 
-export function ColorBox({ valueName, value, isUndefined, isColor, isLength, isBackOrFore }: ValuePreviewBoxProps) {
+export function ColorBox({ varName: valueName, varValue: value, isUndefined, isColor, isLength, isBackOrFore }: ColorBoxProps) {
     return (
         <div>
             {isColor && <ValuePreviewColor color={value} />}

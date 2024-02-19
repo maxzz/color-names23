@@ -3,7 +3,7 @@ import { shadcnAll } from "@/store";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/shadcn";
 import { GroupGrid } from "./5-group-grid";
 
-export function TableTabs() {
+function TableTabList() {
     const themes = useSnapshot(shadcnAll.themes);
     return (<>
         <TabsList>
@@ -14,14 +14,14 @@ export function TableTabs() {
     </>);
 }
 
-export function TableInTabs() {
+function TableInTabs() {
     const { length } = useSnapshot(shadcnAll.themes);
     if (!length) {
         return null;
     }
     return (
         <Tabs className="container max-w-xl" defaultValue={`tab${0}`}>
-            <TableTabs />
+            <TableTabList />
 
             {Array(length).fill(0).map((_, idx) => (
 
