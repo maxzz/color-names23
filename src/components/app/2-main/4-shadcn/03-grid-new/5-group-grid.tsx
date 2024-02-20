@@ -25,19 +25,22 @@ function splitColorAndLengths(vars: INTERNAL_Snapshot<ThemeVarFBR[]>) {
 export function GroupGrid({ idx }: { idx: number; }) {
     const snap = useSnapshot(shadcnAll.themes)[idx];
     const theRightTheme = shadcnAll.themes[idx];
-    const { colors, lengths } = splitColorAndLengths(snap.vars);
+    const { colors, lengths } = splitColorAndLengths(snap.vars.flat());
+
+    const theRightThemeFlat = theRightTheme.vars.flat();
+
     return (<>
         {!!colors.length && (<>
             <HeaderColorValues />
             {colors.map(({ key, idx }) => (
-                <GridRow foreAndBack={theRightTheme.vars[idx]} key={key} />
+                <GridRow foreAndBack={theRightThemeFlat[idx]} key={key} />
             ))}
         </>)}
 
         {!!lengths.length && (<>
             <HeaderLengthValues />
             {lengths.map(({ key, idx }) => (
-                <GridRow foreAndBack={theRightTheme.vars[idx]} key={key} />
+                <GridRow foreAndBack={theRightThemeFlat[idx]} key={key} />
             ))}
         </>)}
     </>);
