@@ -2,6 +2,7 @@ import { useSnapshot } from "valtio";
 import { shadcnAll } from "@/store";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/shadcn";
 import { GroupGrid } from "./5-group-grid";
+import { useState } from "react";
 
 function TableTabList() {
     const themes = useSnapshot(shadcnAll.themes);
@@ -15,12 +16,18 @@ function TableTabList() {
 }
 
 function TableInTabs() {
+    const [currentSubTab, setCurrentSubTab] = useState(`tab${0}`);
     const { length } = useSnapshot(shadcnAll.themes);
     if (!length) {
         return null;
     }
     return (
-        <Tabs className="container max-w-xl" defaultValue={`tab${0}`}>
+        <Tabs className="container max-w-xl" value={currentSubTab}
+            onValueChange={(v) => {
+                console.log('changed', v);
+                setCurrentSubTab(v);
+            }}
+        >
             <TableTabList />
 
             {Array(length).fill(0).map((_, idx) => (
