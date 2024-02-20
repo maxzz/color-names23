@@ -21,7 +21,7 @@ export type ThemeVarFBR = {             // CSS var NameValue with foreground, ba
     f?: ThemeVar;                       // foreground
     b?: ThemeVar;                       // background
     r?: ThemeVar;                       // border
-    s?: Record<string, ThemeVar>;       // unknown suffixes
+    s?: ThemeVar[];                     // unknown suffixes
 };
 
 export type ThemeVars = {

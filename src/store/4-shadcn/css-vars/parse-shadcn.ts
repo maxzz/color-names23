@@ -15,9 +15,9 @@ function groupByForeAndBack(themeVars: ThemeVar[], combineForeBack: boolean): Th
 
         if (v.unkSuffix) {
             if (!mapSlot.s) {
-                mapSlot.s = {};
+                mapSlot.s = [];
             }
-            mapSlot.s[v.unkSuffix] = v;
+            mapSlot.s.push(v);
         } else {
             mapSlot[v.isFore ? 'f' : v.isBorder ? 'r' : 'b'] = v;
         }

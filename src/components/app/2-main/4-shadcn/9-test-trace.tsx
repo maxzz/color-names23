@@ -1,7 +1,7 @@
 import { INTERNAL_Snapshot } from "valtio";
 import { ThemeVar, ThemeVarFBR, ThemeVars } from "@/store";
 
-function strStringify(obj: object) {
+function strStringify(obj: object): string {
     return Object.entries(obj)
         .map(([key, value]) => {
             if (typeof value === 'string') {
@@ -13,25 +13,28 @@ function strStringify(obj: object) {
         .join(', ');
 }
 
-function limitThemeVar(tv: ThemeVar) {
+function limitThemeVar(tv: ThemeVar): { themeId: number; varName: string; id: number; } {
     const { themeId, varName, id } = tv;
     return { themeId, varName, id };
 }
 
-export function strThemeVarFB(tv: ThemeVarFBR) {
+export function strThemeVarFB(tv: ThemeVarFBR): string {
     const f = tv.f ? `f: {${strStringify(limitThemeVar(tv.f))}}` : '';
     const b = tv.b ? `b: {${strStringify(limitThemeVar(tv.b))}}` : '';
     const rv = [f, b].filter((v) => v).join(',\n    ');
     return `{\n    ${rv}\n}`;
 }
 
-export function strThemeVarFBArr(tv: INTERNAL_Snapshot<ThemeVarFBR[]>) {
-    return tv.map((v) => strThemeVarFB(v))
-        .join(',\n')
-        .replaceAll(/},\r?\n\s*{/g, '    }, {');
-}
+// export function strThemeVarFBArr(tv: INTERNAL_Snapshot<ThemeVarFBR[]>): string {
+//     return tv
+//         .map((v) => {
+//             return strThemeVarFB(v);
+//         })
+//         .join(',\n')
+//         .replaceAll(/},\r?\n\s*{/g, '    }, {');
+// }
 
-export function strThemeVars(tvars: INTERNAL_Snapshot<ThemeVars>) {
+export function strThemeVars(tvars: INTERNAL_Snapshot<ThemeVars>): string {
     return JSON.stringify({
         ...tvars,
         vars: tvars.vars.map((tv) => ({
@@ -43,7 +46,7 @@ export function strThemeVars(tvars: INTERNAL_Snapshot<ThemeVars>) {
         .replaceAll(/\[\r?\n\s*{/g, '[ {');
 }
 
-export function strThemesVars(tv?: INTERNAL_Snapshot<ThemeVars[]>) {
+export function strThemesVars(tv?: INTERNAL_Snapshot<ThemeVars[]>): string {
     if (!tv?.length) {
         return '[]';
     }
