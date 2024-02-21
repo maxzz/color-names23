@@ -1,9 +1,9 @@
 import type { FileThemes } from "./parse-lines";
-import type { ThemeVar, ThemeVarFBR, ThemeVars, ThemeVarName } from "../types";
+import type { ThemeVar, VarFBRU, ThemeVars, ThemeVarName } from "../types";
 import { uuid } from "@/utils";
 
-function groupByForeAndBack(themeVars: ThemeVar[], combineForeBack: boolean): ThemeVarFBR[] {
-    const map = new Map<string, ThemeVarFBR>();
+function groupByForeAndBack(themeVars: ThemeVar[], combineForeBack: boolean): VarFBRU[] {
+    const map = new Map<string, VarFBRU>();
 
     themeVars.forEach((v) => {
         let mapSlot = map.get(v.varName);
@@ -34,7 +34,7 @@ function groupByForeAndBack(themeVars: ThemeVar[], combineForeBack: boolean): Th
         }
     }
 
-    let rv: ThemeVarFBR[] = [...map.values()];
+    let rv: VarFBRU[] = [...map.values()];
     rv = rv.filter((fb) => fb.b || fb.f);
 
     return rv;

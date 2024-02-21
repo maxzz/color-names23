@@ -1,11 +1,11 @@
 import { INTERNAL_Snapshot, useSnapshot } from "valtio";
-import { ThemeVarFBR, shadcnAll } from "@/store";
+import { VarFBRU, shadcnAll } from "@/store";
 import { HeaderColorValues, HeaderLengthValues } from "./1-grid-headers";
 import { GridRow } from "./4-grid-row";
 
 type SplitItems = { idx: number; key: number | string; };
 
-function splitColorAndLengths(vars: INTERNAL_Snapshot<ThemeVarFBR[]>) {
+function splitColorAndLengths(vars: INTERNAL_Snapshot<VarFBRU[]>) {
     return vars.reduce(
         (acc, curr, idx) => {
             const isColor = curr.b?.isHsl || curr.f?.isHsl;
@@ -30,14 +30,14 @@ export function GroupGrid({ idx }: { idx: number; }) {
         {!!colors.length && (<>
             <HeaderColorValues />
             {colors.map(({ key, idx }) => (
-                <GridRow foreAndBack={theRightTheme.vars[idx]} key={key} />
+                <GridRow varFBRU={theRightTheme.vars[idx]} key={key} />
             ))}
         </>)}
 
         {!!lengths.length && (<>
             <HeaderLengthValues />
             {lengths.map(({ key, idx }) => (
-                <GridRow foreAndBack={theRightTheme.vars[idx]} key={key} />
+                <GridRow varFBRU={theRightTheme.vars[idx]} key={key} />
             ))}
         </>)}
     </>);

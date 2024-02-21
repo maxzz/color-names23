@@ -1,25 +1,25 @@
 import { useSnapshot } from "valtio";
-import { ThemeVarFBR } from "@/store";
+import { VarFBRU } from "@/store";
 import { ColorInput } from "./2-color-input";
 import { ColorBox, ColorBoxProps } from "./3-color-box";
 
 type ValueInputAndBoxProps = {
-    both: ThemeVarFBR2;
-    field: keyof ThemeVarFBR2;
+    varFBRU: VarFBRU2;
+    field: keyof VarFBRU2;
     isBackOrFore?: boolean;
 };
 
-type ThemeVarFBR2 = Pick<ThemeVarFBR, 'f' | 'b'>
+type VarFBRU2 = Pick<VarFBRU, 'f' | 'b'>
 
-function ValueInputAndBox({ both, field, isBackOrFore }: ValueInputAndBoxProps) {
-    const bothSnap = useSnapshot(both, { sync: true });
-    const colorSnap = bothSnap[field];
-    const color = both[field];
+function ValueInputAndBox({ varFBRU, field, isBackOrFore }: ValueInputAndBoxProps) {
+    const themeVarFBRSSnap = useSnapshot(varFBRU, { sync: true });
+    const colorSnap = themeVarFBRSSnap[field];
+    const color = varFBRU[field];
 
     const colorBoxProps: ColorBoxProps = {
         varName: colorSnap?.varName || '',
         varValue: colorSnap?.varValue || '',
-        isUndefined: !colorSnap?.varValue && !isBackOrFore && (both.b?.isHsl || both.f?.isHsl),
+        isUndefined: !colorSnap?.varValue && !isBackOrFore && (varFBRU.b?.isHsl || varFBRU.f?.isHsl),
         isColor: !!colorSnap?.varValue && colorSnap?.isHsl,
         isLength: !!colorSnap?.varValue && !colorSnap?.isHsl && isBackOrFore,
         isBackOrFore: isBackOrFore,
@@ -42,14 +42,15 @@ function ValueInputAndBox({ both, field, isBackOrFore }: ValueInputAndBoxProps) 
     </>);
 }
 
-export function GridRow({ foreAndBack }: { foreAndBack: ThemeVarFBR; }) {
-    //TODO: add preview foregraound over background
+export function GridRow({ varFBRU }: { varFBRU: VarFBRU; }) {
     return (<>
         <div className="mr-4 text-sm text-foreground/70 dark:text-foreground/50 flex items-center">
-            {foreAndBack.b?.varName || foreAndBack.f?.varName}
+            {varFBRU.b?.varName || varFBRU.f?.varName}
         </div>
 
-        <ValueInputAndBox both={foreAndBack} field={'b'} isBackOrFore={true} />
-        <ValueInputAndBox both={foreAndBack} field={'f'} />
+        <ValueInputAndBox varFBRU={varFBRU} field={'b'} isBackOrFore={true} />
+        <ValueInputAndBox varFBRU={varFBRU} field={'f'} />
     </>);
 }
+
+//TODO: add preview foregraound over background
