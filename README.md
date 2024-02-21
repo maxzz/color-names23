@@ -4,6 +4,7 @@ CSS color names selector.
 
 ![](./src/assets/previews/2023-10-19_16-22-49.png)
 ![](./src/assets/previews/2024-02-17_15-29-12.png)
+![](./src/assets/previews/2024-02-21_15-38-07.png)
 
 ### Demo 👀
 * Check out [the demo page](https://maxzz.github.io/color-names22)

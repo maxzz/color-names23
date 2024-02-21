@@ -21,7 +21,7 @@ function PasteInput() {
 
 export function TopPanel() {
     return (
-        <div className="-mx-4 px-4 py-4 bg-muted/50 select-none grid grid-cols-[auto,1fr,auto,auto] gap-2">
+        <div className="-mx-4 px-4 -ml-2 py-4 bg-muted/50 rounded select-none grid grid-cols-[auto,1fr,auto,auto] gap-2">
 
             <Button className="mt-[13px]" variant={"outline"} size={"icon"}>
                 <IconMenuBurger className="w-4 h-4" />
