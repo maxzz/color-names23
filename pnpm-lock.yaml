@@ -42,8 +42,8 @@ dependencies:
     specifier: ^3.1.0
     version: 3.1.0
   jotai:
-    specifier: 2.6.1
-    version: 2.6.1(@types/react@18.2.57)(react@18.2.0)
+    specifier: 2.6.5
+    version: 2.6.5(@types/react@18.2.57)(react@18.2.0)
   lucide-react:
     specifier: ^0.336.0
     version: 0.336.0(react@18.2.0)
@@ -69,8 +69,8 @@ dependencies:
     specifier: ^2.2.1
     version: 2.2.1
   valtio:
-    specifier: ^1.13.0
-    version: 1.13.0(@types/react@18.2.57)(react@18.2.0)
+    specifier: ^1.13.1
+    version: 1.13.1(@types/react@18.2.57)(react@18.2.0)
   vite:
     specifier: v4.4.11
     version: 4.4.11(@types/node@20.11.19)(sass@1.71.1)
@@ -1720,12 +1720,12 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /derive-valtio@0.1.0(valtio@1.13.0):
+  /derive-valtio@0.1.0(valtio@1.13.1):
     resolution: {integrity: sha512-OCg2UsLbXK7GmmpzMXhYkdO64vhJ1ROUUGaTFyHjVwEdMEcTTRj7W1TxLbSBxdY8QLBPCcp66MTyaSy0RpO17A==}
     peerDependencies:
       valtio: '*'
     dependencies:
-      valtio: 1.13.0(@types/react@18.2.57)(react@18.2.0)
+      valtio: 1.13.1(@types/react@18.2.57)(react@18.2.0)
     dev: false
 
   /detect-node-es@1.1.0:
@@ -1982,8 +1982,8 @@ packages:
     hasBin: true
     dev: true
 
-  /jotai@2.6.1(@types/react@18.2.57)(react@18.2.0):
-    resolution: {integrity: sha512-GLQtAnA9iEKRMXnyCjf1azIxfQi5JausX2EI5qSlb59j4i73ZEyV/EXPDEAQj4uQNZYEefi3degv/Pw3+L/Dtg==}
+  /jotai@2.6.5(@types/react@18.2.57)(react@18.2.0):
+    resolution: {integrity: sha512-T+yvY42GXKomvJYqs+NeTH0da9Z1tQ3Qk3zppPHIWnvmOBKpN6Qd4j8h/oo9dwxs3w/Z5r6Kk0I8h6z5orQ/HQ==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': '>=17.0.0'
@@ -2241,8 +2241,8 @@ packages:
       picocolors: 1.0.0
       source-map-js: 1.0.2
 
-  /proxy-compare@2.5.1:
-    resolution: {integrity: sha512-oyfc0Tx87Cpwva5ZXezSp5V9vht1c7dZBhvuV/y3ctkgMVUmiAGDVeeB0dKhGSyT0v1ZTEQYpe/RXlBVBNuCLA==}
+  /proxy-compare@2.6.0:
+    resolution: {integrity: sha512-8xuCeM3l8yqdmbPoYeLbrAXCBWu19XEYc5/F28f5qOaoAIMyfmBUkl5axiK+x9olUvRlcekvnm98AP9RDngOIw==}
     dev: false
 
   /queue-microtask@1.2.3:
@@ -2679,8 +2679,8 @@ packages:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
     dev: true
 
-  /valtio@1.13.0(@types/react@18.2.57)(react@18.2.0):
-    resolution: {integrity: sha512-s2VkxxFyaJwjpIheJonRa/34HWS1EpsEjw9OW9l3j8G4cbIw7lruspOjyv+z2o4BrGx351BH+VWb8sZHkrlyYA==}
+  /valtio@1.13.1(@types/react@18.2.57)(react@18.2.0):
+    resolution: {integrity: sha512-zowA+lrJPnj6YfIMrVzLKlpBJ/mrIJtMoStPoVLfFMQzvmqdB/JAFNBsxRJ707Oso0lyRgxRfaq4QbE9Uz0tYg==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': '>=16.8'
@@ -2692,8 +2692,8 @@ packages:
         optional: true
     dependencies:
       '@types/react': 18.2.57
-      derive-valtio: 0.1.0(valtio@1.13.0)
-      proxy-compare: 2.5.1
+      derive-valtio: 0.1.0(valtio@1.13.1)
+      proxy-compare: 2.6.0
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
