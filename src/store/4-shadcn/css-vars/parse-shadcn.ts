@@ -1,6 +1,13 @@
 import type { FileThemes } from "./parse-lines";
-import type { ThemeVar, VarFBRU, ThemeVars, ThemeVarName, VarFBRUa } from "../types";
+import type { ThemeVar, ThemeVars, ThemeVarName, VarFBRUa } from "../types";
 import { uuid } from "@/utils";
+
+type VarFBRU = {                 // CSS var NameValue with foreground, background, border, or unknown suffixes
+    f?: ThemeVar;                       // foreground
+    b?: ThemeVar;                       // background
+    r?: ThemeVar;                       // border
+    s?: ThemeVar[];                     // unknown suffixes
+};
 
 function groupByForeAndBack(themeVars: ThemeVar[], combineForeBack: boolean): VarFBRU[] {
     const map = new Map<string, VarFBRU>();

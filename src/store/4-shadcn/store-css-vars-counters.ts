@@ -22,8 +22,7 @@ function makeColorCounters(vars: ThemeVars): GroupColorCounters {
     const rv = new Map<string, number>();
 
     vars.vars.reduce((acc, fb) => {
-        checkColor(fb.b?.varValue);
-        checkColor(fb.f?.varValue);
+        fb.forEach((row) => checkColor(row?.varValue));
         return acc;
     }, rv);
 
