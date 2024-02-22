@@ -1,5 +1,5 @@
 import type { FileThemes } from "./parse-lines";
-import type { ThemeVar, VarFBRU, ThemeVars, ThemeVarName } from "../types";
+import type { ThemeVar, VarFBRU, ThemeVars, ThemeVarName, VarFBRUa } from "../types";
 import { uuid } from "@/utils";
 
 function groupByForeAndBack(themeVars: ThemeVar[], combineForeBack: boolean): VarFBRU[] {
@@ -38,6 +38,10 @@ function groupByForeAndBack(themeVars: ThemeVar[], combineForeBack: boolean): Va
     rv = rv.filter((fb) => fb.b || fb.f);
 
     return rv;
+}
+
+function mapToVarFBRUa(vars: VarFBRU[]): VarFBRUa[] {
+    return vars.map((v) => [v.b, v.f, v.r, ...v.s || []]);
 }
 
 function getSuffix(varName: string, suffix?: string): ThemeVarName {
@@ -163,13 +167,12 @@ export function parseCSSVarsToShadcnGroups(fileThemeVars: FileThemes): ThemeVars
     const rv: ThemeVars[] = Object
         .entries(fileThemeVars)
         .map<ThemeVars>(
-            (entry) => {
-                const [varsName, varsValues] = entry;
-                const varsValuesPairs = Object.entries(varsValues);
+            ([selectorName, selectorValues]) => {
+                const selectorValuesEntries = Object.entries(selectorValues);
                 const themeId = uuid.asRelativeNumber();
                 const errors: string[] = [];
 
-                const vars = varsValuesPairs
+                const vars = selectorValuesEntries
                     .map<ThemeVar | null>(
                         ([name, color], idx) => {
                             const matchedName = name.match(matchName);
@@ -202,8 +205,8 @@ export function parseCSSVarsToShadcnGroups(fileThemeVars: FileThemes): ThemeVars
 
                 return {
                     themeId,
-                    name: varsName,
-                    vars: groupByForeAndBack(vars, true),
+                    name: selectorName,
+                    vars: mapToVarFBRUa(groupByForeAndBack(vars, true)),
                     errors: errors.length > 0 ? errors : undefined,
                 };
             }

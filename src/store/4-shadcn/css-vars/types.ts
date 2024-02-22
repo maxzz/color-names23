@@ -17,6 +17,11 @@ export type ThemeVar = Prettify<
     }
     & ThemeVarName>;
 
+export const fbruKey = { b: 0, f: 1, r: 2, s: 3 };
+export type FBRUKey = keyof typeof fbruKey;
+
+export type VarFBRUa = [b: ThemeVar | undefined, f: ThemeVar | undefined, r: ThemeVar | undefined, ...s: ThemeVar[]]; // orded is important
+
 export type VarFBRU = {                 // CSS var NameValue with foreground, background, border, or unknown suffixes
     f?: ThemeVar;                       // foreground
     b?: ThemeVar;                       // background
@@ -27,7 +32,7 @@ export type VarFBRU = {                 // CSS var NameValue with foreground, ba
 export type ThemeVars = {
     themeId: number;                    // unique id in memory only for counters
     name: string;                       // theme name inside theme (like :root or .dark)
-    vars: VarFBRU[];                    // [cssVarName --> cssVarValue, ...]
+    vars: VarFBRUa[];                    // [cssVarName --> cssVarValue, ...]
     errors?: string[];                  // errors in parsing
 };
 

@@ -10,6 +10,7 @@ const isThemeNameRegex = /^\s*(['"])?([\.\:]?[a-zA-Z0-9\-]+)(?:['"])?\s*:?\s* \{
 // "--background": "224 71% 4%",
 // --background: 159 65% 4%;
 const isCSSVarRegex = /^\s*(['"])?--([a-zA-Z0-9\-]+)(?:['"])?\s*:\s*(?:['"])?([^;"']+)(?:['"])?\s*[;,]?\s*$/;
+
 /**
  * 
  * @param text 

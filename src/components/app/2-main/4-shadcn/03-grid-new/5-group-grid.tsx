@@ -1,17 +1,18 @@
 import { INTERNAL_Snapshot, useSnapshot } from "valtio";
-import { VarFBRU, shadcnAll } from "@/store";
+import { VarFBRU, VarFBRUa, shadcnAll } from "@/store";
 import { HeaderColorValues, HeaderLengthValues } from "./1-grid-headers";
 import { GridRow } from "./4-grid-row";
 
 type SplitItems = { idx: number; key: number | string; };
 
-function splitColorAndLengths(vars: INTERNAL_Snapshot<VarFBRU[]>) {
+function splitColorsAndLengths(vars: INTERNAL_Snapshot<VarFBRUa[]>) {
     return vars.reduce(
         (acc, curr, idx) => {
-            const isColor = curr.b?.isHsl || curr.f?.isHsl;
+            const isColor = curr.some((v) => v?.isHsl);
+            const key = curr.find((v) => v?.id)?.id || `${isColor ? 'color' : 'length'}-${idx}`;
             acc[isColor ? 'colors' : 'lengths'].push({
                 idx,
-                key: curr.b?.id || curr.f?.id || `${isColor ? 'color' : 'length'}-${idx}}`,
+                key,
             });
             return acc;
         },
@@ -25,22 +26,19 @@ function splitColorAndLengths(vars: INTERNAL_Snapshot<VarFBRU[]>) {
 export function GroupGrid({ idx }: { idx: number; }) {
     const snap = useSnapshot(shadcnAll.themes)[idx];
     const theRightTheme = shadcnAll.themes[idx];
-    const { colors, lengths } = splitColorAndLengths(snap.vars.flat());
-
-    const theRightThemeFlat = theRightTheme.vars.flat();
-
+    const { colors, lengths } = splitColorsAndLengths(snap.vars);
     return (<>
         {!!colors.length && (<>
             <HeaderColorValues />
             {colors.map(({ key, idx }) => (
-                <GridRow varFBRU={theRightThemeFlat[idx]} key={key} />
+                <GridRow varFBRU={theRightTheme.vars[idx]} key={key} />
             ))}
         </>)}
 
         {!!lengths.length && (<>
             <HeaderLengthValues />
             {lengths.map(({ key, idx }) => (
-                <GridRow varFBRU={theRightThemeFlat[idx]} key={key} />
+                <GridRow varFBRU={theRightTheme.vars[idx]} key={key} />
             ))}
         </>)}
     </>);
