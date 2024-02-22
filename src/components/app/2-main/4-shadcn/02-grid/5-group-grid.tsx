@@ -1,5 +1,5 @@
 import { INTERNAL_Snapshot, useSnapshot } from "valtio";
-import { VarFBRU, VarFBRUa, shadcnAll } from "@/store";
+import { VarFBRUa, shadcnAll } from "@/store";
 import { HeaderColorValues, HeaderLengthValues } from "./1-grid-headers";
 import { GridRow } from "./4-grid-row";
 

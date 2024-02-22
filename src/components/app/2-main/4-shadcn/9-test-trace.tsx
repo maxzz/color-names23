@@ -1,5 +1,5 @@
 import { INTERNAL_Snapshot } from "valtio";
-import { ThemeVar, VarFBRU, ThemeVars } from "@/store";
+import { ThemeVar, VarFBRUa, ThemeVars, fbruKeyEnum } from "@/store";
 
 function strStringify(obj: object): string {
     return Object.entries(obj)
@@ -18,29 +18,40 @@ function limitThemeVar(tv: ThemeVar): { themeId: number; varName: string; id: nu
     return { themeId, varName, id };
 }
 
-export function strThemeVarFB(tv: VarFBRU): string {
-    const f = tv.f ? `f: {${strStringify(limitThemeVar(tv.f))}}` : '';
-    const b = tv.b ? `b: {${strStringify(limitThemeVar(tv.b))}}` : '';
-    const rv = [f, b].filter((v) => v).join(',\n    ');
+export function strThemeVarFB(tv: INTERNAL_Snapshot<VarFBRUa>): string {
+    const rv = tv
+        .map((v, idx) => v ? `${fbruKeyEnum[idx]}: ${strStringify(limitThemeVar(v))}` : '')
+        .filter((v) => v)
+        .join(',\n    ');
     return `{\n    ${rv}\n}`;
 }
 
-// export function strThemeVarFBArr(tv: INTERNAL_Snapshot<ThemeVarFBR[]>): string {
-//     return tv
-//         .map((v) => {
-//             return strThemeVarFB(v);
-//         })
-//         .join(',\n')
-//         .replaceAll(/},\r?\n\s*{/g, '    }, {');
-// }
+export function strThemeVarFBArr2(tv: INTERNAL_Snapshot<VarFBRUa[]>): string {
+    return tv
+        .map((v) => {
+            return strThemeVarFB(v);
+        })
+        .join(',\n')
+        .replaceAll(/},\r?\n\s*{/g, '    }, {');
+}
+
+export function strThemeVarFBArr(tv: INTERNAL_Snapshot<VarFBRUa[]>): string {
+    return tv
+        .map((v) => {
+            return strThemeVarFB(v);
+        })
+        .join(',\n')
+        .replaceAll(/},\r?\n\s*{/g, '    }, {');
+}
 
 export function strThemeVars(tvars: INTERNAL_Snapshot<ThemeVars>): string {
     return JSON.stringify({
         ...tvars,
-        vars: tvars.vars.map((tv) => ({
-            ...(tv.f && { f: strStringify(limitThemeVar(tv.f)) }),
-            ...(tv.b && { b: strStringify(limitThemeVar(tv.b)) }),
-        }))
+        vars: Object.fromEntries(tvars.vars.map(
+            (tv) => tv.map(
+                (v, idx) => v ? [fbruKeyEnum[idx], strStringify(limitThemeVar(v))] : null
+            ).filter((v) => v)
+        ))
     }, null, 4)
         .replaceAll(/},\r?\n\s*{/g, '}, {')
         .replaceAll(/\[\r?\n\s*{/g, '[ {');
