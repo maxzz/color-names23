@@ -1,16 +1,16 @@
 import type { FileThemes } from "./parse-lines";
-import type { ThemeVar, ThemeVars, ThemeVarName, VarFBRUa } from "../types";
+import type { ThemeVar, ThemeVars, ThemeVarName, Fbru } from "../types";
 import { uuid } from "@/utils";
 
-type VarFBRU = {                 // CSS var NameValue with foreground, background, border, or unknown suffixes
+type FbruObj = {                        // CSS var NameValue with foreground, background, border, or unknown suffixes
     f?: ThemeVar;                       // foreground
     b?: ThemeVar;                       // background
     r?: ThemeVar;                       // border
     s?: ThemeVar[];                     // unknown suffixes
 };
 
-function groupByForeAndBack(themeVars: ThemeVar[], combineForeBack: boolean): VarFBRU[] {
-    const map = new Map<string, VarFBRU>();
+function groupByForeAndBack(themeVars: ThemeVar[], combineForeBack: boolean): FbruObj[] {
+    const map = new Map<string, FbruObj>();
 
     themeVars.forEach((v) => {
         let mapSlot = map.get(v.varName);
@@ -41,13 +41,11 @@ function groupByForeAndBack(themeVars: ThemeVar[], combineForeBack: boolean): Va
         }
     }
 
-    let rv: VarFBRU[] = [...map.values()];
-    rv = rv.filter((fb) => fb.b || fb.f);
-
+    const rv: FbruObj[] = [...map.values()].filter((fb) => fb.b || fb.f || fb.f || !!fb.s?.length);
     return rv;
 }
 
-function mapToVarFBRUa(vars: VarFBRU[]): VarFBRUa[] {
+function mapToVarFBRUa(vars: FbruObj[]): Fbru[] {
     return vars.map((v) => [v.b, v.f, v.r, ...v.s || []]);
 }
 
@@ -71,7 +69,7 @@ const matchName = /\s*--([^-]+)(?:-([^\s:"',;]*))?\s*/;
 const matchHSL = /^\s*(hsl\()?(\d+\.?\d*)\s+(\d+\.?\d*)%\s+(\d+\.?\d*)%(\))?\s*$/;
 
 /**
- * @param fileThemeVars
+ * @param fileSelectors
  * ```
  * {
  *     ":root": {
@@ -170,9 +168,9 @@ const matchHSL = /^\s*(hsl\()?(\d+\.?\d*)\s+(\d+\.?\d*)%\s+(\d+\.?\d*)%(\))?\s*$
 ]
  * ```
  */
-export function parseCSSVarsToShadcnGroups(fileThemeVars: FileThemes): ThemeVars[] {
+export function parseCSSVarsToShadcnGroups(fileSelectors: FileThemes): ThemeVars[] {
     const rv: ThemeVars[] = Object
-        .entries(fileThemeVars)
+        .entries(fileSelectors)
         .map<ThemeVars>(
             ([selectorName, selectorValues]) => {
                 const selectorValuesEntries = Object.entries(selectorValues);
