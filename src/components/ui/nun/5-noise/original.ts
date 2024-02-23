@@ -1,6 +1,7 @@
 // @ts-nocheck
 
 // https://www.cssmatic.com/noise-texture
+//G: 'create seamless pattern'
 
 class NoiseTexture {
     width: number;
