@@ -1,11 +1,11 @@
 import { INTERNAL_Snapshot, useSnapshot } from "valtio";
-import { VarFBRUa, shadcnAll } from "@/store";
+import { Fbru, shadcnAll } from "@/store";
 import { HeaderColorValues, HeaderLengthValues } from "./1-grid-headers";
 import { GridRow } from "./4-grid-row";
 
 type SplitItems = { idx: number; key: number | string; };
 
-function splitColorsAndLengths(vars: INTERNAL_Snapshot<VarFBRUa[]>) {
+function splitColorsAndLengths(vars: INTERNAL_Snapshot<Fbru[]>) {
     return vars.reduce(
         (acc, curr, idx) => {
             const isColor = curr.some((v) => v?.isHsl);
