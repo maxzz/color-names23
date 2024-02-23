@@ -18,19 +18,23 @@ export type ThemeVar = Prettify<
     & ThemeVarName>;
 
 export enum fbruKeyEnum { b = 0, f = 1, r = 2, s = 3 };
-
 export const fbruKey = { b: 0, f: 1, r: 2, s: 3 };
-export type FBRUKey = keyof typeof fbruKey;
+export type FbruKey = keyof typeof fbruKey;
 
 /**
-* VarFBRUa - CSS var NameValue with foreground, background, border, or unknown suffixes
+* Fbru - CSS var NameValue with foreground, background, border, or unknown suffixes. The orded is important here.
 */
-export type VarFBRUa = [b: ThemeVar | undefined, f: ThemeVar | undefined, r: ThemeVar | undefined, ...s: ThemeVar[]]; // orded is important
+export type Fbru = [
+    b: ThemeVar | undefined,
+    f: ThemeVar | undefined,
+    r: ThemeVar | undefined,
+    ...s: ThemeVar[],
+];
 
 export type ThemeVars = {
     themeId: number;                    // unique id in memory only for counters
     name: string;                       // theme name inside theme (like :root or .dark)
-    vars: VarFBRUa[];                    // [cssVarName --> cssVarValue, ...]
+    vars: Fbru[];                       // [cssVarName --> cssVarValue, ...]
     errors?: string[];                  // errors in parsing
 };
 
