@@ -21,7 +21,7 @@ export function ColorInput({ color, colorSnap }: { color?: ThemeVar; colorSnap?:
     }
     return (
         <div className="relative">
-            <Input value={colorSnap.varValue} onChange={(e) => color.varValue = e.target.value} />
+            <Input className="text-xs" value={colorSnap.varValue} onChange={(e) => color.varValue = e.target.value} />
             <div className="absolute top-0.5 right-0 text-muted-foreground bg-transparent">
                 <ColorCounter color={colorSnap.varValue} themeId={colorSnap.themeId} />
                 {/* TODO: add lock color */}

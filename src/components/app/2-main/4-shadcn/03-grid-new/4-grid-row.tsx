@@ -1,5 +1,5 @@
 import { useSnapshot } from "valtio";
-import { FbruKey, Fbru, fbruKey } from "@/store";
+import { FbruKey, Fbru, fbruKey, ThemeVar } from "@/store";
 import { ColorInput } from "./2-color-input";
 import { ColorBox, ColorBoxProps } from "./3-color-box";
 
@@ -8,6 +8,16 @@ type ValueInputAndBoxProps = {
     field: FbruKey;
     isBackOrFore?: boolean;
 };
+
+function GridRowBox({ color, colorSnap, colorBoxProps }: { color?: ThemeVar; colorSnap?: ThemeVar; colorBoxProps: ColorBoxProps; }) {
+    return (
+        <div className="flex items-center space-x-2">
+            <ColorInput color={color} colorSnap={colorSnap} />
+            <ColorBox {...colorBoxProps} />
+        </div>
+    );
+}
+
 
 function ValueInputAndBox({ fbru, field, isBackOrFore }: ValueInputAndBoxProps) {
     const fbruSnap = useSnapshot(fbru, { sync: true });
