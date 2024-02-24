@@ -1,19 +1,19 @@
 import { useSnapshot } from "valtio";
-import { FBRUKey, VarFBRUa, fbruKey } from "@/store";
+import { FbruKey, Fbru, fbruKey } from "@/store";
 import { ColorInput } from "./2-color-input";
 import { ColorBox, ColorBoxProps } from "./3-color-box";
 
 type ValueInputAndBoxProps = {
-    varFBRU: VarFBRUa;
-    field: FBRUKey;
+    fbru: Fbru;
+    field: FbruKey;
     isBackOrFore?: boolean;
 };
 
-function ValueInputAndBox({ varFBRU, field, isBackOrFore }: ValueInputAndBoxProps) {
-    const themeVarFBRSSnap = useSnapshot(varFBRU, { sync: true });
-    const colorSnap = themeVarFBRSSnap[fbruKey[field]];
-    const color = varFBRU[fbruKey[field]];
-    const isHslDefiend = varFBRU.some((v) => v?.isHsl);
+function ValueInputAndBox({ fbru, field, isBackOrFore }: ValueInputAndBoxProps) {
+    const fbruSnap = useSnapshot(fbru, { sync: true });
+    const colorSnap = fbruSnap[fbruKey[field]];
+    const color = fbru[fbruKey[field]];
+    const isHslDefiend = fbru.some((v) => v?.isHsl);
 
     const colorBoxProps: ColorBoxProps = {
         varName: colorSnap?.varName || '',
@@ -41,15 +41,15 @@ function ValueInputAndBox({ varFBRU, field, isBackOrFore }: ValueInputAndBoxProp
     </>);
 }
 
-export function GridRow({ varFBRU }: { varFBRU: VarFBRUa; }) {
-    const varFBRUName = varFBRU.find((v) => v)?.varName || 'NONAME';
+export function GridRow({ fbru }: { fbru: Fbru; }) {
+    const varFBRUName = fbru.find((v) => v)?.varName || 'NONAME';
     return (<>
         <div className="mr-4 text-sm text-foreground/70 dark:text-foreground/50 flex items-center">
             {varFBRUName}
         </div>
 
-        <ValueInputAndBox varFBRU={varFBRU} field={'b'} isBackOrFore={true} />
-        <ValueInputAndBox varFBRU={varFBRU} field={'f'} />
+        <ValueInputAndBox fbru={fbru} field={'b'} isBackOrFore={true} />
+        <ValueInputAndBox fbru={fbru} field={'f'} />
     </>);
 }
 

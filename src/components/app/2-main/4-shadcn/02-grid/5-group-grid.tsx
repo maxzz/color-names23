@@ -31,14 +31,14 @@ export function GroupGrid({ idx }: { idx: number; }) {
         {!!colors.length && (<>
             <HeaderColorValues />
             {colors.map(({ key, idx }) => (
-                <GridRow varFBRU={theRightTheme.vars[idx]} key={key} />
+                <GridRow fbru={theRightTheme.vars[idx]} key={key} />
             ))}
         </>)}
 
         {!!lengths.length && (<>
             <HeaderLengthValues />
             {lengths.map(({ key, idx }) => (
-                <GridRow varFBRU={theRightTheme.vars[idx]} key={key} />
+                <GridRow fbru={theRightTheme.vars[idx]} key={key} />
             ))}
         </>)}
     </>);
