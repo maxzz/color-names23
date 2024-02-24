@@ -1,5 +1,5 @@
 import { INTERNAL_Snapshot } from "valtio";
-import { ThemeVar, VarFBRUa, ThemeVars, fbruKeyEnum } from "@/store";
+import { ThemeVar, Fbru, ThemeVars, fbruKeyEnum } from "@/store";
 
 function strStringify(obj: object): string {
     return Object.entries(obj)
@@ -18,7 +18,7 @@ function limitThemeVar(tv: ThemeVar): { themeId: number; varName: string; id: nu
     return { themeId, varName, id };
 }
 
-export function strThemeVarFB(tv: INTERNAL_Snapshot<VarFBRUa>): string {
+export function strThemeVarFB(tv: INTERNAL_Snapshot<Fbru>): string {
     const rv = tv
         .map((v, idx) => v ? `${fbruKeyEnum[idx]}: ${strStringify(limitThemeVar(v))}` : '')
         .filter((v) => v)
@@ -26,7 +26,7 @@ export function strThemeVarFB(tv: INTERNAL_Snapshot<VarFBRUa>): string {
     return `{\n    ${rv}\n}`;
 }
 
-export function strThemeVarFBArr2(tv: INTERNAL_Snapshot<VarFBRUa[]>): string {
+export function strThemeVarFBArr2(tv: INTERNAL_Snapshot<Fbru[]>): string {
     return tv
         .map((v) => {
             return strThemeVarFB(v);
@@ -35,7 +35,7 @@ export function strThemeVarFBArr2(tv: INTERNAL_Snapshot<VarFBRUa[]>): string {
         .replaceAll(/},\r?\n\s*{/g, '    }, {');
 }
 
-export function strThemeVarFBArr(tv: INTERNAL_Snapshot<VarFBRUa[]>): string {
+export function strThemeVarFBArr(tv: INTERNAL_Snapshot<Fbru[]>): string {
     return tv
         .map((v) => {
             return strThemeVarFB(v);
