@@ -1,5 +1,5 @@
 import { proxy, subscribe } from "valtio";
-import { parseCSSVarsToShadcnGroups, parseTextToCSSVars } from "./css-vars";
+import { parseCSSVarsToShadcnGroups, parseTextToCSSVars, parseToGroups } from "./css-vars";
 import { shadcnAll } from "./store-all";
 
 export const parseText = proxy({
@@ -9,6 +9,9 @@ export const parseText = proxy({
 subscribe(parseText, () => {
     const vars = parseTextToCSSVars(parseText.text);
     const themes = parseCSSVarsToShadcnGroups(vars);
+
+    const test = parseToGroups(vars);
+    console.log('test groups', test);
     
     shadcnAll.themes.splice(0, Infinity, ...themes); // copy themes to store
 

@@ -18,7 +18,6 @@ function GridRowBox({ color, colorSnap, colorBoxProps }: { color?: ThemeVar; col
     );
 }
 
-
 function ValueInputAndBox({ fbru, field, isBackOrFore }: ValueInputAndBoxProps) {
     const fbruSnap = useSnapshot(fbru, { sync: true });
     const colorSnap = fbruSnap[fbruKey[field]];
