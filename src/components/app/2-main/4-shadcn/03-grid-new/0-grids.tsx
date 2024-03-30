@@ -52,7 +52,7 @@ function TableInTabs() {
 }
 
 export function ThemeGrids2() {
-    return (<>
+    return (
         <TableInTabs />
-    </>);
+    );
 }
