@@ -1,1 +1,1 @@
-export * from "./6-grids";
+export * from "./0-grids";

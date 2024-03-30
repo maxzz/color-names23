@@ -1,14 +1,14 @@
+import { useEffect, useState } from "react";
 import { useSnapshot } from "valtio";
 import { shadcnAll } from "@/store";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/shadcn";
 import { GroupGrid } from "./5-group-grid";
-import { useEffect, useState } from "react";
 
 function tabIdStr(idx: number): string {
     return `${idx}`;
 }
 
-function TableTabList() {
+function NameTabs() {
     const themes = useSnapshot(shadcnAll.themes);
     return (<>
         <TabsList>
@@ -16,6 +16,21 @@ function TableTabList() {
                 <TabsTrigger key={theme.themeId} value={tabIdStr(idx)}>{theme.name}</TabsTrigger>
             ))}
         </TabsList>
+    </>);
+}
+
+function Content({ length }: { length: number; }) {
+    return (<>
+        {Array(length).fill(0).map((_, idx) => (
+
+            <TabsContent value={tabIdStr(idx)} key={shadcnAll.themes[idx].themeId}>
+                <div className="p-4 bg-muted rounded shadow">
+                    <div className="grid grid-cols-[min-content,minmax(0,12rem),minmax(0,12rem)] place-content-center gap-y-2">
+                        <GroupGrid idx={idx} />
+                    </div>
+                </div>
+            </TabsContent>
+        ))}
     </>);
 }
 
@@ -30,19 +45,8 @@ function TableInTabs() {
 
     return (
         <Tabs className="container max-w-xl" value={tabIdStr(currentSubTab)} onValueChange={(v) => setCurrentSubTab(+v)}>
-            <TableTabList />
-
-            {Array(length).fill(0).map((_, idx) => (
-
-                <TabsContent value={tabIdStr(idx)} key={shadcnAll.themes[idx].themeId}>
-                    <div className="p-4 bg-muted rounded shadow">
-                        <div className="grid grid-cols-[min-content,minmax(0,12rem),minmax(0,12rem)] place-content-center gap-y-2">
-                            <GroupGrid idx={idx} />
-                        </div>
-                    </div>
-                </TabsContent>
-            ))}
-
+            <NameTabs />
+            <Content length={length} />
         </Tabs>
     );
 }
