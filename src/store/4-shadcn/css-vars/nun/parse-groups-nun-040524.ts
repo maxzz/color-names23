@@ -1,4 +1,4 @@
-import { FileThemes } from "./parse-lines";
+import { FileThemes } from "../parse-lines";
 
 /**
 *```

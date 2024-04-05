@@ -55,7 +55,7 @@ function TestButton({ label, testCaseString, triggerRef, open, setOpen }: TestBu
     }
 
     return (
-        <Button className="c-picker flex-none relative" variant={"outline"} size={"icon"} onMouseDown={onMouseDown}>
+        <Button className="c-picker flex-none relative" variant="outline" size="icon" onMouseDown={onMouseDown}>
             {label}
         </Button>
     );
