@@ -2,27 +2,39 @@ import { forwardRef, ElementRef, ComponentPropsWithoutRef } from "react";
 import * as Prim from "@radix-ui/react-scroll-area";
 import { cn } from "@/utils";
 
+type ScrollAreaProps = ComponentPropsWithoutRef<typeof Prim.Root> & {
+    horizontal?: boolean;
+    fixedWidth?: boolean;
+    fullheight?: boolean;
+};
+
 /**
  * Additinal attribute ``data-fixed-width`` is used to prevent ScrollArea width from growing.
  * This is done by removing ``display: table`` from Prim.Viewport first utility div.
  * 
  * ``[&[data-fixed-width]>div>div]:![display:block]``
  * https://github.com/radix-ui/primitives/blob/main/packages/react/scroll-area/src/ScrollArea.tsx#L177
-  * `display: table` ensures our content div will match the size of its children in both
-  * horizontal and vertical axis so we can determine if scroll width/height changed and
-  * recalculate thumb sizes. This doesn't account for children with *percentage*
-  * widths that change. We'll wait to see what use-cases consumers come up with there
-  * before trying to resolve it.
+ * `display: table` ensures our content div will match the size of its children in both
+ * horizontal and vertical axis so we can determine if scroll width/height changed and
+ * recalculate thumb sizes. This doesn't account for children with *percentage*
+ * widths that change. We'll wait to see what use-cases consumers come up with there
+ * before trying to resolve it.
+ * 
+ * const fixedWidthClasses = "[&[data-fixed-width]>div>div]:![display:block]";
  */
-const ScrollArea = forwardRef<ElementRef<typeof Prim.Root>, ComponentPropsWithoutRef<typeof Prim.Root>>(
-    ({ className, children, ...rest }, ref) => (
-        <Prim.Root ref={ref} className={cn("relative overflow-hidden", "[&[data-fixed-width]>div>div]:![display:block]", className)} {...rest}>
+const fixedWidthClasses = "[&>div>div]:![display:block]";
+const hFullClasses = "[&_[data-radix-scroll-area-viewport]>div]:h-full";
+
+const ScrollArea = forwardRef<ElementRef<typeof Prim.Root>, ScrollAreaProps>(
+    ({ className, children, horizontal, fixedWidth, fullheight, ...rest }, ref) => (
+        <Prim.Root ref={ref} className={cn("relative overflow-hidden", fixedWidth && fixedWidthClasses, fullheight && hFullClasses, className)} {...rest}>
 
             <Prim.Viewport className="h-full w-full rounded-[inherit]">
                 {children}
             </Prim.Viewport>
 
             <ScrollBar />
+            {horizontal && <ScrollBar orientation="horizontal" />}
 
             <Prim.Corner />
         </Prim.Root>
