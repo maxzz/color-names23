@@ -141,36 +141,13 @@ export function parseToGroups(fileThemes: FileThemes) {
 
                     if (!current[subname]) {
                         current[subname] = {};
+                        current = current[subname] as RecursiveKeyValuePair;
                     }
 
-                    if (typeof current[subname] !== 'string') {
+                    if (typeof current !== 'string') {
                         current = current[subname] as RecursiveKeyValuePair;
                     }
                 });
-
-
-                // const subnames = name.slice(2).split('-');
-
-                // rv = subnames.reduce((acc, subname, i) => {
-                //     console.log(`  ${' '.repeat(i * 2)}subname: ${subname}`, 'acc', acc);
-
-                //     if (i === subnames.length - 1) {
-                //         acc[subname] = value;
-                //         return rv;
-                //     }
-
-                //     if (!acc[subname]) {
-                //         acc[subname] = {};
-                //         return acc[subname] as RecursiveKeyValuePair;
-                //     }
-
-                //     if (typeof acc[subname] === 'string') {
-                //         acc = { DEFAULT: acc[subname] };
-                //         return acc;
-                //     }
-
-                //     return acc[subname] as RecursiveKeyValuePair;
-                // }, rv);
             }
         );
 
@@ -199,3 +176,76 @@ export function parseToGroups(fileThemes: FileThemes) {
 // const result = keys.reverse().reduce((res, key) => ({ [key]: res }), {});
 // //                                   innermost value to start with ^^
 // console.log(result);
+
+                // const subnames = name.slice(2).split('-');
+
+                // rv = subnames.reduce((acc, subname, i) => {
+                //     console.log(`  ${' '.repeat(i * 2)}subname: ${subname}`, 'acc', acc);
+
+                //     if (i === subnames.length - 1) {
+                //         acc[subname] = value;
+                //         return rv;
+                //     }
+
+                //     if (!acc[subname]) {
+                //         acc[subname] = {};
+                //         return acc[subname] as RecursiveKeyValuePair;
+                //     }
+
+                //     if (typeof acc[subname] === 'string') {
+                //         acc = { DEFAULT: acc[subname] };
+                //         return acc;
+                //     }
+
+                //     return acc[subname] as RecursiveKeyValuePair;
+                // }, rv);
+
+
+//G: 'js merge two objects'
+//https://stackoverflow.com/questions/171251/how-can-i-merge-properties-of-two-javascript-objects 'How can I merge properties of two JavaScript objects?'
+                // var t1 = {
+                //     key1: 1,
+                //     key2: "test",
+                //     key3: [5, 2, 76, 21]
+                // };
+                // var t2 = {
+                //     key1: {
+                //         ik1: "hello",
+                //         ik2: "world",
+                //         ik3: 3
+                //     }
+                // };
+                // var t3 = {
+                //     key2: 3,
+                //     key3: {
+                //         t1: 1,
+                //         t2: 2,
+                //         t3: {
+                //             a1: 1,
+                //             a2: 3,
+                //             a4: [21, 3, 42, "asd"]
+                //         }
+                //     }
+                // };
+                
+                // var merge = function(...args: Record<string, any>[]) {
+                //     var obj = {},
+                //         i = 0,
+                //         il = args.length,
+                //         key;
+                //     for (; i < il; i++) {
+                //         for (key in args[i]) {
+                //             if (args[i].hasOwnProperty(key)) {
+                //                 obj[key] = args[i][key];
+                //             }
+                //         }
+                //     }
+                //     return obj;
+                // };
+                
+                // console.log(merge(t1, t2));
+                // console.log(merge(t1, t3));
+                // console.log(merge(t2, t3));
+                // console.log(merge(t1, t2, t3));
+                // console.log(merge({}, t1, { key1: 1 }));
+                
