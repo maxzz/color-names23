@@ -112,10 +112,11 @@ export function parseToGroups(fileThemes: FileThemes) {
     function themeToGrouppedVars(vars: Record<string, string>) {
         let rv: RecursiveKeyValuePair = {};
         const invalidNames: Record<string, string>[] = [];
+        console.log(Array(60).fill('\n').join(''));
 
         Object.entries(vars).forEach(
             ([name, value]) => {
-                console.log(`%cname: ${name} value: '${value}'`, 'background: #222; color: #bada55');
+                console.log(`%cname: ${name} value: '${value}'`, 'background: #222; color: #bada55', 'rv', rv);
 
                 if (!name.startsWith('--')) {
                     invalidNames.push({ [name]: value });
@@ -125,35 +126,25 @@ export function parseToGroups(fileThemes: FileThemes) {
                 const subnames = name.slice(2).split('-');
 
                 rv = subnames.reduce((acc, subname, i) => {
-                    console.log(`    ${' '.repeat(i*4)}subname: ${subname}`, 'acc', acc, 'rv', rv);
+                    console.log(`  ${' '.repeat(i * 2)}subname: ${subname}`, 'acc', acc);
 
                     if (i === subnames.length - 1) {
-                        if (typeof acc[subname] === 'string') {
-                            const prevValue = acc[subname];
-                            acc[subname] = { DEFAULT: prevValue };
-                        }
                         acc[subname] = value;
                         return rv;
-                    } else {
-                        if (!acc[subname]) {
-                            acc[subname] = {};
-                            return acc[subname] as RecursiveKeyValuePair;
-                        }
+                    }
+
+                    if (!acc[subname]) {
+                        acc[subname] = {};
+                        return acc[subname] as RecursiveKeyValuePair;
+                    }
+
+                    if (typeof acc[subname] === 'string') {
+                        acc = { DEFAULT: acc[subname] };
                         return acc;
                     }
 
+                    return acc[subname] as RecursiveKeyValuePair;
                 }, rv);
-
-                // const match = reVarName.exec(name);
-                // if (match) {
-                //     const [_, group, key] = match;
-                //     if (!rv[group]) {
-                //         rv[group] = {};
-                //     }
-                //     rv[group][key || 'DEFAULT'] = value;
-                // } else {
-                //     invalidNames.push({ [name]: value });
-                // }
             }
         );
 
@@ -164,3 +155,14 @@ export function parseToGroups(fileThemes: FileThemes) {
         return rv;
     }
 }
+
+// const match = reVarName.exec(name);
+// if (match) {
+//     const [_, group, key] = match;
+//     if (!rv[group]) {
+//         rv[group] = {};
+//     }
+//     rv[group][key || 'DEFAULT'] = value;
+// } else {
+//     invalidNames.push({ [name]: value });
+// }

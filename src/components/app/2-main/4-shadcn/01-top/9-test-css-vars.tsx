@@ -67,7 +67,7 @@ export const test32 =
     "--destructive-border3": "359 100% 94%",
 `;
 
-export const test3 =`
+export const test33 =`
     "--destructive": "0 100% 97%",
     "--destructive-foreground": "360 100% 45%",
     
@@ -76,6 +76,12 @@ export const test3 =`
     "--mani-destructive": "359 100% 94%",
     "--mani-destructive-border": "359 99% 94%",
     "--mani-destructive-border3": "359 98% 94%",
+`;
+
+export const test3 =`
+    "--destructive": "0 100% 97%",
+    "--destructive-foreground": "360 100% 45%",
+    "--destructive-border3": "359 100% 94%",
 `;
 
 export const test4 =
