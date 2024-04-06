@@ -166,3 +166,10 @@ export function parseToGroups(fileThemes: FileThemes) {
 // } else {
 //     invalidNames.push({ [name]: value });
 // }
+
+//G: 'convert js array to nested object'
+//https://stackoverflow.com/questions/52077140/convert-array-into-nested-object 'Convert array into nested object'
+// const keys = ['product', 'model', 'version'];
+// const result = keys.reverse().reduce((res, key) => ({ [key]: res }), {});
+// //                                   innermost value to start with ^^
+// console.log(result);
