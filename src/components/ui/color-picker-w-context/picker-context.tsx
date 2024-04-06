@@ -94,3 +94,5 @@ export function ColorPickerProvider({ children, onColorChange, onFormatChange }:
         </colorPickerContext.Provider>
     );
 }
+
+//TODO: https://github.com/tailwindlabs/headlessui/blob/main/packages/%40headlessui-react/src/components/transition/transition.tsx

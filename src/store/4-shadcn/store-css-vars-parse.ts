@@ -11,7 +11,7 @@ subscribe(parseText, () => {
     const themes = parseCSSVarsToShadcnGroups(vars);
 
     const test = parseToGroups(vars);
-    console.log('TEST GROUPS', test);
+    console.log('TEST GROUPS', JSON.stringify(test, null, 4));
     
     shadcnAll.themes.splice(0, Infinity, ...themes); // copy themes to store
 
