@@ -125,26 +125,52 @@ export function parseToGroups(fileThemes: FileThemes) {
 
                 const subnames = name.slice(2).split('-');
 
-                rv = subnames.reduce((acc, subname, i) => {
-                    console.log(`  ${' '.repeat(i * 2)}subname: ${subname}`, 'acc', acc);
+                let current = rv;
+
+                subnames.forEach((subname, i) => {
+                    console.log(`  ${' '.repeat(i * 2)}subname: ${subname}`, 'rv', rv);
 
                     if (i === subnames.length - 1) {
-                        acc[subname] = value;
-                        return rv;
+                        if (typeof current[subname] === 'string') {
+                            current = { 'DEFAULT': current[subname], [subname]: value };
+                        } else {
+                            current[subname] = value;
+                        }
+                        return;
                     }
 
-                    if (!acc[subname]) {
-                        acc[subname] = {};
-                        return acc[subname] as RecursiveKeyValuePair;
+                    if (!current[subname]) {
+                        current[subname] = {};
                     }
 
-                    if (typeof acc[subname] === 'string') {
-                        acc = { DEFAULT: acc[subname] };
-                        return acc;
+                    if (typeof current[subname] !== 'string') {
+                        current = current[subname] as RecursiveKeyValuePair;
                     }
+                });
 
-                    return acc[subname] as RecursiveKeyValuePair;
-                }, rv);
+
+                // const subnames = name.slice(2).split('-');
+
+                // rv = subnames.reduce((acc, subname, i) => {
+                //     console.log(`  ${' '.repeat(i * 2)}subname: ${subname}`, 'acc', acc);
+
+                //     if (i === subnames.length - 1) {
+                //         acc[subname] = value;
+                //         return rv;
+                //     }
+
+                //     if (!acc[subname]) {
+                //         acc[subname] = {};
+                //         return acc[subname] as RecursiveKeyValuePair;
+                //     }
+
+                //     if (typeof acc[subname] === 'string') {
+                //         acc = { DEFAULT: acc[subname] };
+                //         return acc;
+                //     }
+
+                //     return acc[subname] as RecursiveKeyValuePair;
+                // }, rv);
             }
         );
 
