@@ -51,29 +51,31 @@ export const test2 = `addBase({
 `;
 
 export const test31 =
-    `--primary: 161 56% 35%;
---background: 159 65% 4%;
---foreground: 159 10% 97.5%;
+`   --primary: 161 56% 35%;
+    --background: 159 65% 4%;
+    --foreground: 159 10% 97.5%;
 
  --primary: 0 100% 50%;
 `;
 
 export const test32 =
-`    "--destructive": "0 100% 97%",
+`   "--destructive": "0 100% 97%",
     "--destructive-foreground": "360 100% 45%",
+
     "--destructive-border": "359 100% 94%",
     "--destructive-border2": "359 100% 94%",
     "--destructive-border3": "359 100% 94%",
 `;
 
-export const test3 =
-`    "--destructive": "0 100% 97%",
+export const test3 =`
+    "--destructive": "0 100% 97%",
     "--destructive-foreground": "360 100% 45%",
+    
     "--destructive-border3": "359 100% 94%",
 
     "--mani-destructive": "359 100% 94%",
-    "--mani-destructive-border": "359 100% 94%",
-    "--mani-destructive-border3": "359 100% 94%",
+    "--mani-destructive-border": "359 99% 94%",
+    "--mani-destructive-border3": "359 98% 94%",
 `;
 
 export const test4 =

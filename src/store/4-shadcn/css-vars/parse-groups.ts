@@ -101,31 +101,59 @@ const reVarName = /^--([^-]+)(?:-(.*))?/;
  * ```
  */
 export function parseToGroups(fileThemes: FileThemes) {
-    const rv: Record<string, ValueVars> = {}; // themeName -> ValueVars
+    const groups: Record<string, RecursiveKeyValuePair> = {}; // themeName -> ValueVars
 
     Object.entries(fileThemes).forEach(([themeName, theme]) => {
-        rv[themeName] = themeToGrouppedVars(theme);
+        groups[themeName] = themeToGrouppedVars(theme);
     });
 
-    return rv;
+    return groups;
 
     function themeToGrouppedVars(vars: Record<string, string>) {
-        const rv: ValueVars = {};
+        let rv: RecursiveKeyValuePair = {};
         const invalidNames: Record<string, string>[] = [];
 
         Object.entries(vars).forEach(
             ([name, value]) => {
-                const match = reVarName.exec(name);
-                if (match) {
-                    const [_, group, key] = match;
-                    if (!rv[group]) {
-                        rv[group] = {};
+                console.log(`%cname: ${name} value: '${value}'`, 'background: #222; color: #bada55');
+
+                if (!name.startsWith('--')) {
+                    invalidNames.push({ [name]: value });
+                    return;
+                }
+
+                const subnames = name.slice(2).split('-');
+
+                rv = subnames.reduce((acc, subname, i) => {
+                    console.log(`    ${' '.repeat(i*4)}subname: ${subname}`, 'acc', acc, 'rv', rv);
+
+                    if (i === subnames.length - 1) {
+                        if (typeof acc[subname] === 'string') {
+                            const prevValue = acc[subname];
+                            acc[subname] = { DEFAULT: prevValue };
+                        }
+                        acc[subname] = value;
+                        return rv;
+                    } else {
+                        if (!acc[subname]) {
+                            acc[subname] = {};
+                            return acc[subname] as RecursiveKeyValuePair;
+                        }
+                        return acc;
                     }
 
-                    rv[group][key || 'DEFAULT'] = value;
-                } else {
-                    invalidNames.push({ [name]: value });
-                }
+                }, rv);
+
+                // const match = reVarName.exec(name);
+                // if (match) {
+                //     const [_, group, key] = match;
+                //     if (!rv[group]) {
+                //         rv[group] = {};
+                //     }
+                //     rv[group][key || 'DEFAULT'] = value;
+                // } else {
+                //     invalidNames.push({ [name]: value });
+                // }
             }
         );
 
