@@ -126,33 +126,9 @@ export function parseToGroups(fileThemes: FileThemes) {
                 const subnames = name.slice(2).split('-');
 
                 const newObj = subnames.reverse().reduce((res, key, idx) => ({ [key]: !idx ? value : res }), {});
-                console.log('newObj', JSON.stringify(newObj, null, 4));
+                console.log('newObj', JSON.stringify(newObj));
 
                 rv = mergeObjectsRecursive(rv, newObj);
-
-                // let current = rv;
-
-                // subnames.forEach((subname, i) => {
-                //     console.log(`  ${' '.repeat(i * 2)}subname: ${subname}`, 'rv', rv);
-
-                //     if (i === subnames.length - 1) {
-                //         if (typeof current[subname] === 'string') {
-                //             current = { 'DEFAULT': current[subname], [subname]: value };
-                //         } else {
-                //             current[subname] = value;
-                //         }
-                //         return;
-                //     }
-
-                //     if (!current[subname]) {
-                //         current[subname] = {};
-                //         current = current[subname] as RecursiveKeyValuePair;
-                //     }
-
-                //     if (typeof current !== 'string') {
-                //         current = current[subname] as RecursiveKeyValuePair;
-                //     }
-                // });
             }
         );
 
@@ -167,16 +143,24 @@ export function parseToGroups(fileThemes: FileThemes) {
 function mergeObjectsRecursive(o1: Record<string, any>, o2: Record<string, any>) {
     const rv = { ...o1 };
 
-    Object.entries(o2).forEach(
-        ([key, value]) => {
+    const o2Entries = Object.entries(o2);
+    o2Entries.forEach(
+        ([key, value], idx) => {
             if (rv[key] && typeof rv[key] === 'object' && typeof value === 'object') {
+                console.log('ooo', `rv[${key}] =`, rv[key], 'value =', value, 'rv =', rv);
                 rv[key] = mergeObjectsRecursive(rv[key], value);
             } else {
-                rv[key] = value;
+                if (typeof rv[key] === 'string') {
+                    rv[key] = { DEFAULT: rv[key], [key]: idx === o2Entries.length - 1 ? value : {} };
+                } else {
+                    rv[key] = value;
+                }
+                console.log('+++', `rv[${key}] =`, rv[key], 'value =', value, 'rv =', rv);
             }
         }
     );
 
+    console.log('-----------------rv', rv);
     return rv;
 }
 
@@ -196,6 +180,32 @@ function mergeObjectsRecursive(o1: Record<string, any>, o2: Record<string, any>)
 
     return rv;
 }
+/**/
+
+/** /
+                let current = rv;
+
+                subnames.forEach((subname, i) => {
+                    console.log(`  ${' '.repeat(i * 2)}subname: ${subname}`, 'rv', rv);
+
+                    if (i === subnames.length - 1) {
+                        if (typeof current[subname] === 'string') {
+                            current = { 'DEFAULT': current[subname], [subname]: value };
+                        } else {
+                            current[subname] = value;
+                        }
+                        return;
+                    }
+
+                    if (!current[subname]) {
+                        current[subname] = {};
+                        current = current[subname] as RecursiveKeyValuePair;
+                    }
+
+                    if (typeof current !== 'string') {
+                        current = current[subname] as RecursiveKeyValuePair;
+                    }
+                });
 /**/
 
 /** /
