@@ -153,10 +153,12 @@ function mergeObjectsRecursive(o1: Record<string, any>, o2: Record<string, any>)
                 rv[key] = mergeObjectsRecursive(rv[key], value);
             } else {
                 if (typeof rv[key] === 'string') {
-                    rv[key] = { DEFAULT: rv[key], [key]: idx === o2Entries.length - 1 ? value : {} };
+                    rv[key] = { DEFAULT: rv[key] };
+                    rv[key] = mergeObjectsRecursive(rv[key], value);
                 } else {
                     rv[key] = value;
                 }
+
                 console.log('+++', `rv[${key}] =`, rv[key], 'value =', value, 'rv =', rv);
             }
         }
