@@ -112,7 +112,9 @@ export function parseToGroups(fileThemes: FileThemes) {
     function themeToGrouppedVars(vars: Record<string, string>) {
         let rv: RecursiveKeyValuePair = {};
         const invalidNames: Record<string, string>[] = [];
-        console.log(Array(60).fill('\n').join(''));
+
+        // console.log(Array(60).fill('\n').join(''));
+        console.log('-----------------------------------------------------');
 
         Object.entries(vars).forEach(
             ([name, value]) => {
