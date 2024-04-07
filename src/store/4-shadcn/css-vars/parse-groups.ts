@@ -1,5 +1,9 @@
 import { FileThemes } from "./parse-lines";
-import type { CSSRuleObject, RecursiveKeyValuePair } from 'tailwindcss/types/config';
+
+//import type { RecursiveKeyValuePair } from 'tailwindcss/types/config'; // in the next verion of tailwindcss it will be in different place
+interface RecursiveKeyValuePair<K extends keyof any = string, V = string> {
+    [key: string]: V | RecursiveKeyValuePair<K, V>;
+}
 
 /**
 *```
@@ -110,7 +114,7 @@ export function parseToGroups(fileThemes: FileThemes): Record<string, RecursiveK
 
     function mergeColorVarsRecursive(o1: Record<string, any>, o2: Record<string, any>) {
         const rv = { ...o1 };
-    
+
         Object.entries(o2).forEach(
             ([key, value]) => {
                 if (rv[key] && typeof rv[key] === 'object' && typeof value === 'object') {
@@ -125,7 +129,7 @@ export function parseToGroups(fileThemes: FileThemes): Record<string, RecursiveK
                 }
             }
         );
-    
+
         return rv;
     }
 }

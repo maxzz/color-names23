@@ -101,4 +101,5 @@ export function parseTextToCSSVars(text: string): FileThemes {
 }
 
 //TODO: https://github.com/tailwindlabs/tailwindcss/blob/next/packages/tailwindcss/src/utils/is-color.ts
+//TODO: https://github.com/tailwindlabs/tailwindcss/blob/master/src/util/color.js
 //  const IS_COLOR_FN = /^(rgba?|hsla?|hwb|color|(ok)?(lab|lch)|light-dark|color-mix)\(/i
