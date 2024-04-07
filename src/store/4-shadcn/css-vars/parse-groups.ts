@@ -125,8 +125,10 @@ export function parseToGroups(fileThemes: FileThemes) {
 
                 const subnames = name.slice(2).split('-');
 
-                const newObj = subnames.reverse().reduce((res, key, idx) => (!idx ? { [key]: value } : { [key]: res }), {});
+                const newObj = subnames.reverse().reduce((res, key, idx) => ({ [key]: !idx ? value : res }), {});
                 console.log('newObj', JSON.stringify(newObj, null, 4));
+
+                rv = mergeObjectsRecursive(rv, newObj);
 
                 // let current = rv;
 
@@ -161,6 +163,40 @@ export function parseToGroups(fileThemes: FileThemes) {
         return rv;
     }
 }
+
+function mergeObjectsRecursive(o1: Record<string, any>, o2: Record<string, any>) {
+    const rv = { ...o1 };
+
+    Object.entries(o2).forEach(
+        ([key, value]) => {
+            if (rv[key] && typeof rv[key] === 'object' && typeof value === 'object') {
+                rv[key] = mergeObjectsRecursive(rv[key], value);
+            } else {
+                rv[key] = value;
+            }
+        }
+    );
+
+    return rv;
+}
+
+/*cop* /
+function mergeObjectsRecursive(o1: Record<string, any>, o2: Record<string, any>) {
+    const rv = { ...o1 };
+
+    Object.entries(o2).forEach(
+        ([key, value]) => {
+            if (rv[key] && typeof rv[key] === 'object' && typeof value === 'object') {
+                rv[key] = mergeObjectsRecursive(rv[key], value);
+            } else {
+                rv[key] = value;
+            }
+        }
+    );
+
+    return rv;
+}
+/**/
 
 /** /
 const match = reVarName.exec(name);
